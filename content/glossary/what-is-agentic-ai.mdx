@@ -1,0 +1,123 @@
+---
+title: "What is Agentic AI? Definition and Examples"
+description: "Agentic AI is AI that plans and executes multi-step tasks autonomously. Learn how it works, how it differs from chatbots, and where it's used in 2026."
+keywords:
+  - agentic AI
+  - what is agentic AI
+  - AI agents definition
+  - autonomous AI systems
+  - agentic AI examples
+  - LLM agents
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build an Agentic AI System"
+cta_url: "/contact"
+slug: "what-is-agentic-ai"
+---
+
+## What is Agentic AI?
+
+**Agentic AI** refers to AI systems that can autonomously plan, decide, and execute multi-step tasks to achieve a goal — without needing a human to approve each action along the way. Unlike a standard chatbot that responds to a single prompt, an agentic AI system operates in a loop: it observes its environment, reasons about what to do next, takes an action, observes the result, and continues until the task is complete.
+
+The term comes from the word *agency* — the capacity to act independently. Agentic AI systems have agency in the sense that they choose their own intermediate steps rather than following a hard-coded script.
+
+In 2026, agentic AI is moving from research labs into production: scheduling meetings, writing and deploying code, processing invoices, responding to customer issues end-to-end, and managing complex data pipelines with minimal supervision.
+
+## How Agentic AI Differs from Traditional AI
+
+Most people's first encounter with AI is something reactive — you send a message, the AI responds. That's a **single-turn** interaction. Agentic AI is fundamentally different:
+
+| | Traditional / Chat AI | Agentic AI |
+|---|---|---|
+| **Interaction model** | Single turn (prompt → response) | Multi-step loop (observe → plan → act → repeat) |
+| **Tool use** | Rare or none | Core capability (search, code exec, APIs) |
+| **Human oversight** | Per-turn | Defined at task start; agent handles rest |
+| **Memory** | Stateless (or single context window) | Persistent memory across steps and sessions |
+| **Failure handling** | Returns error to user | Detects failures and retries autonomously |
+
+The jump from chatbot to agent is roughly like the jump from a calculator to a spreadsheet — same underlying capability, radically different scope of what you can accomplish.
+
+## The Anatomy of an Agentic AI System
+
+Every production-grade agentic AI system has the same four layers:
+
+**1. Reasoning engine (the LLM)**
+A large language model — Claude, GPT-4o, Gemini — acts as the "brain." It reads the current state, decides what action to take, and produces structured output (tool calls, text, decisions). Understanding how models reason is covered in our [prompt engineering guide](/glossary/prompt-engineering).
+
+**2. Tool layer**
+Agents act by calling tools: web search, code execution, database queries, API calls, file read/write. The set of available tools defines what the agent can do. This is where [function calling in LLMs](/glossary/what-is-function-calling) becomes essential — it's the mechanism that lets a model invoke structured tools reliably.
+
+**3. Memory**
+- **Working memory** — the current context window, containing task instructions, intermediate results, and recent tool outputs
+- **Episodic memory** — logs of past steps and decisions, stored externally and retrieved as needed
+- **Semantic memory** — a [vector database](/glossary/what-is-vector-database) storing embeddings of documents the agent can retrieve
+
+**4. Orchestration**
+The loop that glues reasoning, tools, and memory together. Frameworks like LangGraph, CrewAI, and custom loops manage this. The orchestrator decides when the agent is "done," handles tool failures, and routes outputs.
+
+## Real-World Examples of Agentic AI
+
+### Software Engineering Agents
+Coding agents — like GitHub Copilot Workspace and Devin-class systems — read a task description, browse a codebase, write code, run tests, observe failures, fix bugs, and open a pull request. The engineer reviews the output, not each individual step.
+
+### Customer Support Agents
+Production support agents read a support ticket, look up the customer's account, query order history, apply a refund policy, send a response, and close the ticket — all without human intervention for routine cases. Escalation to a human happens only when confidence is low.
+
+### Research and Analysis Agents
+An agentic research system might receive the instruction "analyze our top 10 competitors and produce a pricing matrix." It searches the web, visits pricing pages, extracts structured data, handles paywalls by trying alternate sources, and produces a formatted report — potentially over dozens of steps.
+
+### Data Pipeline Agents
+Agents that fetch data from external sources, clean it, transform it, flag anomalies, and load it into a warehouse — replacing what used to require a full data engineering script maintained by a human.
+
+## Agentic AI vs AI Agents — Is There a Difference?
+
+You'll often see these terms used interchangeably. The nuance: **AI agents** is the broader term for any autonomous software entity with perception, reasoning, and action capabilities (see our full [AI agent definition](/glossary/ai-agent)). **Agentic AI** emphasizes the *behavior* — the degree of autonomous multi-step reasoning — rather than a specific architecture.
+
+An AI agent is a thing. Agentic AI is a property of how that thing behaves. In practice, both phrases point at the same category of system.
+
+## Key Challenges in Agentic AI
+
+Agentic systems are powerful but introduce problems that don't exist in single-turn AI:
+
+**Hallucination compounding** — In a chat, one hallucination gives you a bad response. In an agent, one hallucination can lead to a wrong tool call, which produces bad data, which the agent reasons from, producing worse decisions across 10 subsequent steps.
+
+**Tool safety** — An agent with write access to databases, email, or deployment pipelines can cause real damage if it misinterprets instructions. Production systems use least-privilege tool grants and confirmation steps for destructive actions.
+
+**Observability** — It's hard to debug "what went wrong" in a 40-step agent run without structured trace logging. Production agentic systems need per-step logging, tool call/response capture, and replay capability.
+
+**Latency and cost** — Multi-step agent runs consume far more tokens than a single LLM call. A task that takes 20 tool calls with a powerful model can cost $1–$5 per run. Cost management is a first-class concern.
+
+## When to Use Agentic AI
+
+Agentic AI is the right choice when:
+- The task has multiple steps that can't all be specified upfront
+- The intermediate steps depend on information only discoverable during execution (API responses, search results)
+- The task involves operating across multiple tools or systems
+- Human review of every intermediate step would eliminate the time savings
+
+It's not the right choice when a single-turn prompt or a deterministic script would do the job. Agents add complexity; use them when that complexity pays off.
+
+## Key Takeaway
+
+Agentic AI is AI with agency — the ability to plan and execute multi-step tasks autonomously, using tools, memory, and iterative reasoning. It's the architecture behind the most powerful AI products being built today, and understanding it is essential for any team building or buying AI systems in 2026.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is Function Calling in LLMs?](/glossary/what-is-function-calling) · [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks)*
+
+[Building an agentic AI system? Our team has shipped production agents across industries. Book a 15-min scope call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

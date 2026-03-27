@@ -1,0 +1,151 @@
+---
+title: "What is Tool Use in AI? Agents That Act"
+description: "Tool use lets AI models call APIs, run code, and interact with systems beyond their training data. Learn how it works and why it enables true AI agents."
+keywords:
+  - tool use AI
+  - AI tool use
+  - LLM tool use
+  - function calling AI
+  - AI agents tools
+  - LLM function calling
+  - AI agent actions
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build AI Agents That Act"
+cta_url: "/contact"
+slug: "what-is-tool-use-ai"
+---
+
+## What is Tool Use in AI?
+
+**Tool use in AI** (also called function calling) is the capability that allows a large language model to invoke external functions, APIs, or services during a conversation or task. Instead of generating only text responses from training data, a model with tool use can take actions: search the web, query a database, run code, send an email, or call any REST API.
+
+Tool use is what transforms a language model from a sophisticated autocomplete engine into a genuine [AI agent](/glossary/ai-agent) — a system that doesn't just describe what it would do, but actually does it.
+
+## Why Tool Use Matters
+
+A base language model is stateless and bounded. It knows only what was in its training data, it cannot access real-time information, and it cannot persist changes to any external system. Every interaction is isolated.
+
+Tool use breaks all three constraints:
+
+- **Real-time access** — A tool-enabled model can call a weather API, a stock price feed, or your company's live database and incorporate that information into its response.
+- **Persistent actions** — It can write a file, create a calendar event, or submit a form — changes that exist after the conversation ends.
+- **Computation** — It can execute code, run mathematical operations with guaranteed precision, or process structured data rather than approximating answers from training.
+
+This is the architectural shift that makes agents viable for production use cases. An agent without tool use is a chatbot. An agent with tool use is software that can autonomously complete multi-step workflows.
+
+## How Tool Use Works Technically
+
+All major model providers implement tool use similarly, though the terminology varies (Anthropic calls it "tools," OpenAI uses "function calling," Google uses "function declarations").
+
+The process:
+
+1. **Tool definition** — The developer defines available tools in a structured schema (JSON Schema or similar), specifying the tool name, description, and expected parameters.
+
+2. **Model decision** — When processing a user request, the model decides whether it needs to call a tool, and if so, which one and with what parameters.
+
+3. **Tool call output** — Instead of generating a text response, the model returns a structured tool call object: `{"tool": "search_web", "parameters": {"query": "current NVIDIA stock price"}}`.
+
+4. **Execution** — The application code (not the model) executes the tool call against the actual API or service.
+
+5. **Result injection** — The tool result is passed back to the model as a new input.
+
+6. **Continued generation** — The model incorporates the tool result and either generates a final response or decides to call another tool.
+
+This loop continues until the model determines it has enough information to respond or has completed the task.
+
+## Example: A Tool-Enabled Research Agent
+
+Here's a concrete example of tool use in a research workflow:
+
+**User:** "What are the three most recent papers on RAG evaluation, and can you summarize their key findings?"
+
+**Agent execution:**
+1. Calls `search_arxiv(query="RAG evaluation 2026", max_results=10)`
+2. Receives paper metadata (titles, abstracts, dates)
+3. Calls `fetch_paper_content(arxiv_id="2602.xxxxx")` for the top 3 results
+4. Synthesizes the content into a structured summary
+5. Returns the response with citations
+
+Without tool use, the model would either refuse (honest about its knowledge cutoff) or hallucinate papers that don't exist. With tool use, it performs a real search and retrieves real content.
+
+## Common Tool Categories in AI Applications
+
+| Tool Category | Examples | Use Cases |
+|---------------|---------|-----------|
+| **Information retrieval** | Web search, vector DB search, SQL queries | RAG, research agents |
+| **Communication** | Email send, Slack message, SMS | Notification agents, customer outreach |
+| **Data manipulation** | File read/write, spreadsheet edit, database write | Data pipelines, document agents |
+| **Code execution** | Python interpreter, shell commands | Data analysis, DevOps agents |
+| **External APIs** | CRM, calendar, payment, weather | Business process automation |
+| **Browser control** | Click, type, navigate, screenshot | Web scraping, UI testing agents |
+| **System control** | Process spawn, service restart | Infrastructure agents |
+
+## Tool Use vs. Retrieval-Augmented Generation (RAG)
+
+Tool use and RAG are complementary, not competing concepts.
+
+**RAG** is a specific pattern where documents are retrieved from a vector store and injected into the model's context before generation. It's a form of tool use — specifically, a read-only retrieval tool.
+
+**Tool use** is the broader capability that includes RAG but extends to write operations, API calls, code execution, and any other action. A RAG system that can also write back to the knowledge base (updating documents based on new information) is using tool use, not just RAG.
+
+Think of RAG as a tool use pattern optimized for knowledge retrieval, and tool use as the general capability that enables any form of external interaction.
+
+## Parallel vs. Sequential Tool Use
+
+Models can call tools in two modes:
+
+**Sequential** — Each tool call waits for the previous result before deciding the next action. This is the ReAct pattern and is appropriate when each step's decision depends on the previous result.
+
+**Parallel** — The model emits multiple tool calls simultaneously (supported by Claude, GPT-4, and Gemini). This is appropriate when tools are independent — for example, fetching three different data sources simultaneously before synthesizing them. Parallel tool use dramatically reduces total latency for multi-tool workflows.
+
+## Safety Considerations for Tool Use
+
+Tool use is the capability that makes AI agents genuinely powerful — and genuinely risky if implemented carelessly. Key safety considerations:
+
+**Principle of least privilege** — Define tools with the minimum permissions needed. An agent that needs to read from a CRM shouldn't have write access. An agent that needs to query a database shouldn't have deletion rights.
+
+**Confirmation for destructive actions** — Any tool that makes irreversible changes (send email, delete record, process payment) should require explicit user confirmation before execution. Never automate destructive actions without a human checkpoint.
+
+**Tool call validation** — Validate tool parameters before execution. A model may generate syntactically valid but semantically incorrect parameters (the wrong user ID, a malformed date) — application-level validation catches these before they cause problems.
+
+**Prompt injection defense** — Tool results (especially from web searches or user-provided documents) can contain adversarial instructions attempting to redirect the agent. Sanitize tool outputs and use system prompt guardrails to limit the model's susceptibility to injection.
+
+**Audit logging** — Log every tool call with parameters, results, timestamps, and the user session that triggered it. This is essential for debugging and for compliance in regulated industries.
+
+## Tool Use in Production: Implementation Tips
+
+1. **Start with read-only tools** — Retrieval tools have no side effects. Build confidence in your agent's tool selection logic before adding write operations.
+
+2. **Write descriptive tool descriptions** — The model's tool selection quality depends heavily on how clearly you describe what each tool does and when to use it. Treat tool descriptions like documentation for a junior engineer.
+
+3. **Handle tool errors gracefully** — Tools fail. The API times out, the database is unavailable, the rate limit is hit. Your agent orchestration must handle tool errors and either retry, fall back, or surface a clear error to the user.
+
+4. **Test tool selection separately** — Evaluate which tools the model selects for a given set of inputs as a distinct quality signal from the final output quality. Poor tool selection is a common root cause of agent failures.
+
+5. **Budget for tool call overhead** — Each tool call adds latency. For latency-sensitive applications, prefer tools that return rich results in a single call over multiple narrow tools that require chained calls.
+
+## Key Takeaway
+
+Tool use is the capability that makes the difference between an AI that talks about doing things and an AI that actually does them. It's foundational to any production agent architecture, and understanding how to design, secure, and evaluate tools is a core competency for teams building AI products.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is AI Evaluation?](/glossary/what-is-ai-eval) · [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)*
+
+[Building an AI agent that needs to act in the real world? Talk to our team about tool design and agent architecture. →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

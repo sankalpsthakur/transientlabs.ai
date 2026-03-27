@@ -1,0 +1,133 @@
+---
+title: "What is Inference Optimization? Speed Up AI"
+description: "Inference optimization makes AI models faster and cheaper to run. Learn the key techniques — quantization, caching, batching — and when each applies to LLM apps."
+keywords:
+  - inference optimization
+  - LLM inference optimization
+  - AI inference speed
+  - model inference optimization
+  - quantization LLM
+  - AI latency optimization
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Optimize Your AI Stack"
+cta_url: "/contact"
+slug: "what-is-inference-optimization"
+---
+
+## What is Inference Optimization?
+
+**Inference optimization** is the set of techniques used to reduce the latency and computational cost of running AI models — specifically during inference, which is when a trained model processes inputs and generates outputs. It's distinct from training optimization, which improves the process of building a model. Inference optimization makes your model faster and cheaper to run without retraining it.
+
+For teams building [AI products](/blog/ai-mvp-mistakes-founders-make), inference optimization is one of the most impactful engineering investments you can make. A customer-facing AI feature with 6-second latency has higher churn than the same feature at 1.5 seconds. An AI pipeline that costs $0.08 per request can be optimized to $0.02 — a 75% reduction that directly impacts unit economics at scale.
+
+## Why Inference Optimization Matters Now
+
+Training a model is a one-time cost. Inference is ongoing, at scale, and growing.
+
+When your AI product processes 100,000 requests per day, shaving 40% off your cost per request is not a minor engineering win — it's $12,000/month in operating cost. At 1 million requests per day, it funds two engineers. For [AI startups facing technical due diligence](/blog/technical-due-diligence-ai-startup), demonstrating that you understand and have addressed your inference cost profile is a signal of engineering maturity.
+
+Beyond cost, latency directly affects user experience. The research on conversational AI is clear: response latency above ~1.5 seconds meaningfully reduces engagement. For agentic use cases that chain multiple model calls, optimizing each hop compounds.
+
+## Key Inference Optimization Techniques
+
+### Quantization
+
+Quantization reduces the numerical precision of model weights. A model trained in 32-bit floating point (FP32) can be converted to FP16, INT8, or even INT4 — dramatically reducing memory footprint and increasing throughput with minimal quality loss.
+
+| Precision | Memory vs FP32 | Quality Impact | Best For |
+|-----------|---------------|----------------|----------|
+| FP16 | 50% reduction | Near-zero | Default for most serving |
+| INT8 | 75% reduction | Small | Cost-sensitive applications |
+| INT4 | 87.5% reduction | Moderate | Edge devices, extreme cost |
+
+For self-hosted open source models (Llama 3, Mistral, Qwen), quantization via tools like `llama.cpp`, `GPTQ`, or `bitsandbytes` can cut your GPU memory requirement in half, letting you serve a larger model on the same hardware or the same model on cheaper hardware.
+
+### KV Cache Optimization
+
+Transformer models compute key-value (KV) pairs for every token in the context window. During inference, these can be cached so repeated or similar prefix tokens don't need recomputation. This is especially valuable for:
+
+- **System prompt reuse** — If thousands of requests share the same long system prompt, caching the KV pairs for that prompt eliminates redundant computation
+- **Multi-turn conversations** — Caching the conversation history reduces the cost of each turn proportional to history length
+
+OpenAI and Anthropic both support prompt caching in their APIs. Anthropic's Claude API allows explicit cache control with `cache_control: {"type": "ephemeral"}` — for long system prompts or large document contexts, this can reduce token costs by 60–80% on repeated calls.
+
+### Batching
+
+Batching combines multiple requests into a single forward pass through the model. GPU compute is highly parallel — a single large batch processes more efficiently per token than many small requests.
+
+For async workloads (document processing, batch classification, report generation), batching is straightforward. For real-time user-facing applications, **continuous batching** (dynamically grouping requests that arrive close together) allows latency-sensitive serving while still capturing throughput gains. Inference servers like vLLM, TGI (Text Generation Inference), and TensorRT-LLM implement this automatically.
+
+### Speculative Decoding
+
+Speculative decoding uses a small, fast "draft" model to propose tokens in advance, which are then verified (in parallel) by the larger target model. When the draft model is right — which is often for common completions — the large model doesn't need to generate those tokens itself.
+
+For models where you control serving infrastructure (self-hosted Llama 3, Mistral), speculative decoding can deliver 2–3x throughput improvement for typical text generation tasks with negligible quality impact.
+
+### Model Distillation
+
+Distillation trains a smaller "student" model to mimic the behavior of a larger "teacher" model. The student model is faster and cheaper to serve. This is less an inference-time technique and more an architectural decision, but it's a core tool in inference cost reduction.
+
+OpenAI's o1-mini relative to o1, and Meta's Llama 3 8B relative to 70B, are real-world examples of distillation-style approaches producing capable smaller models. For domain-specific tasks, distilling a large general model into a smaller specialized one can achieve better quality-per-dollar than serving the general model.
+
+### Request Routing and Model Tiering
+
+Not every query needs your most powerful (and expensive) model. A classification task that determines query intent, a simple extraction from structured data, or a short factual lookup from a retrieved document can often be handled adequately by GPT-4o mini, Claude Haiku, or Gemini Flash — at 10–20x lower cost per token than frontier models.
+
+Smart routing uses a lightweight classifier to score incoming requests by complexity, then sends simple requests to a cheaper model and complex requests to the premium tier. This is one of the highest-leverage inference optimizations available to API-consumer teams (those not self-hosting) because it requires no infrastructure investment — just routing logic.
+
+### Streaming
+
+Streaming doesn't reduce total token cost, but it dramatically improves perceived latency. By streaming tokens as they're generated rather than waiting for the complete response, you show users the first token in ~300ms even if the full response takes 5 seconds.
+
+For conversational interfaces, chatbots, and copilots, streaming is a standard expectation. Not implementing it makes your AI product feel sluggish regardless of underlying model speed.
+
+## Inference Optimization for API vs. Self-Hosted Models
+
+The techniques available to you depend on your serving model:
+
+**If you're using API providers (OpenAI, Anthropic, Google):**
+- ✅ Prompt caching (Anthropic, OpenAI)
+- ✅ Model tiering and routing
+- ✅ Streaming
+- ❌ Quantization, batching, speculative decoding (managed by provider)
+
+**If you're self-hosting open models (vLLM, TGI, Ollama):**
+- ✅ All of the above, plus quantization, batching, speculative decoding
+- ✅ Full control over serving infrastructure
+- ❌ Higher operational complexity
+
+Most product teams in 2026 use API providers for speed and simplicity. Self-hosting becomes cost-justified at high request volumes (typically $10K+/month in API spend) or when data privacy requirements prevent sending data to third-party APIs.
+
+## Where to Start
+
+For most teams, the highest-leverage optimizations in order are:
+
+1. **Implement prompt caching** — Free latency and cost reduction on repeated prefixes
+2. **Add model routing** — Use cheap models for simple tasks
+3. **Audit token usage** — Most prompts include unnecessary tokens that inflate cost
+4. **Implement streaming** — Immediate perceived latency improvement
+5. **Evaluate self-hosting** — Only if API costs are substantial
+
+Start with what requires no infrastructure change. You can save 40–60% on inference costs without spinning up a single GPU.
+
+<hr />
+
+*Related: [Technical Due Diligence for AI Startups](/blog/technical-due-diligence-ai-startup) · [What is an AI Agent?](/glossary/ai-agent) · [What Are AI Guardrails?](/glossary/what-is-ai-guardrails)*
+
+[Spending too much on AI inference and unsure where to start? [Book a 15-min scope call →](/contact) and we'll audit your current cost profile and prioritize the optimizations that will have the most impact.]
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

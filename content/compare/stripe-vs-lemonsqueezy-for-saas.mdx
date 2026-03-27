@@ -1,0 +1,164 @@
+---
+title: "Stripe vs Lemon Squeezy for SaaS Billing"
+description: "Stripe vs Lemon Squeezy: which billing platform is right for your SaaS? We compare MoR model, pricing, tax handling, and developer experience for 2026."
+keywords:
+  - Stripe vs Lemon Squeezy
+  - Lemon Squeezy SaaS billing
+  - Stripe SaaS
+  - merchant of record
+  - SaaS payment platform
+  - Lemon Squeezy vs Stripe
+category: "Comparisons"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Get Billing Architecture Advice"
+cta_url: "/contact"
+slug: "stripe-vs-lemonsqueezy-for-saas"
+---
+
+## Stripe vs Lemon Squeezy: Quick Verdict
+
+**Stripe** and **Lemon Squeezy** are the two most commonly compared billing platforms for indie SaaS and AI startup teams in 2026. The decision comes down to one fundamental question: do you want to own your merchant infrastructure, or do you want someone else to handle it entirely?
+
+**Stripe** is a payment processor. You collect payments, own the customer relationship, and are responsible for sales tax compliance, VAT remittance, and refund handling.
+
+**Lemon Squeezy** is a **Merchant of Record (MoR)**. They sell your product on your behalf, handle all tax collection and remittance globally, and take the compliance burden off your plate entirely.
+
+For most **solo founders and small AI product teams** selling to a global audience, Lemon Squeezy wins on simplicity. For **teams with dedicated engineering resources, complex pricing models, or enterprise customers**, Stripe is the more powerful and scalable choice.
+
+## The Merchant of Record Difference
+
+This is the core distinction and it matters more than any feature comparison.
+
+When you use **Stripe**, you are the merchant. Every sale is legally yours. You must:
+- Register for sales tax in US states where you exceed economic nexus thresholds
+- Collect and remit EU VAT for European customers
+- Handle GST in Australia, Canada, and other markets
+- Issue correct tax invoices and manage exemption certificates
+
+This is not a minor operational burden. Getting it wrong creates retroactive tax liability. Many teams don't realize this until they've been selling for a year and a half and get a notice from a state tax authority.
+
+When you use **Lemon Squeezy**, they are the merchant. Lemon Squeezy has registered entities in the jurisdictions that matter and handles all tax collection and remittance. You receive payouts. The compliance machinery is invisible to you.
+
+For a two-person [AI startup](/blog/technical-due-diligence-ai-startup) that wants to sell globally on day one, this is transformative. Tax compliance that would require a dedicated accountant or expensive tax software is handled for you.
+
+## Developer Experience
+
+### Stripe DX
+
+Stripe has one of the best developer experiences in the payments industry. The dashboard is excellent, the API docs are comprehensive, and the Stripe CLI makes local webhook testing seamless.
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
+For SaaS billing specifically, **Stripe Billing** adds subscription management, proration, trial periods, metered usage billing, and invoice management on top of the core payments API. It's genuinely powerful.
+
+The downside: the mental model is complex. Customers, PaymentMethods, SetupIntents, Subscriptions, Invoices, and Prices are all separate objects with specific relationships. Getting subscription billing right for edge cases (upgrades, downgrades, cancellations mid-cycle, failed payment retries) requires careful implementation.
+
+Good Stripe integrations take 1–2 weeks to build correctly. Bad ones ship in 2 days and break in month three.
+
+### Lemon Squeezy DX
+
+Lemon Squeezy's API is simpler, because it abstracts more. You create products and variants in the dashboard, generate checkout links or embed a checkout widget, and listen to webhooks for subscription events.
+
+```javascript
+// Create a checkout session
+const checkout = await lemonSqueezy.createCheckout({
+  storeId: process.env.LS_STORE_ID,
+  variantId: "pro-monthly",
+  checkoutData: { email: user.email, custom: { userId: user.id } },
+});
+```
+
+The simpler API means less to go wrong. For a typical "free tier → paid subscription" flow, you can have Lemon Squeezy integrated in an afternoon.
+
+The limitation: custom pricing logic, metered billing, and complex enterprise contracts hit the edges of what Lemon Squeezy supports. If you need usage-based billing that calculates costs from API call counts in real time, you're fighting the platform.
+
+## Pricing and Fees
+
+| Dimension | Stripe | Lemon Squeezy |
+|-----------|--------|---------------|
+| **Transaction fee** | 2.9% + $0.30 | 5% + $0.50 |
+| **Monthly fee** | None (Billing: free) | None |
+| **International cards** | +1.5% | Included |
+| **Tax handling** | Your responsibility | Included |
+| **Chargeback fee** | $15 | Managed by LS |
+| **Payout schedule** | 2-day rolling | Weekly |
+
+Lemon Squeezy's higher transaction fee (5% vs 2.9%) is the cost of the MoR service. For a business doing $10,000 MRR, the difference is roughly $210/month — which is almost certainly cheaper than the accounting, tax software, and legal overhead of handling global tax compliance yourself.
+
+At $100,000 MRR, the calculus changes. At that scale, a $2,100/month fee difference funds a part-time accountant and proper tax tooling. Teams at this revenue level should evaluate migrating to Stripe + a dedicated tax compliance solution (TaxJar, Avalara).
+
+## Features Side by Side
+
+| Feature | Stripe | Lemon Squeezy |
+|---------|--------|---------------|
+| **Global tax compliance** | ❌ Your responsibility | ✅ Included (MoR) |
+| **Subscription billing** | ✅ Stripe Billing | ✅ Built-in |
+| **Metered/usage billing** | ✅ Excellent | ⚠️ Limited |
+| **Enterprise invoicing** | ✅ Robust | ⚠️ Basic |
+| **Customer portal** | ✅ Stripe Portal | ✅ Built-in |
+| **Affiliate system** | ❌ Third-party | ✅ Built-in |
+| **Discount codes** | ✅ Coupons API | ✅ Built-in |
+| **Free trials** | ✅ | ✅ |
+| **Annual plans** | ✅ | ✅ |
+| **Multiple currencies** | ✅ Presentment currencies | ✅ Single-currency checkout |
+| **ACH / SEPA** | ✅ | ❌ Cards only |
+| **Enterprise contracts** | ✅ Flexible | ❌ Not supported |
+
+## When to Choose Stripe
+
+- **You need usage-based or metered billing** — Calculating charges based on API calls, tokens, or seats consumed in real time is where Stripe excels and Lemon Squeezy struggles
+- **Enterprise customers** — Large companies often require PO-based invoicing, NET-30 payment terms, and W-9 forms. Stripe handles all of this; Lemon Squeezy doesn't
+- **Complex pricing models** — Tiered pricing, volume discounts, custom contracts, and negotiated enterprise rates all require Stripe's flexibility
+- **You already have tax infrastructure** — If you're in the US only, or have a tax compliance solution in place, Stripe's lower fees are an easy win
+- **You need ACH, SEPA, or local payment methods** — Stripe's payment method coverage is far broader
+
+## When to Choose Lemon Squeezy
+
+- **Solo founder or small team, global customers** — You cannot afford to also become a tax compliance expert on day one
+- **Selling software globally from day one** — EU VAT, Australian GST, and US sales tax are immediate concerns the moment you get your first customer in those jurisdictions
+- **Indie SaaS or AI tool with simple pricing** — Flat monthly/annual plans, seat-based pricing, or simple upgrade paths work perfectly
+- **You want an affiliate program** — Lemon Squeezy's built-in affiliate system is a genuine differentiator for product-led growth
+- **Speed over customization** — Your checkout needs to work, not to be custom-designed
+
+## The Practical Recommendation for AI Teams
+
+For AI startups shipping a product with a simple pricing model (e.g., free → $29/month → $99/month), targeting users globally, with a team of 1–3 engineers: **start with Lemon Squeezy**. The tax compliance value alone justifies the higher transaction fee at early revenue levels.
+
+As you scale past ~$50K MRR, build more sophisticated usage-based pricing, or start closing enterprise deals, plan a migration to Stripe. The migration is not trivial, but it's well-documented and worth the investment at that stage.
+
+Build the right tool for the stage you're at, not the stage you're planning to be at in three years.
+
+<hr />
+
+*Related: [Technical Due Diligence for AI Startups](/blog/technical-due-diligence-ai-startup) · [Clerk vs Auth0 for AI Apps](/compare/clerk-vs-auth0-for-ai-apps) · [AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make)*
+
+[Not sure which billing setup fits your AI product's pricing model? [Book a 15-min scope call →](/contact) and we'll give you a concrete recommendation.]
+
+<hr />
+
+## Related Resources
+
+**Related articles:**
+
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026)
+- [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks)
+- [From MVP to Scale: AI Product Guide](/blog/mvp-to-scale-ai-product)
+
+**Our solution:** [AI MVP Sprint — ship in 3 weeks](/solutions/ai-workflow-automation)
+
+**Browse all comparisons:** [Compare](/compare)
+
+
+
+## Related Articles
+
+- [How We Ship AI MVPs in 3 Weeks (Without Cutting Corners)](/blog/how-we-ship-ai-mvps-in-3-weeks) — Inside look at our sprint process from scoping to production deploy
+- [AI Development Cost Breakdown: What to Expect](/blog/ai-development-cost-breakdown) — Realistic cost breakdown for building AI features at startup speed
+- [Why Startups Choose an AI Agency Over Hiring](/blog/ai-agency-for-startups) — Build vs hire analysis for early-stage companies moving fast
+- [The $4,999 MVP Development Sprint: How It Works](/blog/mvp-development-sprint-guide) — Full walkthrough of our 3-week sprint model and what you get
+- [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make) — Common pitfalls that slow down AI MVPs and how to avoid them
+- [5 AI Agent Architecture Patterns That Work](/blog/ai-agent-architecture-patterns) — Proven patterns for building reliable multi-agent AI systems

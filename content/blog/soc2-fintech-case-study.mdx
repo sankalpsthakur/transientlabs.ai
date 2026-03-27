@@ -1,0 +1,165 @@
+---
+title: "SOC2 Type II in 21 Days: How a Series A FinTech Closed a $200K Enterprise Deal"
+description: "A 12-person FinTech startup had no security program and a $200K enterprise contract on hold. In three weeks, we built the controls, policies, and evidence pipeline that got them audit-ready — and closed the deal."
+keywords:
+  - SOC2 Type II fintech
+  - SOC2 compliance sprint
+  - fintech security compliance
+  - enterprise deal SOC2
+  - SOC2 audit ready startup
+  - access controls SOC2
+  - SOC2 policies startup
+  - CI/CD security SOC2
+  - security sprint fintech
+  - SOC2 evidence collection
+category: "Security"
+type: "Case Study"
+author: "Transient Labs"
+date: "2026-02-17"
+slug: "soc2-fintech-case-study"
+cta_text: "Get SOC2-ready in 3 weeks"
+cta_url: "https://100xai.engineering/solutions/security-soc2"
+---
+
+# SOC2 Type II in 21 Days: How a Series A FinTech Closed a $200K Enterprise Deal
+
+The call came three weeks after a $5M Series A closed. A regional bank — $2B in assets, serious procurement process — was ready to sign a $200K contract. One condition: SOC2 Type II report on the table before legal would move.
+
+The startup: 12 people, 18 months old, AWS-hosted payment infrastructure, zero written security policies, no dedicated security staff. Their CTO had a doc titled "Security TODO" that hadn't been opened in four months.
+
+Procurement gave them 60 days. We delivered audit-ready in 21.
+
+## The Baseline: Typical for a Fast-Moving Startup
+
+Before touching anything, we ran a structured gap assessment against the SOC2 Trust Services Criteria (Security, Availability, Confidentiality). What we found wasn't negligence — it was the natural state of a team that correctly prioritized shipping over process:
+
+- No written information security policy or risk assessment
+- 9 former contractors with active credentials across AWS IAM, GitHub, and Stripe
+- Shared production database password used by three engineers and two scripts
+- CloudTrail enabled but logs never reviewed; no alerting configured
+- CI/CD pipeline: any push to `main` triggered a production deploy
+- No incident response plan — "we'd figure it out" was the actual answer
+- No vendor risk process; 14 third-party SaaS tools with no formal assessment
+
+Every item was fixable. The question was sequencing them to get into an observation window as fast as possible. SOC2 Type II requires controls to have been operating for a defined period — the auditor isn't certifying your good intentions, they're certifying your operational history.
+
+## Week 1: Documentation, Access Remediation, and Pipeline Hardening
+
+We started with the two highest-risk categories: access control gaps (live exposure) and policy documentation (audit blocker).
+
+**Access control remediation** came first because active orphaned credentials are a live risk, not a compliance checkbox. We audited every connected system and revoked 9 stale credentials across AWS IAM, GitHub, Stripe, Intercom, and their internal admin tooling. Then:
+
+- Enforced MFA on all production systems — console, API keys, and SSO
+- Migrated from shared database credentials to per-user IAM roles with least-privilege policies via AWS Secrets Manager rotation
+- Created a formal access provisioning checklist integrated into the HR onboarding process
+- Documented de-provisioning steps as a required offboarding step (now triggered automatically via their HRIS webhook)
+
+**Policy documentation** followed. A common misconception is that SOC2 policies need to be elaborate legal documents. They don't — they need to accurately describe what you do and be demonstrably followed. We produced:
+
+- Information Security Policy (master document, maps directly to TSC controls)
+- Access Control and User Provisioning Policy
+- Incident Response Plan with five severity levels, escalation paths, and communication runbooks
+- Change Management Policy governing production deployments
+- Vendor Risk Assessment template and process
+- Business Continuity and Disaster Recovery plan with defined RTOs and RPOs
+
+Each policy was written against actual practice, then actual practice was adjusted where it didn't match.
+
+**CI/CD hardening** addressed the most technically visible gap. We implemented:
+
+- Required pull request reviews (minimum 1 approval) before merge to `main`
+- Branch protection rules on `main` and `staging` — force push disabled, deletion protected
+- Secrets scanning via GitHub's native secret scanning plus TruffleHog in the CI pipeline
+- Dependabot with PRs auto-created for dependency updates; high/critical findings block merge
+- A production deployment approval step requiring explicit sign-off from the CTO or designated deputy
+
+## Week 2: Monitoring, Logging, and Evidence Infrastructure
+
+SOC2 Type II auditors don't take your word for it. They want evidence — timestamped, tamper-evident, comprehensive. We built the infrastructure for that evidence to accumulate automatically.
+
+We structured the monitoring architecture against **NIST CSF** Detect and Respond functions — ensuring that the logging stack wasn't just evidence for auditors, but an operational tool the team would actually use post-audit.
+
+**Log aggregation:** CloudTrail was already enabled but unreviewed. We added structured forwarding from CloudTrail, VPC Flow Logs, and application logs to a dedicated S3 bucket with S3 Object Lock (WORM mode, 90-day minimum retention). Key events instrumented:
+
+- All IAM authentication events: console logins, API key usage, role assumptions, permission escalations
+- Failed authentication events with PagerDuty alerting on threshold breaches (10 failures in 5 minutes = P2 alert)
+- PostgreSQL audit logging via `pgaudit` extension on RDS — capturing DML on tables containing financial data
+- Application-level audit trail: user logins, payment initiations, admin configuration changes, data exports
+- Infrastructure change events via CloudTrail with SNS notifications on IAM policy changes
+
+**Alerting:** PagerDuty integration with tiered escalation. P1 (potential breach indicators: mass data access, IAM privilege escalation, unusual geographic login) pages on-call immediately. P2 (anomalous patterns, failed dependency scans) creates a Jira ticket for next-business-day review.
+
+**Automated evidence collection:** We built a lightweight monthly evidence script that pulls:
+- User access lists from IAM, GitHub, Stripe, and Intercom (cross-referenced against active employee list)
+- CloudTrail summaries for the period
+- Vulnerability scan outputs from AWS Inspector
+- Dependency audit reports from npm audit and Dependabot
+
+Output lands in a shared auditor folder in Google Drive with version history. During the actual audit, evidence retrieval took under 2 hours.
+
+**Vulnerability management baseline:** AWS Inspector scan identified 3 critical findings (2 in outdated Lambda runtimes, 1 in an EC2 AMI). All three patched and re-scanned before the observation period opened. OWASP ZAP (automated DAST, run against the **OWASP Top 10** vulnerability categories) flagged 1 medium finding (missing security headers) — fixed in a 20-minute deployment. The automated VAPT workflow was integrated into the CI/CD pipeline so future deployments would catch similar regressions without a manual scan cycle.
+
+## Week 3: Pre-Audit Dry Run and Penetration Test Coordination
+
+With controls operating and evidence accumulating, Week 3 was about finding gaps before the auditor did.
+
+We ran an internal pre-audit review: walked through every SOC2 criterion, pulled the corresponding evidence, and documented what was present versus missing. Three gaps surfaced:
+
+1. **No security training records** — team members hadn't completed documented security awareness training. Resolved: KnowBe4 deployment with a 45-minute onboarding module; completion certificates stored per-employee in the audit folder.
+2. **No documented DR test** — the BC/DR plan existed but had never been exercised. Resolved: a 2-hour tabletop exercise with the CTO, documented with findings and actions.
+3. **No vendor risk assessments for two critical vendors** — their payment processor and their primary LLM API provider had no documented risk review. Resolved: risk questionnaires completed and filed for both.
+
+**Penetration test:** coordinated with a third-party firm (standard web application + API scope). The test identified two findings: an IDOR vulnerability in the admin panel that could expose transaction records across accounts, and missing rate limiting on the authentication endpoint. Both were patched and re-tested within 72 hours. The clean re-test report became part of the audit package — enterprise procurement specifically asked for it.
+
+
+> **SOC1 consideration:** The regional bank also asked whether the startup processed payment data in a way that required a SOC 1 report. After scoping review with their auditor, it was determined that the startup's role was as a software provider (not a payment processor) — SOC 2 was the correct and sufficient report. If your FinTech product directly processes transactions or sits in a financial reporting flow, confirm with your auditor whether SOC 1 Type II is additionally required.
+
+## The Outcome
+
+The observation period ran for the minimum viable window. The auditor reviewed the evidence package, conducted structured interviews with the CTO and two engineers, and issued the SOC2 Type II report — no exceptions, no qualified opinion.
+
+The bank's procurement team received the report. Legal moved. The $200K contract was signed 47 days after our engagement started.
+
+In the 30 days that followed, the startup received two more inbound enterprise inquiries that explicitly cited SOC2 availability as a factor in their vendor evaluation.
+
+The controls also did what controls are supposed to do operationally: the access review process caught another orphaned admin account 6 weeks post-audit. The authentication alerting pipeline detected a credential stuffing attempt in its first week live.
+
+## What Made This Possible
+
+Three factors made a 3-week sprint realistic for this team:
+
+1. **Cloud-native infrastructure.** Everything was already in AWS. Enabling pgAudit, configuring CloudTrail forwarding, rotating secrets through Secrets Manager — these are hours of work, not weeks.
+2. **A CTO who could commit.** The sprint required real decisions: revoking credentials, changing deployment processes, spending time on documentation. A reluctant stakeholder would have doubled the timeline.
+3. **Starting with what's real.** We didn't write policies that described an aspirational security posture — we documented actual practice, then closed the gaps. Auditors can tell the difference.
+
+SOC2 Type II doesn't have to be a 6-month project. If you're facing an enterprise requirement with a deal on the line, [start here](https://100xai.engineering/solutions/security-soc2).
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [Pre-Launch SOC 2 Foundation for AI Startups](/blog/ai-startup-pre-launch-soc2-foundation)
+- [Fintech SOC 2 Type II in 3 Weeks](/blog/fintech-soc2-type-ii-3-weeks)
+- [Healthcare SaaS: HIPAA + SOC 2 Compliance](/blog/healthcare-saas-hipaa-soc2-compliance)
+
+**Our solution:** [Security & SOC 2 Compliance Engineering](/solutions/security-soc2)
+
+**Glossary:**
+
+- [AI Governance Framework](/glossary/ai-governance-framework)
+- [AI Guardrails](/glossary/what-is-ai-guardrails)
+
+**Comparisons:**
+
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [Vanta vs Drata vs Transient Labs: Which Compliance Approach is Right?](/compare/vanta-vs-drata-vs-100xai)
+
+
+
+
+<hr />
+
+> **Free Tool:** Check your SOC2 readiness and see how your timeline compares to this case study. → [**SOC2 Readiness Assessment**](/resources/soc2-readiness-assessment)

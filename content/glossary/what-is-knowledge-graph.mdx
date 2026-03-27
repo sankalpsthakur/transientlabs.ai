@@ -1,0 +1,154 @@
+---
+title: "What is a Knowledge Graph? AI Applications"
+description: "A knowledge graph stores entities and their relationships as connected nodes. Learn how knowledge graphs power AI reasoning, search, and RAG in production systems."
+keywords:
+  - what is a knowledge graph
+  - knowledge graph AI
+  - knowledge graph definition
+  - graph database AI
+  - knowledge graph RAG
+  - entity relationships AI
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build AI with Knowledge Graph Architecture"
+cta_url: "/contact"
+slug: "what-is-knowledge-graph"
+---
+
+## What is a Knowledge Graph?
+
+A **knowledge graph** is a structured representation of information that models real-world entities (people, places, products, concepts) and the typed relationships between them. Unlike a traditional database that stores rows of isolated facts, a knowledge graph captures the connections — making it possible to answer questions that require reasoning across multiple related entities.
+
+The classic example: a knowledge graph doesn't just store "Marie Curie" as a record. It stores that Marie Curie *is a* scientist, *won* the Nobel Prize, *worked at* the University of Paris, and *discovered* polonium — and each of those facts is a traversable relationship, not just a field in a table.
+
+For AI systems, knowledge graphs have become a critical tool for improving reasoning accuracy, enabling multi-hop inference, and providing the kind of structured context that [RAG](/glossary/what-is-rag) alone cannot.
+
+## Core Components of a Knowledge Graph
+
+Every knowledge graph is built from three primitives:
+
+- **Nodes (Entities)** — The things being represented: people, products, locations, events, concepts
+- **Edges (Relationships)** — The typed connections between entities: "works at", "is part of", "depends on", "contradicts"
+- **Properties** — Attributes attached to nodes or edges: name, date, confidence score, source
+
+These three components combine into **triples** — the fundamental unit of a knowledge graph:
+
+```
+[Subject] → [Predicate] → [Object]
+Marie Curie → discovered → Polonium
+Polonium → is a → Chemical Element
+Chemical Element → belongs to → Periodic Table
+```
+
+Chaining triples together creates a network of interconnected knowledge that can be queried for paths, patterns, and inferences.
+
+## Knowledge Graphs vs. Vector Databases
+
+Both knowledge graphs and [vector databases](/glossary/what-is-vector-database) are used to power AI retrieval — but they solve different problems:
+
+| | Knowledge Graph | Vector Database |
+|---|---|---|
+| **Data structure** | Nodes and typed edges | High-dimensional vectors |
+| **Query type** | Traversal, pattern matching | Semantic similarity search |
+| **Strengths** | Structured relationships, multi-hop reasoning | Fuzzy semantic search, unstructured text |
+| **Query language** | SPARQL, Cypher, Gremlin | Approximate nearest neighbor |
+| **Best for** | Relational reasoning, fact checking | Semantic search, document retrieval |
+
+In production AI systems, these two approaches are increasingly used **together**: vector search retrieves candidate documents, and a knowledge graph provides the structured relational context to resolve ambiguities and validate relationships.
+
+## How Knowledge Graphs Power AI Applications
+
+### Graph-Enhanced RAG
+
+Standard [RAG](/glossary/what-is-rag) retrieves semantically similar text chunks — but it misses structured relationships. If a user asks "Which of our products are affected by the recent supply chain issue?" a pure vector search might retrieve relevant documents, but it can't traverse a product → supplier → component → issue graph.
+
+Graph-enhanced RAG (also called "GraphRAG") combines vector retrieval with graph traversal:
+
+1. Convert the query into a graph query (identify entities and relationships requested)
+2. Traverse the knowledge graph to retrieve structured facts
+3. Combine graph results with vector-retrieved context
+4. Pass the enriched context to the LLM for synthesis
+
+Microsoft's GraphRAG research demonstrated that graph-enhanced retrieval significantly improves accuracy on questions requiring multi-hop reasoning across a large document corpus.
+
+### AI Agents and Knowledge Graphs
+
+[AI agents](/glossary/ai-agent) benefit enormously from knowledge graphs as a memory and reasoning substrate. Instead of reasoning purely from unstructured context in their window, agents can:
+
+- Query a knowledge graph to check facts before asserting them
+- Build a dynamic knowledge graph as they research a topic
+- Use graph traversal to plan multi-step tasks (identify dependencies, prerequisites, related entities)
+
+This makes agents dramatically more reliable for knowledge-intensive tasks — research, compliance checking, technical documentation, and enterprise process automation.
+
+### Semantic Search and Recommendation
+
+Knowledge graphs underpin most enterprise semantic search systems. By encoding the relationship between products, categories, attributes, and user behaviors as graph edges, recommendation engines can traverse the graph to find relevant items that wouldn't appear in keyword or vector search results.
+
+"Customers who bought X also bought Y" is a simple graph traversal. "Customers who bought X in category A and are from enterprise segment B tend to need product Z within 90 days" is a multi-hop graph query — impossible to express cleanly in a traditional recommendation pipeline.
+
+## Building a Knowledge Graph
+
+### Construction Approaches
+
+**Manual curation** — Domain experts define the ontology (entity types, relationship types) and populate it with structured data. High quality, slow to build, doesn't scale to large corpora.
+
+**Automated extraction** — NLP pipelines extract entities and relationships from text using named entity recognition (NER) and relation extraction models. Scales to large corpora, but requires quality control.
+
+**LLM-powered construction** — Use a language model to read documents and extract structured triples. Fast to implement, requires validation to prevent hallucinated relationships.
+
+**Hybrid** — Define the ontology manually, use automated extraction for bulk population, use LLMs for edge cases. This is the production-grade approach.
+
+### Key Technologies
+
+- **Graph databases**: Neo4j (most mature, Cypher query language), Amazon Neptune, TigerGraph
+- **RDF stores**: Apache Jena, Stardog (for semantic web / SPARQL use cases)
+- **Embedded graphs**: NetworkX (Python, good for prototyping), Memgraph
+- **Cloud managed**: AWS Neptune, Google Cloud Spanner Graph
+
+For most AI product teams building on top of knowledge graphs for the first time, **Neo4j** is the practical starting point — mature SDKs, good documentation, and a generous free tier.
+
+## Knowledge Graph Quality: What Makes or Breaks It
+
+The value of a knowledge graph is entirely dependent on the quality of its schema and data:
+
+**Schema design** — The ontology (what types of entities and relationships exist) must match your domain closely. A poorly designed schema produces a graph that can't answer the questions your AI system needs to ask.
+
+**Data freshness** — Stale relationships are worse than no relationships. A knowledge graph representing your product catalog that's 6 months out of date will ground your AI in incorrect facts.
+
+**Relationship coverage** — A graph with many nodes but sparse edges is a list, not a graph. The value comes from density of correct relationships.
+
+**Provenance tracking** — Every fact in a production knowledge graph should have a source and timestamp. When an AI agent uses a graph fact to make a claim, you need to know where that fact came from.
+
+## When to Use a Knowledge Graph
+
+Knowledge graphs are worth the implementation cost when:
+
+- Your AI system needs to reason across multiple related entities
+- You have well-understood, stable entity types and relationship types
+- Query patterns involve multi-hop traversal ("what depends on what?")
+- Fact verification and provenance matter (compliance, legal, medical)
+- Standard vector search leaves too many structured-reasoning gaps
+
+For simpler use cases — document Q&A, semantic search over text — a vector database alone is sufficient. Reach for a knowledge graph when your AI needs to *reason about relationships*, not just retrieve relevant text.
+
+<hr />
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [What is a Vector Database?](/glossary/what-is-vector-database) · [What is an AI Agent?](/glossary/ai-agent)*
+
+[Building an AI system that needs structured reasoning? [Talk to our team →](/contact) about knowledge graph architecture for your use case.]
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

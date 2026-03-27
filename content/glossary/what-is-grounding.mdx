@@ -1,0 +1,143 @@
+---
+title: "What is Grounding in AI? Reducing Hallucinations"
+description: "Grounding anchors AI outputs to verified facts, documents, or real-time data. Learn how it works, why it matters, and how to implement it in production."
+keywords:
+  - what is grounding in AI
+  - AI grounding
+  - reduce AI hallucinations
+  - grounding LLM
+  - RAG grounding
+  - factual AI outputs
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Grounded AI Products"
+cta_url: "/contact"
+slug: "what-is-grounding"
+---
+
+## What is Grounding in AI?
+
+**Grounding** is the process of connecting an AI model's outputs to a reliable, external source of truth — documents, databases, APIs, or real-time data — so the model generates responses based on verified facts rather than memorized training patterns.
+
+Without grounding, large language models (LLMs) produce **hallucinations**: confident-sounding answers that are fabricated. Grounding solves this at the architectural level, not by retraining the model, but by giving it access to authoritative context at inference time.
+
+Grounding is now a foundational technique in every production-grade AI application. If your product needs to be factually reliable, grounding is non-negotiable.
+
+## Why LLMs Hallucinate
+
+LLMs are trained to predict the most plausible next token given a prompt. They don't "look up" facts — they recall statistical patterns from training data. When asked about something outside their training distribution (recent events, proprietary data, niche domains), they confabulate plausible-sounding answers.
+
+Three root causes of hallucination:
+
+1. **Training data gaps** — The model simply wasn't trained on the required information
+2. **Knowledge cutoff** — Events after the training cutoff are unknown to the model
+3. **Retrieval-without-verification** — The model generates a response without checking whether its internal "memory" is accurate
+
+Grounding addresses all three by providing the model with the correct information directly in the prompt.
+
+## How Grounding Works
+
+The core mechanic is simple: **retrieve relevant, verified content and include it in the context window before asking the model to answer**.
+
+The model no longer needs to rely on memorized patterns. It reads the provided source material and synthesizes a response from it. The model is constrained to the grounding context, which dramatically reduces fabrication.
+
+The canonical implementation is **Retrieval-Augmented Generation (RAG)**:
+
+1. User asks a question
+2. The system retrieves relevant documents or chunks from a [vector database](/glossary/what-is-vector-database)
+3. The retrieved content is inserted into the model's prompt as context
+4. The model answers based on that context, not its training data
+
+For a deep dive on the retrieval layer, see our [RAG explainer](/glossary/what-is-rag).
+
+## Types of Grounding
+
+Different use cases require different grounding strategies:
+
+### Document Grounding
+The most common form. Connect the model to your internal knowledge base — PDFs, wikis, support articles, legal documents. When the user asks a question, the system retrieves the relevant document sections and passes them to the model.
+
+**Best for:** Internal tools, customer support bots, legal research assistants, documentation search.
+
+### Real-Time Data Grounding
+Connect the model to live data sources — APIs, databases, search engines. The model calls a tool, retrieves fresh data, and synthesizes its response from the live result.
+
+**Best for:** Financial data queries, news summarization, inventory lookups, dynamic pricing.
+
+### Structured Data Grounding
+Ground the model against structured records: SQL databases, spreadsheets, or CRMs. Rather than free-text retrieval, the model generates a query (SQL, API call), executes it, and grounds its response in the structured result.
+
+**Best for:** Analytics copilots, CRM integrations, reporting tools.
+
+### Tool-Based Grounding
+[AI agents](/glossary/ai-agent) use function calling to ground their outputs by executing tools that return verified data. The agent doesn't guess the current date, stock price, or weather — it calls a tool that returns the real value.
+
+## Grounding vs. Fine-Tuning
+
+This is a common source of confusion:
+
+| | Grounding | Fine-Tuning |
+|---|---|---|
+| **Purpose** | Inject external facts at runtime | Adjust model behavior/style |
+| **When to update** | Continuously (new docs = new retrieval) | Infrequently (requires retraining) |
+| **Fixes hallucinations** | ✅ Yes | ⚠️ Partially |
+| **Cost** | Low (query + tokens) | High (compute + data labeling) |
+| **Time to implement** | Days | Weeks to months |
+
+Grounding and fine-tuning are not mutually exclusive, but **grounding should come first**. Most teams that think they need fine-tuning actually need better grounding. Only fine-tune after you've verified that a well-grounded RAG system can't meet your quality bar.
+
+## Measuring Grounding Quality
+
+Grounding without evaluation is incomplete. Key metrics to track:
+
+- **Faithfulness** — Does the model's answer accurately reflect the retrieved context? (No additions or distortions)
+- **Answer relevance** — Is the answer actually responsive to the question?
+- **Context precision** — Is the retrieved context relevant, or is the system pulling noise?
+- **Context recall** — Did the retrieval find all the relevant information?
+
+Tools like [RAGAS](https://ragas.io) provide automated scoring across these dimensions. Integrate them into your CI/CD pipeline to catch grounding regressions before they reach production.
+
+## Common Grounding Pitfalls
+
+### Over-relying on long context windows
+Dumping an entire document into a 128k context window is tempting but expensive and imprecise. Targeted retrieval of the right chunks outperforms brute-force context stuffing in both cost and quality.
+
+### Ignoring source attribution
+Grounded responses should cite their source. Users trust answers more when they can verify the origin, and attribution helps your team debug when the model gets it wrong.
+
+### Static retrieval indexes
+If your grounding corpus isn't updated regularly, the model will ground responses in stale information — which is better than hallucination, but still wrong. Treat your retrieval index like a live database, not a one-time ETL.
+
+## Grounding in Production
+
+A production grounding system typically involves:
+
+- A [vector database](/glossary/what-is-vector-database) for semantic retrieval (Pinecone, Weaviate, pgvector)
+- An [embedding model](/glossary/what-is-embedding) to convert documents and queries into vectors
+- A chunking strategy (how to split documents for optimal retrieval)
+- A re-ranking step to improve retrieval precision
+- Prompt templates that correctly instruct the model to use only provided context
+- Evaluation pipelines to measure faithfulness and relevance continuously
+
+The teams that ship reliable AI products invest in grounding infrastructure before they invest in model upgrades. A well-grounded GPT-4o mini outperforms an ungrounded GPT-4 on factual accuracy tasks.
+
+<hr />
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [What is a Vector Database?](/glossary/what-is-vector-database) · [AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make)*
+
+[Building an AI product that needs to be factually reliable? Let's talk about your grounding architecture — [book a 15-min scope call →](/contact)]
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

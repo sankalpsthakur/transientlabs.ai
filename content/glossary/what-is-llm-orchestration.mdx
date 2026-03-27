@@ -1,0 +1,126 @@
+---
+title: "What is LLM Orchestration? Chains and Pipelines"
+description: "LLM orchestration connects language models, tools, and memory into chains and pipelines. Learn how it works and when your AI app needs it."
+keywords:
+  - LLM orchestration
+  - LLM chains
+  - LLM pipelines
+  - AI orchestration
+  - LangChain
+  - LangGraph
+  - LLM workflow
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Your LLM Pipeline"
+cta_url: "/contact"
+slug: "what-is-llm-orchestration"
+---
+
+## What is LLM Orchestration?
+
+**LLM orchestration** is the practice of coordinating large language models with external tools, data sources, and memory systems to complete multi-step tasks. A single LLM call answers a question. Orchestration strings calls together into workflows that can retrieve data, take actions, and loop until a goal is reached.
+
+Think of orchestration as the connective tissue of an AI application. The LLM is the reasoning engine; orchestration is the system that tells it what to do next, provides the context it needs, and routes its outputs to the right destination.
+
+If you're building anything beyond a simple chatbot — agents, RAG systems, document pipelines, automated workflows — you're doing LLM orchestration whether you've named it that or not.
+
+## Chains vs. Pipelines vs. Agents
+
+These three terms are often used interchangeably but they represent different complexity levels:
+
+| Pattern | Description | Example |
+|---------|-------------|---------|
+| **Chain** | Fixed sequence of LLM calls | Summarize → translate → format |
+| **Pipeline** | Sequential steps with non-LLM processing | Fetch docs → embed → retrieve → generate |
+| **Agent** | Dynamic, LLM decides next step | Research agent choosing which tools to call |
+
+**Chains** are deterministic and easy to debug. You define the exact sequence at build time. Every run follows the same path.
+
+**Pipelines** add data processing steps around LLM calls — chunking documents, calling vector databases, filtering outputs, enriching with structured data. The sequence is still fixed, but the inputs vary.
+
+**Agents** are where orchestration gets complex. The LLM itself decides which tools to call and in what order. This enables flexible reasoning but introduces variability and requires robust evaluation.
+
+## Core Components of an LLM Orchestration System
+
+### 1. The Model Layer
+
+The foundation: one or more LLMs handling reasoning. Production systems often use model routing — a cheaper, faster model (GPT-4o Mini, Claude Haiku) for simple classification, a frontier model for complex reasoning. Routing by cost and capability is one of the highest-leverage optimizations in production AI.
+
+### 2. Tool Layer
+
+Tools give the LLM access to the world: web search, code execution, database queries, API calls, file reads. Without tools, the LLM is limited to its training data. With tools, it can fetch live prices, run calculations, query your CRM, or send an email.
+
+### 3. Memory and Context
+
+LLMs are stateless by default. Orchestration adds memory:
+
+- **In-context memory** — Conversation history passed in the prompt
+- **External memory** — Vector databases for semantic retrieval (see [what is semantic search](/glossary/what-is-semantic-search))
+- **Structured memory** — Key-value stores or databases for explicit facts
+
+Managing what goes into the context window — and what gets retrieved vs. summarized — is one of the hardest engineering problems in production LLM systems.
+
+### 4. The Orchestration Layer
+
+This is the code that ties everything together: routing logic, retry handling, error recovery, output parsing, and state management. Frameworks like LangChain, LangGraph, and LlamaIndex provide building blocks. For production systems, many teams end up writing custom orchestration logic on top of these frameworks or replacing them entirely.
+
+## Popular Orchestration Frameworks
+
+| Framework | Best For | Complexity |
+|-----------|----------|------------|
+| **LangChain** | General-purpose chains and agents | Medium |
+| **LangGraph** | Stateful, graph-based agent flows | High |
+| **LlamaIndex** | RAG and document pipelines | Medium |
+| **Haystack** | Enterprise search/RAG | Medium |
+| **CrewAI** | Multi-agent collaboration | Medium |
+| **Raw SDK** | Full control, greenfield builds | High initially, low long-term |
+
+None of these is universally best. The right choice depends on your use case, team familiarity, and tolerance for framework churn. See [why startups fail at AI](/blog/why-startups-fail-at-ai) for a take on framework over-dependence.
+
+## When Do You Need Orchestration?
+
+You need orchestration when:
+
+- Your AI application requires **more than one LLM call** to complete a task
+- You need to **retrieve external data** before generating a response
+- Your workflow involves **branching logic** (different paths based on LLM output)
+- You have **multiple models** doing specialized tasks in sequence
+- You need **state persistence** across user sessions
+
+You don't need a full orchestration framework when:
+- You're calling an LLM once with a prompt
+- Your app is a thin wrapper around a single API
+- You control the entire workflow deterministically in code
+
+## Observability in Orchestrated Systems
+
+Multi-step LLM systems are notoriously hard to debug. When a final output is wrong, you need to know which step failed: was it the retrieval? The prompt? The model? A tool call?
+
+Production orchestration requires tracing at the step level — logging every LLM call, its inputs, outputs, latency, and token cost. Tools like LangSmith and Arize Phoenix specialize in this (see our [LangSmith vs Phoenix comparison](/compare/langsmith-vs-phoenix-arize)).
+
+Without observability, you're debugging distributed AI systems blind. Build tracing in from day one, not as an afterthought.
+
+## Key Takeaway
+
+LLM orchestration is what separates a demo from a production AI application. It's the layer that connects reasoning capability (the LLM) to real-world data, tools, and state. Getting the orchestration architecture right early determines whether your AI system scales gracefully or collapses under complexity.
+
+<hr />
+
+*Related: [What is Semantic Search?](/glossary/what-is-semantic-search) · [LangSmith vs Phoenix for LLM Observability](/compare/langsmith-vs-phoenix-arize) · [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)*
+
+Need help designing your LLM pipeline architecture? [Book a 15-min scope call](/contact) — we've shipped production orchestration systems across RAG, agents, and multi-model workflows.
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

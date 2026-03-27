@@ -1,0 +1,115 @@
+---
+title: "VAPT Explained: Vulnerability Assessment & Penetration Testing for Startups"
+description: "VAPT (Vulnerability Assessment and Penetration Testing) is how companies find and fix security weaknesses before attackers do. Learn the methodology and why startups need VAPT."
+keywords:
+  - VAPT
+  - vulnerability assessment
+  - penetration testing
+  - pen testing
+  - security testing
+  - ethical hacking
+  - VAPT methodology
+category: "Glossary"
+type: "DefinedTerm"
+author: "Transient Labs"
+date: "2026-01-30"
+cta_text: "Build Security-Ready Applications"
+cta_url: "/pricing"
+slug: "vapt-explained"
+---
+
+## What is VAPT?
+
+**VAPT (Vulnerability Assessment and Penetration Testing)** is a security testing practice that combines two distinct but complementary methodologies to identify, assess, and help remediate security weaknesses in software systems, networks, and infrastructure.
+
+- **Vulnerability Assessment (VA)** — A broad, systematic scan to identify known vulnerabilities. Automated tools (Nessus, Qualys, OpenVAS) scan the target and produce a prioritized list of weaknesses.
+- **Penetration Testing (PT)** — A targeted, manual process where skilled security professionals attempt to exploit identified vulnerabilities to understand real-world attack impact.
+
+Together, VA gives you breadth (finding everything), while PT gives you depth (proving what's actually exploitable and what the blast radius looks like).
+
+## The VAPT Methodology
+
+A professional VAPT engagement typically follows these phases:
+
+### 1. Planning & Scoping
+Define what's in scope (specific applications, IP ranges, APIs), the testing approach (black box, grey box, white box), and rules of engagement. Legal authorization is documented.
+
+### 2. Reconnaissance
+Passive and active information gathering — DNS enumeration, OSINT, service discovery, technology fingerprinting. Understanding the attack surface before active testing.
+
+### 3. Vulnerability Assessment
+Automated scanning to identify:
+- Known CVEs in software dependencies
+- Misconfigurations (open ports, default credentials, exposed admin interfaces)
+- Outdated software versions
+- Missing security headers
+- Injection points (SQL, XSS, XXE, SSRF)
+
+### 4. Exploitation (Penetration Testing)
+Manual, expert-led testing to:
+- Confirm which vulnerabilities are genuinely exploitable
+- Chain vulnerabilities to achieve higher-impact access
+- Test business logic flaws that scanners miss
+- Attempt privilege escalation and lateral movement
+
+### 5. Post-Exploitation Analysis
+Understanding the impact of successful exploitation:
+- What data could be exfiltrated?
+- What systems could be reached from the compromised entry point?
+- What would a real attacker do next?
+
+### 6. Reporting
+Detailed report with:
+- Executive summary (business risk framing)
+- Technical findings with severity ratings (CVSS scores)
+- Proof-of-concept evidence
+- Prioritized remediation recommendations
+- Retesting guidance
+
+### 7. Remediation & Retesting
+Development team fixes identified issues; testers verify fixes are effective.
+
+## Types of VAPT
+
+| Type | Tester Knowledge | Simulates |
+|---|---|---|
+| Black Box | No prior knowledge | External attacker |
+| Grey Box | Partial access (e.g., user account) | Authenticated attacker / insider |
+| White Box | Full access (code, architecture, credentials) | Comprehensive audit / post-breach |
+
+## Why It Matters for Startups
+
+### SOC 2 and ISO 27001 Requirements
+Both [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria) (Security criterion) and ISO 27001 require regular penetration testing. Without VAPT evidence, your audit will have control gaps.
+
+### Enterprise Sales Requirements
+Security questionnaires from enterprise buyers almost always ask: "When was your last penetration test and what was the outcome?" No VAPT = lost deals.
+
+### Regulatory Compliance
+PCI DSS mandates annual penetration testing. HIPAA expects regular risk assessments including vulnerability scanning. Many financial services regulations require VAPT.
+
+### Breach Prevention
+The average cost of a data breach is $4.88M (IBM 2024). VAPT typically costs $5K–$50K. The math is obvious.
+
+### Investor Due Diligence
+Series A and beyond investors increasingly include security posture in technical due diligence. A recent clean VAPT report is a positive signal.
+
+## How Transient Labs Helps
+
+[Transient Labs](/pricing) builds systems designed to pass VAPT with minimal findings:
+
+- **Secure-by-default architecture** — [Zero Trust](/glossary/zero-trust-architecture) principles, least-privilege IAM, encryption everywhere
+- **[DevSecOps](/glossary/devsecops) pipelines** — Automated SAST/DAST scanning in CI/CD so vulnerabilities are caught before deployment
+- **Dependency management** — Automated CVE monitoring and patch workflows
+- **Security hardening checklists** — Applied at build time, not bolted on after
+
+We also help you prepare documentation and evidence for your VAPT engagement, reducing scope and cost.
+
+See also: [Zero Trust Architecture](/glossary/zero-trust-architecture) | [DevSecOps](/glossary/devsecops) | [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria)
+
+## Further Reading
+
+- [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) — The gold standard for web application testing methodology
+- [PTES (Penetration Testing Execution Standard)](http://www.pentest-standard.org/) — Comprehensive methodology reference
+- [NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final) — Technical Guide to Information Security Testing
+- [CVSSv3 Scoring System](https://www.first.org/cvss/) — How vulnerabilities are rated by severity

@@ -1,0 +1,177 @@
+---
+title: "LangSmith vs Phoenix (Arize) for LLM Observability"
+description: "LangSmith vs Phoenix Arize for LLM observability: tracing, evals, pricing, and open-source flexibility compared. Which tool fits your AI stack in 2026?"
+keywords:
+  - LangSmith vs Phoenix
+  - Arize Phoenix
+  - LLM observability
+  - LangSmith
+  - LLM tracing
+  - AI observability tools
+  - LLM evaluation
+category: "Comparisons"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Get LLM Observability Architecture Help"
+cta_url: "/contact"
+slug: "langsmith-vs-phoenix-arize"
+---
+
+## LangSmith vs Phoenix (Arize): Quick Verdict
+
+**LangSmith** and **Phoenix by Arize** are the two most capable LLM observability platforms available in 2026. Both handle tracing, evaluation, and prompt management for production AI systems. The choice comes down to your team's philosophy: managed SaaS tightly integrated with LangChain's ecosystem (LangSmith) versus a flexible, open-source-first platform that works with any LLM stack (Phoenix).
+
+**Choose LangSmith** if you're already using LangChain/LangGraph, want a managed platform with zero self-hosting overhead, and are building on Python with standard RAG or agent patterns.
+
+**Choose Phoenix (Arize)** if you value open-source, need to self-host for compliance, want framework-agnostic tracing, or need advanced ML observability features like dataset management and model performance analysis.
+
+## What is LLM Observability?
+
+Before comparing tools: **LLM observability** is the practice of monitoring, tracing, and evaluating AI application behavior in production. Unlike traditional software where a function either returns the right answer or doesn't, LLM applications produce probabilistic outputs that can degrade subtly over time — model updates, prompt drift, changing input distributions.
+
+Observability for LLM systems means capturing:
+
+- **Traces:** Every LLM call in a [multi-step pipeline](/glossary/what-is-llm-orchestration), with inputs, outputs, latency, and token usage
+- **Evaluations:** Automated scoring of output quality (relevance, faithfulness, toxicity)
+- **Datasets:** Ground-truth examples to test against regressions
+- **Feedback:** User thumbs-up/down or explicit corrections routed back to your dataset
+
+Without this, you're flying blind. A model provider update changes behavior, your prompts drift, a new user cohort sends inputs outside your distribution — all of these silently degrade output quality. Observability is how you catch it before users churn.
+
+## Feature Comparison
+
+| Feature | LangSmith | Phoenix (Arize) |
+|---------|-----------|-----------------|
+| **Tracing** | ✅ Native LangChain + OpenAI SDK | ✅ Framework-agnostic (OTEL) |
+| **Non-LangChain support** | ⚠️ Possible, but friction | ✅ First-class |
+| **Self-hosting** | ⚠️ Enterprise plan only | ✅ Open-source, fully self-hostable |
+| **Open-source** | ❌ Proprietary | ✅ Apache 2.0 |
+| **Evaluation** | ✅ Built-in LLM-as-judge + custom | ✅ Built-in + Arize's eval library |
+| **Dataset management** | ✅ Yes | ✅ Yes |
+| **Human feedback loop** | ✅ Yes | ✅ Yes |
+| **Prompt playground** | ✅ Strong | ✅ Good |
+| **A/B testing prompts** | ✅ Yes | ⚠️ Limited |
+| **Multi-modal support** | ⚠️ Text-focused | ✅ Including image/embedding analysis |
+| **Embedding visualization** | ❌ No | ✅ Yes (UMAP projections) |
+| **Pricing** | Free tier → $39+/month | Free (OSS) → Arize Cloud pricing |
+
+## LangSmith Deep Dive
+
+LangSmith is LangChain's commercial observability product. If you're using LangChain or LangGraph for [LLM orchestration](/glossary/what-is-llm-orchestration), instrumentation is nearly automatic — add your API key and traces appear in the dashboard with zero additional code.
+
+**Where LangSmith excels:**
+
+- **Native integration:** LangChain callbacks feed LangSmith traces automatically. Every chain step, agent tool call, and retrieval step appears as a structured trace.
+- **Prompt versioning:** The prompt hub lets teams manage prompt versions, run A/B tests, and pull prompts from a registry rather than hardcoding them.
+- **Online evaluation:** LangSmith can run LLM-as-judge evaluators automatically against sampled production traffic.
+
+**Where LangSmith has friction:**
+
+- Non-LangChain stacks (raw OpenAI SDK calls, custom orchestration) require manual instrumentation via their decorator API
+- Self-hosting requires the Enterprise plan — no option for compliance-sensitive teams on lower tiers
+- Pricing can escalate quickly on high-trace-volume applications
+
+**Practical cost:** Free tier allows 5,000 traces/month. Developer plan ($39/month) includes 10,000 traces. At production scale with a busy AI application, costs can reach $200–500/month or higher.
+
+## Phoenix (Arize) Deep Dive
+
+Phoenix is Arize's open-source LLM observability library and UI. The core library is Apache 2.0 licensed, meaning you can self-host the entire stack — traces, datasets, evaluations — without paying anything.
+
+**Where Phoenix excels:**
+
+- **Framework agnostic:** Phoenix uses OpenTelemetry-compatible tracing. Instrument with `openinference` auto-instrumentors for LangChain, LlamaIndex, OpenAI, Anthropic, DSPy, and more — or write custom spans for any system.
+- **Self-hosting:** The full stack runs on a single Docker container. Compliance-sensitive teams (healthcare, finance, legal) can keep all trace data on-premises.
+- **Embedding analysis:** Phoenix's embedding visualization (UMAP projections) is genuinely useful for understanding semantic search quality, clustering failure cases, and debugging retrieval in RAG systems. LangSmith has no equivalent.
+- **Arize eval library:** `arize-phoenix` ships with a composable evaluation library that makes LLM-as-judge pipelines straightforward.
+
+**Where Phoenix has friction:**
+
+- The managed cloud (Arize Cloud) adds enterprise pricing on top of the open-source core
+- LangChain integration requires the `openinference` instrumentation package — one extra dependency vs. LangSmith's zero-config
+- Prompt management features are less mature than LangSmith's hub
+
+**Practical cost:** Fully free if self-hosted. Arize Cloud pricing is custom/enterprise-tier.
+
+## Choosing Based on Your Stack
+
+| Your situation | Recommendation |
+|---------------|----------------|
+| Heavy LangChain/LangGraph use | LangSmith — zero config wins |
+| Custom orchestration / raw SDK calls | Phoenix — better OTEL support |
+| Compliance requires self-hosting | Phoenix OSS — only real option |
+| Need embedding visualization | Phoenix — no LangSmith equivalent |
+| Want managed SaaS, no ops overhead | LangSmith |
+| Open-source philosophy | Phoenix |
+| Budget-constrained team | Phoenix OSS (free) |
+| Prompt A/B testing is critical | LangSmith |
+
+## Getting Started: Minimal Setup
+
+**LangSmith in 2 lines (LangChain):**
+```python
+import os
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = "your-key"
+# All subsequent LangChain calls are traced automatically
+```
+
+**Phoenix with OpenAI (self-hosted):**
+```python
+import phoenix as px
+from openinference.instrumentation.openai import OpenAIInstrumentor
+
+px.launch_app()  # starts local Phoenix UI
+OpenAIInstrumentor().instrument()
+# All OpenAI SDK calls are traced
+```
+
+Both are genuinely easy to get started with. The setup difference is minimal; the architectural difference (managed SaaS vs. self-hosted OSS) is what matters over time.
+
+## The Observability-Eval Loop
+
+Both tools support the most important production AI workflow: trace → evaluate → add to dataset → test regression.
+
+1. **Trace** production calls
+2. **Flag** interesting examples (high latency, low evaluation score, user thumbs-down)
+3. **Add to dataset** for future regression testing
+4. **Run evals** against the dataset when you change prompts or models
+5. **Deploy** only when eval scores are stable or improved
+
+Teams that build this loop catch quality regressions before users do. Teams that skip it discover problems from customer complaints. See [why startups fail at AI](/blog/why-startups-fail-at-ai) for more on why evaluation infrastructure is the highest-leverage investment for AI teams.
+
+## Key Takeaway
+
+LangSmith and Phoenix are both excellent. Neither will make a bad AI system good — but both will make a good system debuggable, improvable, and maintainable. Pick LangSmith for its LangChain integration and managed convenience. Pick Phoenix for framework flexibility, self-hosting, and open-source guarantees.
+
+If you're uncertain, Phoenix's self-hosted version has no cost to try. Start there, and migrate to LangSmith's managed features if the operator overhead becomes a burden.
+
+<hr />
+
+*Related: [What is LLM Orchestration? Chains and Pipelines](/glossary/what-is-llm-orchestration) · [What is Semantic Search?](/glossary/what-is-semantic-search) · [Why Startups Fail at AI](/blog/why-startups-fail-at-ai)*
+
+Need help setting up LLM observability for your production AI system? [Talk to our engineering team](/contact) — we'll help you instrument your stack and build the eval loop that keeps quality high.
+
+<hr />
+
+## Related Resources
+
+**Related articles:**
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [Technical Due Diligence for AI Startups](/blog/technical-due-diligence-ai-startup)
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026)
+
+**Our solution:** [AI MVP Sprint — ship in 3 weeks](/solutions/ai-workflow-automation)
+
+**Browse all comparisons:** [Compare](/compare)
+
+
+
+## Related Articles
+
+- [How We Ship AI MVPs in 3 Weeks (Without Cutting Corners)](/blog/how-we-ship-ai-mvps-in-3-weeks) — Inside look at our sprint process from scoping to production deploy
+- [AI Development Cost Breakdown: What to Expect](/blog/ai-development-cost-breakdown) — Realistic cost breakdown for building AI features at startup speed
+- [Why Startups Choose an AI Agency Over Hiring](/blog/ai-agency-for-startups) — Build vs hire analysis for early-stage companies moving fast
+- [The $4,999 MVP Development Sprint: How It Works](/blog/mvp-development-sprint-guide) — Full walkthrough of our 3-week sprint model and what you get
+- [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make) — Common pitfalls that slow down AI MVPs and how to avoid them

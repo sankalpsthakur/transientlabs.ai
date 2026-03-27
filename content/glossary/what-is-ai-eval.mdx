@@ -1,0 +1,135 @@
+---
+title: "What is AI Evaluation? Testing LLM Applications"
+description: "AI evaluation measures LLM application quality, safety, and reliability. Learn the key metrics, frameworks, and methods teams use in production."
+keywords:
+  - AI evaluation
+  - LLM evaluation
+  - AI testing
+  - LLM testing
+  - eval frameworks
+  - AI benchmark
+  - LLM quality
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Get Your AI App Evaluated"
+cta_url: "/contact"
+slug: "what-is-ai-eval"
+---
+
+## What is AI Evaluation?
+
+**AI evaluation** — often called "evals" — is the systematic process of measuring how well an LLM-powered application performs against defined quality, safety, and reliability criteria. Unlike traditional software tests with binary pass/fail outcomes, AI evaluation deals with probabilistic outputs, nuanced correctness, and emergent failure modes that change as models are updated.
+
+Every team shipping a production AI product needs an eval strategy. Without one, you're deploying blind — unable to detect regressions, compare model versions, or confidently claim your application is ready for real users.
+
+## Why AI Evaluation is Different from Traditional QA
+
+In conventional software, a function either returns the right value or it doesn't. With LLMs, "right" is often subjective, context-dependent, and statistically distributed. A model might answer correctly 90% of the time — but that 10% failure rate could be catastrophic in a medical, legal, or financial context.
+
+Evals exist to quantify:
+
+- **Accuracy** — Does the output match the expected answer?
+- **Faithfulness** — Does the response stay grounded in the source material (critical for RAG systems)?
+- **Relevance** — Does the answer actually address the user's question?
+- **Safety** — Does the model refuse harmful requests while staying helpful?
+- **Latency** — Is the response fast enough for the intended use case?
+- **Cost** — How many tokens does each successful response consume?
+
+None of these can be verified by a single unit test. They require statistical sampling across hundreds or thousands of representative inputs.
+
+## Types of AI Evaluation
+
+### 1. Automated Evals
+
+Automated evals run without human reviewers. They come in several flavors:
+
+- **Exact match** — The model output must match a reference string. Useful for classification, entity extraction, or structured JSON outputs.
+- **Semantic similarity** — The output is embedded and compared against a reference using cosine similarity. Good for paraphrase detection and open-ended Q&A.
+- **LLM-as-judge** — A separate, powerful model (often GPT-4 or Claude Opus) evaluates the response against a rubric. Scales well but adds cost and introduces its own biases.
+- **Code execution** — For code generation tasks, the generated code is run against a test suite and scored on pass rate.
+
+### 2. Human Evals
+
+Human evaluation is the gold standard. Domain experts or trained raters review outputs and score them on criteria like helpfulness, accuracy, and tone. The downside is cost and speed — human eval doesn't scale to continuous integration pipelines.
+
+Best practice: use human evals to calibrate your automated evals. Run both on the same dataset, measure correlation, and tune your automated rubric until it reliably predicts human preference.
+
+### 3. Red-Teaming
+
+Red-teaming is adversarial evaluation. Testers (human or automated) probe the model for failure modes: jailbreaks, hallucinations, harmful outputs, prompt injection vulnerabilities, and edge cases the system prompt doesn't handle.
+
+Any AI application handling sensitive user data or consequential decisions should be red-teamed before launch.
+
+## Key Eval Metrics for LLM Applications
+
+| Metric | What it Measures | When to Use |
+|--------|-----------------|-------------|
+| **BLEU / ROUGE** | N-gram overlap with reference | Machine translation, summarization |
+| **BERTScore** | Semantic similarity via embeddings | Open-ended generation |
+| **Faithfulness** | Hallucination rate vs. source docs | RAG pipelines |
+| **Answer Relevance** | How well output addresses the query | Q&A systems |
+| **Context Precision/Recall** | Retrieval quality in RAG | Document retrieval |
+| **Task Success Rate** | Did the agent complete the goal? | Agentic workflows |
+| **Refusal Rate** | % of harmful prompts refused | Safety-critical apps |
+
+## Building an Eval Pipeline
+
+A production eval pipeline has four components:
+
+1. **Eval dataset** — A curated set of inputs with expected outputs or evaluation criteria. Start with 50–200 examples covering normal use, edge cases, and known failure modes.
+2. **Eval runner** — A script or framework (RAGAS, PromptFoo, LangSmith, DeepEval) that runs each input through the application and collects outputs.
+3. **Scorer** — The logic that transforms raw outputs into numeric scores (LLM-as-judge, exact match, embedding similarity, etc.).
+4. **Reporting** — Dashboards or CI checks that flag regressions before deployment.
+
+Run evals on every model version change, every prompt change, and every retrieval configuration change. Treat eval failures like failing unit tests — don't ship until they're resolved.
+
+## Popular AI Evaluation Frameworks
+
+- **[RAGAS](https://ragas.io)** — Purpose-built for RAG pipelines; measures faithfulness, relevance, and context quality
+- **[PromptFoo](https://promptfoo.dev)** — CLI-first eval runner with LLM-as-judge support and CI integration
+- **[LangSmith](https://smith.langchain.com)** — Tracing + eval integrated into the LangChain ecosystem
+- **[DeepEval](https://deepeval.com)** — Open-source framework with a wide metric library and Pytest integration
+- **[Braintrust](https://braintrust.dev)** — Eval + experiment tracking platform with a strong UX
+
+The right choice depends on your stack. For teams building [AI agents](/glossary/ai-agent), frameworks that support multi-turn and tool-call evaluation (LangSmith, Braintrust) tend to fit better than single-turn focused tools.
+
+## How Often Should You Evaluate?
+
+| Trigger | Eval Scope |
+|---------|-----------|
+| Every PR touching prompts | Lightweight automated eval (fast, cheap) |
+| Every model version bump | Full eval suite across all task types |
+| Weekly scheduled run | Regression detection on production traffic samples |
+| Pre-launch | Full automated + human eval + red-team |
+| Post-incident | Targeted eval on the failure category |
+
+## The Relationship Between Evals and Prompt Engineering
+
+Evals and [prompt engineering](/glossary/prompt-engineering) are inseparable. You iterate on prompts, run evals, measure the delta, and decide whether the change is an improvement. Without evals, prompt engineering is guesswork. Without prompt iteration, your evals have nothing to optimize against.
+
+The teams building the best AI products treat evals as a first-class engineering artifact — versioned, reviewed, and improved alongside the application code.
+
+## Key Takeaway
+
+AI evaluation is not optional for production LLM applications. It's the mechanism by which you maintain quality as models change, requirements evolve, and edge cases surface. Start with a small eval dataset and a simple automated scorer, then grow the system as your application matures.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is Tool Use in AI?](/glossary/what-is-tool-use-ai) · [From MVP to Scale: Growing Your AI Product](/blog/mvp-to-scale-ai-product)*
+
+[Want expert help building an eval strategy for your AI application? Talk to our team →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

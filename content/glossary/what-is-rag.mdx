@@ -1,0 +1,127 @@
+---
+title: "What is RAG (Retrieval-Augmented Generation)?"
+description: "What is RAG? It combines a retrieval system with an LLM to answer questions from your own data. How it works, when to use it, and how to build it."
+keywords:
+  - what is RAG
+  - retrieval-augmented generation
+  - RAG architecture
+  - LLM with custom data
+  - vector database
+  - RAG vs fine-tuning
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build a RAG System for Your Product"
+cta_url: "/contact"
+slug: "what-is-rag"
+---
+
+## What is RAG (Retrieval-Augmented Generation)?
+
+**Retrieval-Augmented Generation (RAG)** is an AI architecture that enhances a large language model by first retrieving relevant documents from a knowledge base, then using that retrieved context to generate a grounded, accurate response.
+
+RAG solves one of the biggest limitations of foundation models: they only know what was in their training data. With RAG, your LLM can answer questions about documents, databases, or knowledge that was never in its training set — without retraining the model.
+
+It's the most widely deployed pattern in production AI products today, from enterprise chatbots to internal search tools.
+
+## How RAG Works — Step by Step
+
+A RAG pipeline has four core stages:
+
+1. **Ingestion** — Your documents (PDFs, databases, web pages) are chunked into smaller passages and converted into vector embeddings using an embedding model.
+2. **Indexing** — Those embeddings are stored in a vector database (Pinecone, Weaviate, pgvector, Chroma).
+3. **Retrieval** — When a user asks a question, the query is also embedded, and the most semantically similar passages are fetched from the vector DB.
+4. **Generation** — The retrieved passages are injected into the LLM's context window as a prompt, and the model generates an answer grounded in those documents.
+
+The result: the LLM answers based on *your* data, not just its training knowledge.
+
+## RAG Architecture Diagram
+
+```
+User Query
+    │
+    ▼
+Embedding Model
+    │
+    ▼
+Vector Search (Top-K retrieval)
+    │
+    ▼
+Retrieved Chunks → Context Prompt → LLM → Response
+```
+
+## Why RAG Works So Well
+
+RAG is effective because it separates two hard problems:
+
+- **Finding relevant information** — handled by the retrieval layer (fast, scalable, deterministic)
+- **Reasoning and generation** — handled by the LLM (flexible, expressive)
+
+Neither component needs to be perfect. A good retrieval system surfaces the right context 80% of the time; the LLM fills in the gaps with reasoning. Together, they outperform either alone.
+
+## RAG vs Fine-Tuning: Which Should You Use?
+
+This is the most common question teams face when adding custom knowledge to an LLM.
+
+| | RAG | Fine-Tuning |
+|--|-----|-------------|
+| **Use case** | Dynamic, frequently updated data | Teaching new behaviors or styles |
+| **Data freshness** | Real-time — update the index anytime | Static — requires retraining |
+| **Cost** | Low — no training required | High — GPU compute + data labeling |
+| **Setup time** | Days | Weeks to months |
+| **Hallucination risk** | Lower — answers grounded in retrieved docs | Higher without careful training data |
+| **When to use** | Q&A over docs, internal knowledge bases | Custom tone, domain-specific reasoning |
+
+**Rule of thumb:** If your data changes more than monthly, use RAG. If you need the model to behave differently (not just know more), consider fine-tuning — or [use both together](/glossary/what-is-fine-tuning).
+
+## Common RAG Failure Modes
+
+Teams that build naive RAG pipelines often hit these problems:
+
+- **Retrieval misses** — The query embedding doesn't match the document chunk, so wrong context is retrieved. Fix: better chunking strategy, hybrid search (keyword + vector).
+- **Context too large** — Stuffing 20 retrieved chunks overwhelms the model. Fix: re-rank and limit to top 3–5 relevant passages.
+- **Chunking artifacts** — Splitting documents at arbitrary character limits breaks semantic units. Fix: use sentence-aware or heading-aware chunking.
+- **Stale embeddings** — Adding new documents without re-embedding breaks recall. Fix: incremental indexing pipelines.
+
+## Production RAG Stack (2026)
+
+A typical production RAG system uses:
+
+- **Embedding model**: OpenAI `text-embedding-3-small`, Cohere Embed, or local sentence-transformers
+- **Vector store**: pgvector (Postgres extension) for simple setups; Pinecone or Weaviate for scale
+- **LLM**: Claude 3.5 Sonnet or GPT-4o for high-quality answers
+- **Orchestration**: LangChain, LlamaIndex, or a custom retrieval loop
+- **Re-ranking**: Cohere Rerank or cross-encoder models to improve retrieval precision
+
+## When RAG Is the Right Choice
+
+RAG is the right approach when you need:
+
+- Answers from private or proprietary documents (contracts, internal wikis, support tickets)
+- Up-to-date information the model wasn't trained on (product docs, recent news)
+- Citations and source attribution — RAG makes it easy to show which document an answer came from
+- Fast iteration — you can update your knowledge base without touching your model
+
+## Key Takeaway
+
+RAG is the fastest, most cost-effective way to make an LLM useful on your own data. It's not a research concept — it's the backbone of most production AI products built in 2024–2026.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is Fine-Tuning?](/glossary/what-is-fine-tuning) · [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks)*
+
+[Building a RAG system for your product? Our engineers have shipped dozens of them. Book a 15-min scope call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

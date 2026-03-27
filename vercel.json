@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.100xai.engineering" }],
+      "destination": "https://100xai.engineering/:path*",
+      "permanent": true
+    }
+  ]
+}

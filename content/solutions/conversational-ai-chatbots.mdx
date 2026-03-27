@@ -1,0 +1,175 @@
+---
+title: "Conversational AI & Chatbots"
+description: "Build a conversational AI that actually works: multi-turn, context-aware, action-taking. Learn the cost, architecture, and how to hire an AI agency to ship it in a sprint."
+keywords:
+  - conversational AI development
+  - AI chatbot for business
+  - hire AI chatbot agency
+  - build conversational AI cost
+  - LLM chatbot sprint
+  - multi-turn AI agent
+  - conversational AI architecture
+  - custom AI assistant
+category: "Solutions"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Your Conversational AI"
+cta_url: "/contact"
+slug: "conversational-ai-chatbots"
+---
+
+## The Chatbot Credibility Problem
+
+Everyone has used a bad chatbot. The keyword-matcher that responds to "cancel my subscription" with "I see you're interested in subscriptions! Here are our plans." The endless decision tree that dead-ends in "please call our support line." The "AI assistant" that's just FAQ search with a text box on top.
+
+These experiences have trained users to have near-zero expectations for chatbots. That's your opportunity — because the technology gap between 2020-era chatbots and 2026-era conversational AI is enormous, and most companies haven't caught up.
+
+A modern conversational AI doesn't just answer questions. It holds context across turns, takes actions in your systems, adapts its persona to your brand voice, and hands off to humans so seamlessly that the transition feels natural. Built right, it becomes a multiplier on every customer-facing interaction in your business.
+
+## What Separates a Conversational AI from a Chatbot
+
+The vocabulary matters here. A **chatbot** is typically rule-based or intent-based: it matches user input to a predefined flow and executes it. It works for simple, structured interactions with limited branching.
+
+A **conversational AI** is model-driven: it understands natural language, maintains context across a multi-turn conversation, reasons about what the user actually needs (vs. what they literally said), and can handle the unexpected gracefully.
+
+The practical differences:
+
+| | Traditional Chatbot | Conversational AI |
+|---|---|---|
+| Handles unexpected input | ❌ Falls back to "I don't understand" | ✅ Reasons about intent, asks clarifying questions |
+| Multi-turn context | ❌ Each message handled independently | ✅ Full conversation history in context |
+| Actions in your systems | ❌ Links to pages at best | ✅ Tool calls to APIs, databases, workflows |
+| Persona consistency | ❌ Generic | ✅ Trained to your brand voice and knowledge |
+| Updates when product changes | ❌ Manual flow re-configuration | ✅ Update the knowledge base, model adapts |
+
+## Core Use Cases for Conversational AI in 2026
+
+**Sales Qualification & Lead Engagement**
+An AI that engages web visitors at the right moment, qualifies intent and budget, books discovery calls, and hands off to sales reps with a full conversation summary. No more stale lead forms.
+
+**Customer Support & Self-Service**
+See our dedicated [AI Customer Support](/solutions/ai-customer-support) solution page. Conversational AI resolves 70–80% of support volume without human intervention.
+
+**Onboarding & Product Guidance**
+An in-app assistant that walks users through setup, answers product questions in context, and proactively surfaces next steps based on where the user is in their journey.
+
+**Internal Knowledge Assistant**
+HR policy, IT helpdesk, compliance FAQs, engineering runbooks — an internal AI assistant that your team can query in natural language, connected to your Notion, Confluence, or Google Workspace.
+
+**E-commerce Shopping Assistant**
+Product discovery, comparison, personalised recommendations, order tracking — conversational commerce that turns browsers into buyers.
+
+## The Architecture That Makes It Work
+
+### Conversation State Management
+Multi-turn conversation requires a memory layer. Short-term memory: the current conversation history, passed in full context to the model. Long-term memory: user preferences, past interactions, account data — retrieved via vector search or database lookup at the start of each session.
+
+### Intent & Routing Layer
+For complex deployments, a lightweight classifier routes conversations to specialised agents (a billing agent, a technical support agent, a sales agent) while maintaining a unified conversation interface. The user experiences one coherent assistant; behind the scenes, multiple specialised models handle their domain.
+
+### Tool & API Integration
+The model's real power is tool use — the ability to take actions: look up order status, create a support ticket, update a user preference, schedule a meeting, trigger a workflow. Every tool is defined, documented, and passed to the model. The model decides when to call them and how to interpret the results.
+
+### Guardrails & Safety Layer
+Production conversational AI needs guardrails: topic boundaries (keep the sales bot from becoming a general-purpose assistant), content policies (don't make claims you can't support), confidence thresholds (escalate when the model is uncertain), and PII handling (don't echo sensitive data back unnecessarily).
+
+### Escalation & Handoff
+The handoff to a human agent is a critical UX moment. Great handoffs: happen before the user gets frustrated, come with a full conversation summary, don't make the user repeat themselves. We build escalation logic with frustration detection, confidence monitoring, and explicit escalation paths.
+
+## Real Deployment Channels
+
+Modern conversational AI isn't just a web chat widget. We deploy to:
+
+- **Web chat widget** — embedded on your site or app, customised to your brand
+- **Slack / Teams** — internal assistants that live where your team already works
+- **WhatsApp / SMS** — for markets where messaging apps are the primary channel
+- **In-app SDK** — deeply integrated with your product context (current page, user state, recent actions)
+- **Voice** — phone-based AI for call centre automation (speech-to-text → LLM → text-to-speech)
+
+The underlying AI is the same; the delivery channel and UX patterns differ.
+
+## Cost to Build Conversational AI: What to Expect
+
+A common question from founders and product leads: *"How much does it cost to build a custom conversational AI?"*
+
+Honest ranges:
+
+| Scope | Agency Sprint Cost | Timeline |
+|---|---|---|
+| Single-channel chatbot, 1 use case | $10,000–$20,000 | 2 weeks |
+| Multi-use-case assistant, 2–3 channels | $25,000–$50,000 | 3–5 weeks |
+| Enterprise-grade, multi-agent routing, voice | $50,000–$120,000 | 6–10 weeks |
+
+Compare: building in-house with a team that has LLM expertise costs $80K–$200K in engineering time for the equivalent mid-tier system, plus 3–6 months.
+
+The SaaS route (Intercom, Drift, ManyChat) is fast but limited: you're constrained to their conversation model, their integrations, and their pricing scales painfully as your usage grows.
+
+For companies that want a conversational AI genuinely tailored to their product, brand, and workflows — with no per-conversation rent — the agency sprint is the right path.
+
+## What Hiring a Conversational AI Agency Looks Like
+
+When you hire Transient Labs for a conversational AI build, you're not hiring a team that's going to spend 4 weeks figuring out the architecture. We've already built the infrastructure:
+
+- Conversation state management patterns for multi-turn, multi-channel
+- Tool integration scaffolding
+- Evaluation harnesses for conversational AI (measuring intent accuracy, task completion rates, escalation rates)
+- Deployment pipelines for web, Slack, WhatsApp, and in-app
+
+We bring this to your project. You get custom behaviour, your brand voice, your tools — on a proven foundation.
+
+**What we need from you:**
+- Your top 20–30 conversation scenarios (the things users ask most often)
+- Access to your systems (APIs, knowledge bases) the AI should connect to
+- Your brand voice guide (or 20 minutes to define it together)
+- Two or three people to provide feedback during the two-week build
+
+**What you get:**
+- A working, deployed conversational AI in your channels
+- A full evaluation report: accuracy across your test scenarios, edge case coverage
+- The codebase — on your infrastructure, with your data
+- Training so your team can update the knowledge base and add tools without us
+
+## Persona Design: Often Overlooked, Always Critical
+
+The best conversational AI is barely noticeable as AI. It sounds like your brand. It handles awkward moments gracefully. It knows when to be warm and when to be efficient.
+
+Persona design is part of our engagement: we work with you to define the AI's name, communication style, how it handles confusion, how it escalates, and what it never says. This is as important as the architecture — a technically perfect bot with a robotic persona will be abandoned by users.
+
+Read about our development approach: [How to Evaluate AI Agencies](/blog/how-to-evaluate-ai-agencies).
+
+## Choosing the Right Model for Your Conversational AI
+
+- **Claude 3.5 Sonnet** — best instruction-following, safest for brand-voice consistency, excellent at maintaining persona across long conversations
+- **GPT-4o** — best for multimodal conversations (image uploads in chat), strong reasoning
+- **Gemini 1.5 Flash** — fast and cost-effective for high-volume simple interactions
+- **Llama 3 (on-prem)** — for enterprise deployments where no data can leave your infrastructure
+
+Most production deployments use a model router: fast/cheap model for simple queries, powerful model for complex reasoning, with a classifier deciding in real time.
+
+## Is Conversational AI Right for You?
+
+The ROI case is clearest when:
+
+- You have a high volume of repetitive, predictable user interactions
+- Your users have questions that could be answered by a knowledgeable human with product context
+- There's a clear set of actions the AI should be able to take (not just answer, but *do*)
+- You can measure success (task completion rate, escalation rate, CSAT, conversion rate)
+
+If you're not sure what your conversational AI should actually do — that's a good sign you need a discovery conversation first, not a build. We offer a scoping workshop to define the use case before any code is written.
+
+## Ready to Build a Conversational AI That Actually Works?
+
+We've built conversational AI for SaaS products, marketplaces, healthcare platforms, and B2B sales teams. We know what works, what falls apart at scale, and how to ship fast without sacrificing quality.
+
+[Talk to us about your use case →](/contact)
+
+Tell us the channel, the use case, and what you've tried before. We'll tell you what's realistic, what it costs, and whether a sprint can get you there.
+
+## Related Articles
+
+- [How We Ship AI MVPs in 3 Weeks (Without Cutting Corners)](/blog/how-we-ship-ai-mvps-in-3-weeks) — Inside look at our sprint process from scoping to production deploy
+- [AI Development Cost Breakdown: What to Expect](/blog/ai-development-cost-breakdown) — Realistic cost breakdown for building AI features at startup speed
+- [Why Startups Choose an AI Agency Over Hiring](/blog/ai-agency-for-startups) — Build vs hire analysis for early-stage companies moving fast
+- [The $4,999 MVP Development Sprint: How It Works](/blog/mvp-development-sprint-guide) — Full walkthrough of our 3-week sprint model and what you get
+- [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make) — Common pitfalls that slow down AI MVPs and how to avoid them

@@ -1,0 +1,258 @@
+---
+title: "Building an ESG Data Pipeline: Architecture Guide for Engineering Teams"
+description: "A practical architecture guide for engineering teams building ESG data infrastructure. Covers ingestion, normalization, emission factor calculation, audit trails, and the tradeoffs between build vs buy."
+keywords:
+  - ESG data pipeline
+  - ESG data architecture
+  - emission factor calculation
+  - ESG data ingestion
+  - sustainability data engineering
+  - carbon accounting pipeline
+  - ESG audit trail
+  - CSRD data infrastructure
+  - GHG data normalization
+  - ESG engineering
+category: "ESG compliance"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-05"
+slug: "building-esg-data-pipeline"
+cta_text: "Talk to us about ESG compliance"
+cta_url: "https://100xai.engineering/solutions/esg-compliance"
+---
+
+# Building an ESG Data Pipeline: Architecture Guide for Engineering Teams
+
+ESG reporting is fundamentally a data problem. The frameworks — ESRS, GRI, TCFD — specify *what* to report. The hard engineering work is building reliable pipelines that collect, normalize, calculate, and audit the underlying numbers. Most companies underestimate this until they are six weeks from a filing deadline.
+
+This guide is written for engineering teams tasked with building or evaluating ESG data infrastructure. We cover the full pipeline from ingestion to audit-ready output, with concrete technology choices and the architectural tradeoffs that matter for compliance workloads.
+
+## The ESG Data Problem in Concrete Terms
+
+A typical medium-sized tech company needs to track and report:
+
+- **Scope 1 emissions:** Direct combustion (company vehicles, on-premise generators) — usually low data volume, straightforward sourcing
+- **Scope 2 emissions:** Purchased electricity and heat — requires utility bill data, location-based vs market-based method calculations, renewable energy certificate (REC) tracking
+- **Scope 3 emissions (15 categories):** Business travel, employee commute, purchased goods and services, use of sold products, cloud infrastructure, waste — high volume, heterogeneous sources, highest uncertainty
+- **Social metrics (S1):** Headcount by gender/ethnicity/contract type, pay gap analysis, training hours, turnover — sourced from HR systems
+- **Governance metrics (G1):** Policy documentation, incident registers, supplier assessments — semi-structured document sources
+
+The challenge is that these data points live in: email inboxes (utility PDFs), ERP systems (Accounts Payable), HR platforms (Workday, BambooHR), travel booking systems (Concur, TravelPerk), cloud provider dashboards (AWS, GCP, Azure), and spreadsheets maintained by finance. None of these systems were designed to talk to each other for ESG purposes.
+
+## Pipeline Architecture Overview
+
+A production ESG data pipeline has five logical layers:
+
+```
+[Source Systems] → [Ingestion Layer] → [Normalization Layer] → [Calculation Engine] → [Audit Store] → [Reporting Layer]
+```
+
+Let's walk through each.
+
+<hr />
+
+## Layer 1: Ingestion
+
+The ingestion layer connects to source systems and pulls raw data into a staging area. ESG ingestion is unusual because it spans three fundamentally different data types:
+
+### Structured API Sources
+Cloud carbon APIs (AWS Customer Carbon Footprint Tool, GCP Carbon Footprint, Azure Emissions Insights) export JSON/CSV data with varying schemas. Each provider uses different system boundary definitions, allocation methodologies, and update frequencies. Ingestion here is a standard ETL problem — poll on a schedule, normalize schema differences, store raw responses with timestamps.
+
+Key considerations:
+- AWS updates carbon data monthly, with a 3-month lag
+- GCP provides near-real-time data but uses market-based methodology by default
+- Azure requires the Emissions Impact Dashboard to be explicitly enabled per subscription
+
+### Semi-Structured Document Sources
+Utility bills, fuel receipts, travel invoices, and supplier questionnaires arrive as PDFs or images. This requires an OCR pipeline with extraction logic tuned for energy documents.
+
+Architecture pattern:
+1. Document arrives via email (IMAP polling), file upload, or API webhook
+2. Pre-processing: image normalization, multi-page PDF splitting
+3. OCR: Tesseract or a commercial service (Google Document AI, AWS Textract) for base text extraction
+4. Extraction: LLM-based or rule-based parser to identify: vendor name, billing period, consumption figure, unit (kWh, MWh, therms, GJ), location
+5. Validation: cross-check extracted values against expected ranges (flag a 10× spike for human review)
+6. Staging: store extracted values with confidence scores and source document reference
+
+The extraction step is where most custom engineering effort goes. Utility bill formats vary widely by geography and provider. A fine-tuned extraction model on domain-specific bills dramatically outperforms generic OCR post-processing.
+
+### Human-Reported Data
+Employee commute surveys, supplier questionnaires, and waste manifest data involve structured collection forms feeding into a database. This layer is less technically complex but requires careful schema design — you need to capture both the reported value and the metadata (who reported, when, what methodology they used).
+
+<hr />
+
+## Layer 2: Normalization
+
+Raw data from different sources uses different units, time periods, and reference frames. Normalization standardizes everything before calculation.
+
+### Unit Normalization
+Energy data arrives in kWh, MWh, therms, GJ, BTU, and tonnes of oil equivalent (toe). All must be converted to a common unit (typically MWh or GJ) using standardized conversion factors. Store the conversion factor applied and its source (IPCC, IEA, DEFRA) alongside every converted figure.
+
+### Temporal Alignment
+Fiscal year boundaries, billing cycles, and reporting periods rarely align. You need a temporal mapping layer that:
+- Prorates utility bills that span reporting period boundaries
+- Handles retroactive data corrections (a utility provider issuing a corrected bill for Q2 in October)
+- Tracks data vintage (when was this figure collected vs the period it covers)
+
+### Organizational Scope Mapping
+ESRS and GHG Protocol both require clear organizational boundaries. For a multi-entity company, you need to map each data point to the correct legal entity, location, and operational boundary (equity share vs control approach). This mapping table needs to be version-controlled — organizational structures change, and historical data must remain mapped to the structure that existed at reporting time.
+
+<hr />
+
+## Layer 3: Calculation Engine
+
+The calculation engine applies emission factors to activity data to produce GHG quantities in CO₂e (carbon dioxide equivalent).
+
+### Emission Factor Databases
+
+The core reference datasets:
+
+| Source | Coverage | Update Frequency | Use Case |
+|--------|----------|-----------------|----------|
+| DEFRA UK Government GHG Conversion Factors | UK + international | Annual (March/April) | Travel, fuel, freight |
+| IEA Electricity Emission Factors | Country-level grid factors | Annual | Location-based Scope 2 |
+| IPCC AR6 GWP values | GHG-level global warming potentials | Per assessment cycle (~7 years) | All GHG calculations |
+| US EPA eGRID | US regional grid factors | Annual | US location-based Scope 2 |
+| Ecoinvent | Comprehensive LCA database | ~Annual | Scope 3 Category 1 (purchased goods) |
+
+Your calculation engine needs to version-control which emission factor dataset and version was used for each calculation. CSRD and GHG Protocol both require disclosure of the methodologies and sources used — a calculation made with a 2023 DEFRA factor produces a different result than one made with 2025 factors, and both need to be reproducible.
+
+### Calculation Logic
+
+For Scope 1 and 2, calculation is deterministic:
+
+```
+emissions_kg_CO2e = activity_data_value × unit_conversion_factor × emission_factor_kg_CO2e_per_unit
+```
+
+For Scope 3, each of the 15 categories has a different calculation approach:
+
+- **Category 1 (Purchased goods and services):** Spend-based or supplier-specific method. Spend-based uses EEIO (environmentally extended input-output) models by industry code — high uncertainty, but tractable without supplier data.
+- **Category 6 (Business travel):** Distance-based using booking data (airline class × distance × DEFRA factors for radiative forcing)
+- **Category 11 (Use of sold products):** For SaaS, this is typically zero or near-zero (no direct energy use in the product itself). For hardware products, this requires lifetime energy use modeling.
+- **Category 13 (Downstream leased assets):** Relevant if you lease data center space or infrastructure
+
+Build the calculation engine as a library of pure functions, one per category, with explicit inputs (activity data, emission factor, methodology choice) and outputs (CO₂e value, uncertainty estimate, methodology documentation string). This architecture makes unit testing trivial and calculation logic auditable.
+
+<hr />
+
+## Layer 4: Audit Store
+
+This is where most ESG data platforms cut corners, and where auditors will focus. The audit store must satisfy three requirements:
+
+### Immutability
+Once a data point is committed to the audit store, it cannot be modified in place. Corrections must be applied as new records with an amendment reference to the original. Use append-only storage — event-sourced database patterns, immutable S3 objects, or a ledger-style database.
+
+### Full Lineage
+Every reported figure must trace back to:
+1. The source document or API response (stored in raw form)
+2. The ingestion timestamp and system
+3. Any transformations applied
+4. The emission factor used and its version
+5. The calculation performed
+6. The human reviewer who validated (if applicable)
+
+This is not just good practice — CSRD's limited assurance requirement means your auditor will ask to see this chain for sampled data points. A lineage gap is a finding.
+
+### Access Control and Timestamping
+All access to audit-store data should be logged. Role-based access control prevents post-hoc modification. Cryptographic timestamping (RFC 3161 trusted timestamping) provides non-repudiation evidence for key report submissions.
+
+<hr />
+
+## Layer 5: Reporting Layer
+
+The reporting layer generates the actual disclosures. At minimum this means:
+
+- **Quantitative data export:** Structured outputs (JSON, CSV) in formats compatible with ESRS data point taxonomy (the XBRL taxonomy for ESRS digital reporting, required for machine-readable submissions)
+- **Narrative template population:** Auto-populating disclosure templates with calculated figures, reducing manual copy-paste errors
+- **Year-over-year comparison:** Delta calculation with automated flags for material changes requiring explanatory narrative
+- **Assurance package generation:** Automated assembly of the evidence package your auditor needs — source documents, calculation records, lineage traces — for sampled data points
+
+<hr />
+
+## Build vs Buy Decision
+
+The market has two types of ESG software:
+
+**Full-stack ESG platforms** (Persefoni, Watershed, Sweep, Plan A): Handle reporting templates, some data collection, workflow management. Strong on UI and framework alignment. Weak on custom data ingestion — they expect clean structured data and struggle with complex OCR or non-standard source systems.
+
+**Data infrastructure tools** (dbt, Airbyte, custom pipelines): Give you full control over ingestion and transformation logic but require building the ESG domain logic yourself.
+
+The practical recommendation: use a reporting platform for framework alignment and stakeholder-facing output, but build or customize the data ingestion and normalization layers. The ingestion layer is where your organization's specifics (which ERP, which HR system, which cloud providers) determine what's needed — no off-the-shelf platform handles all combinations well.
+
+<hr />
+
+## Common Engineering Mistakes
+
+**1. Storing only aggregated figures.** Once you aggregate, you lose the lineage. Store every intermediate step.
+
+**2. Manual entry without validation.** Human-entered values need range checks and consistency validation at input time, not at report generation time.
+
+**3. Ignoring data corrections.** Utility companies issue corrected bills. Cloud providers retroactively update carbon data. Your pipeline needs a correction workflow that propagates upstream changes downstream without corrupting the audit history.
+
+**4. Single-year data stores.** CSRD requires comparative data. Design your schema for multi-year from day one.
+
+**5. Conflating methodology versions.** If you change from location-based to market-based Scope 2 calculation methodology, the comparison between years is not apples-to-apples. Track methodology versions as first-class entities.
+
+<hr />
+
+## Automation Workflows for ESG Reporting
+
+The most impactful shift companies make when moving from spreadsheet-based ESG reporting to a production pipeline is replacing manual collection steps with automated workflows:
+
+- **Scheduled API pulls** — Cloud carbon APIs (AWS, GCP, Azure) update monthly; automated ingestion means you never fall behind
+- **Email-triggered OCR pipelines** — Utility bills arriving in a shared inbox automatically route to an extraction queue
+- **HR system sync** — Automated exports from Workday or BambooHR keep workforce metrics current without manual intervention
+- **Audit trail generation** — Every pipeline run produces an immutable log, ready for assurance review
+
+If your team is also pursuing SOC2 certification, the access controls, change management, and audit logging you build for ESG data infrastructure directly satisfy SOC2 security controls. Building both together saves significant engineering time — see our [Security & SOC2 Compliance](/solutions/security-soc2) offering for how we approach this.
+
+## Getting Started in Three Weeks
+
+A credible MVP ESG data pipeline can be delivered in three weeks if you scope it correctly:
+
+- **Week 1:** Ingestion layer for your two highest-volume data sources (typically cloud APIs + utility bill OCR). Raw storage with schema versioning.
+- **Week 2:** Normalization and calculation engine for Scope 1 and 2. Emission factor database integration (DEFRA + IEA as a baseline). Audit store with lineage tracking.
+- **Week 3:** Reporting layer export in ESRS format. Assurance package generation. Access controls.
+
+Scope 3 is a follow-on phase — the data collection complexity is higher and requires supplier engagement that cannot be compressed into a three-week sprint.
+
+<hr />
+
+**Talk to us about ESG compliance** — [100xai.engineering/solutions/esg-compliance](https://100xai.engineering/solutions/esg-compliance)
+
+We build production ESG data pipelines for tech companies preparing for CSRD and investor disclosure requirements. Our three-week delivery model gets you from zero to audit-ready infrastructure without the 18-month consultancy engagement.
+
+<hr />
+
+*Emission factor sources cited reflect publicly available datasets as of early 2026. Factor versions and coverage change annually — always verify against the latest published release from DEFRA, IEA, or EPA for production calculations.*
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [How AI is Transforming ESG Reporting](/blog/ai-transforming-esg-reporting)
+- [CSRD Compliance Checklist 2026](/blog/csrd-compliance-checklist-2026)
+- [CSRD Compliance for Tech Companies](/blog/csrd-compliance-tech-companies-2026)
+
+**Our solutions:** [ESG Compliance Engineering](/solutions/esg-compliance) · [Security & SOC2 Compliance](/solutions/security-soc2)
+
+**Glossary:**
+
+- [CSRD](/glossary/what-is-csrd)
+- [ESRS](/glossary/what-is-esrs)
+- [Double Materiality](/glossary/what-is-double-materiality)
+
+**Comparisons:**
+
+- [Manual vs Automated ESG Reporting](/compare/manual-vs-automated-esg-reporting)
+- [Persefoni vs Watershed](/compare/persefoni-vs-watershed)
+
+
+
+
+<hr />
+
+> **Free Tool:** Check your CSRD obligations and get a readiness score with prioritized actions. → [**CSRD Readiness Calculator**](/resources/csrd-readiness-calculator)

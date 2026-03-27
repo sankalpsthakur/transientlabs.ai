@@ -1,0 +1,118 @@
+---
+title: "What Are Embeddings in AI?"
+description: "Embeddings convert text, images, and data into vectors that capture meaning. Learn how AI embeddings work, why they matter, and when to use them."
+keywords:
+  - what are embeddings
+  - AI embeddings
+  - vector embeddings
+  - text embeddings
+  - embedding model
+  - semantic search
+  - embeddings in machine learning
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Semantic Search for Your Product"
+cta_url: "/contact"
+slug: "what-is-embedding"
+---
+
+## What Are Embeddings in AI?
+
+**Embeddings** are numerical representations of data — text, images, audio, or structured records — as vectors in a high-dimensional space. An embedding model converts a piece of content into a list of numbers (a vector) where proximity between vectors reflects semantic similarity.
+
+In practical terms: if you embed the sentence "How do I reset my password?" and "I forgot my login credentials", those two vectors will land very close together in vector space — even though they share no identical words. This is the core insight that makes embeddings so powerful for AI applications.
+
+Embeddings are the backbone of [RAG (Retrieval-Augmented Generation)](/glossary/what-is-rag), semantic search, recommendation systems, and classification pipelines in production AI today.
+
+## How Embedding Models Work
+
+An embedding model is a neural network trained to encode meaning into a fixed-size vector. The training objective varies by model type:
+
+- **Contrastive learning** — The model is trained so that semantically similar pairs (e.g., a question and its correct answer) produce vectors close together, while dissimilar pairs are pushed apart.
+- **Autoencoder approaches** — The model learns to compress and reconstruct input, forcing the latent space to capture the most important features.
+- **Language model fine-tuning** — Models like OpenAI's `text-embedding-3-small` start from a pretrained LLM and are fine-tuned specifically for retrieval tasks.
+
+The output is a vector — typically 512 to 3072 dimensions depending on the model. Larger vectors capture more nuance but cost more to store and compute.
+
+## Embedding Dimensions and Trade-offs
+
+| Model | Dimensions | Best For |
+|-------|-----------|----------|
+| `text-embedding-3-small` (OpenAI) | 1536 | Cost-effective retrieval |
+| `text-embedding-3-large` (OpenAI) | 3072 | High-precision RAG |
+| `embed-english-v3.0` (Cohere) | 1024 | Multilingual, re-ranking |
+| `sentence-transformers` (local) | 384–768 | On-prem, privacy-sensitive |
+| `nomic-embed-text` | 768 | Open-source, competitive quality |
+
+Higher dimensions do not always mean better results. For most production RAG systems, `text-embedding-3-small` or a similar mid-size model is the right default — it's fast, cheap, and accurate enough for most retrieval tasks.
+
+## What Embeddings Enable
+
+### Semantic Search
+
+Traditional keyword search matches exact terms. Embeddings enable search by meaning. A user asking "Why is my subscription not renewing?" will surface documents about billing failures, payment method errors, and account suspension — without any of those exact words appearing in the query.
+
+This is the foundation of modern enterprise search and [AI agents](/glossary/ai-agent) that need to find relevant context before answering.
+
+### Retrieval-Augmented Generation (RAG)
+
+In a [RAG system](/glossary/what-is-rag), documents are embedded at index time and stored in a [vector database](/glossary/what-is-vector-database). At query time, the user's input is embedded and compared against all stored vectors using cosine similarity or dot product. The closest-matching document chunks are returned and injected into the LLM's context.
+
+Without embeddings, RAG doesn't work. They are the bridge between natural language queries and structured retrieval.
+
+### Clustering and Classification
+
+Embeddings let you group similar content without labeled training data. Customer support tickets, product feedback, and user-generated content can be clustered by embedding them and running k-means or HDBSCAN — revealing topics the model was never explicitly taught to recognize.
+
+### Anomaly Detection
+
+Embeddings of "normal" data establish a baseline cluster. New data points that land far from that cluster are flagged as anomalous — useful for fraud detection, content moderation, and log monitoring.
+
+## Embeddings vs. Other Representations
+
+**Embeddings vs. TF-IDF / BM25:** Classical keyword methods like BM25 score based on term frequency. They're fast and interpretable but miss semantic meaning. Hybrid search — combining BM25 and vector search — often beats either method alone.
+
+**Embeddings vs. fine-tuning:** Fine-tuning changes the model's behavior. Embeddings change how data is represented. They solve different problems. [Fine-tuning](/glossary/what-is-fine-tuning) is for adapting a model's reasoning; embeddings are for encoding knowledge into a retrievable format.
+
+**Embeddings vs. keywords:** Keywords are brittle. A search for "LLM" won't surface documents about "large language models" unless both terms appear. Embeddings handle synonyms, paraphrases, and cross-lingual queries naturally.
+
+## Embedding Best Practices for Production
+
+**Chunk thoughtfully.** The unit you embed is the unit you retrieve. Chunk too large and retrieved context is noisy. Chunk too small and you lose semantic coherence. For most document types, 256–512 token chunks with 10–20% overlap is a strong default.
+
+**Embed your queries and documents with the same model.** Mixing embedding models breaks semantic alignment — vectors from different models are not comparable.
+
+**Re-embed when you upgrade models.** Switching from `text-embedding-ada-002` to `text-embedding-3-small` requires re-embedding your entire corpus. Budget for this when evaluating a new model.
+
+**Store metadata alongside vectors.** Your vector database should store document ID, source, date, and any filterable attributes alongside each embedding. This enables filtered retrieval ("find relevant passages, but only from documents updated in the last 90 days").
+
+## The Production Embedding Stack
+
+A typical production embedding pipeline looks like:
+
+1. **Document ingestion** → chunking → embedding model → [vector database](/glossary/what-is-vector-database)
+2. **Query** → embedding model → approximate nearest-neighbor search → top-K results
+3. **Results** → re-ranker (optional) → LLM context injection → response
+
+For most teams, this stack can be running in under a week. The complexity comes not from setting it up, but from tuning retrieval quality — chunk size, overlap, re-ranking strategy, and query rewriting.
+
+<hr />
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [What is a Vector Database?](/glossary/what-is-vector-database) · [What is Fine-Tuning?](/glossary/what-is-fine-tuning)*
+
+[Building a semantic search or RAG system? Our engineers have shipped dozens in production. Book a 15-min scope call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

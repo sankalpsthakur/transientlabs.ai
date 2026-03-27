@@ -1,0 +1,151 @@
+---
+title: "How to Scope an AI Project: Founder's Guide"
+description: "Poorly scoped AI projects burn runway fast. This founder's guide walks you through defining scope, setting success metrics, and shipping your first AI feature."
+keywords:
+  - how to scope an AI project
+  - AI project scoping
+  - AI product planning
+  - AI MVP scope
+  - founder AI guide
+category: "Blog"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Scope Your AI Project With Us"
+cta_url: "/contact"
+slug: "how-to-scope-ai-project"
+---
+
+The number one reason AI projects fail is not bad models — it is bad scope. When you don't define what you're building, what success looks like, and what you are explicitly not building, you end up with months of iteration on something nobody wanted. This guide will show you how to scope an AI project correctly before writing a single line of code.
+
+## Why AI Scoping Is Different
+
+Traditional software projects have a clear input-output contract. Build a form, save to a database, display the result. AI projects introduce probabilistic behavior: the system's output is not deterministic, and "good enough" is a spectrum rather than a binary state.
+
+This changes the scoping calculus in three ways:
+
+1. **You must define what "good" looks like** before you can measure it. Without an explicit success metric, you will iterate forever on vibes.
+2. **The dataset shapes what's possible.** You cannot scope an AI feature without understanding what data you have, what quality it is, and how much labeling work is required.
+3. **Infrastructure cost is part of scope.** LLM API calls at scale are expensive. The difference between a well-scoped and poorly scoped AI feature can be 10× in monthly inference costs.
+
+## Step 1: Define the Problem, Not the Solution
+
+Most founders come in with a solution in mind: "We want to use GPT-4 to summarize our reports." That is a solution. The problem is: "Our analysts spend 3 hours per day reading reports to extract action items."
+
+Start with the problem. Write it as a one-sentence user pain:
+
+> **[User] struggles to [do X] because [constraint Y], which causes [negative outcome Z].**
+
+If you cannot write that sentence, you are not ready to scope an AI feature. Go back and talk to users.
+
+Once the problem is clear, the AI solution should be obvious — and you can evaluate whether AI is even the right tool. Many "AI features" are better solved with a simple filter, a rule-based classifier, or a well-structured dashboard.
+
+## Step 2: Write Your Success Metrics First
+
+Before discussing architecture or model selection, write down exactly how you will know the feature worked. Good AI success metrics have three properties:
+
+- **Measurable** — quantifiable, not subjective
+- **Baseline-anchored** — compared to the current state, not an abstract ideal
+- **Time-bounded** — evaluated after a specific period of production use
+
+Examples of strong AI project success metrics:
+
+| Metric | Bad Version | Good Version |
+|---|---|---|
+| Accuracy | "High quality outputs" | "≥85% of outputs rated 4/5 or higher by users" |
+| Efficiency | "Saves time" | "Reduces average task completion time from 45 min to 10 min" |
+| Adoption | "People use it" | "60% of active users trigger the feature at least once/week by week 8" |
+
+Writing these metrics first forces you to confront what you are actually promising and helps you design the right evaluation harness.
+
+## Step 3: Scope the Data Problem
+
+AI is only as good as the data that drives it. Before you write a line of model code, answer:
+
+- **What data does this feature need?** (User documents? Structured records? Historical events?)
+- **Do you have it?** (Is it in your DB, or does it need to be collected?)
+- **What quality is it?** (Clean and labeled, or raw and inconsistent?)
+- **What are the privacy and compliance constraints?** (Can you send it to an external API? Does it contain PII?)
+
+If you do not have the data, scope the data collection sprint as a separate phase before the AI feature. Skipping this step is the most common and most expensive mistake in early AI projects.
+
+## Step 4: Define the Minimum Viable AI Feature
+
+The instinct to build a comprehensive AI system is strong. Resist it. Define the smallest version of the feature that would be useful to a real user.
+
+An [AI MVP](/glossary/ai-mvp-definition) is not a demo — it is a production-grade but intentionally narrow feature. Scoping it means drawing a hard boundary around:
+
+- **What inputs it accepts** (only certain file types? only text under X words?)
+- **What it promises to produce** (a summary? a score? a classification? Not all three at once.)
+- **What it explicitly does not handle** (edge cases, languages, data types that are out of scope for v1)
+
+Write an explicit "out of scope" list. Share it with your team and stakeholders. This list will save you from scope creep more than any planning process.
+
+## Step 5: Estimate Inference Costs Before You Commit
+
+Nothing kills AI project momentum like discovering your unit economics are broken after launch. Before committing to any architecture, estimate your monthly inference cost:
+
+1. Estimate your request volume (requests/day × days/month)
+2. Estimate tokens per request (input + output)
+3. Multiply by the current API price for your chosen model
+4. Add 30% buffer for retries and unexpected usage spikes
+
+If the number is larger than your budget, scope down: fewer requests, a smaller model, aggressive caching, or a different architecture. This is a solvable problem, but only if you confront it before launch.
+
+## Step 6: Plan Your Evaluation Infrastructure
+
+Shipping an AI feature without evaluation infrastructure is like shipping software without logging. You will not know when it breaks.
+
+A minimal AI evaluation setup includes:
+
+- A **golden test set** — 50–200 representative inputs with expected outputs, used for regression testing
+- **User feedback collection** — thumbs up/down or rating at the output level
+- **Prompt and completion logging** — to debug failures and understand usage patterns
+
+Building this before you ship is not optional — it is how you will make your second and third versions better. For a deeper look at what this infrastructure requires, see our guide on [AI agent architecture patterns](/blog/ai-agent-architecture-patterns).
+
+## Common Scoping Mistakes to Avoid
+
+**Scoping around the model instead of the user.** The model is an implementation detail. Scope around user outcomes.
+
+**Treating accuracy as binary.** At 85% accuracy, 15% of outputs are wrong. Scope for graceful degradation — what happens when the AI is wrong, and how does the user recover?
+
+**Ignoring latency as a feature requirement.** If your AI feature takes 20 seconds to respond, users will not use it. Latency is a first-class product requirement, not an engineering afterthought.
+
+**Skipping the "why not simpler?" question.** For every proposed AI feature, ask: could a well-designed rule-based system or search index solve this 80% as well at 10% of the cost? Sometimes the answer is yes.
+
+## Ready to Scope Your AI Project?
+
+Good AI scoping is part product management, part data engineering, part economics. It is one of the highest-leverage activities a founder can do before committing engineering resources.
+
+If you want help scoping your AI project — defining success metrics, evaluating data readiness, estimating costs, and designing the right MVP — [talk to Transient Labs](/contact). We run AI scoping workshops with founders every week and can help you go from idea to shipable spec in days, not months.
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Get a personalized tech stack recommendation based on your project scope and budget. → [**AI Tech Stack Decision Guide**](/resources/ai-tech-stack-guide)

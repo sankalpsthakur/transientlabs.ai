@@ -1,0 +1,106 @@
+---
+title: "Zero Trust Architecture: Principles, Implementation & Why It Matters"
+description: "Zero Trust is a security model based on 'never trust, always verify.' Learn the core principles, implementation pillars, and why startups should build Zero Trust from day one."
+keywords:
+  - zero trust architecture
+  - zero trust security
+  - never trust always verify
+  - zero trust network access
+  - ZTNA
+  - zero trust model
+category: "Glossary"
+type: "DefinedTerm"
+author: "Transient Labs"
+date: "2026-02-02"
+cta_text: "Build Zero Trust Infrastructure"
+cta_url: "/pricing"
+slug: "zero-trust-architecture"
+---
+
+## What is Zero Trust Architecture?
+
+**Zero Trust Architecture (ZTA)** is a security model and framework based on the principle of "**never trust, always verify**." Unlike traditional perimeter-based security (where anyone inside the network is trusted), Zero Trust assumes that threats exist both inside and outside the network — and therefore every access request must be authenticated, authorized, and continuously validated.
+
+The term was coined by Forrester analyst John Kindervag in 2010. Zero Trust was formalized as a US federal security requirement in 2021 (Executive Order 14028) and codified in NIST SP 800-207.
+
+## Core Principles of Zero Trust
+
+### 1. Verify Explicitly
+Always authenticate and authorize based on all available data points:
+- User identity (MFA, SSO, device compliance)
+- Device health (managed vs. unmanaged, patch status)
+- Location (IP reputation, geolocation)
+- Service or workload being accessed
+- Data classification
+
+### 2. Use Least Privilege Access
+Grant the minimum permissions necessary to perform a task:
+- Just-in-time (JIT) access — permissions expire after use
+- Just-enough-access (JEA) — scoped to the specific action
+- Role-based access control (RBAC) enforced at every layer
+- Continuous re-authorization (not just at login)
+
+### 3. Assume Breach
+Design as if attackers are already inside:
+- Segment networks microscopically — limit lateral movement
+- Encrypt all traffic end-to-end, even internal
+- Log everything, monitor continuously
+- Minimize blast radius through isolation
+
+## The Five Pillars of Zero Trust (CISA Model)
+
+The US CISA (Cybersecurity and Infrastructure Security Agency) defines Zero Trust across five pillars:
+
+| Pillar | What It Covers |
+|---|---|
+| **Identity** | Who is accessing? (MFA, SSO, PAM) |
+| **Devices** | What is accessing? (MDM, EDR, device trust) |
+| **Networks** | Where is access happening? (microsegmentation, ZTNA) |
+| **Applications** | What is being accessed? (app-layer auth, CASB) |
+| **Data** | What data is involved? (classification, DLP, encryption) |
+
+## Zero Trust vs. Traditional Perimeter Security
+
+| Traditional (Castle-and-Moat) | Zero Trust |
+|---|---|
+| Trust everything inside the firewall | Trust nothing, verify everything |
+| VPN grants broad network access | ZTNA grants application-specific access |
+| One-time authentication at login | Continuous authentication and authorization |
+| Flat network, lateral movement possible | Microsegmentation limits blast radius |
+| Static, policy-based rules | Dynamic, context-aware access decisions |
+
+## Why It Matters for Startups
+
+### SOC 2 and Security Certifications
+Zero Trust principles are foundational to passing [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria) (Security criterion), ISO 27001, and FedRAMP. Building with Zero Trust from the start dramatically reduces your compliance audit prep work.
+
+### Remote-First Workforce Security
+If your team is distributed (which most startups are), Zero Trust replaces VPN with a more secure, scalable, and user-friendly access model.
+
+### Enterprise Customer Requirements
+Large enterprises increasingly require vendors to demonstrate Zero Trust controls as part of security questionnaires and third-party risk assessments.
+
+### Cloud-Native Alignment
+Zero Trust maps naturally to cloud and microservices architectures where workloads communicate across networks by default and "perimeter" has no meaning.
+
+### Breach Resilience
+Zero Trust limits the damage when (not if) a breach occurs. With microsegmentation and least privilege, an attacker who compromises one service can't freely move to others.
+
+## How Transient Labs Helps
+
+[Transient Labs](/pricing) builds Zero Trust infrastructure as part of our 3-week MVP sprints:
+
+- **Identity and access management** — SSO, MFA, RBAC, and JIT access using modern IAM platforms
+- **Microsegmentation** — Service mesh configurations and network policies for Kubernetes and cloud environments
+- **Secrets management** — HashiCorp Vault, AWS Secrets Manager, or GCP Secret Manager integration
+- **[DevSecOps](/glossary/devsecops) pipelines** — Security controls embedded in CI/CD, not bolted on after
+- **Audit logging and SIEM** — Centralized logging for continuous monitoring and compliance evidence
+
+See also: [DevSecOps](/glossary/devsecops) | [VAPT Explained](/glossary/vapt-explained) | [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria)
+
+## Further Reading
+
+- [NIST SP 800-207: Zero Trust Architecture](https://csrc.nist.gov/publications/detail/sp/800-207/final) — The definitive US government framework
+- [CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model) — Five-pillar implementation roadmap
+- [Google BeyondCorp](https://cloud.google.com/beyondcorp) — The first large-scale Zero Trust implementation
+- [Forrester Zero Trust Research](https://www.forrester.com/report/The-Definition-Of-Modern-Zero-Trust/RES157starting) — The original model definition

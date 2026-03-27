@@ -1,0 +1,122 @@
+---
+title: "What Are Claws? Karpathy's Name for AI Agent Systems"
+description: "Claws AI agents: Karpathy's term for orchestrated AI systems on personal hardware. The LLM-to-Agent-to-Claws arc and why builders should care."
+keywords:
+  - Claws AI agents
+  - Karpathy Claws
+  - AI agent orchestration
+  - NanoClaw OpenClaw
+  - personal AI infrastructure
+  - LLM agent systems
+  - AI agent framework 2026
+  - agentic AI systems
+category: "Engineering"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+slug: "what-are-claws-karpathy-ai-agents"
+cta_text: "Book a 15-min scope call"
+cta_url: "https://100xai.engineering/#contact"
+---
+
+# What Are Claws? Karpathy's New Name for AI Agent Systems
+
+Andrej Karpathy has a habit of naming things correctly. He called "software 2.0" before it was common vocabulary. He explained backpropagation well enough that a generation of engineers who never took a statistics course could implement it. When he names something, it tends to stick — because the name usually captures something real that didn't have a clean label before.
+
+"Claws" is the latest one. And if you're building anything using Claws AI agents or similar orchestration, it's worth understanding what the term actually means and why the framing matters.
+
+
+
+## The LLM → Agent → Claws Arc
+
+The progression is cleaner than it sounds:
+
+**LLMs** are the base capability — models that can generate coherent, useful text given a prompt. GPT-4, Claude, Gemini. You call them, they respond, conversation ends. Stateless. Single-turn. Impressive but bounded.
+
+**Agents** are what you get when you give an LLM tools and a loop. The model can search the web, read files, run code, call APIs — and it keeps going until it completes a goal rather than stopping after a single response. ReAct-style agents, tool-calling agents, the thing you built last quarter that kept going off the rails and calling the same API 47 times. Agents are better than pure LLMs but they're also a single entity operating in a single context window.
+
+**Claws** are what you get when you orchestrate *multiple* agents working in parallel, coordinated across a shared environment, running on hardware you control. The name is evocative on purpose: a claw has multiple fingers operating as a single gripping system. A Claw system has multiple agents operating as a coordinated whole — each specializing in a domain, each with its own context window and tool access, communicating through shared state rather than shared memory.
+
+The key distinguishing features of a Claw system:
+- **Runs on personal/edge hardware** — not just API calls to a cloud provider
+- **Multiple agents with defined roles** — not one agent doing everything
+- **Persistent state across sessions** — the system remembers what it was doing
+- **Push-based coordination** — agents announce completion rather than being polled
+
+This last point matters more than it sounds. When you're running 5+ agents simultaneously, polling for status creates a mess. Push-based completion — where each agent writes its output to a known location and signals done — is what makes multi-agent systems operationally manageable rather than a debugging nightmare.
+
+
+
+## The Ecosystem: NanoClaw and OpenClaw
+
+Two implementations have emerged that embody the Claws approach:
+
+**NanoClaw** is the minimal reference implementation — the "nanoGPT" of Claw systems. It's intentionally small: one config file, a handful of Python scripts, and a local model runner. The goal isn't to be production-ready; it's to be the thing you read to understand how Claw coordination actually works at the code level. If you want to understand agent orchestration without a 40,000-line framework obscuring what's happening, NanoClaw is where to start.
+
+**OpenClaw** is the production implementation. It's the full personal AI infrastructure layer: manages multiple LLM backends (local models, cloud APIs), handles agent lifecycle, provides [MCP protocol](/glossary/what-is-mcp-protocol) support for tool sharing across agents, and runs as a daemon on your machine with a web interface and CLI. OpenClaw is what you deploy when you want a Claw system that's actually running your workflows rather than being a learning exercise.
+
+The relationship between them mirrors nanoGPT → production transformers: NanoClaw teaches you the concepts, OpenClaw gives you the production system, and the gap between them is exactly the engineering complexity you'd otherwise have to figure out yourself.
+
+
+
+## Why Builders Should Care
+
+Three reasons this framing matters if you're building AI-powered products:
+
+**1. The architecture question becomes cleaner**
+
+"Should I use an agent for this?" is a harder question than it looks, because it conflates "should I use a loop" with "should I use multiple specialized models" with "should I run this locally." Claws gives you a cleaner vocabulary: LLM for single-turn tasks, Agent for multi-step single-domain work, Claw for coordinated multi-domain systems. The naming helps you think about which architecture class your problem actually belongs to.
+
+**2. Personal hardware is the next platform shift**
+
+The economics of running inference locally are changing fast. A MacBook Pro M4 Max can run 70B-parameter models at reasonable speeds. An NVIDIA workstation can run something close to frontier-quality locally. The cloud-only inference model made sense when hardware couldn't keep up; it's increasingly a choice rather than a constraint. Claw systems are built assuming local hardware is a first-class compute environment, which changes the design space considerably — latency, privacy, cost, and offline capability all look different when the model is on the same machine as the data.
+
+**3. Coordination is the unsolved problem**
+
+Everyone figured out how to call an LLM. The hard part — which is what most teams are actually struggling with — is coordination: how do multiple agents share state without stepping on each other, how do you debug a system where the logic is distributed across 8 context windows, how do you make the whole thing observable. The Claws framing forces you to think about these questions up front rather than discovering them when your five-agent pipeline is producing contradictory outputs at 2 AM.
+
+For us at Transient Labs, we've been running Claw-style multi-agent setups for client project delivery — code generation, review, testing, and documentation agents running in parallel on a single project. The experience has been instructive in ways that pure agent work wasn't. We wrote about the harder lessons (including what happens when things go wrong at scale) in our post on [vibe coding vs. production engineering](/blog/vibe-coding-to-production).
+
+
+
+## The Name Is Doing Work
+
+"Claws" is a good name because it's specific. It's not "multi-agent systems" (too generic), it's not "AI infrastructure" (too vague), and it's not named after a company or a product. It's a functional description of a coordination pattern that was happening without a clean label.
+
+That matters for practitioners because vocabulary is load-bearing. When you have a word for something, you can reason about it more precisely, discuss it with collaborators, and distinguish it from adjacent things. The LLM/Agent/Claw hierarchy is the kind of conceptual tool that makes architecture conversations shorter and more productive.
+
+Whether "Claws" becomes the dominant term or gets superseded by something else, the underlying pattern it describes — coordinated, hardware-local, multi-agent systems — is where personal AI infrastructure is heading. Build for that, whatever you call it.
+
+
+
+*Building something that needs multi-agent coordination? [Book a 15-min scope call](https://100xai.engineering/#contact) — we'll help you figure out the right architecture before you're three months into the wrong one.*
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Building with AI agents? Get a personalized architecture and stack recommendation. → [**AI Tech Stack Decision Guide**](/resources/ai-tech-stack-guide)

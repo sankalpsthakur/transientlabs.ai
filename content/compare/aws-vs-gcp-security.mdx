@@ -1,0 +1,208 @@
+---
+title: "AWS vs. GCP Security: Feature-by-Feature Comparison for Startups"
+description: "Comparing AWS and Google Cloud Platform security features: IAM, encryption, compliance certifications, threat detection, and network security. Which cloud is more secure for your startup?"
+keywords:
+  - AWS vs GCP security
+  - AWS security features
+  - Google Cloud security
+  - cloud security comparison
+  - AWS IAM vs GCP IAM
+  - cloud compliance certifications
+category: "Comparisons"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-13"
+cta_text: "Build Secure Cloud Infrastructure"
+cta_url: "/pricing"
+slug: "aws-vs-gcp-security"
+---
+
+## AWS vs. GCP Security: The Honest Comparison
+
+Both AWS and Google Cloud Platform (GCP) are excellent security choices — both significantly outperform self-hosted infrastructure. The choice between them isn't usually "which is more secure" in absolute terms, but "which security model fits our architecture, compliance requirements, and team expertise."
+
+This comparison focuses specifically on security features relevant to startups building [SOC 2](/glossary/soc2-trust-criteria)-compliant, [Zero Trust](/glossary/zero-trust-architecture)-aligned applications.
+
+## Quick Summary
+
+| Security Domain | AWS | GCP | Edge |
+|---|---|---|---|
+| IAM Flexibility | Extremely granular | Simpler, opinionated | AWS (more granular) |
+| Default Security Posture | Permissive defaults | More secure defaults | GCP |
+| Encryption at Rest | Opt-in (on by default for most services) | On by default for all services | GCP |
+| Threat Detection | GuardDuty | Security Command Center | Tie |
+| Network Security | Security Groups + NACLs + WAF | Firewall Rules + Cloud Armor | Tie |
+| Compliance Certifications | 143+ | 120+ | AWS (more) |
+| Secret Management | Secrets Manager | Secret Manager | Tie |
+| Zero Trust Features | IAM + VPC + PrivateLink | BeyondCorp + VPC SC | GCP (Zero Trust-native) |
+| Audit Logging | CloudTrail | Cloud Audit Logs | Tie |
+| DDoS Protection | Shield (Standard free, Advanced $3K/mo) | Cloud Armor (usage-based) | Depends on scale |
+
+<hr />
+
+## Identity and Access Management (IAM)
+
+### AWS IAM
+AWS IAM is the most powerful and flexible cloud IAM system — and the most complex. Key features:
+
+- **Users, Groups, Roles, Policies** — Fine-grained permissions at every resource level
+- **Service Control Policies (SCPs)** — Org-level guardrails that override even admin permissions
+- **IAM Roles Anywhere** — Extend IAM to on-premises workloads
+- **AWS SSO (IAM Identity Center)** — Federated access across accounts
+- **Cross-account roles** — Secure access sharing between AWS accounts
+- **Resource-based policies** — Permissions attached directly to resources (S3, KMS, etc.)
+
+**Tradeoff:** AWS IAM's power comes with complexity. Misconfigured IAM is the #1 cause of AWS security incidents. The blast radius of a misconfiguration can be enormous.
+
+### GCP IAM
+GCP IAM is more opinionated and simpler to reason about:
+
+- **Primitive, Predefined, and Custom roles** — Less freeform than AWS, but easier to audit
+- **Organization policies** — Org-level constraints that prevent misconfigurations (e.g., prevent public GCS buckets)
+- **Workload Identity Federation** — Keyless auth for CI/CD and external workloads
+- **VPC Service Controls** — Create security perimeters around GCP resources to prevent data exfiltration
+- **Cloud Identity** — Managed directory service with device context
+
+**Tradeoff:** GCP IAM is easier to reason about and harder to misconfigure badly. Less flexible for complex multi-account architectures.
+
+**Verdict:** AWS wins on flexibility; GCP wins on simplicity and secure defaults. For [DevSecOps](/glossary/devsecops) teams enforcing least privilege, GCP's opinionated model reduces configuration surface area.
+
+<hr />
+
+## Encryption
+
+### AWS Encryption
+- **At rest:** Not all services encrypt by default — requires explicit configuration
+- **KMS:** AWS Key Management Service for customer-managed keys (CMK)
+- **CloudHSM:** Dedicated HSM for regulatory requirements
+- **S3 default encryption:** Enabled by default (SSE-S3) but other methods require config
+
+### GCP Encryption
+- **At rest:** All data encrypted by default using Google-managed keys — no configuration required
+- **CMEK:** Customer-managed encryption keys (Cloud KMS)
+- **Cloud EKM:** External key management — keep keys outside Google
+- **Confidential Computing:** Encrypted data in use (not just at rest/transit)
+
+**Verdict:** GCP wins on encryption defaults. "Secure by default" means fewer configuration mistakes. GCP's Confidential Computing for encrypted data in use is genuinely ahead.
+
+<hr />
+
+## Threat Detection and Security Monitoring
+
+### AWS: Amazon GuardDuty
+- Intelligent threat detection using ML + threat intelligence
+- Analyzes CloudTrail, VPC Flow Logs, DNS logs
+- Detects: compromised credentials, cryptocurrency mining, unusual API calls, data exfiltration
+- Pricing: Based on data volume (typically $1K–$5K/month for mid-size workloads)
+
+### AWS: Amazon Macie
+- Discovers and protects sensitive data in S3
+- PII detection, encryption status, access patterns
+- Relevant for compliance with [SOC 2](/glossary/soc2-trust-criteria) and privacy regulations
+
+### GCP: Security Command Center (SCC)
+- Centralized security and risk management platform
+- Asset inventory, vulnerability scanning, threat detection
+- Built-in integration with Chronicle (Google's SIEM)
+- Detects: misconfigurations, anomalous IAM activity, known malware hashes
+
+### GCP: Chronicle SIEM
+- Petabyte-scale security analytics
+- 12 months of hot log retention (vs. CloudTrail's 90 days default)
+- Backed by Google's threat intelligence (VirusTotal)
+
+**Verdict:** Tie. GuardDuty has more mature ML-based detection; Chronicle has better log retention and analytics scale. Both provide excellent threat detection for compliance purposes.
+
+<hr />
+
+## Network Security
+
+### AWS Network Security
+- **Security Groups:** Stateful firewall at the instance level
+- **NACLs:** Stateless firewall at the subnet level
+- **AWS WAF:** Layer 7 protection against OWASP Top 10
+- **AWS Shield:** DDoS protection (Standard free, Advanced $3K/month)
+- **PrivateLink:** Private connectivity to services without internet exposure
+- **VPC Flow Logs:** Network traffic monitoring
+
+### GCP Network Security
+- **Firewall Rules:** VPC-level, more flexible than Security Groups
+- **Cloud Armor:** WAF + DDoS protection (usage-based, no monthly minimum)
+- **Hierarchical Firewall Policies:** Org-level rules applied before VPC rules
+- **Private Service Connect:** Private connectivity (equivalent to PrivateLink)
+- **VPC Service Controls:** Data perimeter — prevents data exfiltration even via API calls
+- **Network Intelligence Center:** Traffic analysis and flow visualization
+
+**Verdict:** GCP's VPC Service Controls are a significant security differentiator — they enforce data perimeters that AWS doesn't natively match. For enterprises with strict data residency requirements, this matters.
+
+<hr />
+
+## Compliance Certifications
+
+### AWS Certifications (143+)
+Key certifications: SOC 1/2/3, ISO 27001, ISO 27017, ISO 27018, PCI DSS, HIPAA, FedRAMP High, GDPR, CSA STAR, IRAP (Australia), MTCS (Singapore), and many more.
+
+### GCP Certifications (120+)
+Key certifications: SOC 1/2/3, ISO 27001, ISO 27017, ISO 27018, PCI DSS, HIPAA, FedRAMP High, GDPR, CSA STAR, and regional certifications.
+
+**Verdict:** AWS has more total certifications and a longer track record in regulated industries (government, financial services, healthcare). GCP is catching up rapidly and covers all major international standards.
+
+<hr />
+
+## Zero Trust and Modern Security Architecture
+
+### AWS Zero Trust Approach
+AWS doesn't use the term "Zero Trust" officially but enables it through:
+- IAM granularity + SCP guardrails
+- VPC + PrivateLink for network isolation
+- AWS Verified Access (ZTNA for corporate applications)
+- Amazon Verified Permissions (Cedar policy engine)
+
+### GCP Zero Trust: BeyondCorp Enterprise
+GCP is the only hyperscaler that built its internal security model (BeyondCorp) as a product available to customers. Key features:
+- Context-aware access based on user identity, device health, location
+- Application-level access without VPN
+- Native integration with Chrome browser for device trust
+- IAP (Identity-Aware Proxy) for zero-trust application access
+
+**Verdict:** GCP wins on Zero Trust. BeyondCorp is the original Zero Trust implementation, and GCP's native product advantage here is real. For teams building [Zero Trust architecture](/glossary/zero-trust-architecture), GCP's tooling is more mature and opinionated.
+
+<hr />
+
+## Startup Recommendation
+
+### Choose AWS if:
+- Your enterprise customers or regulated industry partners require it (many large banks and government agencies have AWS-first policies)
+- You're pursuing FedRAMP or DoD compliance
+- You need the broadest ecosystem of third-party security tools and integrations
+- Your engineering team has deep AWS expertise
+
+### Choose GCP if:
+- Security-by-default and reduced misconfiguration risk is your priority
+- You're building ML/AI features alongside security-sensitive workloads (GCP's AI/ML tooling + BigQuery + Security is a natural combination)
+- Zero Trust is a core architectural requirement from day one
+- You prefer simpler IAM and fewer foot-guns
+
+### The Real Answer
+Most enterprise customers accept both. Architect for security principles (Zero Trust, least privilege, encryption everywhere) rather than cloud-specific features, and your compliance posture will be strong on either platform.
+
+## How Transient Labs Helps
+
+[Transient Labs](/pricing) builds security-first cloud infrastructure on both AWS and GCP:
+
+- **[DevSecOps](/glossary/devsecops) pipelines** with cloud-native security integrations
+- **[Zero Trust](/glossary/zero-trust-architecture) architecture** using AWS IAM/Verified Access or GCP BeyondCorp
+- **[VAPT](/glossary/vapt-explained)-ready infrastructure** with security controls that pass penetration testing
+- **[SOC 2](/glossary/soc2-trust-criteria)-aligned configuration** with automated evidence collection
+
+We're cloud-agnostic and build to your compliance and architecture requirements.
+
+See also: [Zero Trust Architecture](/glossary/zero-trust-architecture) | [DevSecOps](/glossary/devsecops) | [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria) | [VAPT Explained](/glossary/vapt-explained)
+
+## Further Reading
+
+- [AWS Security Documentation](https://docs.aws.amazon.com/security/) — AWS security services reference
+- [Google Cloud Security Overview](https://cloud.google.com/security) — GCP security documentation
+- [CIS AWS Foundations Benchmark](https://www.cisecurity.org/benchmark/amazon_web_services) — AWS security baseline
+- [CIS GCP Foundations Benchmark](https://www.cisecurity.org/benchmark/google_cloud_computing_platform) — GCP security baseline
+- [CSA Cloud Controls Matrix](https://cloudsecurityalliance.org/research/cloud-controls-matrix/) — Cloud-agnostic security framework

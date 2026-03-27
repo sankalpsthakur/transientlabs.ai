@@ -1,0 +1,166 @@
+---
+title: "What is Tokenization in LLMs?"
+description: "Tokenization converts text into numerical tokens before an LLM processes it. Learn how it works, why it matters for cost, and common tokenizer gotchas."
+keywords:
+  - tokenization
+  - what is tokenization
+  - LLM tokenization
+  - tokens in AI
+  - tokenizer
+  - GPT tokenization
+  - NLP tokenization
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Cost-Efficient AI Products"
+cta_url: "/contact"
+slug: "what-is-tokenization"
+---
+
+## What is Tokenization?
+
+**Tokenization** is the process of splitting text into smaller units — called tokens — before a large language model (LLM) can process it. Because neural networks operate on numbers, not raw text, every word (or sub-word) you send to a model must first be converted into a numerical ID from a fixed vocabulary. That conversion step is tokenization.
+
+Understanding tokenization matters for every developer building with LLMs: it determines how much you pay, how much context you can fit in a single call, and why models sometimes behave strangely with non-English text, code, or numbers.
+
+## How Tokenization Works
+
+Modern LLMs use a technique called **Byte Pair Encoding (BPE)** or a variant of it (SentencePiece, WordPiece). Here's the basic idea:
+
+1. Start with a large corpus of text
+2. Find the most frequently co-occurring pairs of characters or sub-words
+3. Merge them into a single token
+4. Repeat until you reach a target vocabulary size (typically 50,000–100,000 tokens)
+
+The result is a vocabulary where common words become single tokens ("the", "and", "is") and rare words are split into sub-word pieces ("tokenization" → "token" + "ization").
+
+### A Concrete Example
+
+The sentence `"The quick brown fox"` might be tokenized as:
+
+```
+["The", " quick", " brown", " fox"]
+→ [464, 2068, 7586, 21831]
+```
+
+Notice that spaces are usually attached to the following word, not the preceding one. This matters when you're counting tokens — it's not the same as counting words.
+
+## Tokens vs. Words vs. Characters
+
+A rough rule of thumb for English text:
+
+- **1 token ≈ 4 characters**
+- **1 token ≈ 0.75 words**
+- **100 tokens ≈ 75 words**
+
+This means a 1,000-word document is roughly 1,300 tokens. But this ratio varies significantly:
+
+| Content Type | Tokens Relative to Characters |
+|-------------|-------------------------------|
+| Plain English prose | ~4 chars / token |
+| Python code | ~3–4 chars / token |
+| JSON data | ~3 chars / token |
+| Non-Latin scripts (Chinese, Arabic) | 1–2 chars / token |
+| Numbers (long integers) | ~1–2 digits / token |
+| URLs | ~2–3 chars / token |
+
+Non-English text is often less efficient. A Chinese sentence uses more tokens per character than the equivalent English sentence, which directly affects cost.
+
+## Why Tokenization Matters for Cost
+
+LLM providers charge by the token — both input and output. OpenAI's GPT-4o charges $5 per million input tokens and $15 per million output tokens (as of early 2026). Anthropic's Claude 3.5 Sonnet charges $3 per million input and $15 per million output.
+
+That means tokenization efficiency is a direct cost lever. Practical implications:
+
+- **Prompts with lots of JSON or XML** cost more than clean prose
+- **Verbose system prompts** shared across thousands of requests compound quickly — trim every token
+- **Whitespace and formatting** consume tokens too; minify structured data where possible
+- **Context window limits** are token limits, not word limits — check your count before hitting the cap
+
+You can preview tokenization for OpenAI models at [platform.openai.com/tokenizer](https://platform.openai.com/tokenizer). For Claude, the count is slightly different because Anthropic uses their own tokenizer.
+
+## The Context Window: A Token Budget
+
+Every LLM has a context window — the maximum number of tokens it can process in a single call. This window includes:
+
+- Your system prompt
+- The conversation history
+- Any retrieved documents (RAG chunks)
+- The user message
+- The model's response
+
+Once you exceed the context window, you must truncate, summarize, or paginate your inputs. Context windows have grown dramatically:
+
+| Model | Context Window |
+|-------|---------------|
+| GPT-3.5 | 4K tokens |
+| GPT-4 (original) | 8K–32K tokens |
+| GPT-4o | 128K tokens |
+| Claude 3.5 Sonnet | 200K tokens |
+| Gemini 1.5 Pro | 1M tokens |
+
+Larger context windows unlock new use cases — processing entire codebases, contracts, or research papers in a single call. But using a large context window does not mean you should fill it by default. Larger inputs mean higher costs and often slower responses.
+
+## Common Tokenization Gotchas
+
+### 1. Numbers Are Expensive
+
+Large numbers are often tokenized digit-by-digit or in small groups. `1234567890` might become 4–5 tokens. If your application processes numerical data at scale, this adds up.
+
+### 2. Code Indentation Costs Tokens
+
+Each space character in indented code is a token. A deeply nested function with four levels of indentation spends a meaningful fraction of its tokens on whitespace. Some teams minify code before passing it to models for analysis tasks.
+
+### 3. Token Counting Across Models Is Not Interchangeable
+
+OpenAI and Anthropic use different tokenizers. A 10,000-token document in GPT-4's tokenizer might be 10,400 tokens in Claude's tokenizer, or vice versa. Always count tokens with the library for the model you're actually using (`tiktoken` for OpenAI, `anthropic.count_tokens()` for Claude).
+
+### 4. Truncation Can Cut In Strange Places
+
+If you truncate a prompt at a character limit rather than a token limit, you can accidentally cut in the middle of a multi-byte character (common with Unicode) or in the middle of an instruction, producing unexpected model behavior. Always truncate at the token level.
+
+## Special Tokens
+
+Every tokenizer includes special tokens beyond the standard vocabulary:
+
+- `<|endoftext|>` — marks the end of a document
+- `<|im_start|>` / `<|im_end|>` — structure chat messages in OpenAI models
+- `[BOS]` / `[EOS]` — beginning and end of sequence in many models
+- `[PAD]` — padding for batched inference
+
+These tokens carry meaning to the model. If you accidentally inject special token strings into user input, you can confuse the model's understanding of message boundaries — a subtle [prompt injection](/glossary/what-is-prompt-injection) vector.
+
+## Tokenization in Multilingual Applications
+
+Building an LLM product for non-English markets? Tokenization efficiency varies significantly by language:
+
+- **Spanish, French, German** — roughly similar to English
+- **Japanese, Chinese, Korean** — CJK characters can be 1–2 tokens each, but sentences are denser, so per-thought cost is often comparable
+- **Arabic, Hebrew** — right-to-left scripts with complex morphology; expect lower token efficiency
+- **Code-switching** — mixing languages in a single prompt (common in Southeast Asian markets) often degrades tokenization efficiency compared to monolingual text
+
+If you're building for a multilingual audience, benchmark token costs in your target languages before assuming English pricing estimates apply.
+
+## Key Takeaway
+
+Tokenization is the invisible layer between your text and the model's reasoning. It determines cost, context limits, and some subtle model behaviors. Developers who understand it write more efficient prompts, build more cost-predictable products, and avoid hard-to-diagnose edge cases.
+
+<hr />
+
+*Related: [What is AI Observability?](/glossary/what-is-ai-observability) · [What is an AI Agent?](/glossary/ai-agent) · [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make)*
+
+[Building an AI product and want to get the architecture right from day one? [Book a 15-min scope call →](/contact) with our engineering team.]
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

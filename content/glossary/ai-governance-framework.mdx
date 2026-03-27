@@ -1,0 +1,140 @@
+---
+title: "AI Governance Framework: A Plain-English Guide"
+description: "An AI governance framework defines the rules, roles, and controls for deploying AI responsibly. Learn what it includes, why it matters, and how to build one."
+keywords:
+  - AI governance framework
+  - AI governance
+  - responsible AI
+  - AI policy
+  - AI risk management
+  - AI compliance
+  - enterprise AI governance
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Talk to our AI governance team"
+cta_url: "/contact"
+slug: "ai-governance-framework"
+---
+
+## What is an AI Governance Framework?
+
+An **AI governance framework** is a structured set of policies, processes, and accountability mechanisms that organisations use to develop, deploy, and monitor artificial intelligence systems responsibly. It answers a simple question: *who decides what AI can do, and what happens when something goes wrong?*
+
+As AI moves from experiment to infrastructure, governance is no longer optional. Regulators across the EU, US, and UK are increasingly requiring evidence of systematic oversight. Customers and investors are asking for it. And the reputational cost of a high-profile AI failure — biased decisions, data leaks, hallucinated outputs acted upon — is high enough that reactive fixes aren't sufficient.
+
+A mature AI governance framework doesn't slow down AI adoption. It makes adoption durable.
+
+## Core Components of an AI Governance Framework
+
+Every framework looks slightly different depending on organisation size, sector, and regulatory exposure. But the functional building blocks are consistent:
+
+### 1. Risk Classification
+
+Not all AI systems carry the same risk. A recommendation engine for a playlist is different from an AI that helps assess loan applications. A governance framework starts by classifying systems:
+
+- **High-risk** — AI used in hiring, credit, healthcare, law enforcement, or critical infrastructure. Requires rigorous documentation, human oversight, and regular audits.
+- **Medium-risk** — AI that shapes user experience or internal workflows. Needs monitoring and clear escalation paths.
+- **Low-risk** — AI used for content generation, summarisation, or internal productivity. Lighter-touch oversight is appropriate.
+
+The EU AI Act uses a similar tiered classification and is increasingly becoming the global reference model.
+
+### 2. Accountability and Ownership
+
+Someone must be responsible for each AI system. A governance framework assigns:
+
+- **AI owner** — the business unit accountable for outcomes
+- **Model owner** — the technical team responsible for development and maintenance
+- **Ethics/compliance reviewer** — typically a central team that reviews high-risk deployments
+- **Board-level sponsor** — increasingly expected by regulators and investors
+
+Without clear ownership, AI systems drift: they get updated without review, their training data goes stale, and no one notices until something breaks.
+
+### 3. Data Governance Integration
+
+AI governance and data governance are tightly coupled. The framework should specify:
+
+- What data sources can be used for training and inference
+- How personal data is handled (GDPR, CCPA, sector-specific rules)
+- Data lineage tracking — where did this training data come from?
+- Retention and deletion policies for model inputs and outputs
+
+Organisations already working on [CSRD compliance](/glossary/csrd-compliance) will find that their sustainability data governance overlaps significantly with AI data governance — the same traceability requirements apply.
+
+### 4. Model Documentation
+
+Sometimes called a "model card," this is the standardised documentation accompanying each AI system:
+
+- Purpose and intended use cases
+- Training data sources and known gaps
+- Performance metrics by demographic group (bias testing)
+- Known limitations and out-of-scope uses
+- Last review date and next scheduled review
+
+Model cards are now expected by the EU AI Act for high-risk systems and are increasingly requested by enterprise customers during procurement.
+
+### 5. Human Oversight and Override
+
+For any consequential AI output, the framework must define when a human must be in the loop. Pure automation is appropriate for low-stakes, reversible decisions. For anything with significant impact on a person or organisation, there must be a documented path for human review and override.
+
+This isn't just good ethics — it's increasingly a legal requirement. The EU AI Act explicitly prohibits fully automated decision-making in certain high-risk categories.
+
+### 6. Monitoring and Incident Response
+
+Models degrade over time. Data distributions shift. The framework should include:
+
+- Ongoing performance monitoring with defined thresholds for re-review
+- An incident response playbook for AI-related failures
+- A feedback mechanism for affected users to report issues
+- Escalation paths when monitoring flags anomalies
+
+## Who Needs an AI Governance Framework?
+
+**Enterprise organisations** deploying AI at scale — in HR, finance, customer service, or operations — need a formal framework now. Regulatory pressure is accelerating.
+
+**Startups** building AI-powered products need it earlier than they think. Enterprise customers will ask about it during security reviews. Investors will ask about it during due diligence. Building governance in from the start is far cheaper than retrofitting.
+
+**Regulated industries** — financial services, healthcare, insurance — face sector-specific requirements on top of general AI regulation. Their frameworks must satisfy both.
+
+## AI Governance vs. AI Ethics
+
+These terms are often confused. AI ethics is the philosophical layer — defining what values should guide AI development (fairness, transparency, human dignity). AI governance is the operational layer — the processes that actually enforce those values.
+
+An organisation can have excellent ethics principles and terrible governance. The principles don't matter if there's no mechanism to enforce them.
+
+## How to Build a Framework (Without Starting From Scratch)
+
+1. **Inventory your AI systems** — most organisations undercount. Include third-party AI embedded in SaaS tools.
+2. **Apply a risk classification** — use the EU AI Act tiers as a starting point.
+3. **Assign ownership** — if no one owns it, it isn't governed.
+4. **Write model documentation** for your top three highest-risk systems.
+5. **Establish a review cadence** — quarterly for high-risk, annually for medium/low.
+6. **Integrate with existing compliance processes** — data governance, vendor risk, change management.
+
+If you're building AI products and need governance baked into the development process rather than bolted on afterward, see our [AI MVP playbook](/resources/ai-mvp-playbook) for how we approach this from day one.
+
+For organisations managing sustainability data, our [CSRD compliance checklist](/blog/csrd-compliance-checklist-2026) covers parallel data governance obligations that often inform AI governance design.
+
+## The Cost of Not Having One
+
+The EU AI Act penalties run up to €30 million or 6% of global annual turnover for high-risk violations. Beyond regulatory risk, AI failures without clear governance become PR crises without clear owners — the worst possible combination.
+
+More practically: organisations without governance frameworks make slower AI decisions, not faster ones. Every deployment becomes a debate. A framework creates the rails that let teams move quickly within defined guardrails.
+
+<hr />
+
+**Building AI products and want governance designed in from the start?** [Book a scope call at Transient Labsai.engineering](https://100xai.engineering/#contact) — we structure every engagement around responsible, auditable AI from day one.
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

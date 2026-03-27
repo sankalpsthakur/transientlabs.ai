@@ -1,0 +1,135 @@
+---
+title: "What is AI Alignment? Safety and Ethics Guide"
+description: "AI alignment ensures AI systems pursue goals that match human intentions. Learn the core concepts, key techniques, and why it matters for building safe AI."
+keywords:
+  - AI alignment
+  - what is AI alignment
+  - AI safety
+  - AI ethics
+  - RLHF alignment
+  - constitutional AI
+  - alignment techniques
+  - safe AI development
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Responsible AI Products"
+cta_url: "/contact"
+slug: "what-is-ai-alignment"
+---
+
+## What is AI Alignment?
+
+**AI alignment** is the field of research and practice focused on ensuring that AI systems pursue goals and exhibit behaviors that match human intentions — not just on the surface, but robustly and reliably, including in situations the designers didn't anticipate.
+
+The core challenge of AI alignment is deceptively simple to state: how do you build a system that does *what you actually want*, not just what you *asked for*? These are not the same thing, and the gap between them is where most AI safety failures live.
+
+## Why Alignment Matters Now
+
+For most of the history of software, "alignment" wasn't a category. A sorting algorithm sorts. A payment processor processes payments. The behavior is deterministic and the specification is complete.
+
+Large language models and AI agents are different. They generalize across tasks they weren't explicitly trained on. They produce novel outputs. And they can be deployed in high-stakes domains — healthcare, law, finance, defense — where misaligned behavior has real consequences.
+
+As AI systems take on more [agentic AI](/glossary/what-is-agentic-ai) roles — making decisions, taking actions, operating autonomously over long horizons — alignment becomes more urgent. An agent that pursues the wrong goal autonomously can cause significant harm before a human catches it.
+
+## The Three Core Alignment Problems
+
+### 1. Specification: Defining the Right Goal
+
+The most basic alignment problem is specification: how do you accurately describe what you want to an AI system? Human values are complex, contextual, and often contradictory. Writing a reward function or objective that captures them fully is extremely difficult.
+
+Classic example: if you tell a reward-maximizing system to "maximize user engagement," it may discover that outrage and misinformation drive more engagement than accurate, helpful content. The specification was technically met; the intent was violated.
+
+### 2. Robustness: Staying Aligned Under Distribution Shift
+
+A model trained to behave well on the training distribution may behave unexpectedly on inputs it hasn't seen before. Robustness alignment asks: does the model generalize its aligned behavior to novel situations, or does its behavior change in unpredictable ways when inputs shift?
+
+This matters for deployed AI products. Your test set covers what you expected. Production covers everything else.
+
+### 3. Scalable Oversight: Maintaining Alignment as Capability Grows
+
+As models become more capable, they become harder to oversee. A human reviewer can catch obvious mistakes from a weak model. But a sufficiently capable model might produce outputs that look correct to a human but are subtly wrong in ways that only become apparent downstream.
+
+Scalable oversight research explores how to maintain meaningful human control over systems that may, in certain domains, outperform the humans supervising them.
+
+## Key Alignment Techniques
+
+### RLHF (Reinforcement Learning from Human Feedback)
+
+RLHF is currently the dominant alignment technique for large language models. The process:
+
+1. Train a base model on large text corpora
+2. Have human raters compare model outputs and indicate preferences
+3. Train a reward model to predict human preferences
+4. Fine-tune the base model using the reward model as a signal (via RL)
+
+RLHF is what made GPT-4 and Claude usable as assistants rather than just text completers. It reduces harmful outputs, improves instruction-following, and makes models more "helpful, harmless, and honest."
+
+Limitations: RLHF is only as good as its human raters. Biases in the rater pool become biases in the model. It also tends to make models more sycophantic — agreeing with users even when the user is wrong.
+
+### Constitutional AI (Anthropic)
+
+Constitutional AI, developed by Anthropic, trains models to evaluate their own outputs against a written set of principles (a "constitution"). The model critiques its own responses and revises them to better align with the principles, without human raters for every response.
+
+This approach is used in Claude's training and has shown promise for producing more consistent alignment across a wider range of situations than RLHF alone.
+
+### RLAIF (RL from AI Feedback)
+
+RLAIF replaces human raters with an AI model in the feedback loop. The AI evaluator (typically a more capable or differently-aligned model) provides preference signals used to train the target model.
+
+This scales better than pure human feedback but introduces a new alignment question: is the evaluator model itself aligned?
+
+### Interpretability
+
+Interpretability research aims to understand *why* models produce the outputs they do — not just what the outputs are. Tools like activation patching, attention analysis, and probing classifiers help researchers locate where in a model's internals specific concepts or behaviors are represented.
+
+For alignment, interpretability is valuable because it may eventually allow teams to verify that a model's internal goals match its stated behavior, rather than just measuring outputs.
+
+## AI Alignment in Practice: What Teams Should Do
+
+Most product teams aren't building frontier models, but alignment still applies to how you deploy AI:
+
+**Use system prompts defensively.** Define the model's role, limitations, and constraints explicitly. Don't assume the model will behave well by default in all cases. See [what is prompt injection](/glossary/what-is-prompt-injection) for the attack surface created when you don't.
+
+**Implement output validation.** For high-stakes outputs (medical advice, financial recommendations, legal analysis), add a validation layer — either another model call or a rules-based filter — before the output reaches the user.
+
+**Build human review into the loop.** For consequential decisions, maintain a human-in-the-loop step. Don't automate what you can't afford to get wrong at scale.
+
+**Monitor in production.** Aligned behavior in testing doesn't guarantee aligned behavior in production. Use [AI observability](/glossary/what-is-ai-observability) tools to track output quality and catch drift.
+
+**Apply an AI governance framework.** For organizations deploying AI at scale, a documented [AI governance framework](/glossary/ai-governance-framework) provides the organizational structure to operationalize alignment beyond individual model choices.
+
+## Alignment vs. Safety vs. Ethics: The Distinctions
+
+These terms are often conflated:
+
+- **AI alignment** — Technical: ensuring a system pursues the intended goal
+- **AI safety** — Broader: preventing AI systems from causing harm, intentional or not
+- **AI ethics** — Normative: defining what AI systems *should* do based on values and principles
+
+Alignment is a subset of safety. Safety is a subset of the broader ethics question. All three are necessary for AI systems deployed in the real world.
+
+## Where the Field Is Headed
+
+The current generation of alignment techniques — RLHF, constitutional AI, interpretability research — works reasonably well for today's models. The open question is whether these techniques scale as models become significantly more capable.
+
+Leading research organizations (Anthropic, DeepMind, the Alignment Research Center) are working on next-generation alignment approaches: scalable oversight, debate-based training, and automated interpretability. The field is early but advancing rapidly.
+
+<hr />
+
+*Related: [What is AI Guardrails?](/glossary/what-is-ai-guardrails) · [What is Agentic AI?](/glossary/what-is-agentic-ai) · [AI Governance Framework](/glossary/ai-governance-framework)*
+
+[Building an AI product and want to get the safety architecture right from day one? [Book a 15-min scope call →](/contact)]
+
+<hr />
+
+## Further Reading
+
+- [How to Pass a SOC 2 Audit](/blog/how-to-pass-soc2-audit) — Step-by-step guide for startups preparing for SOC 2 certification
+- [VAPT Automation Workflows](/blog/vapt-automation-workflows) — Automate vulnerability assessment and penetration testing
+- [Security Checklist for Series A Startups](/blog/security-checklist-series-a-startups) — What investors check before writing a check
+
+**Compare:** [Vanta vs Drata vs Transient Labs](/compare/vanta-vs-drata-vs-100xai) · [Clerk vs Auth0 for AI Apps](/compare/clerk-vs-auth0-for-ai-apps)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [Security & SOC 2](/solutions/security-soc2)

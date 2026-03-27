@@ -1,0 +1,154 @@
+---
+title: "What is Function Calling in LLMs?"
+description: "Function calling lets LLMs invoke structured tools and APIs instead of just generating text. Learn how it works, why it matters, and how to use it in 2026."
+keywords:
+  - function calling LLM
+  - what is function calling
+  - OpenAI function calling
+  - tool use AI
+  - LLM tool calls
+  - structured output AI
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build AI Products with Function Calling"
+cta_url: "/contact"
+slug: "what-is-function-calling"
+---
+
+## What is Function Calling in LLMs?
+
+**Function calling** (also called *tool use*) is the ability of a large language model to produce structured, machine-readable output that instructs an external system to call a specific function — rather than just generating free-form text.
+
+Instead of writing "I'll look up the weather for you," a model with function calling enabled will output:
+
+```json
+{
+  "name": "get_weather",
+  "arguments": {
+    "location": "London",
+    "unit": "celsius"
+  }
+}
+```
+
+Your application receives this output, calls the actual `get_weather` function, passes the result back to the model, and the model uses it to generate a natural-language response. The model never directly executes code — it *requests* execution via structured output, and your application handles the actual call.
+
+Function calling is the technical foundation that makes [agentic AI systems](/glossary/what-is-agentic-ai) possible. Without it, LLMs can only produce text. With it, they can search the web, query databases, trigger API calls, read files, and execute any action you expose as a function.
+
+## How Function Calling Works — Step by Step
+
+**1. Define your functions**
+You describe each tool as a JSON schema with a name, description, and parameter types. The model reads these descriptions to understand what tools are available and when to use them.
+
+```json
+{
+  "name": "search_crm",
+  "description": "Search the CRM for customer records by name or email",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string", "description": "Search term" },
+      "limit": { "type": "integer", "default": 5 }
+    },
+    "required": ["query"]
+  }
+}
+```
+
+**2. Include functions in the API request**
+You send your message along with the function definitions. The model decides whether to answer directly or invoke a function.
+
+**3. Model returns a tool call**
+If the model determines a function call is needed, it returns a structured `tool_call` object (not a text response). Your application detects this, executes the function, and captures the result.
+
+**4. Return the result to the model**
+You add the function result to the conversation as a `tool` role message and call the model again. The model uses the result to generate a final response.
+
+**5. Response generation**
+The model now has real data and generates a grounded, accurate response rather than hallucinating information.
+
+## Parallel and Sequential Tool Calls
+
+Modern LLMs support **parallel tool calls** — the model can request multiple function calls in a single response, which your application executes concurrently. This is critical for performance in agentic systems.
+
+For example, if a user asks "compare the pricing and review scores for these three SaaS tools," the model can emit three tool calls simultaneously, you fetch all three in parallel, and return the combined results in one round trip.
+
+Sequential tool calls happen when each step depends on the previous one — look up a customer ID, then use that ID to fetch their orders. The model chains these naturally across multiple turns.
+
+## Function Calling vs Prompt Engineering
+
+Before function calling was standardized (circa 2023), teams would ask models to output structured JSON via prompt instructions like "always respond with valid JSON." This works poorly — models hallucinate field names, invent values, and produce invalid JSON under stress.
+
+Function calling solves this at the API level:
+- The model is fine-tuned to produce valid structured output when tools are provided
+- Parameter types are enforced by the API (integers stay integers, enums stay valid)
+- The model learns *when* to call a function vs when to respond in text from training, not from your prompt
+
+For production systems that need reliable tool invocation, function calling is far more robust than prompt-based JSON hacks. This pairs well with good [prompt engineering](/glossary/prompt-engineering) for the reasoning parts of your system.
+
+## Supported Models and APIs
+
+Function calling (or equivalent tool use) is now supported across all major frontier models:
+
+| Model | API Feature Name | Notes |
+|---|---|---|
+| **OpenAI GPT-4o** | `tools` / `function_calling` | Most mature; parallel calls supported |
+| **Anthropic Claude 3.5+** | `tools` | Excellent instruction-following; JSON reliable |
+| **Google Gemini 1.5+** | `tools` / `function_declarations` | Native parallel calls |
+| **Mistral / Llama via Groq** | `tools` | OpenAI-compatible format |
+| **Local models (Ollama)** | Varies | Quality depends on model size |
+
+The OpenAI tool-calling format has become a de facto standard — most frameworks and local model servers implement it.
+
+## Structured Outputs vs Function Calling
+
+A related but distinct feature: **structured outputs** force the model's entire response to match a JSON schema, not just tool calls. Use structured outputs when you always want JSON (e.g., extracting data from documents). Use function calling when the model should *decide* whether to call a tool and choose which one.
+
+Many production systems use both: function calling for agentic tool use, structured outputs for extraction pipelines.
+
+## Common Use Cases
+
+**Agentic systems** — The primary use case. Every time an agent executes a web search, reads a file, queries a database, or calls an API, it does so via function calls. See [what is agentic AI](/glossary/what-is-agentic-ai) for how this fits into the bigger picture.
+
+**Data extraction** — Ask the model to extract structured entities (names, dates, amounts) from unstructured text and return them in a schema you define. Far more reliable than asking for free-form JSON.
+
+**Dynamic UI generation** — A model decides which UI component to render by returning a function call like `render_chart` or `show_form`, which your frontend handles. The model picks the right component based on context.
+
+**RAG pipelines** — In a [retrieval-augmented generation](/glossary/what-is-rag) system, the retrieval step can be a tool call: the model decides when it needs to search the knowledge base and what query to use.
+
+**Multi-step workflows** — Orchestrate business processes where the model directs which step to execute next based on intermediate results: approve invoice → notify user → update ledger.
+
+## Function Calling in Production: What to Watch For
+
+**Latency** — Each tool call requires a round trip: model call → your function → model call again. For multi-step tasks, latency compounds. Minimize round trips with parallel calls and smart batching.
+
+**Cost** — Every additional model call costs tokens. Tool schemas count toward input tokens on every request. Keep schemas concise; don't include 50 tools when the agent only needs 5 for the current task.
+
+**Security** — Tool calls execute real code. Never expose destructive operations (DELETE, deploy, send email) without confirmation logic. Treat every model-requested tool call as untrusted input and validate parameters server-side.
+
+**Observability** — Log every tool call and result. When something goes wrong in a 10-step agent run, the tool call trace is your only path to debugging.
+
+## Key Takeaway
+
+Function calling transforms an LLM from a text generator into an orchestrator that can interact with any system you expose as a function. It's the technical primitive that makes AI agents, RAG pipelines, and AI-powered workflows possible at production scale. If you're building anything beyond a simple chatbot, you're almost certainly going to use it.
+
+<hr />
+
+*Related: [What is Agentic AI?](/glossary/what-is-agentic-ai) · [What is RAG?](/glossary/what-is-rag) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)*
+
+[Building AI products that use function calling? Our team ships these systems every sprint. Book a call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

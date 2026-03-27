@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "beeper": {
+      "command": "bash -lc 'cd /Users/sankalp/Projects/clawd/mcp/beeper-mcp && . .venv/bin/activate && python main.py'"
+    },
+    "hunter-io": {
+      "command": "bash -lc 'cd /Users/sankalp/Projects/clawd/mcp/hunter-io-mcp-server && HUNTER_API_KEY=\"${HUNTER_API_KEY}\" node dist/index.js'"
+    },
+    "exa": {
+      "description": "Exa MCP (remote)",
+      "baseUrl": "https://mcp.exa.ai/mcp?tools=web_search_exa,company_research_exa,linkedin_search_exa"
+    },
+    "google-analytics": {
+      "command": "google-analytics-mcp"
+    }
+  },
+  "imports": []
+}

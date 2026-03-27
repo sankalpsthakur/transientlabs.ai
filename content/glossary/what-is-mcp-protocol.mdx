@@ -1,0 +1,87 @@
+---
+title: "What is MCP (Model Context Protocol)?"
+description: "The MCP protocol (Model Context Protocol) is Anthropic's open standard connecting AI agents to external tools and data sources. What it is and why it matters."
+keywords:
+  - MCP protocol
+  - Model Context Protocol
+  - AI agent protocol
+  - MCP Anthropic
+  - AI tool integration
+  - AI agent architecture
+  - LLM tool use
+  - AI agent standard
+category: "glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Book a 15-min scope call"
+cta_url: "https://100xai.engineering/#contact"
+slug: "what-is-mcp-protocol"
+---
+
+# What is MCP (Model Context Protocol)? The New Standard for AI Agents
+
+**MCP protocol (Model Context Protocol)** is an open standard introduced by Anthropic in late 2024 that defines how AI language models connect to external tools, data sources, and services. It is quickly becoming the default architecture for building AI agents that do more than generate text — agents that can read files, query databases, call APIs, and take actions in the real world.
+
+If you're building an AI product in 2026 and haven't evaluated whether your architecture should be MCP-native, this is the primer you need.
+
+## The Problem MCP Solves
+
+Before MCP, every team building an AI agent had to solve the same problem from scratch: how do you give a language model reliable access to external systems?
+
+The approaches varied wildly. Some teams hardcoded tool definitions in system prompts. Others built custom function-calling wrappers for each API integration. Others used proprietary orchestration layers that locked them into a specific model provider.
+
+The result was fragmentation. An agent built for OpenAI's function-calling spec didn't port to Claude. A tool integration built for LangChain didn't work with a raw API call. Every new model capability required retrofitting existing integrations.
+
+MCP standardizes the interface. A tool built to the MCP spec works with any MCP-compatible model or agent framework — today Claude, and increasingly others as the standard gets adopted more broadly.
+
+## How MCP Works
+
+MCP defines a client-server architecture with three core concepts:
+
+**Servers** expose capabilities — tools the model can call, resources it can read, and prompts it can invoke. An MCP server for a database, for example, exposes query execution as a tool and table schemas as resources.
+
+**Clients** are the AI agent or orchestration layer that connects to one or more MCP servers and routes model requests to the appropriate server.
+
+**The protocol** defines how clients and servers communicate: how tools are described, how calls are made, how results are returned, and how errors are handled.
+
+In practice, this means you can build a single MCP server for your internal data warehouse and have it work with Claude Desktop, a custom agent, and any third-party tool that supports MCP — without rebuilding the integration three times.
+
+## Why This Matters for AI Product Development
+
+For teams building AI products, MCP changes the economics of integration work.
+
+Previously, adding a new data source to an AI agent meant custom engineering for each source: writing the API wrapper, defining the tool schema for the model, handling error states, and testing the whole stack. Multiply that by the number of systems your agent needs to access, and integration work dominates development time.
+
+With MCP, you write the server once. Any capable agent can use it. The community is already publishing open-source MCP servers for common systems — GitHub, Slack, PostgreSQL, Notion, Google Drive — that you can drop into your architecture without writing integration code from scratch.
+
+This is the same use pattern that made REST APIs dominant: a standard that let systems talk to each other without custom bilateral agreements.
+
+## MCP in Practice: What We See at Transient Labs
+
+We're building MCP-native agent architectures for clients across industries. A few patterns we see repeatedly:
+
+- **Internal knowledge agents** that connect to document stores, CRMs, and ticketing systems via MCP servers — allowing the agent to pull from all systems in a single reasoning trace
+- **Workflow automation agents** that use MCP to write back to systems of record, not just read from them
+- **Multi-agent systems** where specialized sub-agents expose MCP interfaces to a coordinating agent
+
+If you're starting an AI agent project today, designing around MCP from the beginning is lower-risk than building a proprietary integration layer you'll need to retrofit later.
+
+## Learn More
+
+For related concepts, see our glossary on [AI agents](/glossary/ai-agent) and our guide on [what an AI MVP looks like](/glossary/ai-mvp-definition).
+
+If you're evaluating whether MCP-native architecture fits your product, [book a 15-minute scope call](https://100xai.engineering/#contact) — we can assess your integration requirements and recommend the right architecture approach.
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

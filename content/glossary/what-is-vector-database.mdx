@@ -1,0 +1,127 @@
+---
+title: "What is a Vector Database? A Developer's Guide"
+description: "What is a vector database? It stores high-dimensional embeddings for semantic search. How it works, when to use it, and which ones to choose in 2026."
+keywords:
+  - what is a vector database
+  - vector database explained
+  - vector search
+  - embedding database
+  - Pinecone vs Weaviate
+  - pgvector
+  - semantic search database
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build AI Search for Your Product"
+cta_url: "/contact"
+slug: "what-is-vector-database"
+---
+
+## What is a Vector Database?
+
+A **vector database** is a purpose-built database that stores, indexes, and queries high-dimensional numerical vectors — called embeddings — at scale. Unlike a traditional relational database that looks up exact row matches, a vector database finds the most *semantically similar* items to a query, even if no exact match exists.
+
+Vector databases are the storage backbone of modern AI applications: powering [retrieval-augmented generation (RAG)](/glossary/what-is-rag), semantic search, recommendation engines, anomaly detection, and more.
+
+In 2026, if you're building a product that needs an LLM to answer questions from your own data, you almost certainly need a vector database.
+
+## How Vector Databases Work
+
+Every piece of content — a sentence, an image, a product description — can be converted into a vector embedding: a list of hundreds or thousands of floating-point numbers that encodes its semantic meaning. An embedding model (like OpenAI's `text-embedding-3-small` or Cohere Embed) generates these vectors.
+
+The vector database then:
+
+1. **Stores** those vectors alongside a payload (the original text, metadata, IDs)
+2. **Indexes** them using approximate nearest-neighbor (ANN) algorithms like HNSW or IVF so retrieval stays fast at millions of records
+3. **Queries** them by taking a new embedding and returning the top-K most similar vectors — measured by cosine similarity or dot product
+
+The result is **semantic search**: you can ask "show me content about contract renewal risk" and retrieve documents that match the *meaning*, not just the keywords.
+
+## Vector Database vs Traditional Database
+
+| | Relational DB (Postgres) | Vector DB |
+|--|--------------------------|-----------|
+| **Query type** | Exact match, filters, joins | Approximate nearest-neighbor search |
+| **Data type** | Rows, columns, scalars | High-dimensional float vectors |
+| **Use case** | Transactions, structured data | Semantic search, AI retrieval |
+| **Scaling challenge** | Write throughput | ANN index size + recall tradeoffs |
+| **Examples** | PostgreSQL, MySQL | Pinecone, Weaviate, Qdrant, pgvector |
+
+Note that Postgres with the `pgvector` extension blurs this line — it supports vector search inside a relational database, making it a strong choice for small-to-medium datasets.
+
+## Common Use Cases
+
+### RAG (Retrieval-Augmented Generation)
+The most common use case in 2026. An LLM answers questions grounded in your private documents. The vector DB retrieves the relevant passages; the LLM generates the response. See our full guide: [What is RAG?](/glossary/what-is-rag)
+
+### Semantic Search
+Replace keyword search with meaning-aware search. A user searching "how do I cancel?" retrieves results for "account termination," "end subscription," and "stop billing" — because they're semantically similar.
+
+### Recommendation Engines
+Store user preference vectors and product embedding vectors. Find the top-10 products closest to a user's preference vector. No collaborative filtering required for a first version.
+
+### Anomaly Detection
+Store normal-behavior vectors (e.g., server log patterns, financial transaction profiles). At runtime, vectors far from any cluster are flagged as anomalies.
+
+### Duplicate & Near-Duplicate Detection
+Find documents, images, or support tickets that are semantically identical even if worded differently.
+
+## The Main Vector Database Options in 2026
+
+**Pinecone** — Fully managed, serverless, zero infrastructure. Best for teams that want production-grade vector search without ops burden. Expensive at scale.
+
+**Weaviate** — Open-source, self-hostable or cloud. Supports hybrid search (vector + keyword BM25), multi-tenancy, and has a strong GraphQL API. Good for teams with existing infrastructure.
+
+**Qdrant** — Open-source, Rust-based, extremely fast. Great for self-hosted deployments where performance matters and budget is tight.
+
+**pgvector** — Postgres extension. Best for teams already on Postgres who need vector search without a new database. Works well up to ~1–5M vectors before ANN performance degrades.
+
+**Chroma** — Open-source, developer-friendly, ideal for local development and small deployments.
+
+**Milvus** — Open-source, designed for billion-scale deployments. Requires significant DevOps investment.
+
+## Choosing the Right Vector Database
+
+Ask these questions:
+
+- **Scale**: How many vectors? < 1M → pgvector or Chroma. 1M–100M → Pinecone or Weaviate. > 100M → Milvus or Qdrant.
+- **Infrastructure**: Can your team operate self-hosted databases? If not, Pinecone or Weaviate Cloud.
+- **Hybrid search needed?** → Weaviate or Qdrant (both support keyword + vector fusion natively).
+- **Already on Postgres?** → Try pgvector first. It covers 80% of use cases.
+- **Budget**: Pinecone's managed pricing scales fast. Self-hosted Qdrant on a $50/mo VPS can handle millions of vectors.
+
+## What Vector Databases Don't Do
+
+A vector database is not a replacement for your application database. It stores vectors — not the full content of your documents. The typical architecture is:
+
+- **Postgres** — Source of truth for your application data
+- **Vector DB** — Embedding index for search and retrieval
+- **LLM** — Reads retrieved context, generates responses
+
+The two databases work together, not instead of each other.
+
+## Key Takeaway
+
+Vector databases turn unstructured content — documents, images, code, audio transcripts — into searchable, queryable knowledge. They are the infrastructure layer that makes [RAG](/glossary/what-is-rag), semantic search, and AI-powered retrieval possible.
+
+If you're building an AI product that needs to retrieve information intelligently, choosing and configuring the right vector database is one of the most important architectural decisions you'll make.
+
+<hr />
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [Pinecone vs Weaviate](/compare/pinecone-vs-weaviate) · [AI MVP Cost Breakdown](/glossary/ai-mvp-cost)*
+
+[Building search or RAG into your product? Our engineers have shipped vector search pipelines from proof-of-concept to production. Book a 15-min scope call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

@@ -1,0 +1,139 @@
+---
+title: "What is Semantic Search? Beyond Keywords"
+description: "Semantic search finds results by meaning, not exact words. Learn how vector embeddings power modern AI search — and when to use it over keyword search."
+keywords:
+  - semantic search
+  - what is semantic search
+  - vector search
+  - embeddings search
+  - semantic vs keyword search
+  - AI search
+  - vector database
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Semantic Search Into Your Product"
+cta_url: "/contact"
+slug: "what-is-semantic-search"
+---
+
+## What is Semantic Search?
+
+**Semantic search** is a search technique that retrieves results based on the *meaning* of a query rather than matching exact words or phrases. Ask "best way to reduce server costs" and semantic search returns results about cloud optimization and reserved instances — even if none of them contain the phrase "reduce server costs."
+
+Traditional keyword search (like early Google, Elasticsearch, or SQL `LIKE` queries) matches documents that contain your exact query terms. Semantic search matches documents that are *conceptually related* to what you asked, even if they use entirely different vocabulary.
+
+This shift matters enormously for AI applications. When you're building a RAG system (retrieval-augmented generation), a knowledge base assistant, or any product that searches over text, semantic search is usually the foundation.
+
+## How Semantic Search Works
+
+The core mechanism is **vector embeddings** — numerical representations of text where similar meanings cluster close together in high-dimensional space.
+
+Here's the process:
+
+1. **Indexing:** Every document (or document chunk) is converted into a vector — typically 384 to 3,072 numbers — using an embedding model (OpenAI's `text-embedding-3-small`, Cohere's `embed-v3`, or open-source alternatives like `sentence-transformers`).
+
+2. **Storage:** These vectors are stored in a vector database (Pinecone, Weaviate, Qdrant, pgvector in Postgres) alongside the original text.
+
+3. **Query:** When a user searches, their query is converted to a vector using the same embedding model.
+
+4. **Retrieval:** The database finds the stored vectors that are closest to the query vector — "nearest neighbor" search. The documents attached to those vectors are the results.
+
+The math underneath is usually cosine similarity or dot product — measuring the angular distance between vectors in high-dimensional space. Documents that express similar ideas end up with vectors that point in similar directions.
+
+## Semantic Search vs. Keyword Search
+
+| Dimension | Keyword Search | Semantic Search |
+|-----------|---------------|-----------------|
+| **Matching logic** | Exact term matching | Meaning similarity |
+| **Synonyms** | ❌ Misses "auto" for "car" | ✅ Handles synonyms |
+| **Paraphrasing** | ❌ Strict wording required | ✅ Handles rephrasing |
+| **Typos** | Partial (with fuzzy matching) | ✅ Often tolerant |
+| **Cross-language** | ❌ Language-specific | ✅ Multilingual embeddings available |
+| **Speed** | Very fast at scale | Fast, with ANN index |
+| **Explainability** | Easy to explain match | Harder to explain |
+| **Cost** | Cheap (inverted index) | Higher (embedding + vector DB) |
+| **Infrastructure** | Elasticsearch, Postgres | Vector DB + embedding API |
+
+Neither approach is universally better. Keyword search excels when users know the exact term they're searching for (product SKU, error code, person name). Semantic search excels when queries are natural language descriptions and the corpus uses varied terminology.
+
+## Hybrid Search
+
+Most production search systems use **hybrid search** — combining keyword and semantic results with a re-ranking step.
+
+A typical hybrid setup:
+1. Run a BM25 keyword search → top 50 results
+2. Run a vector similarity search → top 50 results
+3. Merge and re-rank using a cross-encoder model or Reciprocal Rank Fusion (RRF)
+4. Return top 10
+
+This captures both exact matches (good for known-item queries) and semantic matches (good for exploratory queries). Cohere's Rerank API and tools like Weaviate's hybrid search simplify this pattern considerably.
+
+## When to Use Semantic Search
+
+**Use semantic search when:**
+- Users query in natural language ("how do I cancel my subscription")
+- Your corpus has synonym or terminology diversity
+- You're building a RAG system for document Q&A
+- You want to find "related" content (recommendations, similar tickets)
+- Queries are conceptual rather than lookup-based
+
+**Stick with keyword search when:**
+- Queries are structured identifiers (order IDs, error codes, part numbers)
+- Exact phrase matching is required for compliance/legal reasons
+- Your corpus is small and keyword search is "good enough"
+- Cost and infrastructure simplicity are primary constraints
+
+**Use hybrid when:**
+- Your users mix natural language and specific terms
+- You have a large, diverse corpus
+- You need best-in-class recall for a critical search feature
+
+## Semantic Search in AI Applications
+
+Semantic search is the retrieval layer in most [LLM orchestration](/glossary/what-is-llm-orchestration) systems. When you ask a chatbot a question about your company's documentation, the system:
+
+1. Semantically searches the document corpus for relevant chunks
+2. Injects those chunks into the LLM's prompt as context
+3. The LLM generates an answer grounded in your specific documents
+
+Without good semantic retrieval, the LLM either hallucinates (invents answers from training data) or refuses to answer. Retrieval quality is often the highest-leverage improvement in RAG systems — better retrieval beats better prompts most of the time.
+
+## Choosing an Embedding Model
+
+| Model | Provider | Dimensions | Cost | Best For |
+|-------|----------|-----------|------|----------|
+| `text-embedding-3-small` | OpenAI | 1,536 | $0.02/1M tokens | General purpose, balanced |
+| `text-embedding-3-large` | OpenAI | 3,072 | $0.13/1M tokens | High-accuracy applications |
+| `embed-v3-english` | Cohere | 1,024 | $0.10/1M tokens | English text, hybrid search |
+| `embed-v3-multilingual` | Cohere | 1,024 | $0.10/1M tokens | Multi-language corpora |
+| `all-MiniLM-L6-v2` | HuggingFace | 384 | Free (self-hosted) | Low-latency, cost-sensitive |
+| `bge-large-en` | BAAI | 1,024 | Free (self-hosted) | Strong open-source baseline |
+
+For most AI product use cases, `text-embedding-3-small` is the right starting point: fast, affordable, and well-tested in production. Only move to larger models or specialized alternatives after measuring that the default doesn't meet your accuracy requirements.
+
+## Key Takeaway
+
+Semantic search isn't just "better Google" — it's the core retrieval primitive that makes AI assistants, document chatbots, and intelligent knowledge bases possible. Understanding how it works (embeddings → vector similarity → retrieval) demystifies a significant part of modern AI application architecture.
+
+The practical guidance: start with a simple embedding + pgvector setup, measure retrieval quality with a representative eval set, and add complexity (re-ranking, hybrid search) only when measurements show it's needed.
+
+<hr />
+
+*Related: [What is LLM Orchestration? Chains and Pipelines](/glossary/what-is-llm-orchestration) · [LangSmith vs Phoenix for LLM Observability](/compare/langsmith-vs-phoenix-arize) · [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)*
+
+Building a search or retrieval feature and want expert guidance on the architecture? [Book a 15-min call with our team](/contact) — we'll recommend the right embedding model, vector database, and retrieval strategy for your specific use case.
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

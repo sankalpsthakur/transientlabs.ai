@@ -1,0 +1,137 @@
+---
+title: "What is Fine-Tuning? Fine-Tune vs Prompt"
+description: "What is fine-tuning? Training an LLM on your data to change its behavior. When fine-tuning beats prompting — and when RAG is the smarter, cheaper path."
+keywords:
+  - what is fine-tuning
+  - fine-tuning LLM
+  - fine-tune vs prompt
+  - fine-tuning vs RAG
+  - LLM fine-tuning guide
+  - when to fine-tune
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Talk to Us About Your AI Stack"
+cta_url: "/contact"
+slug: "what-is-fine-tuning"
+---
+
+## What is Fine-Tuning?
+
+**Fine-tuning** is the process of taking a pre-trained large language model (LLM) and continuing to train it on a curated dataset — adjusting its weights so the model behaves better for a specific task, domain, or style.
+
+Unlike prompting (where you guide the model at inference time), fine-tuning modifies the model itself. A fine-tuned model has genuinely different behavior baked in — it doesn't need a long system prompt to know how to act, because that knowledge is encoded in its parameters.
+
+Fine-tuning is powerful. It's also expensive, slow, and often unnecessary — which is why most teams reach for it too early and [make it one of the biggest AI MVP mistakes](/blog/ai-mvp-mistakes-founders-make).
+
+## How Fine-Tuning Works
+
+Modern LLM fine-tuning uses **supervised fine-tuning (SFT)** as the starting point:
+
+1. **Collect a dataset** — Input/output pairs that demonstrate the behavior you want. Usually hundreds to tens of thousands of examples.
+2. **Format training data** — Structure inputs as `{"prompt": "...", "completion": "..."}` or in chat message format.
+3. **Run training** — Update the model's weights on your dataset using a training framework (OpenAI fine-tuning API, Hugging Face `transformers`, Axolotl, Unsloth).
+4. **Evaluate** — Compare fine-tuned model against baseline on your eval set.
+5. **Deploy** — Host the fine-tuned model (OpenAI API, vLLM, Together AI, etc.).
+
+For large models, **parameter-efficient fine-tuning (PEFT)** methods like **LoRA** (Low-Rank Adaptation) are standard — you update a small adapter on top of the frozen base model rather than all weights. This reduces compute by 10–50× with minimal quality loss.
+
+## Fine-Tuning vs Prompting vs RAG
+
+This is the most important decision in AI product design. Most teams default to fine-tuning when they should be prompting or using [RAG](/glossary/what-is-rag).
+
+| | Prompting | RAG | Fine-Tuning |
+|--|-----------|-----|-------------|
+| **Cost** | Lowest | Low | High |
+| **Speed to ship** | Hours | Days | Weeks–months |
+| **Data freshness** | Always current | Real-time | Stale after training |
+| **Best for** | Format/tone, one-off tasks | Domain knowledge, Q&A over docs | New skills, persistent style/behavior |
+| **Data required** | None | Unstructured docs | 100–10K+ labeled examples |
+| **Hallucination risk** | Moderate | Low (grounded in retrieval) | Moderate |
+
+**Decision tree:**
+
+- Need the model to *know* something? → **RAG first**
+- Need the model to *behave* differently? → **Prompting first, then fine-tuning if prompting fails**
+- Need low latency without a large system prompt? → **Fine-tuning**
+- Need to teach a fundamentally new skill the base model doesn't have? → **Fine-tuning**
+
+## When Fine-Tuning Is the Right Call
+
+Fine-tuning earns its cost and complexity when:
+
+**1. Style and tone are core to the product**
+If your product needs a very specific voice — technical writing for a niche domain, legal document drafting in a particular jurisdiction's style — prompts alone often drift. A fine-tuned model holds tone consistently across thousands of outputs.
+
+**2. You need short prompts at high volume**
+System prompts add tokens, which add cost. At millions of API calls per month, a fine-tuned model that doesn't need a 2,000-token system prompt can meaningfully reduce your bill.
+
+**3. You have a well-defined structured output task**
+Classification, entity extraction, translation for a specific domain — these are tasks where fine-tuning on labeled examples reliably outperforms prompting.
+
+**4. You're building on a small/open-source model**
+If you need to run on-premise or use a 7B parameter open-source model (Llama 3, Mistral, Gemma), fine-tuning is often what makes it viable for production. Small models can't follow complex instructions reliably without it.
+
+## When Fine-Tuning Is the Wrong Call
+
+Fine-tuning is often proposed too early. Avoid it when:
+
+- **Your data changes frequently** — A fine-tuned model is frozen at training time. If your knowledge base updates weekly, use RAG.
+- **You have less than a few hundred high-quality examples** — Bad training data produces a model that confidently does the wrong thing. Quality beats quantity, but you need both.
+- **You haven't tried prompting first** — Most tasks that "need fine-tuning" can be solved with a well-crafted system prompt and few-shot examples. Try that first. It's free.
+- **You're pre-revenue** — Fine-tuning is a week-four or week-eight problem for most startups. Validate the product first.
+
+## Fine-Tuning with OpenAI
+
+OpenAI's fine-tuning API supports GPT-4o mini and GPT-3.5 Turbo:
+
+```jsonl
+{"messages": [{"role": "system", "content": "You are a legal document assistant."}, {"role": "user", "content": "Summarize this clause in plain English."}, {"role": "assistant", "content": "This clause means the seller..."}]}
+```
+
+Upload a JSONL file with at least 10 examples (50+ recommended), kick off training via API or dashboard, and your fine-tuned model is available as a custom endpoint within hours.
+
+Cost: $8 per million training tokens for GPT-4o mini. A 1,000-example dataset of 500 tokens each costs ~$4 to train.
+
+## Fine-Tuning with Open-Source Models
+
+For teams with privacy requirements or cost constraints, open-source fine-tuning is increasingly practical:
+
+- **Llama 3 (8B or 70B)** — Meta's open-weights model, strong baseline
+- **Mistral 7B** — Efficient, well-documented fine-tuning community
+- **Framework**: Hugging Face `trl` + LoRA adapters via `peft`
+- **Compute**: A single A100 GPU for a few hours handles most LoRA fine-tuning jobs (available on Lambda Labs, Vast.ai, or Google Colab for small experiments)
+
+## Evaluating Your Fine-Tuned Model
+
+A fine-tuned model is only better if it actually improves on your eval set. Measure:
+
+- **Task accuracy** — Does the model produce correct outputs on your held-out test set?
+- **Regression** — Did it get better at the fine-tuned task while getting worse at general reasoning?
+- **Format consistency** — Does it reliably follow output format requirements?
+
+Always compare fine-tuned model vs. best-prompt baseline on the same eval set before making the call.
+
+## Key Takeaway
+
+Fine-tuning is a precision instrument, not a hammer. Use prompting for most tasks. Use RAG for domain knowledge. Fine-tune when you need persistent behavioral change, volume efficiency, or a small model to punch above its weight.
+
+<hr />
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make) · [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks)*
+
+[Trying to decide between prompting, RAG, and fine-tuning for your product? We help founders make this call every week. Book a 15-min call →](/contact)
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

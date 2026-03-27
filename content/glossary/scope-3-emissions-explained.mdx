@@ -1,0 +1,161 @@
+---
+title: "Scope 3 Emissions: What They Are and How to Report Them"
+description: "Scope 3 emissions are the largest and hardest part of GHG reporting. Learn the 15 categories, where data comes from, and how to build an audit-ready reportin..."
+keywords:
+  - Scope 3 emissions
+  - Scope 3 reporting
+  - GHG Protocol Scope 3
+  - supply chain emissions
+  - value chain emissions
+  - carbon reporting
+  - CSRD Scope 3
+  - Scope 3 categories
+  - spend-based emissions
+  - supplier emissions data
+category: glossary
+type: "DefinedTerm"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build your Scope 3 reporting tool in a 2-week sprint"
+cta_url: "/pricing"
+slug: "scope-3-emissions-explained"
+---
+
+# Scope 3 Emissions: What They Are and How to Report Them
+
+Scope 3 is where most companies' carbon footprints actually live. For a typical manufacturer, Scope 3 emissions — those occurring upstream and downstream in the value chain — account for anywhere from 70% to 95% of total GHG emissions. For a financial institution or tech company, that number can exceed 99%.
+
+And yet Scope 3 is the part of GHG reporting that companies consistently undercount, misclassify, or avoid entirely. That worked when reporting was voluntary. Under CSRD, it no longer does.
+
+## The Three Scopes, Briefly
+
+The GHG Protocol divides emissions into three scopes:
+
+- **Scope 1:** Direct emissions from sources owned or controlled by the company — combustion in furnaces, fleet vehicles, refrigerant leaks.
+- **Scope 2:** Indirect emissions from purchased electricity, heat, steam, or cooling.
+- **Scope 3:** Everything else — all other indirect emissions in the value chain, upstream and downstream.
+
+Scope 1 and 2 are relatively tractable. You control the sources, you can meter them, your energy bills give you a starting point. Scope 3 is tractable in theory and genuinely hard in practice.
+
+## The 15 Categories of Scope 3
+
+The GHG Protocol Scope 3 Standard defines 15 categories split across upstream (what goes into making your products) and downstream (what happens after you sell them):
+
+**Upstream categories:**
+1. Purchased goods and services
+2. Capital goods
+3. Fuel- and energy-related activities (not in Scope 1 or 2)
+4. Upstream transportation and distribution
+5. Waste generated in operations
+6. Business travel
+7. Employee commuting
+8. Upstream leased assets
+
+**Downstream categories:**
+9. Downstream transportation and distribution
+10. Processing of sold products
+11. Use of sold products
+12. End-of-life treatment of sold products
+13. Downstream leased assets
+14. Franchises
+15. Investments
+
+Not all 15 apply to every company. The first step is identifying which categories are relevant to your business model — a software company running on cloud infrastructure has a different Scope 3 profile than a consumer goods manufacturer with a global supply chain.
+
+## Where the Data Actually Comes From
+
+This is the part that humbles most sustainability teams. Each category has different data sources, different calculation approaches, and different quality levels:
+
+### Category 1 (Purchased Goods and Services) — The Hardest One
+
+This is usually the largest category and the most data-intensive. There are three main approaches:
+
+**Spend-based:** Multiply your spend on each supplier category by an emission factor from a database like Exiobase or EPA USEEIO. Fast, scalable, but rough — errors of 50–200% relative to activity-based figures are common. Still defensible as a starting point.
+
+**Supplier-specific:** Get actual product-level carbon footprint data from your suppliers (Product Carbon Footprints, or PCFs). Accurate, but requires suppliers to have calculated their own emissions, which most haven't.
+
+**Hybrid:** Use spend-based for long-tail suppliers, supplier-specific for your top 20–30 by spend. This is where most sophisticated reporters land.
+
+### Category 6 (Business Travel)
+
+Pull from your travel management platform or expense reports. Apply DEFRA or EPA emission factors by transport mode and distance. Relatively clean, but watch out for hotel stays (Category 6 includes accommodation) and whether you're capturing contractors.
+
+### Category 11 (Use of Sold Products)
+
+For any product that consumes energy during use — vehicles, appliances, electronics — you need to model emissions over the expected product lifetime. This requires knowing energy consumption per use cycle, average product lifetime, and the projected electricity grid mix for where products are used. Consumer electronics companies that haven't done this are often shocked by the result.
+
+### Category 15 (Investments) — The Financial Sector's Scope 3
+
+Banks, asset managers, and insurers face a particular version of this problem: their financed emissions (Category 15) dwarf everything else. The Partnership for Carbon Accounting Financials (PCAF) provides the methodology. The data challenges are the same as supplier engagement, applied to portfolio companies.
+
+## CSRD's Specific Requirements
+
+CSRD's ESRS E1 standard on climate change requires disclosure of all three scopes under E1-6. Specifically:
+
+- Scope 3 emissions must be reported by category where material
+- The methodology and significant assumptions must be disclosed
+- The share of Scope 3 calculated using supplier-specific versus secondary data must be stated
+- Year-on-year comparisons require consistent methodology
+
+The "significant assumptions" requirement is what catches people out. You can't just publish a Scope 3 number — you have to explain what you assumed about emission factors, product lifetimes, geographic distributions, and data quality. If those assumptions shift between years, you need to explain why.
+
+## Building a System That Survives an Audit
+
+The difference between Scope 3 reporting that impresses auditors and Scope 3 reporting that fails auditors usually comes down to one thing: **traceability**.
+
+An auditor will pick a number — say, your Category 1 emissions — and ask you to trace it from the final figure back to the source data. If that trace goes: reported figure → spreadsheet → another spreadsheet → email attachment from procurement → "we think this is the right emission factor" → auditor flags a finding.
+
+A traceable Scope 3 system looks more like:
+- **Data ingestion layer:** Pull spend data from ERP via API, travel data from Concur or Navan, logistics data from your TMS
+- **Calculation engine:** Apply versioned emission factors with full methodology documentation; store calculation inputs and outputs separately
+- **Audit trail:** Every data point has a timestamp, source, and modification log
+- **Reconciliation:** Total Scope 3 ties back to financial accounts where spend-based methods are used
+
+This is a software build problem as much as a sustainability problem. Companies that treat it as a spreadsheet problem get to rebuild it when they hit their first audit.
+
+## The Supplier Engagement Problem
+
+Even if you build perfect infrastructure, Category 1 accuracy is ultimately limited by what your suppliers give you. This creates a supplier engagement programme challenge that most sustainability teams underestimate:
+
+- Suppliers need to understand what you're asking for (PCFs in what system boundary? Using which GHG Protocol standard?)
+- They need tools to calculate their own footprints if they haven't already
+- You need a way to receive, validate, and store their submissions
+- You need a fallback calculation for non-respondents
+
+Large companies in mature categories (automotive, consumer goods) have been running supplier engagement programmes for five or more years and still have significant coverage gaps. If you're starting now, design your reporting methodology to be honest about data quality and coverage rather than projecting false precision.
+
+## Getting Started Without Waiting for Perfect Data
+
+The perfect being the enemy of the good is a real trap in Scope 3. Here's a pragmatic sequencing:
+
+1. **Run a spend-based screen first** — it takes two to four weeks and gives you a materiality map: which categories and which suppliers account for the bulk of your footprint.
+2. **Build your data infrastructure** based on which categories are material — don't build Category 14 (Franchises) pipelines if you're not a franchise business.
+3. **Prioritise supplier engagement** starting with the 10–20 suppliers that represent the most spend in your highest-impact categories.
+4. **Report with appropriate uncertainty ranges** in year one — auditors respect honesty about data quality more than false precision.
+5. **Improve methodology year-over-year** as supplier data improves and your own systems get more granular.
+
+The companies that wait until they have "good enough" data to start building their system never start. The companies that build first and improve data quality iteratively are the ones hitting credible Scope 3 numbers by year two or three.
+
+If you need to go from zero to auditable Scope 3 infrastructure, [see how a 2-week sprint gets you there →](/pricing)
+
+<hr />
+
+*Related: [What is CSRD?](/pseo/glossary/what-is-csrd) · [What is Double Materiality Assessment?](/pseo/glossary/what-is-double-materiality)*
+
+<hr />
+
+## Ready to Build?
+
+Whether you need a quick prototype or a production-ready platform, our team ships in 3-week fixed-price sprints. [Book a 15-min scope call](/contact) to discuss your project.
+
+<hr />
+
+## Further Reading
+
+- [CSRD Compliance for Tech Companies 2026](/blog/csrd-compliance-tech-companies-2026) — What tech startups need to know about the Corporate Sustainability Reporting Directive
+- [Building an ESG Data Pipeline](/blog/building-esg-data-pipeline) — Technical architecture for collecting and reporting ESG metrics
+- [How AI Is Transforming ESG Reporting](/blog/ai-transforming-esg-reporting) — Using LLMs and automation to streamline sustainability reporting
+
+**Compare:** [Manual vs Automated ESG Reporting](/compare/manual-vs-automated-esg-reporting) · [Persefoni vs Watershed](/compare/persefoni-vs-watershed)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [ESG Compliance](/solutions/esg-compliance)

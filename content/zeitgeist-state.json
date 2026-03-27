@@ -1,0 +1,247 @@
+{
+  "currentPhase": "sage",
+  "risingPhase": "warrior",
+  "phaseConfidence": 0.8,
+  "updatedAt": "2025-12-28T21:06:13.873Z",
+  "version": 25,
+  "signals": [],
+  "transitionHistory": [
+    {
+      "from": "tyrant",
+      "to": "sage",
+      "timestamp": "2025-01-01T00:00:00.000Z",
+      "confidence": 0.8,
+      "trigger": "Initial state based on archetypal evolution timeline"
+    }
+  ],
+  "dirichletPrior": {
+    "alphas": {
+      "sage": 10.382666666666667,
+      "warrior": null,
+      "orphan": 2.168,
+      "tyrant": 1.1026666666666667,
+      "magician": 0.6866666666666666,
+      "sorcerer": 0.5186666666666667,
+      "trickster": 0.612,
+      "lover": 0.7146666666666667,
+      "ruler": 0.6586666666666667
+    }
+  },
+  "externalSignals": [
+    {
+      "source": "manual_observation",
+      "suggestsRising": "warrior",
+      "strength": 0.5,
+      "confidence": 0.8,
+      "data": "Testing MCP tool connectivity",
+      "observedAt": "2025-12-28T21:05:51.968Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sage",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "AI integration best practices: -20% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.862Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sage",
+      "strength": 0.13333333333333333,
+      "confidence": 0.7,
+      "data": "machine learning in production: +25% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.863Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sage",
+      "strength": 0.13333333333333333,
+      "confidence": 0.7,
+      "data": "AI scaffolding: +25% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.863Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sage",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "responsible AI: -27% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.864Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sage",
+      "strength": 0.22666666666666666,
+      "confidence": 0.7,
+      "data": "AI governance: +121% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.864Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "warrior",
+      "strength": 0.05333333333333334,
+      "confidence": 0.7,
+      "data": "AI deployment: +4% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.864Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "warrior",
+      "strength": 0.05333333333333334,
+      "confidence": 0.7,
+      "data": "MLOps: -7% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.865Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "warrior",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "AI engineer: -5% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.865Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "warrior",
+      "strength": 0.08,
+      "confidence": 0.7,
+      "data": "production machine learning: +18% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.865Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "orphan",
+      "strength": 0.10666666666666667,
+      "confidence": 0.7,
+      "data": "AI job loss: +50% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.866Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "orphan",
+      "strength": 0.13333333333333333,
+      "confidence": 0.7,
+      "data": "AI anxiety: +30% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.866Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "tyrant",
+      "strength": 0.06666666666666667,
+      "confidence": 0.7,
+      "data": "AI startup funding: +38% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.866Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "tyrant",
+      "strength": 0.08,
+      "confidence": 0.7,
+      "data": "AI competitive advantage: -22% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.868Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "sorcerer",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "AI breakthroughs: +14% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.870Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "magician",
+      "strength": 0.22666666666666666,
+      "confidence": 0.7,
+      "data": "AI transformation: +250% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.871Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "magician",
+      "strength": 0.04,
+      "confidence": 0.7,
+      "data": "AI revolution: +18% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.871Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "trickster",
+      "strength": 0.13333333333333333,
+      "confidence": 0.7,
+      "data": "AI hype cycle: +29% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.871Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "trickster",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "AI overrated: 0% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.871Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "lover",
+      "strength": 0.09333333333333332,
+      "confidence": 0.7,
+      "data": "AI human collaboration: +49% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.872Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "lover",
+      "strength": 0.21333333333333335,
+      "confidence": 0.7,
+      "data": "AI augmentation: +83% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.872Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "ruler",
+      "strength": 0.10666666666666667,
+      "confidence": 0.7,
+      "data": "AI regulation: +30% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.872Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "ruler",
+      "strength": 0.09333333333333332,
+      "confidence": 0.7,
+      "data": "AI policy: +37% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.873Z"
+    },
+    {
+      "source": "trend_velocity",
+      "suggestsRising": "ruler",
+      "strength": 0.02666666666666667,
+      "confidence": 0.7,
+      "data": "AI standards: 0% WoW",
+      "leadType": "coincident",
+      "observedAt": "2025-12-28T21:06:13.873Z"
+    }
+  ]
+}

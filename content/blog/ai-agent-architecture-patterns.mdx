@@ -1,0 +1,190 @@
+---
+title: "5 AI Agent Architecture Patterns That Work"
+description: "The 5 AI agent architecture patterns that actually ship to production: ReAct, Plan-and-Execute, multi-agent, RAG agents, and event-driven pipelines."
+keywords:
+  - AI agent architecture
+  - AI agent patterns
+  - ReAct agent
+  - multi-agent architecture
+  - LLM agent design
+  - agentic AI architecture
+  - production AI agent
+category: "Engineering"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Your AI Agent With Us"
+cta_url: "/contact"
+slug: "ai-agent-architecture-patterns"
+---
+
+# 5 AI Agent Architecture Patterns That Work
+
+Most AI agent tutorials show you how to run a demo. Very few show you how to pick the right **AI agent architecture** for the problem you're actually solving — and even fewer explain *why* one pattern fails at production scale while another handles 10,000 daily runs without breaking.
+
+This post covers the five patterns we use when building production AI agents for clients. Each one has a specific use case, failure mode, and implementation profile.
+
+## Pattern 1: ReAct (Reason + Act)
+
+ReAct is the simplest and most widely understood agent loop. The model alternates between reasoning (thinking about what to do next) and acting (calling a tool or API). This continues until the task is complete or a stopping condition is reached.
+
+**Structure:**
+```
+Thought → Action → Observation → Thought → Action → ...
+```
+
+**When to use it:**
+- Single-user, single-task interactions
+- Tasks with a clear stopping condition
+- Workflows where each step logically follows from the last
+
+**Why it works in production:**
+ReAct is predictable. You can trace every decision the model made and why. When something goes wrong, the thought chain tells you exactly where the reasoning broke down. It also tends to be cost-efficient because the model re-evaluates at every step rather than committing to a plan upfront.
+
+**Where it breaks:**
+ReAct struggles with tasks that require significant upfront planning or where the optimal tool sequence can't be determined one step at a time. For long workflows (10+ steps), the accumulated context grows expensive and the model can lose coherence.
+
+An [AI agent](/glossary/ai-agent) using ReAct is the right default for most simple automation tasks.
+
+## Pattern 2: Plan-and-Execute
+
+Plan-and-Execute separates planning from execution. The model first generates a complete task plan, then a separate execution step (often a lighter model) works through each step in sequence.
+
+**Structure:**
+```
+Planner LLM → [Step 1, Step 2, Step 3, ...] → Executor → Results
+```
+
+**When to use it:**
+- Tasks that benefit from a complete plan before any action is taken
+- Multi-step workflows where execution can be parallelized
+- Cases where you want human review of the plan before execution begins
+
+**Why it works in production:**
+The plan is inspectable before execution starts. For high-stakes workflows (sending emails, modifying databases), having a human-readable plan that can be reviewed and approved before anything runs is a critical safety mechanism.
+
+**Where it breaks:**
+Rigid plans break when early steps produce unexpected results. If step 3 depends on the output of step 2, and step 2 returns something unexpected, the executor needs logic to re-plan — which often means calling the planner again, adding latency and cost.
+
+The fix: implement a replanning loop triggered by executor failures. Keep it bounded (max 2 replans per task) to avoid infinite loops.
+
+## Pattern 3: Multi-Agent with Role Specialization
+
+In this pattern, multiple agents with distinct roles collaborate on a single task. A common configuration is a Researcher, a Writer, and a Critic — each implemented as a separate LLM call with a specialized system prompt and tool set.
+
+**Structure:**
+```
+Orchestrator → [Agent A, Agent B, Agent C] → Synthesis → Output
+```
+
+**When to use it:**
+- Tasks that naturally decompose into distinct specializations (research → draft → review)
+- Quality-sensitive outputs where a separate critic improves results
+- Long-running workflows where parallelism reduces total latency
+
+**Why it works in production:**
+Role specialization improves output quality. A model with a narrow system prompt focused on "finding factual errors in the draft" will find more errors than a generalist model asked to do all three tasks at once. The separation also makes the pipeline modular — you can upgrade the writer agent without touching the researcher.
+
+**Where it breaks:**
+Communication overhead. Every agent handoff adds latency and token cost. For simple tasks, the overhead exceeds the quality benefit. Use this pattern only when the task is complex enough to justify the infrastructure.
+
+This is closely related to [agentic AI](/glossary/what-is-agentic-ai) design — the boundary between one sophisticated agent and multiple collaborating agents is blurry, and the right answer depends on your task structure.
+
+## Pattern 4: RAG Agent (Retrieval-Augmented Agent)
+
+A RAG Agent combines retrieval-augmented generation with an agentic loop. The agent decides what to retrieve, retrieves it, reasons over the results, and decides whether it needs to retrieve again or can answer now.
+
+**Structure:**
+```
+Query → Agent decides retrieval strategy → Vector search → 
+Context injection → Reasoning → Answer or re-retrieve
+```
+
+**When to use it:**
+- Knowledge-heavy domains where the model's base knowledge isn't sufficient (legal, medical, internal documentation)
+- Dynamic knowledge bases that change frequently (product docs, support tickets)
+- Any workflow where the agent needs to "look things up" before acting
+
+**Why it works in production:**
+RAG Agents are grounded. Every claim is traceable to a source document. Hallucination rates drop significantly compared to pure-generation approaches, and you can update the knowledge base without retraining the model.
+
+**Where it breaks:**
+Retrieval quality determines output quality. If your embedding model and chunking strategy are poor, the agent retrieves the wrong context and confidently gives wrong answers. Invest time in chunking strategy, metadata filtering, and re-ranking before deploying this pattern. See [what is RAG](/glossary/what-is-rag) for a full architecture walkthrough.
+
+## Pattern 5: Event-Driven Agent Pipeline
+
+Instead of a user-initiated conversation, this pattern runs agents in response to events — a new Slack message, a webhook, a scheduled cron job, or a database change. The agent pipeline is stateless and triggered externally.
+
+**Structure:**
+```
+Event source → Queue → Agent trigger → Task execution → Output action
+```
+
+**When to use it:**
+- Background automation (monitoring, alerting, data processing)
+- Workflows that run on a schedule or in response to external triggers
+- High-throughput pipelines where many tasks run in parallel
+
+**Why it works in production:**
+Event-driven agents are scalable and decoupled. The trigger system, agent logic, and output actions are all independent. You can increase throughput by adding more workers without changing the agent code. Failure at any stage doesn't crash the whole system — events can be replayed.
+
+**Where it breaks:**
+Observability. When agents run asynchronously in response to events, debugging requires good logging and tracing infrastructure. Without it, you're flying blind when something fails. Invest in structured logging from day one — every agent run should produce a traceable log of inputs, tool calls, and outputs.
+
+## Choosing the Right Pattern
+
+| Task type | Recommended pattern |
+|-----------|---------------------|
+| Single-step Q&A with tools | ReAct |
+| Multi-step task with review checkpoint | Plan-and-Execute |
+| Quality-sensitive content creation | Multi-Agent |
+| Knowledge-intensive domain tasks | RAG Agent |
+| Background automation, high volume | Event-Driven |
+
+The honest answer is that most production systems combine patterns. A customer support agent might use RAG to retrieve policy documents (Pattern 4), ReAct to decide next steps (Pattern 1), and run in an event-driven pipeline (Pattern 5) triggered by incoming tickets.
+
+Start with the simplest pattern that handles your core use case. Add complexity only when you hit a specific limitation.
+
+## What We've Learned Shipping These at Scale
+
+Every pattern above works. The failure mode is almost always the same regardless of pattern: **insufficient error handling at the action layer**.
+
+Agents call tools. Tools fail — rate limits, network timeouts, malformed responses. Production agents need retry logic, graceful degradation, and circuit breakers at the tool layer. Teams that skip this end up with agents that fail silently and produce confident-sounding wrong outputs.
+
+The second most common failure: **no evals**. If you're not measuring agent output quality on a held-out test set, you don't know if your prompt changes are improvements or regressions.
+
+
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is Agentic AI?](/glossary/what-is-agentic-ai) · [Build AI Without an ML Team](/blog/build-ai-product-without-ml-team)*
+
+[Ready to build a production AI agent? [Book a 15-min scope call →](/contact) — we'll help you pick the right architecture and ship it in 3 weeks.]
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+- [AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Choosing your AI tech stack? Get a personalized recommendation based on your product type and scale. → [**AI Tech Stack Decision Guide**](/resources/ai-tech-stack-guide)

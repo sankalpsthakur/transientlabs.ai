@@ -1,0 +1,131 @@
+---
+title: "What is AI Safety? Risks and Mitigations"
+description: "AI safety covers the practices, tools, and frameworks that prevent AI systems from causing harm. Learn the key risks and how engineering teams mitigate them."
+keywords:
+  - AI safety
+  - what is AI safety
+  - AI risk mitigation
+  - responsible AI
+  - AI alignment
+  - AI governance
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Safer AI Systems With Us"
+cta_url: "/contact"
+slug: "what-is-ai-safety"
+---
+
+## What is AI Safety?
+
+**AI safety** is the field of research and engineering practice concerned with ensuring that AI systems behave in ways that are reliable, predictable, and aligned with human values. The goal is to prevent AI from causing unintended harm — whether through technical failure, misuse, or outputs that drift from what developers intended.
+
+As AI systems move from research labs into production software, AI safety has become a core engineering concern for every team shipping models, agents, or LLM-powered products. It is no longer only an academic topic.
+
+## Why AI Safety Matters for Product Teams
+
+Most safety conversations focus on existential risk scenarios, but the risks that affect product teams today are far more immediate:
+
+- **Hallucinations** — Models confidently producing incorrect information that users then act on.
+- **Prompt injection** — Malicious user inputs that hijack agent behavior or leak system-level instructions.
+- **Bias and discrimination** — Training data that encodes societal biases, leading to unfair outputs across demographic groups.
+- **Data leakage** — Models inadvertently surfacing private information from training sets or context windows.
+- **Unsafe code generation** — AI-generated code that introduces security vulnerabilities into production systems.
+
+These are not hypothetical. Teams shipping AI products encounter them in the first weeks of deployment. Understanding AI safety frameworks helps you anticipate and address them before they reach users.
+
+## Core Risks in Modern AI Systems
+
+### Alignment Failures
+
+Alignment refers to the gap between what you want a model to do and what it actually does. A model optimized on a narrow objective can pursue that objective in ways that produce harmful side effects — a problem researchers call **specification gaming**.
+
+In practice, alignment failures in LLMs manifest as:
+- Following the letter of an instruction but violating its intent
+- Sycophancy — telling users what they want to hear rather than what is true
+- Goal drift in multi-step [AI agents](/glossary/ai-agent) that accumulate small errors across many reasoning steps
+
+Mitigation strategies include reinforcement learning from human feedback (RLHF), constitutional AI training methods, and explicit red-teaming before deployment.
+
+### Robustness and Adversarial Inputs
+
+AI models are vulnerable to adversarial inputs — carefully crafted prompts or data that cause unexpected or malicious behavior. In agentic systems that have tool access (web browsing, code execution, database writes), adversarial prompt injection is especially dangerous.
+
+A user can embed hidden instructions in a webpage that an AI agent then reads and follows, potentially exfiltrating data or taking destructive actions. Mitigations include:
+
+- Sandboxing agent actions behind confirmation steps
+- Filtering and validating all external content before it enters the model context
+- Limiting the blast radius of any single agent action (principle of least privilege)
+
+### Fairness and Bias
+
+Models trained on historical data inherit historical biases. This produces measurably worse performance — or actively harmful outputs — for underrepresented groups. In high-stakes applications (hiring tools, lending decisions, medical triage), biased models cause real harm.
+
+Bias mitigation requires:
+1. Diverse, curated training datasets
+2. Demographic parity metrics evaluated during model evaluation
+3. Ongoing monitoring of output distributions in production
+
+## Practical AI Safety Mitigations for Engineering Teams
+
+### Evaluation and Red-Teaming
+
+Before deploying any AI feature, run adversarial evaluations. Deliberately try to break the system — with jailbreaks, edge-case inputs, and out-of-distribution queries. Structured red-teaming surfaces failure modes before users do.
+
+Tools like Anthropic's Constitutional AI methods, OpenAI's safety evaluations, and open-source libraries like `garak` (an LLM vulnerability scanner) can automate parts of this process.
+
+### Guardrails and Output Filtering
+
+Production AI systems should layer guardrails on top of the base model:
+
+- **Input filtering** — Block or flag known harmful prompt patterns
+- **Output classifiers** — Run a secondary model to evaluate whether the response is safe before serving it
+- **Human review queues** — Route edge-case outputs to a human reviewer rather than serving them directly
+
+Services like Llama Guard, OpenAI Moderation API, and AWS Comprehend can provide off-the-shelf classification layers.
+
+### Observability and Monitoring
+
+You cannot improve what you cannot see. Every production AI system should log:
+
+- All prompts and completions (with appropriate PII scrubbing)
+- User feedback signals (thumbs up/down, escalations)
+- Latency and error rates per model and route
+
+Tools like LangSmith, Arize Phoenix, and Helicone provide purpose-built [LLM observability](/compare/langsmith-vs-phoenix-arize) dashboards. Reviewing these logs weekly is the fastest way to catch safety issues before they compound.
+
+### Governance and Access Controls
+
+AI safety is not only a model problem — it is also an organizational one. A clear [AI governance framework](/glossary/ai-governance-framework) defines:
+
+- Who can approve new model deployments
+- What data can be used for fine-tuning
+- How incidents are logged and escalated
+- What the acceptable use policy is for users
+
+Teams that treat governance as a checklist after launch will face slower iteration and harder incidents to resolve. Bake it in from the start.
+
+## AI Safety vs. AI Ethics
+
+These terms are related but distinct. **AI safety** focuses on technical reliability and harm prevention in deployed systems. **AI ethics** is a broader philosophical domain covering questions of fairness, accountability, transparency, and the long-term societal impact of AI.
+
+In practice, a product team needs both: the engineering rigor of safety and the value alignment of ethics.
+
+## Building With Safety in Mind
+
+AI safety is not a feature you add at the end — it is a design constraint you hold from the first architecture decision. The teams that ship the most reliable AI products treat safety evaluations with the same discipline as performance benchmarks.
+
+If you are building an AI product and want a development partner who takes safety seriously, [talk to Transient Labs](/contact). We help founders ship production-ready AI systems with guardrails, observability, and governance built in from day one.
+
+<hr />
+
+## Further Reading
+
+- [How to Pass a SOC 2 Audit](/blog/how-to-pass-soc2-audit) — Step-by-step guide for startups preparing for SOC 2 certification
+- [VAPT Automation Workflows](/blog/vapt-automation-workflows) — Automate vulnerability assessment and penetration testing
+- [Security Checklist for Series A Startups](/blog/security-checklist-series-a-startups) — What investors check before writing a check
+
+**Compare:** [Vanta vs Drata vs Transient Labs](/compare/vanta-vs-drata-vs-100xai) · [Clerk vs Auth0 for AI Apps](/compare/clerk-vs-auth0-for-ai-apps)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [Security & SOC 2](/solutions/security-soc2)

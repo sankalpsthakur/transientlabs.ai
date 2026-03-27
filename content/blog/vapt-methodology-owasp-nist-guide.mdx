@@ -1,0 +1,263 @@
+---
+title: "VAPT Methodology: OWASP Top 10 Walkthrough and NIST CSF Mapping (2026)"
+description: "Deep dive into VAPT methodology for startups: OWASP Top 10 vulnerabilities explained, NIST Cybersecurity Framework mapping, tools, and how to run a penetration test that actually improves security."
+keywords:
+  - VAPT methodology
+  - OWASP Top 10
+  - NIST CSF
+  - penetration testing methodology
+  - vulnerability assessment
+  - web application security testing
+  - security testing tools
+  - startup penetration testing
+category: "Security"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-16"
+slug: "vapt-methodology-owasp-nist-guide"
+cta_text: "Get a VAPT for Your Startup"
+cta_url: "https://100xai.engineering/#contact"
+---
+
+# VAPT Methodology: OWASP Top 10 and NIST CSF Deep Dive
+
+Vulnerability Assessment and Penetration Testing (VAPT) is often described as "ethical hacking" — which is accurate but incomplete. Done well, VAPT is a structured methodology for finding and prioritizing security vulnerabilities before attackers do. Done poorly, it's an expensive report that collects dust.
+
+This guide walks through the methodology we use: OWASP Top 10 as the vulnerability framework, NIST Cybersecurity Framework (CSF) as the organizational mapping, and the tools that make it efficient.
+
+## What's the Difference: Vulnerability Assessment vs Penetration Testing
+
+These terms are often used interchangeably. They shouldn't be.
+
+**Vulnerability Assessment** is a systematic scan for known weaknesses. It's largely automated, covers broad surface area, and produces a prioritized list of vulnerabilities. Think of it as a comprehensive inventory of your weaknesses.
+
+**Penetration Testing** takes vulnerabilities further: a human tester attempts to *exploit* them, chain multiple vulnerabilities together, and demonstrate real-world impact. It answers not just "does this vulnerability exist?" but "what can an attacker actually do with it?"
+
+**VAPT** combines both: an automated assessment phase followed by manual exploitation attempts. This is what most enterprise customers require when they ask for a "[pentest](/compare/pentest-vs-vulnerability-scan)."
+
+For [SOC 2 Type II evidence](/blog/soc2-type-i-vs-type-ii-complete-guide), you typically need a full VAPT, not just an automated scan.
+
+<hr />
+
+## Phase 1: Scoping and Reconnaissance
+
+Before any testing begins, define what's in scope. This is more important than it sounds — an unclear scope leads to either under-testing (missing critical assets) or over-testing (wasting time on irrelevant systems).
+
+### Scope Definition
+Document explicitly:
+- Target domains and IP ranges
+- Application environments (production, staging — most orgs test staging but simulate production data)
+- Testing types allowed (black box, grey box, white box)
+- Off-limits systems (payment processors, third-party integrations you don't control)
+- Testing windows (to avoid disrupting production during business hours)
+
+### Reconnaissance (Information Gathering)
+
+**Passive Reconnaissance** — no direct interaction with target:
+- WHOIS, DNS enumeration, certificate transparency logs
+- GitHub/GitLab: search for leaked credentials, infrastructure details
+- Shodan/Censys: identify internet-exposed services
+- LinkedIn: map the organization and technical stack
+
+**Active Reconnaissance** — direct interaction:
+- Port scanning with nmap
+- Service fingerprinting
+- Subdomain enumeration (subfinder, amass)
+- Directory and endpoint discovery (gobuster, ffuf)
+
+<hr />
+
+## Phase 2: OWASP Top 10 Walkthrough
+
+The OWASP Top 10 is the definitive list of the most critical web application security risks. Every VAPT covers these at minimum.
+
+### A01: Broken Access Control
+The #1 vulnerability for good reason. Occurs when users can access resources or perform actions beyond their intended permissions.
+
+**Common issues:**
+- Horizontal privilege escalation (accessing another user's data by changing an ID in the URL)
+- Vertical privilege escalation (regular user accessing admin functions)
+- Missing function-level access control checks in APIs
+- CORS misconfiguration allowing unauthorized cross-origin requests
+
+**Testing approach:** Manipulate request parameters, JWT tokens, and session cookies. Attempt to access admin endpoints as a regular user. Test API endpoints directly, bypassing UI restrictions.
+
+**Tools:** Burp Suite (manual), AuthMatrix (Burp extension for automated privilege escalation testing).
+
+### A02: Cryptographic Failures
+Data exposed due to weak encryption, missing encryption, or improper key management.
+
+**Common issues:**
+- Sensitive data transmitted over HTTP (not HTTPS)
+- Weak cipher suites (TLS 1.0/1.1, RC4, DES)
+- Passwords stored as MD5 or SHA1 hashes (without salting)
+- Sensitive data in browser localStorage or URL parameters
+
+**Testing approach:** Check TLS configuration with testssl.sh or SSL Labs. Review API responses for sensitive data exposure. Test for HTTP downgrade attacks.
+
+**Tools:** testssl.sh, SSL Labs, Burp Suite.
+
+### A03: Injection
+Untrusted data sent to an interpreter as part of a command or query. SQL injection is the most well-known, but injection covers SQL, NoSQL, LDAP, XPath, OS commands, and more.
+
+**Testing approach:** Fuzz input fields with SQL metacharacters (`'`, `"`, `;`, `--`), OS command injection payloads (`; ls`, `| whoami`), and template injection strings.
+
+**Tools:** sqlmap (automated SQL injection), Burp Suite (manual), commix (OS command injection).
+
+### A04: Insecure Design
+Security flaws baked into the architecture, not just implementation. These can't be fixed by better coding — they require redesign.
+
+**Common issues:**
+- Missing rate limiting on authentication endpoints (enables brute force)
+- No account lockout mechanism
+- Security questions as authentication recovery (trivially guessable)
+- Business logic flaws (can you check out with a negative quantity? Can you apply the same promo code 1000 times?)
+
+**Testing approach:** Test business logic flows manually. Attempt unusual sequences of operations. Focus on edge cases.
+
+### A05: Security Misconfiguration
+Insecure default configurations, incomplete configurations, or misconfigured cloud storage.
+
+**Common issues:**
+- Public S3 buckets containing sensitive data
+- Default credentials unchanged (admin/admin)
+- Verbose error messages exposing stack traces
+- Unnecessary services and ports exposed
+- Missing security headers (Content-Security-Policy, X-Frame-Options, HSTS)
+
+**Testing approach:** Check HTTP security headers (securityheaders.com), scan for exposed admin interfaces, test for verbose errors by triggering exceptions.
+
+**Tools:** ScoutSuite (cloud misconfiguration scanning), Prowler, securityheaders.com.
+
+### A06: Vulnerable and Outdated Components
+Using components (libraries, frameworks, containers) with known vulnerabilities.
+
+**Testing approach:** Enumerate versions of all dependencies. Cross-reference against CVE databases. Check for components with known exploits.
+
+**Tools:** OWASP Dependency-Check, Snyk, Trivy (for containers), retire.js (for JavaScript libraries).
+
+### A07: Identification and Authentication Failures
+Weaknesses in session management, authentication mechanisms, and credential handling.
+
+**Common issues:**
+- Weak session tokens (predictable, short, not invalidated on logout)
+- Missing MFA on sensitive operations
+- No account lockout after failed login attempts
+- Credentials transmitted in URLs
+
+**Testing approach:** Analyze session tokens for entropy and predictability. Test session fixation, session riding (CSRF). Attempt brute force on login endpoints. Test logout functionality for proper session invalidation.
+
+### A08: Software and Data Integrity Failures
+Code and infrastructure that doesn't protect against integrity violations.
+
+**Common issues:**
+- CI/CD pipelines with insufficient integrity checks
+- Unsigned software updates that can be tampered with
+- Insecure deserialization of untrusted data
+
+**Testing approach:** Review CI/CD pipeline security. Test deserialization endpoints with malformed serialized objects.
+
+### A09: Security Logging and Monitoring Failures
+Insufficient logging means attackers can maintain persistence and exfiltrate data for months undetected.
+
+**Testing approach:** Attempt common attack patterns and verify whether they're logged. Check if logs include sufficient context (who, what, when, from where). Test whether alerts fire for suspicious activity.
+
+**Good logging covers:** Authentication events (success and failure), access control failures, server-side input validation failures, high-value data access.
+
+### A10: Server-Side Request Forgery (SSRF)
+The server makes HTTP requests to attacker-controlled URLs, potentially exposing internal services.
+
+**Testing approach:** Find any functionality that fetches external URLs (webhooks, image import, URL preview). Attempt to redirect these to internal services (`http://169.254.169.254/` for AWS metadata, `http://localhost:8080` for internal services).
+
+**Tools:** Burp Collaborator, interactsh (open source alternative).
+
+<hr />
+
+## Phase 3: NIST CSF Mapping
+
+The NIST Cybersecurity Framework organizes security into five functions. Mapping your VAPT findings to NIST CSF helps communicate risk to executives and aligns your remediation with your broader [security program](/blog/startup-security-program-from-zero).
+
+### Identify (ID)
+Asset management, risk assessment, governance. VAPT contributes to this function by revealing what assets you have and what vulnerabilities they carry.
+
+*VAPT outputs:* Asset inventory from reconnaissance, risk-prioritized vulnerability list.
+
+### Protect (PR)
+Access control, training, data security, protective technology. Most OWASP vulnerabilities map here.
+
+*VAPT outputs:* Access control gaps (A01), cryptographic failures (A02), injection vulnerabilities (A03), authentication weaknesses (A07).
+
+### Detect (DE)
+Anomaly detection, security continuous monitoring, detection processes.
+
+*VAPT outputs:* Logging gaps (A09), monitoring blind spots identified during testing.
+
+### Respond (RS)
+Response planning, communications, analysis, mitigation.
+
+*VAPT outputs:* Incident response readiness assessment, tabletop exercises based on realistic attack scenarios found during testing.
+
+### Recover (RC)
+Recovery planning, improvements, communications.
+
+*VAPT outputs:* Backup integrity verification, business continuity testing findings.
+
+<hr />
+
+## Tools Reference
+
+| Category | Tool | Cost | Best For |
+|---|---|---|---|
+| Web proxy | Burp Suite Community | Free | Manual web app testing |
+| Web proxy | Burp Suite Pro | $449/yr | Professional testing |
+| Network scanning | nmap | Free | Port/service enumeration |
+| SQL injection | sqlmap | Free | Automated SQLi testing |
+| Subdomain enum | subfinder + amass | Free | Reconnaissance |
+| Cloud misconfiguration | ScoutSuite | Free | AWS/GCP/Azure auditing |
+| Cloud misconfiguration | Prowler | Free | AWS-focused |
+| Vulnerability scanning | OpenVAS | Free | Network vulnerability scanning |
+| Vulnerability scanning | Nessus Essentials | Free (16 IPs) | Comprehensive scanning |
+| Container scanning | Trivy | Free | Container and IaC scanning |
+| SAST | Semgrep | Free tier | Code-level vulnerability detection |
+| Dependency scanning | OWASP Dep-Check | Free | Known CVE detection |
+| Password cracking | Hashcat | Free | Password hash auditing |
+| Framework | Metasploit | Free/Pro | Exploitation framework |
+
+<hr />
+
+## Interpreting and Acting on VAPT Results
+
+A VAPT report is only valuable if you act on it. Here's how to triage findings:
+
+**Critical:** Actively exploitable vulnerabilities with significant impact (RCE, SQLi, authentication bypass). Fix within 24–48 hours.
+
+**High:** Significant risk but requires some additional conditions to exploit. Fix within 7 days.
+
+**Medium:** Meaningful risk, lower likelihood or impact. Fix within 30 days.
+
+**Low/Informational:** Best practices, defense in depth recommendations. Fix in next quarterly cycle.
+
+For each finding, document:
+1. Vulnerability description
+2. Proof of exploitation (screenshot, HTTP request/response)
+3. Business impact
+4. Remediation recommendation
+5. Remediation deadline
+6. Who owns the fix
+
+This documentation becomes part of your [SOC 2 evidence](/blog/soc2-type-i-vs-type-ii-complete-guide) — auditors want to see not just that you tested, but that you fixed what you found.
+
+<hr />
+
+## VAPT Frequency
+
+| Company Stage | Recommended Frequency |
+|---|---|
+| Pre-revenue | Once before first enterprise customer |
+| Seed / Series A | Annually + after major infrastructure changes |
+| Series B+ | Biannually, with continuous automated scanning |
+| Enterprise | Continuous (bug bounty + automated + annual manual pentest) |
+
+Your [startup security program](/blog/startup-security-program-from-zero) should include VAPT on this schedule from the beginning. It's far less expensive to find and fix vulnerabilities before a breach than after.
+
+Need a VAPT for your startup? [Talk to our team](https://100xai.engineering/#contact) — we run comprehensive OWASP-aligned penetration tests and deliver actionable reports your engineering team can actually use.

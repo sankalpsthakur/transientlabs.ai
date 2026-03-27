@@ -1,0 +1,120 @@
+---
+title: "Prompt Engineering Techniques: A Complete 2025 Guide"
+description: "Prompt engineering is the art of crafting inputs to AI models to produce accurate, useful, and reliable outputs. Learn techniques used by top AI engineers."
+keywords:
+  - prompt engineering
+  - prompting techniques
+  - LLM prompts
+  - chain of thought
+  - few-shot prompting
+category: "Glossary"
+type: "DefinedTerm"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "See How We Build with LLMs"
+cta_url: "/pricing"
+slug: "prompt-engineering"
+---
+
+## What is Prompt Engineering?
+
+**Prompt engineering** is the discipline of designing and optimizing text inputs (prompts) given to large language models (LLMs) to reliably produce high-quality outputs. It is part art, part science — understanding how a model "thinks" and crafting inputs that guide it toward accurate, structured, and useful responses.
+
+## Why Prompt Engineering Matters
+
+LLMs are powerful but sensitive to phrasing. The difference between a good prompt and a bad one can mean:
+
+- Accurate vs. hallucinated facts
+- Structured JSON vs. freeform text
+- Task completion in one shot vs. five iterations
+
+## Core Prompting Techniques
+
+### 1. Zero-Shot Prompting
+Ask the model to perform a task without examples.
+
+```
+Summarize this article in 3 bullet points: [article text]
+```
+
+### 2. Few-Shot Prompting
+Provide 2–5 examples to set the pattern.
+
+```
+Sentiment: positive → Label: 1
+Sentiment: negative → Label: 0
+Sentiment: neutral → Label: 2
+Now classify: "The product works okay."
+```
+
+### 3. Chain-of-Thought (CoT)
+Instruct the model to reason step-by-step before giving the final answer.
+
+```
+Solve this problem step by step: If a train travels at 60mph for 2.5 hours...
+```
+
+### 4. System Prompts
+Set a persona, role, or constraints at the conversation level.
+
+```
+You are a senior software engineer at a fintech company. Review code for security vulnerabilities only.
+```
+
+### 5. Structured Output Prompting
+Force the model to return machine-readable formats.
+
+```
+Return your answer as valid JSON with keys: "summary", "sentiment", "confidence_score".
+```
+
+## Advanced Techniques
+
+- **Self-consistency** — Sample multiple responses and pick the majority answer
+- **ReAct** — Alternate between reasoning and action steps
+- **Reflexion** — Have the model critique and improve its own output
+- **Constitutional AI** — Apply a set of principles to guide model behavior
+
+## Common Mistakes
+
+1. **Too vague** — "Write something about AI" yields garbage
+2. **No constraints** — Not specifying length, format, or tone
+3. **Ignoring the system prompt** — Forgetting to set context and role
+4. **Single-shot debugging** — Not iterating when the first prompt fails
+
+## Key Takeaway
+
+Prompt engineering is a core skill for anyone building with LLMs. Mastering it means faster prototyping, higher quality outputs, and fewer hallucinations.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [Build vs Buy Your AI MVP](/compare/build-vs-buy-ai-mvp) · [What is CSRD?](/glossary/what-is-csrd)*
+
+[Ready to ship an AI product with expert-level prompting? See our sprint model →](/pricing) or [contact us →](https://100xai.engineering/#contact)
+
+## Practical Applications
+
+Understanding these concepts helps teams make better technology decisions. The right choice depends on your specific use case, team expertise, and project timeline.
+
+When evaluating options, consider total cost of ownership, integration complexity, and long-term maintenance. Teams that invest time in proper evaluation upfront save months of rework later.
+
+For startups building AI products, the fastest path to production is working with experienced teams who have shipped similar systems before. A 3-week sprint can validate your approach and deliver a working prototype.
+
+## Getting Started
+
+The best way to evaluate any technology is to build with it. Start with a small proof-of-concept that tests your core assumptions, then iterate based on real user feedback.
+
+Need help deciding? [Book a 15-min scope call](/contact) with our team to discuss your specific requirements and get a concrete recommendation.
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

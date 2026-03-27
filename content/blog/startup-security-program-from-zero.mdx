@@ -1,0 +1,244 @@
+---
+title: "Building a Startup Security Program From Zero: 12-Week Roadmap"
+description: "A practical week-by-week roadmap for building your startup's security program from scratch. Quick wins, SOC 2 foundations, and the minimum you need to close enterprise deals."
+keywords:
+  - startup security program
+  - security from scratch
+  - security roadmap for startups
+  - minimum viable security
+  - SOC 2 preparation
+  - startup compliance checklist
+  - security quick wins
+  - information security policy
+category: "Security"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+slug: "startup-security-program-from-zero"
+cta_text: "Build Your Security Foundation in 3 Weeks"
+cta_url: "https://100xai.engineering/#contact"
+---
+
+# Building a Startup Security Program From Zero: 12-Week Roadmap
+
+Most security advice is written for enterprises with dedicated security teams, six-figure budgets, and months of runway. This isn't that.
+
+This is the guide for the 10-person SaaS startup that just lost a deal because a prospect asked for a security questionnaire, or the founder who realized their AWS environment has been running on root credentials since day one. You're not behind — you just need a map.
+
+Here's the 12-week roadmap we've used to take startups from zero to a defensible security posture, with a SOC 2 observation period running by week 3.
+
+## Before You Start: The Honest Assessment
+
+Spend one day doing this before anything else:
+
+1. **List every system that touches customer data** — your app, your database, your analytics tools, your CRM, your support inbox, your AWS/GCP/Azure account
+2. **List everyone with access to production** — including contractors and former employees
+3. **Check whether MFA is enabled everywhere** — it usually isn't
+4. **Find out where your secrets live** — hardcoded in repos? In a spreadsheet? In someone's head?
+
+This audit will tell you where your highest risks are. Start there.
+
+<hr />
+
+## Weeks 1–2: Quick Wins (High Impact, Low Effort)
+
+These take hours, not weeks. Do them first.
+
+### Enable MFA Everywhere
+Multi-factor authentication is the single highest-ROI security control. Enable it on:
+- AWS/GCP/Azure root and IAM accounts
+- GitHub / GitLab
+- Google Workspace or Microsoft 365
+- Your production database access
+- Any SaaS that touches customer data
+
+**Tools:** Okta (best), Google Workspace built-in (good enough), Duo (solid option).
+
+### Rotate and Vault Your Secrets
+Scan your repos for hardcoded credentials using [truffleHog](https://github.com/trufflesecurity/trufflehog) or [gitleaks](https://github.com/gitleaks/gitleaks). Move everything to a secrets manager:
+
+- **AWS:** Secrets Manager or Parameter Store
+- **GCP:** Secret Manager
+- **Self-hosted:** HashiCorp Vault (free tier)
+
+Revoke any credentials that were ever committed to a repo — even if the commit was later deleted.
+
+### Remove Unused Access
+Audit who has access to what. Remove access for:
+- Former employees and contractors
+- Service accounts that aren't actively used
+- Anyone with admin access who doesn't need it
+
+Apply least privilege: give people the minimum access they need to do their job.
+
+### Enable Audit Logging
+Turn on audit logging everywhere:
+- **AWS:** CloudTrail (if not already enabled, it's off by default in some regions)
+- **GitHub:** Audit log in Organization settings
+- **Your app:** Structured logging for user actions, data access, auth events
+
+You'll need these logs for [SOC 2 evidence](/blog/soc2-type-i-vs-type-ii-complete-guide).
+
+<hr />
+
+## Weeks 3–4: Policies and Documentation
+
+Security policies exist for two reasons: to guide your team's behavior, and to satisfy auditors. You need both.
+
+### The Policies You Actually Need
+
+Write these — they don't need to be long, they need to be real:
+
+**Information Security Policy (2–3 pages)**
+Your master policy. Covers scope, roles and responsibilities, and references to other policies. This is what auditors read first.
+
+**Access Control Policy (1–2 pages)**
+How access is granted, reviewed, and revoked. Include your MFA requirement, least privilege principle, and quarterly access review cadence.
+
+**Incident Response Plan (3–4 pages)**
+What you do when something goes wrong. Include: detection, classification, containment, eradication, recovery, post-mortem. Include contact lists.
+
+**Change Management Policy (1–2 pages)**
+How code gets from development to production. Reference your PR approval process, required reviews, staging environment testing.
+
+**Vendor Management Policy (1–2 pages)**
+How you evaluate and monitor third-party vendors who handle customer data. Include a vendor list with their compliance certifications.
+
+### Where to Store Them
+A shared Google Drive folder works fine for early-stage. What matters is that policies are version-controlled and accessible. As you grow, move to a dedicated GRC (Governance, Risk, Compliance) platform.
+
+<hr />
+
+## Weeks 5–6: Technical Controls
+
+Now you're building the infrastructure of your security program.
+
+### Network Security
+- Enable your cloud provider's default firewall (Security Groups on AWS, Firewall Rules on GCP)
+- Restrict inbound access to production to what's actually needed
+- Use a VPN or private network for database access — no databases should be publicly accessible
+- Enable WAF (Web Application Firewall) in front of your application
+
+### Vulnerability Management
+Set up automated vulnerability scanning:
+- **Static analysis:** Run SAST (static application security testing) in your CI/CD pipeline. Options: Semgrep (free), Snyk, Checkmarx.
+- **Dependency scanning:** GitHub Dependabot (free), Snyk (free tier)
+- **Infrastructure scanning:** AWS Inspector, or Prowler for multi-cloud
+- **Container scanning:** Trivy (free and excellent)
+
+Establish remediation SLAs: critical vulnerabilities within 24 hours, high within 7 days, medium within 30 days. Document these in your vulnerability management policy.
+
+### Endpoint Security
+Every company laptop should have:
+- Full-disk encryption (FileVault on Mac, BitLocker on Windows)
+- Automatic screen lock after 5 minutes
+- Remote wipe capability (Jamf, Mosyle for Mac; InTune for Windows)
+- Antivirus / EDR (Malwarebytes, CrowdStrike, or similar)
+
+<hr />
+
+## Weeks 7–8: Penetration Testing
+
+By week 7, you should have enough security controls in place to get value from a penetration test. A pentest does two things: it finds vulnerabilities you missed, and it generates evidence for [SOC 2 Type II](/blog/soc2-type-i-vs-type-ii-complete-guide).
+
+### What to Test
+- Web application ([OWASP Top 10](/blog/vapt-methodology-owasp-nist-guide) at minimum)
+- API endpoints
+- Authentication and authorization
+- Cloud infrastructure configuration
+- Network perimeter
+
+### Budget
+Expect to spend $5,000–$20,000 for a quality pentest. Automated scanners are not a substitute — you need human testers. Get remediation findings, fix them, and document the remediation.
+
+<hr />
+
+## Weeks 9–10: Security Training and Culture
+
+Security tools fail when people don't use them correctly. Build the human side of your security program.
+
+### Security Awareness Training
+All employees need annual security awareness training covering:
+- Phishing recognition and reporting
+- Password hygiene and password manager usage
+- Safe data handling
+- Social engineering awareness
+- Incident reporting
+
+**Tools:** KnowBe4, Proofpoint, or even free resources from SANS. What matters is that you have completion records — auditors will check.
+
+### Developer Security Training
+Your developers are your biggest attack surface and your best defense. Train them on:
+- OWASP Top 10 vulnerabilities and how to prevent them
+- Secure code review practices
+- How to handle secrets and credentials
+- Security testing in the development workflow
+
+### Build a Security Champion Program
+Designate one person per team as a security champion. They don't need to be security experts — they're the bridge between security and development. Give them 2 hours per sprint to review security issues and champion security practices in their team.
+
+<hr />
+
+## Weeks 11–12: Monitoring and Continuous Improvement
+
+A security program isn't a project with an end date — it's an ongoing operation.
+
+### Set Up Security Monitoring
+At minimum, set up alerts for:
+- Failed authentication attempts (brute force indicator)
+- New IAM users or role changes in production
+- Unusual data access patterns
+- Publicly accessible resources in your cloud account
+- Critical vulnerability disclosures for your stack
+
+**Tools:** AWS Security Hub, GCP Security Command Center, Datadog Security Monitoring, or a basic SIEM like Elastic Security (free tier).
+
+### Establish a Vulnerability Disclosure Policy
+Publish a simple security.txt at your domain (yourdomain.com/security.txt) and a disclosure policy. This tells security researchers how to report vulnerabilities to you. It's free, it's professional, and it helps you find bugs before attackers do.
+
+### Schedule Recurring Security Tasks
+Put these in your calendar *now*:
+
+- **Monthly:** Vulnerability scan review and remediation check
+- **Quarterly:** User access review (critical for [SOC 2 evidence](/blog/soc2-type-i-vs-type-ii-complete-guide))
+- **Annually:** Penetration test, security policy review, tabletop incident response exercise, security training refresh
+
+<hr />
+
+## The Minimum Viable Security Stack
+
+Here's what you need, with cost estimates:
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| Okta / Google SSO | Identity and MFA | $0–$6/user/mo |
+| 1Password Teams | Secrets and passwords | $4/user/mo |
+| AWS Secrets Manager | App secrets | ~$0.40/secret/mo |
+| Semgrep (free) | SAST in CI/CD | Free |
+| GitHub Dependabot | Dependency scanning | Free |
+| Trivy | Container scanning | Free |
+| Malwarebytes or similar | Endpoint security | $4–8/device/mo |
+| CloudTrail + CloudWatch | Audit logging | ~$5–20/mo |
+| KnowBe4 | Security training | $15–25/user/yr |
+
+**Total for a 10-person team:** ~$300–600/month. This is your baseline.
+
+<hr />
+
+## After Week 12: What's Next
+
+By the end of this roadmap, you have:
+- MFA everywhere
+- Secrets managed properly
+- Core security policies documented
+- Technical controls in place
+- A completed penetration test
+- Trained employees
+- Monitoring and alerting running
+- A SOC 2 observation period well underway
+
+From here, your path depends on where you're going. If you're targeting enterprise customers, prioritize your [SOC 2 Type II certification](/blog/soc2-type-i-vs-type-ii-complete-guide). If you handle health data, add HIPAA. If you're selling to the EU, layer in GDPR controls.
+
+Need help building this faster? We've taken startups from zero to a defensible security posture in 3 weeks. [Talk to our team](https://100xai.engineering/#contact) — our security sprint covers everything in weeks 1–4 of this roadmap, including policy templates, control implementation, and your first vulnerability assessment.
+
+Also see: [How an AI startup secured their platform before launch](/blog/ai-startup-pre-launch-soc2-foundation) — a real case study of this process in action.

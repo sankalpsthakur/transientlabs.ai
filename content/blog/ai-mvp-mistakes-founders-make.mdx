@@ -1,0 +1,149 @@
+---
+title: "7 AI MVP Mistakes Founders Make"
+description: "The most common AI MVP mistakes founders make: bad scope, wrong stack, missing validation. Here's what founders get wrong — and how to fix it."
+keywords:
+  - AI MVP mistakes
+  - AI startup mistakes
+  - AI product development
+  - MVP mistakes founders
+  - building AI products
+  - AI MVP pitfalls
+category: "Engineering"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Avoid These Mistakes on Your MVP"
+cta_url: "/contact"
+slug: "ai-mvp-mistakes-founders-make"
+---
+
+## The Most Common AI MVP Mistakes and Why They Happen
+
+After shipping dozens of **AI MVPs** for founders across Europe and the US, we've seen the same failure modes repeat. Not hallucinating models. Not bad ideas. Boring execution mistakes that compound fast.
+
+Here are the seven most common ones — and how to avoid them.
+
+## Mistake 1: Starting With Fine-Tuning
+
+This is the #1 scope-creep trap in AI product development.
+
+Founders see a specialized use case and immediately think: "We need a custom model trained on our data." Fine-tuning sounds like it gives you control. In practice, it means months of data labeling, GPU compute costs, and a model that goes stale the moment your domain changes.
+
+**The fix:** Start with a foundation model + [RAG (Retrieval-Augmented Generation)](/glossary/what-is-rag). You can answer questions from your proprietary documents in a few days. Fine-tune only after you've shipped, validated, and have thousands of labeled examples proving RAG isn't enough.
+
+Ninety percent of AI products that "needed fine-tuning" didn't. They just needed better retrieval.
+
+## Mistake 2: Skipping Evaluation Before Building the UI
+
+Teams spend three weeks on the frontend, then discover the AI outputs are wrong 40% of the time.
+
+Evaluation is boring. Demos are exciting. Founders consistently prioritize the demo over the ground truth.
+
+**The fix:** Before writing a single line of UI code, build an eval set. Fifty representative inputs with known correct outputs. Run your AI pipeline against them. If accuracy isn't acceptable without UI, it won't be acceptable with it.
+
+Eval-first development cuts total build time — you catch model problems in days instead of discovering them after a failed user demo.
+
+## Mistake 3: Choosing the Wrong Model for the Job
+
+"We'll use GPT-4" is not a model selection strategy.
+
+Different models are dramatically better at different tasks. Claude 3.5 Sonnet dominates on long-document analysis and code generation. GPT-4o wins on multimodal and tool-heavy agentic tasks. Gemini Flash is the right call for high-volume, cost-sensitive classification.
+
+The model decision is also a cost decision. Running GPT-4 class models at scale for every query will burn your runway. Many production systems route simpler queries to smaller, cheaper models and only escalate to frontier models when needed.
+
+**The fix:** Test your actual inputs on at least two models before committing. See our [GPT-4 vs Claude comparison](/compare/gpt4-vs-claude) for a framework to think through this. Don't pick based on hype — pick based on your eval set.
+
+## Mistake 4: Building for Scale on Day One
+
+Kubernetes clusters. Multi-region deployments. Message queues. Auto-scaling policies.
+
+We've seen founders spend two months on infrastructure that will serve twelve users.
+
+**The fix:** Ship on the simplest infra that works. A single Render or Railway instance handles most early-stage AI products comfortably. You can scale when you have the traffic that demands it. Over-engineering infrastructure is a way to feel productive while avoiding the scary work of talking to users.
+
+The right time to optimize your deployment is after you have a retention problem, not an acquisition problem.
+
+## Mistake 5: Ignoring the Human-in-the-Loop
+
+AI makes mistakes. Your product needs a plan for what happens when it does.
+
+Most AI MVPs ship with no error handling, no feedback mechanism, and no way for users to flag bad outputs. When the AI is wrong (and it will be), users churn silently with no signal back to the team.
+
+**The fix:** Every AI product needs at minimum:
+- A way for users to flag incorrect outputs ("👍 / 👎" or a text box)
+- A confidence indicator or caveat when the AI is uncertain
+- A clear path to human fallback for high-stakes decisions
+
+This isn't just good UX — it's your training data for version two. User feedback on wrong outputs is more valuable than any synthetic eval set.
+
+## Mistake 6: Treating Prompts as Code (Without Versioning)
+
+Prompts are the most important software in your AI product. They're also the most poorly managed.
+
+Teams iterate on prompts in notebooks, paste them directly into API calls, and have no idea what prompt is running in production vs. development. One accidental prompt edit can silently regress product quality with no rollback path.
+
+**The fix:** Version your prompts like code. Use environment variables, a prompt registry (LangSmith, Langfuse, or even just a YAML file in your repo), and structured testing before any prompt ships to production.
+
+## Mistake 7: Shipping Without a Cost Budget
+
+AI API costs can surprise you.
+
+A prompt that costs $0.01 in development feels trivial. At 10,000 requests per day, that's $3,650/month — before you've generated a dollar of revenue. Founders regularly discover this math only after their cloud bill arrives.
+
+**The fix:** Calculate cost per request before launch. Set hard monthly budgets using API spend controls. Implement model routing (cheaper model for simple queries, expensive model only when needed). Build cost dashboards into your observability stack from day one.
+
+Your AI infra cost is a product decision, not an engineering afterthought.
+
+## The Common Thread
+
+Every mistake above comes from the same root cause: **building before validating**. Fine-tuning before confirming RAG doesn't work. Building UI before confirming the model output is good. Scaling infra before confirming users exist.
+
+AI MVPs succeed when founders treat every technical decision as a hypothesis to test — not a commitment to make.
+
+## What a Good AI MVP Process Looks Like
+
+The teams that ship working AI products fast follow a consistent pattern:
+
+1. **Eval-first** — Define success criteria before touching a framework
+2. **RAG-first** — Start with retrieval, earn the right to fine-tune
+3. **Model-agnostic** — Test two models on real inputs, commit to one
+4. **Simple infra** — Deploy fast, scale when the traffic proves you need to
+5. **Human-in-loop** — Every AI action has a feedback path
+
+We cover this process in detail in our post on [how we ship AI MVPs in 3 weeks](/blog/how-we-ship-ai-mvps-in-3-weeks).
+
+
+
+*Related: [What is RAG?](/glossary/what-is-rag) · [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks) · [Build vs Buy Your AI MVP](/compare/build-vs-buy-ai-mvp)*
+
+[Making one of these mistakes on your current build? Let's talk — a 15-minute call can save you months. Book a scope call →](/contact)
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Avoid the most common mistakes. Our free playbook covers architecture, stack decisions, and launch checklists. → [**AI MVP Playbook**](/resources/ai-mvp-playbook)

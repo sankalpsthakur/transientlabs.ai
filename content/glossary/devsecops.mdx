@@ -1,0 +1,142 @@
+---
+title: "DevSecOps: Shift-Left Security for Modern Software Teams"
+description: "DevSecOps integrates security into every stage of the software development lifecycle. Learn what shift-left security means, how it works, and why startups should adopt it from day one."
+keywords:
+  - DevSecOps
+  - shift left security
+  - DevSecOps pipeline
+  - secure software development
+  - SAST DAST
+  - security in CI/CD
+category: "Glossary"
+type: "DefinedTerm"
+author: "Transient Labs"
+date: "2026-02-04"
+cta_text: "Build Secure Software from Day One"
+cta_url: "/pricing"
+slug: "devsecops"
+---
+
+## What is DevSecOps?
+
+**DevSecOps** is the practice of integrating security into every phase of the software development lifecycle (SDLC) — from design and coding through testing, deployment, and operations. The name combines **Dev**elopment, **Sec**urity, and **Op**eration**s**.
+
+The core idea is "**shift left**" — moving security earlier in the development process, where defects are cheaper to fix, rather than treating security as a final gate before production. In traditional models, security is a handoff at the end of the pipeline. In DevSecOps, it's woven throughout.
+
+DevSecOps builds on the DevOps movement by adding security as a first-class concern alongside speed and reliability.
+
+## The Shift-Left Principle
+
+In software development timelines, requirements and design are on the "left" and production deployment is on the "right." Shifting security left means:
+
+- **Finding vulnerabilities at code time** (seconds to fix) vs. post-deployment (days/weeks and public exposure)
+- **Automating security checks** in CI/CD pipelines rather than relying on manual reviews
+- **Training developers** to write secure code rather than relying on dedicated security teams as gatekeepers
+- **Embedding security tools** in developer workflows (IDE plugins, pre-commit hooks, PR checks)
+
+The cost of fixing a bug scales dramatically by stage: design (~$1) → development (~$10) → testing (~$100) → production (~$10,000).
+
+## Core DevSecOps Practices
+
+### Static Application Security Testing (SAST)
+Automated code analysis that scans source code for vulnerabilities without executing the program:
+- SQL injection, XSS, command injection patterns
+- Hardcoded secrets and credentials
+- Insecure cryptographic usage
+- Dependency vulnerabilities (SCA — Software Composition Analysis)
+
+Tools: Semgrep, Snyk Code, Checkmarx, SonarQube
+
+### Dynamic Application Security Testing (DAST)
+Automated testing of running applications to find runtime vulnerabilities:
+- Input validation issues
+- Authentication/authorization weaknesses
+- Server configuration problems
+- API security issues
+
+Tools: OWASP ZAP, Burp Suite, Nuclei
+
+### Software Composition Analysis (SCA)
+Scanning open-source dependencies for known CVEs:
+- Identifies vulnerable library versions
+- Provides upgrade paths
+- Generates Software Bill of Materials (SBOM)
+
+Tools: Snyk Open Source, Dependabot, OWASP Dependency-Check
+
+### Infrastructure as Code (IaC) Scanning
+Security review of Terraform, CloudFormation, Kubernetes YAML, and Helm charts before deployment:
+- Misconfigured security groups
+- Publicly exposed storage buckets
+- Missing encryption settings
+- Overly permissive IAM roles
+
+Tools: Checkov, tfsec, Terrascan, KICS
+
+### Secrets Detection
+Preventing credentials, API keys, and tokens from being committed to version control:
+- Pre-commit hooks scan for secrets before git push
+- CI/CD pipeline scans on every PR
+- Historical repo scanning for leaked secrets
+
+Tools: GitLeaks, TruffleHog, git-secrets
+
+### Container Security
+Scanning Docker images for vulnerabilities and misconfigurations:
+- Base image vulnerability scanning
+- Least-privilege container runtime policies
+- Image signing and provenance
+
+Tools: Trivy, Grype, Docker Scout, Snyk Container
+
+## DevSecOps Pipeline Integration
+
+A mature DevSecOps pipeline embeds security at every gate:
+
+```
+Code → SAST + Secrets Detection
+  ↓
+Build → SCA + Container Scan + IaC Scan  
+  ↓
+Test → DAST + API Security Testing
+  ↓
+Deploy → Runtime security monitoring + [VAPT](/glossary/vapt-explained)
+  ↓
+Operate → SIEM + threat detection + incident response
+```
+
+## Why It Matters for Startups
+
+### SOC 2 Compliance
+[SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria) require change management controls and evidence that security testing occurs. DevSecOps pipelines generate exactly the automated evidence auditors need.
+
+### Speed Without Sacrifice
+DevSecOps lets you ship fast without accumulating security debt. Catching a vulnerability in a PR review takes minutes; catching it in a breach investigation takes months.
+
+### Cost Efficiency
+One engineer automating security in the pipeline eliminates the need for expensive manual security reviews on every release.
+
+### Enterprise Sales Readiness
+Buyers increasingly ask: "How do you ensure secure development practices?" A documented DevSecOps process is the answer.
+
+### [Zero Trust Architecture](/glossary/zero-trust-architecture) Alignment
+DevSecOps and Zero Trust complement each other — Zero Trust secures runtime access, DevSecOps secures the code being deployed.
+
+## How Transient Labs Helps
+
+[Transient Labs](/pricing) builds DevSecOps pipelines as part of our 3-week MVP sprints:
+
+- **CI/CD security integration** — GitHub Actions, GitLab CI, or CircleCI pipelines with SAST, DAST, SCA, and secrets detection
+- **Infrastructure as Code scanning** — Terraform and Kubernetes security checks in PR workflows
+- **Secrets management** — Vault or cloud-native secrets management with automatic rotation
+- **Security dashboard** — Centralized vulnerability tracking, SLA metrics, and audit-ready evidence
+- **Developer security training** — Secure coding patterns embedded in code review workflows
+
+See also: [Zero Trust Architecture](/glossary/zero-trust-architecture) | [VAPT Explained](/glossary/vapt-explained) | [SOC 2 Trust Service Criteria](/glossary/soc2-trust-criteria)
+
+## Further Reading
+
+- [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/) — Open source DevSecOps reference
+- [NIST SSDF (Secure Software Development Framework)](https://csrc.nist.gov/Projects/ssdf) — US government software security standard
+- [Google's SLSA Framework](https://slsa.dev/) — Supply chain security levels for software
+- [Snyk State of Open Source Security Report](https://snyk.io/reports/open-source-security/) — Annual dependency vulnerability data

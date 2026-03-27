@@ -1,0 +1,170 @@
+---
+title: "Technical Due Diligence for AI Startups"
+description: "A practical guide to technical due diligence for AI startups: what investors and acquirers check, what red flags to fix, and how to prepare your codebase."
+keywords:
+  - technical due diligence AI startup
+  - AI startup due diligence
+  - AI technical DD
+  - AI codebase review
+  - startup technical audit
+  - AI product diligence
+category: "Engineering"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Prepare for Technical Diligence"
+cta_url: "/contact"
+slug: "technical-due-diligence-ai-startup"
+---
+
+## What Technical Due Diligence Looks Like for AI Startups
+
+**Technical due diligence** for an AI startup is the process by which investors, acquirers, or strategic partners review your codebase, architecture, data practices, and team to assess technical risk. It used to focus on infrastructure and code quality. In 2026, it also digs deep into how your AI systems are built, evaluated, and governed.
+
+If you're raising a Series A, going through an acquisition process, or bringing on a strategic partner, you'll face technical DD. Most founders are not ready for it. The gap between "product that works in demos" and "product that passes diligence" is larger than most teams expect — and specific to AI in ways that weren't true five years ago.
+
+## What Investors and Acquirers Actually Review
+
+Technical due diligence for AI companies covers five main areas.
+
+### 1. AI Architecture and Model Dependency
+
+The first questions are about your relationship with your models.
+
+**Which foundation models do you depend on, and what's your concentration risk?**
+
+If your entire product breaks when OpenAI's API has an outage — and you have no fallback, no caching layer, and no degraded-mode experience — that's a risk item. Acquirers and investors want to see that you've thought about model substitution, even if you haven't implemented it.
+
+**Do you use RAG, fine-tuning, or both, and why?**
+
+Teams that are fine-tuning when RAG would suffice are over-engineering. Teams that haven't fine-tuned where they clearly should have (high-stakes domain, specific terminology, quality gaps that RAG doesn't close) are under-investing. The expectation is a reasoned explanation of the choice, not a particular answer.
+
+**What's your prompt versioning story?**
+
+Prompts are the most important software in your product. If they're scattered across notebooks, copy-pasted into API calls, and undocumented, that's a significant technical debt flag. See our guide on [AI MVP mistakes founders make](/blog/ai-mvp-mistakes-founders-make) for why this bites teams repeatedly.
+
+### 2. Evaluation and Quality Measurement
+
+This is the section most AI startups fail.
+
+**How do you know your AI output quality is good?**
+
+"We test it manually" is not an acceptable answer. Investors want to see: a defined eval set, a metric that measures what you care about (accuracy, relevance, groundedness), and a process for running evals before any model or prompt change ships.
+
+**What's your regression detection process?**
+
+If you change your prompt or swap to a new model version, how do you know you haven't regressed? Teams without automated evals are making blind changes to their most critical software. This is a red flag because it implies future quality problems and high maintenance cost.
+
+**What observability tooling are you running?**
+
+Langfuse, LangSmith, Weights & Biases, or similar platforms that show you real-world request-response pairs, latency distributions, and cost-per-request are expected at any serious AI company. If you have no visibility into what your AI is doing in production, you cannot claim to control it.
+
+### 3. Data Practices and IP
+
+AI companies have IP risk that pure software companies don't.
+
+**What data did you use to fine-tune or evaluate your models?**
+
+If you scraped data from websites, used competitors' outputs as training labels, or leveraged proprietary third-party datasets without a proper license, you have legal exposure. Acquirers care about this particularly because it can become a liability they're buying.
+
+**What customer data flows through your AI pipeline, and how is it handled?**
+
+If customer data is included in prompts sent to third-party model APIs, what are your data processing agreements? If you're in a regulated space (healthcare, finance, legal), what jurisdiction-specific requirements apply? Diligence will check whether you have DPAs with your AI vendors.
+
+**Do you own your training data or evaluation benchmarks?**
+
+Proprietary eval sets, human-annotated training data, and domain-specific benchmarks are genuine IP assets. If you have them, document them. If you don't, articulate why your AI advantage is defensible without them.
+
+### 4. Infrastructure and Scalability
+
+This area is more familiar to most engineers, but AI products have specific variants of classic questions.
+
+**What are your cost economics at scale?**
+
+Every investor wants to see cost per request, cost at current revenue, and projected cost at 10x scale. AI inference is expensive. If your unit economics don't work at 10x current volume without architectural changes, that needs to be disclosed and understood.
+
+**What's your latency profile?**
+
+End-to-end latency (p50, p95, p99) for your primary AI feature matters. If your AI takes 8 seconds to respond and your target user is on mobile, that's a product problem that will be flagged. What optimizations have you made and what's the roadmap? This is where [inference optimization](/glossary/what-is-inference-optimization) investments become relevant.
+
+**How do you handle AI failures in production?**
+
+Timeout handling, fallback responses, retry logic with exponential backoff, and graceful degradation when the upstream model API returns errors — these are expected. Absent them, your reliability story falls apart under scrutiny.
+
+### 5. Security and Guardrails
+
+This has become a significant area of diligence focus following high-profile AI security incidents.
+
+**What input validation and prompt injection protection is in place?**
+
+Sophisticated acquirers will test your product for jailbreaks and prompt injection during diligence. If your customer-facing AI can be trivially manipulated into off-brand or harmful outputs, that's both a brand risk and a sign that your [AI guardrails](/glossary/what-is-ai-guardrails) implementation is immature.
+
+**What output filtering is applied?**
+
+Content moderation, PII detection before logging, and factual grounding checks for high-stakes outputs are expected best practices. Document what you have and what you've explicitly decided not to implement (and why).
+
+## How to Prepare for Technical Diligence
+
+Six months before a raise or M&A process is the ideal time to start. Six weeks is the reality for most teams.
+
+**What to fix first (highest leverage):**
+
+1. **Eval infrastructure** — Build a test set of 50–100 representative inputs with expected outputs. Run it on every significant change. Document the results. This closes the biggest gap in most AI diligence processes.
+2. **Prompt management** — Version your prompts in source control with commit messages. If you have environment-specific prompts, document the differences.
+3. **Observability** — Set up Langfuse or equivalent if you don't have it. Your ability to show investors real usage traces is powerful.
+4. **Data documentation** — Create a one-page summary of every dataset used in training or evaluation: source, license, processing steps.
+5. **Security basics** — Run an internal adversarial test of your product. Try to break it. Fix the obvious failures before the diligence team finds them.
+
+**What you cannot fake:**
+
+Investors and acquirers who know AI will ask to see real traces, real eval results, and real cost dashboards. Paper documentation without underlying instrumentation will be caught quickly. Build the actual systems, not just the documentation of systems you don't have.
+
+## The Team Question
+
+Beyond the technical stack, diligence always includes an assessment of the team. For AI companies, this means:
+
+- Does the team understand the technical decisions they've made, or did they follow tutorials?
+- Can they articulate failure modes in their own system?
+- Is there a clear owner for AI quality, security, and governance?
+
+Founders who can discuss the tradeoffs in their architecture — "We chose RAG over fine-tuning because X, and we'll revisit when Y" — inspire confidence. Founders who can't explain why their AI works convey fragility.
+
+## Getting Ready
+
+Technical due diligence is ultimately an argument that your AI product is built on a foundation that will work at the scale investors are betting on. The teams that pass quickly are not necessarily the ones with the best architecture — they're the ones who've built observable, documented, and testable systems.
+
+
+
+*Related: [AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make) · [What Are AI Guardrails?](/glossary/what-is-ai-guardrails) · [What is Inference Optimization?](/glossary/what-is-inference-optimization)*
+
+[Raising a round and want to close technical diligence gaps before your process starts? [Book a 15-min scope call →](/contact) and we'll run a pre-diligence review of your AI stack.]
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Prepare for technical due diligence with our 30-item security compliance checklist. → [**Security Compliance Checklist**](/resources/security-compliance-checklist)

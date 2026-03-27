@@ -1,0 +1,143 @@
+---
+title: "What is AI Observability? Monitoring LLM Apps"
+description: "AI observability means tracking inputs, outputs, latency, and costs of LLM apps in production. Learn why it matters and how to implement it."
+keywords:
+  - AI observability
+  - LLM observability
+  - LLM monitoring
+  - AI monitoring
+  - observability for AI applications
+  - LLM tracing
+  - LLMOps
+category: "Glossary"
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-21"
+cta_text: "Build Observable AI Systems"
+cta_url: "/contact"
+slug: "what-is-ai-observability"
+---
+
+## What is AI Observability?
+
+**AI observability** is the practice of monitoring, logging, and analyzing the behavior of AI-powered applications — especially those built on large language models (LLMs) — in production. Where traditional software observability tracks CPU, memory, and error rates, AI observability adds a new layer: tracking what the model received, what it returned, how long it took, what it cost, and whether the output was actually good.
+
+Without AI observability, you are flying blind. You cannot tell whether your prompts are degrading over time, which user inputs trigger expensive API calls, or when a model update silently changes behavior your users depended on.
+
+## Why Standard Monitoring Tools Aren't Enough
+
+Traditional APM tools (Datadog, New Relic, Prometheus) are built to track deterministic systems. They catch crashes, measure latency, and alert on error spikes.
+
+LLM applications are non-deterministic by nature. The same input can produce different outputs. "Success" is not a 200 HTTP status — it's whether the answer was correct, relevant, and safe. Traditional monitoring has no concept of output quality.
+
+AI observability closes this gap by adding:
+
+- **Trace-level logging** — Record every prompt sent to the model and every response received
+- **Token accounting** — Track input/output token counts per request for cost attribution
+- **Latency breakdowns** — Separate LLM call time from retrieval time, tool call time, and post-processing
+- **Quality signals** — Human feedback, automatic evaluators, or LLM-as-judge scores
+- **Drift detection** — Alerts when output characteristics change after model updates
+
+## The Four Pillars of LLM Observability
+
+### 1. Tracing
+
+Every LLM application call should produce a trace: a structured log of the full execution path. For a [RAG](/glossary/what-is-rag) pipeline, this means logging the user query, the retrieved chunks, the assembled prompt, the model response, and the post-processing step — all linked to a single trace ID.
+
+Distributed tracing across multi-step [AI agent](/glossary/ai-agent) workflows is especially important. When an agent takes five actions before producing an output, you need to see each step to diagnose failures.
+
+### 2. Metrics
+
+Key metrics to track in LLM production systems:
+
+| Metric | Why It Matters |
+|--------|---------------|
+| **Tokens per request** | Direct cost driver — optimization target |
+| **Latency (P50/P95/P99)** | User experience — LLM calls are slow by default |
+| **Error rate** | API timeouts, rate limit hits, malformed outputs |
+| **Cache hit rate** | Semantic or exact-match caching reduces cost and latency |
+| **Retry rate** | High retries signal prompt or model reliability issues |
+| **Cost per session** | Aggregate spend by user or workflow type |
+
+### 3. Evaluation
+
+Metrics tell you *how* the system is running. Evaluation tells you *how well*.
+
+LLM evaluation can be:
+
+- **Human review** — Manual sampling of outputs, rated by subject-matter experts
+- **Rule-based** — Check that outputs contain required fields, pass regex patterns, stay within length bounds
+- **LLM-as-judge** — A separate model evaluates the first model's outputs for quality, helpfulness, or safety
+- **A/B comparison** — Route traffic to two prompt variants and compare quality signals
+
+Continuous evaluation in production — not just during development — is what separates mature AI systems from demos.
+
+### 4. Alerting and Feedback Loops
+
+Observability is only useful if it drives action. Set alerts on:
+
+- Cost anomalies (spend exceeding budget thresholds)
+- Latency spikes (P95 exceeding SLA targets)
+- Quality drops (eval scores falling below baseline)
+- Unusual input patterns (potential prompt injection attempts)
+
+Collect user feedback signals (thumbs up/down, explicit ratings, engagement metrics) and route them back into your eval pipeline.
+
+## Observability Tools for LLM Applications
+
+| Tool | Best For |
+|------|----------|
+| **LangSmith** | LangChain-native tracing, prompt management, evaluations |
+| **Langfuse** | Open-source, self-hostable, framework-agnostic |
+| **Helicone** | Lightweight proxy-based logging, cost tracking |
+| **Arize AI** | Enterprise ML observability including LLMs |
+| **Weights & Biases** | Training + production monitoring combined |
+| **OpenTelemetry** | Standard spans and traces, integrates with existing APM |
+
+For most teams starting out, **Langfuse** is the right default — it's open-source, self-hostable, and integrates cleanly with all major LLM frameworks without vendor lock-in.
+
+## Implementing AI Observability: Where to Start
+
+If you're shipping an LLM product today and have no observability in place, start here:
+
+1. **Log every prompt and response** — Even a plain database table beats nothing. You need the raw data before you can analyze it.
+2. **Track token counts and costs per request** — Add this to your model call wrapper. One decorator or middleware function handles it for all calls.
+3. **Instrument your retrieval pipeline separately** — For RAG systems, log which chunks were retrieved, their relevance scores, and how they changed the final answer.
+4. **Add user feedback collection** — A thumbs up/down component gives you ground truth labels for free.
+5. **Set a cost budget alert** — Before anything else, make sure you get an alert if your monthly API spend doubles unexpectedly.
+
+## AI Observability vs. MLOps
+
+MLOps covers the full machine learning lifecycle: data pipelines, model training, deployment, and retraining. AI observability is narrower — it focuses on the production behavior of already-deployed models.
+
+For teams building on top of foundation models (GPT-4, Claude, Gemini), you don't own the training pipeline. MLOps in the traditional sense doesn't apply. What does apply is the production monitoring, evaluation, and feedback loop that AI observability provides.
+
+## The Business Case
+
+Skipping observability is a false economy. Without it:
+
+- **Prompt regressions go undetected** until users churn
+- **Cost overruns** compound silently until the cloud bill arrives
+- **Compliance audits** have no audit trail of AI decisions
+- **Model updates** from providers change behavior with no signal to your team
+
+Teams that ship observable AI systems catch problems in hours instead of weeks. They can confidently run A/B tests on prompts, attribute costs to specific features, and demonstrate to customers that their AI systems behave predictably.
+
+<hr />
+
+*Related: [What is an AI Agent?](/glossary/ai-agent) · [What is RAG?](/glossary/what-is-rag) · [7 AI MVP Mistakes Founders Make](/blog/ai-mvp-mistakes-founders-make)*
+
+[Building an LLM app and want observability baked in from day one? [Book a 15-min scope call →](/contact) with our team to discuss your architecture.]
+
+<hr />
+
+## Further Reading
+
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns) — How to structure multi-agent AI systems for production
+- [What Are CLAWs? Karpathy's AI Agents Framework Explained](/blog/what-are-claws-karpathy-ai-agents) — A deep dive into autonomous AI agent design
+- [Startup AI Tech Stack 2026](/blog/startup-ai-tech-stack-2026) — The tools and frameworks powering modern AI products
+- [Build an AI Product Without an ML Team](/blog/build-ai-product-without-ml-team) — How to ship AI features with a lean engineering team
+
+**Compare:** [Claude vs GPT-4 for Coding](/compare/claude-vs-gpt4-for-coding) · [Anthropic vs OpenAI for Enterprise](/compare/anthropic-vs-openai-for-enterprise) · [LangChain vs LlamaIndex](/compare/langchain-vs-llamaindex)
+
+**Browse all terms:** [AI Glossary](/glossary) · **Our services:** [View Solutions](/solutions)

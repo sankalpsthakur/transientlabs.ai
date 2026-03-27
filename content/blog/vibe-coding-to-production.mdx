@@ -1,0 +1,173 @@
+---
+title: 'From Vibe Coding to Production: A Practical Guide'
+description: "Vibe coding to production: why AI prototypes need real engineering. What the gap looks like and how to bridge it without scrapping your prototype."
+keywords:
+  - vibe coding to production
+  - vibe coding limitations
+  - ai prototype to production
+  - vibe coding software development
+  - cursor ai production code
+  - llm generated code production
+  - ai coding tools engineering
+  - production ai engineering
+category: blog
+type: "Article"
+author: "Transient Labs"
+date: "2026-02-10"
+slug: "vibe-coding-to-production"
+cta_text: "Book a 15-min scope call"
+cta_url: "https://100xai.engineering/#contact"
+---
+
+# From Vibe Coding to Production: Why Your AI Prototype Needs Engineering
+
+Vibe coding is real. Cursor, Claude, Copilot, v0 — a non-engineer founder or a designer with enough prompting instinct can produce a working demo in a weekend that would have taken a junior dev two weeks in 2022. That's genuinely useful. The tools are good.
+
+The problem isn't that vibe coding doesn't work. The problem is that it produces a *very specific kind of artifact* — one that's optimized for demonstrating that something is possible, not for surviving contact with real users, real data, or real infrastructure.
+
+Here's what the gap looks like, and what it takes to close it.
+
+
+
+## What Vibe Coding Gets Right
+
+Let's be fair to the tools before we critique them. AI-assisted coding in 2026 is legitimately transformative for:
+
+**Prototyping speed.** Getting to a working demo of a concept in days rather than weeks. You can iterate on ideas rapidly, kill bad hypotheses cheaply, and show stakeholders something real before committing to a full build.
+
+**Reducing the skill gap for scaffolding.** Routing logic, basic CRUD, React components, connecting to common APIs — vibe coding tools handle this well. The boring structural work that used to eat junior developer time is largely automatable now.
+
+**Communication artifacts.** A working demo is worth 50 slides. The vibe-coded prototype is a communication tool — it makes abstract ideas tangible.
+
+That's genuinely valuable. Many founders have raised funding rounds and validated product-market fit using vibe-coded prototypes. That use case is working.
+
+
+
+## What Breaks When You Try to Scale It
+
+Here's where the architecture starts showing cracks.
+
+### Error handling is nonexistent
+
+Vibe-coded apps handle the happy path. They almost never handle what happens when the third-party API returns a 429. Or when the database connection drops. Or when the user uploads a 150MB file instead of a 150KB one. Or when two users edit the same record simultaneously.
+
+Production software spends roughly 30–40% of its implementation surface area on error handling, edge cases, and failure modes. An AI that's optimizing for "make it work in the demo" skips all of this.
+
+### Security is an afterthought (if present at all)
+
+LLMs generate working code, not secure code. Common issues in vibe-coded applications we've seen:
+
+- API keys hardcoded in frontend code (yes, still)
+- Missing input validation that opens SQL injection vectors
+- Authentication tokens stored insecurely or scoped too broadly
+- Rate limiting nonexistent at the API layer
+- CORS configured to `*` with no further thought
+
+None of these are hypothetical. They appear regularly in AI-generated code because the prompt didn't ask for security, and the model didn't volunteer it.
+
+### State management becomes spaghetti
+
+A prototype often works because it's stateless or nearly so. One user, one session, one happy path. When you add concurrent users, session management, background jobs, webhooks, retries, and multi-tenant data isolation — the vibe-coded architecture starts fighting you.
+
+The data models that seemed reasonable for a single-user demo turn out to be wrong for a multi-tenant SaaS. Refactoring those at scale is painful work that could have been designed out from the start.
+
+### No observability
+
+Vibe-coded systems typically have no logging, no metrics, no tracing, and no alerting. When something goes wrong — and it will — you have no idea what happened. "The AI is being weird" is not a bug report your oncall engineer can act on at 2am.
+
+### The LLM-specific failure modes
+
+If your app is itself AI-powered (and most new products are), vibe coding introduces a second category of production problems:
+
+- **No eval framework.** The prompts that worked on your test inputs fail on the 10% of real inputs that look subtly different. You have no systematic way to catch regressions when you change a prompt.
+- **No cost monitoring.** That demo that ran $2 of inference in testing costs $800/day under real load. Prompt length, model selection, and call frequency compound fast.
+- **No fallback logic.** When the model returns something unexpected or times out, the app crashes or returns garbage to the user.
+- **Prompt injection surface.** User-controlled inputs that flow into prompts without sanitization are an attack vector that most vibe-coded apps are completely exposed to.
+
+
+
+## The Engineer's Role: What You're Actually Hiring For
+
+When a serious engineering team takes over a vibe-coded prototype, here's what the work actually looks like:
+
+**Audit and triage.** Understand what the prototype does, where the actual value is, and what needs to be rebuilt vs. salvaged. Good engineers preserve the prototype's insights; they don't always preserve its code.
+
+**Architecture decisions.** What's the right data model? Where does state live? How does the system handle auth? What does the deployment topology look like? These decisions made early define the ceiling on what you can build.
+
+**Hardening.** Error handling, input validation, rate limiting, logging, secrets management, dependency pinning. The unsexy work that makes software actually reliable.
+
+**Eval infrastructure.** If there's AI in the product, building the evaluation framework is as important as building the feature. What does "working" mean? How do you measure it? How do you prevent regressions?
+
+**Observability.** Logging, metrics, distributed tracing, alerting. Not glamorous. Absolutely essential the moment something goes wrong in production.
+
+**Load testing and performance.** Does it still work with 100 concurrent users? What's the p99 latency? Where are the bottlenecks?
+
+None of this kills the prototype's velocity — if the engineering is done right, it accelerates it, because you're building on a foundation that doesn't collapse.
+
+
+
+## The Playbook That Works
+
+Don't throw away your vibe-coded prototype. It contains product knowledge — which interactions feel right, what the user flow should be, what the data needs to look like. That's valuable.
+
+The transition playbook we've seen work:
+
+1. **Treat the prototype as a spec, not code.** It shows what the product should do. The engineering team builds what it should be.
+
+2. **Run a scoping session before any rewrite.** What of the prototype is salvageable? (More than you think.) What needs to be rebuilt? (Probably the data layer and most of the backend.) What's the production deployment target?
+
+3. **Instrument early.** The first thing a real engineering team should add is logging and basic metrics — before features. You cannot improve what you cannot measure.
+
+4. **Build evals before you ship.** For AI features, the eval suite ships at the same time as the feature. Not after. Not "eventually." Same sprint.
+
+5. **Pick a launch target and scope ruthlessly to it.** Vibe coding creates scope creep because adding features is so easy. Production engineering requires discipline about what's in scope for v1.
+
+
+
+## Vibe Coding Is a Tool, Not a Strategy
+
+The founders and PMs who are using these tools well understand their job: use vibe coding to get to signal fast, then hand the proven concept to engineers who can make it real. That's a good strategy.
+
+The ones who get burned treat the prototype as the product. They demo it, get excited, show it to investors, maybe even charge early customers — and then discover that "making it production-ready" is actually a substantial engineering project they didn't plan for.
+
+The gap between "it works on my laptop" and "it works for your customers" has always existed. AI coding tools made the first part faster. They didn't close the second part.
+
+
+
+*If you've got a vibe-coded prototype you need to take to production — we scope these projects precisely and move fast.*
+
+**[Book a 15-min scope call](https://100xai.engineering/#contact)**
+
+
+
+*Related: [How We Ship AI MVPs in 3 Weeks](/blog/how-we-ship-ai-mvps-in-3-weeks) · [Build vs Buy Your AI MVP](/compare/build-vs-buy-ai-mvp) · [Prompt Engineering Techniques](/glossary/prompt-engineering)*
+
+<hr />
+
+## Related Resources
+
+**More articles:**
+
+- [AI Agency for Startups: How to Choose](/blog/ai-agency-for-startups)
+- [AI Agent Architecture Patterns](/blog/ai-agent-architecture-patterns)
+- [AI Development Cost Breakdown](/blog/ai-development-cost-breakdown)
+
+**Our solution:** [AI Workflow Automation](/solutions/ai-workflow-automation)
+
+**Glossary:**
+
+- [AI Agent](/glossary/ai-agent)
+- [RAG](/glossary/what-is-rag)
+- [Agentic AI](/glossary/what-is-agentic-ai)
+
+**Comparisons:**
+
+- [Build vs Buy AI MVP](/compare/build-vs-buy-ai-mvp)
+- [In-House vs Agency AI Development](/compare/in-house-vs-agency-ai-development)
+
+
+
+
+<hr />
+
+> **Free Tool:** Get a personalized production-ready tech stack recommendation. → [**AI Tech Stack Decision Guide**](/resources/ai-tech-stack-guide)
