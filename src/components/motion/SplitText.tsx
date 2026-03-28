@@ -66,7 +66,7 @@ export function SplitText({
         className="inline-flex flex-wrap"
       >
         {words.map((word, i) => (
-          <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em]">
+          <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em] pr-[0.06em] -mr-[0.06em]">
             <m.span variants={wordVariants} className="inline-block">
               {word}
             </m.span>
