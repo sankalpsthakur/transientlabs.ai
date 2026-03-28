@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://100xai.engineering/sitemap.xml",
+    sitemap: "https://transientlabs.ai/sitemap.xml",
   };
 }

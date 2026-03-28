@@ -116,7 +116,7 @@ export default function ESGChecklistPage() {
           title="Get the Complete 25-Item Checklist — Free"
           description="Enter your email to unlock all 25 items across Environmental, Social, Governance, AI Ethics, and Regulatory compliance. Plus tips on how to action each one."
           magnetName="esg-checklist"
-          downloadUrl="https://100xai.engineering/downloads/esg-compliance-checklist.pdf"
+          downloadUrl="https://transientlabs.ai/downloads/esg-compliance-checklist.pdf"
           previewContent={previewContent}
         />
       </main>

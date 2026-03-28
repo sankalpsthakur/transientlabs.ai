@@ -29,11 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://100xai.engineering/compare/${slug}`,
+      url: `https://transientlabs.ai/compare/${slug}`,
       type: "article",
     },
     alternates: {
-      canonical: `https://100xai.engineering/compare/${slug}`,
+      canonical: `https://transientlabs.ai/compare/${slug}`,
     },
   };
 }
@@ -49,7 +49,7 @@ export default async function ComparisonPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": `https://100xai.engineering/compare/${slug}`,
+    "@id": `https://transientlabs.ai/compare/${slug}`,
     headline: post.title,
     description: post.description,
     author: {
@@ -59,10 +59,10 @@ export default async function ComparisonPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "Transient Labs",
-      url: "https://100xai.engineering",
+      url: "https://transientlabs.ai",
     },
     datePublished: post.date,
-    url: `https://100xai.engineering/compare/${slug}`,
+    url: `https://transientlabs.ai/compare/${slug}`,
   };
 
   return (

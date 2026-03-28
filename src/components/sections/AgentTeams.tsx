@@ -145,7 +145,7 @@ export function AgentTeams() {
     return (
         <Section
             id="agent-teams"
-            className="relative scroll-mt-24 overflow-x-clip bg-[linear-gradient(180deg,#16110d_0%,#110d09_100%)] py-10 text-paper md:scroll-mt-28 md:py-12 lg:py-8"
+            className="relative scroll-mt-24 overflow-hidden bg-[linear-gradient(180deg,#16110d_0%,#110d09_100%)] py-10 text-paper md:scroll-mt-28 md:py-12 lg:py-8"
         >
             <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:20px_20px]" />
             <div className="absolute left-[-8rem] top-16 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.16),transparent_68%)] blur-3xl" />
@@ -154,7 +154,7 @@ export function AgentTeams() {
             <Container className="relative">
                 <div
                     data-testid="agent-teams-layout"
-                    className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:items-center lg:gap-10"
+                    className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-center lg:gap-12"
                 >
                     <div className="order-2 lg:order-1">
                         <ArchitectureDiagram />

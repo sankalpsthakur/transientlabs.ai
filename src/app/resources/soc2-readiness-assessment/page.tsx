@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from "next";
 import { SOC2ReadinessAssessment } from "./SOC2ReadinessAssessment";
 
-const BASE_URL = "https://100xai.engineering";
+const BASE_URL = "https://transientlabs.ai";
 const PAGE_PATH = "/resources/soc2-readiness-assessment";
 
 export const metadata: Metadata = {

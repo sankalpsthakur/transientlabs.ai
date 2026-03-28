@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     'Answer 5 quick questions and get a personalized AI tech stack recommendation: LLM provider, framework, vector DB, hosting, and estimated monthly cost. Free.',
   alternates: {
-    canonical: 'https://www.100xai.engineering/resources/ai-tech-stack-guide',
+    canonical: 'https://transientlabs.ai/resources/ai-tech-stack-guide',
   },
   openGraph: {
     title: 'AI Tech Stack Decision Guide — Find the Right Stack for Your AI Product',
     description:
       'Not sure which LLM, framework, or vector DB to use? Answer 5 questions and get a personalized recommendation based on your use case, scale, budget, and team.',
-    url: 'https://www.100xai.engineering/resources/ai-tech-stack-guide',
+    url: 'https://transientlabs.ai/resources/ai-tech-stack-guide',
     siteName: 'Transient Labs',
     type: 'website',
     images: [
       {
-        url: 'https://www.100xai.engineering/og/ai-tech-stack-guide.png',
+        url: 'https://transientlabs.ai/og/ai-tech-stack-guide.png',
         width: 1200,
         height: 630,
         alt: 'AI Tech Stack Decision Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'AI Tech Stack Decision Guide — Free Interactive Tool',
     description:
       'Answer 5 questions. Get a personalized LLM provider, framework, vector DB, and hosting recommendation — plus estimated monthly cost.',
-    images: ['https://www.100xai.engineering/og/ai-tech-stack-guide.png'],
+    images: ['https://transientlabs.ai/og/ai-tech-stack-guide.png'],
   },
 };
 

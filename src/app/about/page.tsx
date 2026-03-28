@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPin, Zap, Brain, Code2, Package } from "lucide-react";
 
-const BASE_URL = "https://100xai.engineering";
+const BASE_URL = "https://transientlabs.ai";
 
 export const metadata: Metadata = {
   title: "About Us | Transient Labs",

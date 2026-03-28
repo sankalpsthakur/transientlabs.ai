@@ -29,11 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://100xai.engineering/glossary/${term}`,
+      url: `https://transientlabs.ai/glossary/${term}`,
       type: "article",
     },
     alternates: {
-      canonical: `https://100xai.engineering/glossary/${term}`,
+      canonical: `https://transientlabs.ai/glossary/${term}`,
     },
   };
 }
@@ -48,11 +48,11 @@ export default async function GlossaryTermPage({ params }: Props) {
     "@type": "DefinedTerm",
     name: post.title,
     description: post.description,
-    url: `https://100xai.engineering/glossary/${term}`,
+    url: `https://transientlabs.ai/glossary/${term}`,
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
       name: "AI Glossary",
-      url: "https://100xai.engineering/glossary",
+      url: "https://transientlabs.ai/glossary",
     },
   };
 

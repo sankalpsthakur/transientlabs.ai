@@ -116,7 +116,7 @@ export default function AIPlaybookPage() {
           title="Get the Full 25-Page Playbook — Free"
           description="Enter your email and we'll unlock the complete playbook including all 8 chapters, the sprint template, and our LLM evaluation framework."
           magnetName="ai-mvp-playbook"
-          downloadUrl="https://100xai.engineering/downloads/ai-mvp-playbook.pdf"
+          downloadUrl="https://transientlabs.ai/downloads/ai-mvp-playbook.pdf"
           previewContent={previewContent}
         />
       </main>

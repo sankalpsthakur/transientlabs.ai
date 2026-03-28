@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-const BASE_URL = "https://100xai.engineering";
+const BASE_URL = "https://transientlabs.ai";
 
 export const metadata: Metadata = {
   title: "Contact | Transient Labs",
   description:
-    "Get in touch with Transient Labs. We help founders ship AI MVPs in 3 weeks. Based in Dubai and Bangalore. Email: admin@100xai.engineering",
+    "Get in touch with Transient Labs. We help founders ship AI MVPs in 3 weeks. Based in Delhi and San Francisco. Email: admin@100xai.engineering",
   alternates: {
     canonical: `${BASE_URL}/contact`,
   },

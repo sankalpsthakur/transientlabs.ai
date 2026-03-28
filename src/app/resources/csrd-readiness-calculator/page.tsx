@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CSRDReadinessCalculator } from './CSRDReadinessCalculator';
 
-const BASE_URL = 'https://100xai.engineering';
+const BASE_URL = 'https://transientlabs.ai';
 
 export const metadata: Metadata = {
   title: 'CSRD Compliance Readiness Calculator — Free Assessment | Transient Labs',

@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Compare | Transient Labs",
         description: "Detailed comparisons of AI engineering platforms, frameworks, and deployment approaches.",
-        url: "https://100xai.engineering/compare",
+        url: "https://transientlabs.ai/compare",
     },
     alternates: {
-        canonical: "https://100xai.engineering/compare",
+        canonical: "https://transientlabs.ai/compare",
     },
 };
 

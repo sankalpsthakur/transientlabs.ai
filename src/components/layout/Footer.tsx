@@ -57,7 +57,7 @@ function GrokIcon({ className }: { className?: string }) {
 }
 
 const AI_SUMMARY_PROMPT =
-    `Give me a summary of Transient Labs (www.100xai.engineering), an ${siteBrand.descriptor.toLowerCase()}. Include the tagline ${siteBrand.tagline}.`;
+    `Give me a summary of Transient Labs (transientlabs.ai), an ${siteBrand.descriptor.toLowerCase()}. Include the tagline ${siteBrand.tagline}.`;
 
 const aiProviders = [
     {
@@ -113,7 +113,7 @@ export function Footer() {
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div className="space-y-3">
                             <BrandLogo
-                                className="block h-14 w-auto max-w-[16rem]"
+                                className="block h-20 w-auto max-w-[20rem]"
                             />
                             <div className="space-y-1">
                                 <p className="text-sm font-medium text-ink">{siteBrand.tagline}</p>

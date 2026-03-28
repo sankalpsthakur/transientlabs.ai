@@ -1,0 +1,65 @@
+VECTOR - Deterministic Orchestration Agent
+==========================================
+
+[STEP_START] executeWithAgent
+  Prompt: "Analyze current directory and summarize project structure"
+
+[TOOL_CALL] mcp__vector-orchestration__check_budget
+  Input: { stepId: 'directory_analysis' }
+  Result: { tokensRemaining: 10000, timeRemainingMs: 60000 }
+
+[TOOL_CALL] Glob
+  Pattern: '*'
+  Result: 12 files found
+
+[TOOL_CALL] Bash
+  Command: ls -la
+  Description: List all files in current location
+
+[TOOL_CALL] Read
+  File: package.json
+  Purpose: Understand project configuration
+
+[TOOL_CALL] Read
+  File: README.md
+  Purpose: Extract documentation
+
+[TOOL_CALL] Read
+  File: src/index.ts
+  Purpose: Analyze main entry point
+
+[TOOL_CALL] mcp__vector-orchestration__log_event
+  EventType: info
+  Message: Completed directory structure analysis
+  Metadata: {
+    projectType: 'TypeScript Node.js Agent',
+    framework: 'Claude Agent SDK',
+    mainPurpose: 'Deterministic orchestration with MCP architecture'
+  }
+
+=== SUMMARY ===
+
+## Directory Structure Analysis
+
+### Core Architecture:
+- **core/** - Execution engine, graph builder, step executor
+- **guardrails/** - Budget enforcement, schema validation
+- **mcp/** - Tool contracts and MCP server
+- **workflows/** - Standard, careful, and quick-fix workflows
+- **observability/** - Event logging and metrics
+- **testing/** - Spectre integration for adversarial testing
+
+### Key Patterns:
+1. Deterministic execution via workflow graphs
+2. Budget enforcement per step (tokens, time, retries)
+3. Human review gates for critical decisions
+4. Schema validation before outputs ship
+5. Full observability with structured logging
+
+[STEP_END] executeWithAgent
+  Success: true
+  Tokens: 4,234
+  Cost: $0.004
+  Loops: 0 (deterministic)
+
+--- Execution Complete ---

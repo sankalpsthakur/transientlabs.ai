@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://100xai.engineering/blog/${slug}`,
+      url: `https://transientlabs.ai/blog/${slug}`,
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
       tags: keywords,
     },
     alternates: {
-      canonical: `https://100xai.engineering/blog/${slug}`,
+      canonical: `https://transientlabs.ai/blog/${slug}`,
     },
   };
 }
@@ -64,14 +64,14 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "Transient Labs",
-      url: "https://100xai.engineering",
+      url: "https://transientlabs.ai",
     },
     datePublished: post.date,
     dateModified: post.dateModified || post.date,
-    url: `https://100xai.engineering/blog/${slug}`,
+    url: `https://transientlabs.ai/blog/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://100xai.engineering/blog/${slug}`,
+      "@id": `https://transientlabs.ai/blog/${slug}`,
     },
   };
 

@@ -1,0 +1,63 @@
+[Spectre] Adversarial Test: adversarial-1766840594242
+[Spectre] Target: http://127.0.0.1:3000
+[Spectre] Flow: homepage
+[Spectre] Mode: Discovery
+[Spectre] Personas: Lurker → Power User → Confused → Impatient → Mobile → A11y → Distracted → Adversarial
+---
+
+=== DISCOVERY ===
+
+**Page**: Transient Labs Homepage
+**URL**: http://127.0.0.1:3000
+**Total Height**: 8905px (12 viewport heights)
+**Console baseline**: Clean
+
+## Page Structure
+
+**1. Header/Navigation**
+- Logo: "Transient Labs"
+- Nav: Work, Our Edge, Team, Services, Book a Strategy Call
+
+**2. Hero Section**
+- Headline: "Engineering intelligence from bits to atoms"
+- CTA: "Book a Strategy Call" button
+- Trust: IIT, WorldQuant, Hygenco, PayPal, Microsoft
+
+**3. Case Studies ("Selected Work")**
+- Hydrogen Digital Twin (Hygenco)
+- Automated Content Pipeline (Pick Your Trail)
+- Alpha Generation (WorldQuant)
+- Workflow Orchestration (Under NDA)
+
+**4. Technical Edge ("Our Edge")**
+- 6 pattern cards
+- VECTOR & SPECTRE tools
+- Adaptive Personalization
+
+**5. Services**
+- Production Sprint ($4,999, 3 weeks)
+- Fractional CTO ($9,999/month) - High Demand
+- Industrial Deployment (Custom)
+
+**6. FAQ Section**
+- 6 expandable questions
+
+## Interactive Elements: 17 total
+
+- Navigation (6)
+- CTA buttons (5)
+- FAQ accordions (6)
+
+## Test Targets by Persona:
+
+**Power User**: Tab navigation, keyboard shortcuts, rapid FAQ
+**Confused User**: Click case studies, misinterpret CTAs
+**Impatient User**: Double-click CTAs, refresh mid-scroll
+**Mobile User**: Touch targets, responsive layout
+**A11y User**: Keyboard-only, focus indicators
+**Adversarial**: Break FAQ accordion, spam buttons
+
+[Spectre] Summary:
+  Personas: 1/8 (Discovery)
+  Issues: 0C 0H 0M 0L
+  Duration: 124s

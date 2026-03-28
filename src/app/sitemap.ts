@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://100xai.engineering";
+const BASE_URL = "https://transientlabs.ai";
 const contentRoot = path.join(process.cwd(), "content");
 
 function getSlugsFromDir(subdir: string): string[] {

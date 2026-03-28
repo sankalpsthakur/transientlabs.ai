@@ -29,11 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://100xai.engineering/solutions/${slug}`,
+      url: `https://transientlabs.ai/solutions/${slug}`,
       type: "article",
     },
     alternates: {
-      canonical: `https://100xai.engineering/solutions/${slug}`,
+      canonical: `https://transientlabs.ai/solutions/${slug}`,
     },
   };
 }
@@ -49,7 +49,7 @@ export default async function SolutionPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": `https://100xai.engineering/solutions/${slug}`,
+    "@id": `https://transientlabs.ai/solutions/${slug}`,
     headline: post.title,
     description: post.description,
     author: {
@@ -59,10 +59,10 @@ export default async function SolutionPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "Transient Labs",
-      url: "https://100xai.engineering",
+      url: "https://transientlabs.ai",
     },
     datePublished: post.date,
-    url: `https://100xai.engineering/solutions/${slug}`,
+    url: `https://transientlabs.ai/solutions/${slug}`,
   };
 
   return (

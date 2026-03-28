@@ -6,7 +6,7 @@ export const siteBrand = {
   name: "Transient Labs",
   descriptor: "Agentic Systems and Product Studio",
   tagline: "Eternal Transience of Intelligence",
-  siteUrl: "https://100xai.engineering",
+  siteUrl: "https://transientlabs.ai",
   colors: {
     paper: "#F8F2E9",
     paperAlt: "#FBF7F0",

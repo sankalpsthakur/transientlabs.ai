@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   description:
     "Download the free Security Compliance Checklist for Series A startups. 30 items covering infrastructure security, application security, access control, monitoring, and compliance documentation.",
   alternates: {
-    canonical: "https://100xai.engineering/resources/security-compliance-checklist",
+    canonical: "https://transientlabs.ai/resources/security-compliance-checklist",
   },
   openGraph: {
     title: "Security Compliance Checklist — Free 30-Item Guide | Transient Labs",
     description:
       "30 actionable security items for founders preparing for SOC 2 or enterprise sales. Infrastructure, AppSec, access control, incident response, and compliance docs.",
-    url: "https://100xai.engineering/resources/security-compliance-checklist",
+    url: "https://transientlabs.ai/resources/security-compliance-checklist",
     siteName: "Transient Labs",
     type: "website",
   },
@@ -167,7 +167,7 @@ export default function SecurityComplianceChecklistPage() {
           title="Get the Complete 30-Item Security Checklist — Free"
           description="Enter your email to unlock all 30 controls across Infrastructure Security, Application Security, Access Control, Monitoring & Incident Response, and Compliance Documentation."
           magnetName="security-compliance-checklist"
-          downloadUrl="https://100xai.engineering/downloads/security-compliance-checklist.pdf"
+          downloadUrl="https://transientlabs.ai/downloads/security-compliance-checklist.pdf"
           previewContent={previewContent}
         />
       </main>

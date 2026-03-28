@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     title: "AI Glossary | Transient Labs",
     description:
       "Plain-English definitions of AI, machine learning, and engineering terms.",
-    url: "https://100xai.engineering/glossary",
+    url: "https://transientlabs.ai/glossary",
   },
   alternates: {
-    canonical: "https://100xai.engineering/glossary",
+    canonical: "https://transientlabs.ai/glossary",
   },
 };
 

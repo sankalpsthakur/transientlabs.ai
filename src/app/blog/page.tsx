@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     title: "Blog | Transient Labs",
     description:
       "Engineering insights, AI tutorials, and product lessons from the Transient Labs team.",
-    url: "https://100xai.engineering/blog",
+    url: "https://transientlabs.ai/blog",
   },
   alternates: {
-    canonical: "https://100xai.engineering/blog",
+    canonical: "https://transientlabs.ai/blog",
   },
 };
 
