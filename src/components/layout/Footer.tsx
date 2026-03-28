@@ -113,7 +113,7 @@ export function Footer() {
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div className="space-y-3">
                             <BrandLogo
-                                className="block h-10 w-auto max-w-[13rem]"
+                                className="block h-14 w-auto max-w-[16rem]"
                             />
                             <div className="space-y-1">
                                 <p className="text-sm font-medium text-ink">{siteBrand.tagline}</p>
@@ -122,8 +122,8 @@ export function Footer() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-xs text-ink-muted">
-                            <span>Dubai, UAE</span>
-                            <span>Bangalore, IN</span>
+                            <span>Delhi, IN</span>
+                            <span>San Francisco, USA</span>
                         </div>
                     </div>
                 </FadeIn>
@@ -139,7 +139,7 @@ export function Footer() {
                     <StaggerItem>
                         <div>
                             <div className="text-xs font-mono uppercase tracking-wider text-ink-muted mb-1">Time Zones</div>
-                            <div className="text-sm font-medium text-ink">GMT+4 / GMT+5:30</div>
+                            <div className="text-sm font-medium text-ink">IST / PST</div>
                         </div>
                     </StaggerItem>
                     <StaggerItem>

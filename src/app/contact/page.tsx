@@ -9,8 +9,8 @@ import { Mail, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
 // For now we add a static metadata export (Next.js ignores it on client components but the SEO is handled by layout).
 
 const locations = [
-  { city: "Dubai", flag: "🇦🇪", detail: "DIFC & Business Bay" },
-  { city: "Bangalore", flag: "🇮🇳", detail: "India Engineering Hub" },
+  { city: "Delhi", flag: "🇮🇳", detail: "India Engineering Hub" },
+  { city: "San Francisco", flag: "🇺🇸", detail: "USA Operations" },
 ];
 
 type FormState = "idle" | "submitting" | "success" | "error";
