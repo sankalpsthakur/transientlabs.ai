@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/Motion";
 import { SplitText } from "@/components/motion/SplitText";
-import { TerminalTrace } from "@/components/motion/TerminalTrace";
+import { AgentSwarm } from "@/components/motion/AgentSwarm";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useContactModal } from "@/lib/contact-modal-context";
 import { trackEvent } from "@/lib/analytics";
@@ -269,23 +269,7 @@ export function Hero() {
 
                     <FadeIn delay={0.5} className="relative hidden lg:block lg:pt-2 xl:pt-3">
                         <div className="rounded-[2.25rem] border border-border/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,242,233,0.96))] p-4 shadow-[0_32px_90px_rgba(24,18,13,0.08)] backdrop-blur-sm">
-                            <div className="mb-4 flex items-center justify-between gap-4 px-1">
-                                <div>
-                                    <p className="text-[11px] uppercase tracking-[0.24em] text-ink-muted">
-                                        Delivery trace
-                                    </p>
-                                    <p className="mt-1 text-sm text-ink-light">
-                                        A live view of how work moves from brief to launch.
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/8 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-emerald-700">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    Live
-                                </div>
-                            </div>
-                            <div className="overflow-hidden rounded-[1.5rem]">
-                                <TerminalTrace />
-                            </div>
+                            <AgentSwarm />
                         </div>
                     </FadeIn>
                 </div>
