@@ -6,7 +6,7 @@ const getLegacyGoogleScriptUrl = () =>
 
 const CONTACT_EMAIL_TO = [
     "sankalphimself@gmail.com",
-    "radcliffe.potter88@gmail.com",
+    "aryamanmseth@gmail.com",
     "admin@100xai.engineering",
 ];
 
