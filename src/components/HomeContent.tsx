@@ -8,6 +8,7 @@ import { CaseStudies } from "@/components/sections/CaseStudies";
 import { PainPoints } from "@/components/sections/PainPoints";
 import { Advantage } from "@/components/sections/Advantage";
 import { AgentTeams } from "@/components/sections/AgentTeams";
+import { GameTheory } from "@/components/sections/GameTheory";
 import { Services } from "@/components/sections/Services";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactModal } from "@/components/sections/ContactModal";
@@ -28,7 +29,7 @@ export function HomeContent() {
         <MotionProvider>
             <ContactModalProvider>
                 <ScrollProgressBar className="z-[60]" />
-                <SectionIndicators sections={['work', 'approach', 'edge', 'agent-teams', 'services', 'faq']} />
+                <SectionIndicators sections={['work', 'approach', 'edge', 'agent-teams', 'game-theory', 'services', 'faq']} />
                 <div className="min-h-screen flex flex-col font-sans bg-paper text-ink selection:bg-accent selection:text-white">
                     <Header />
                     <main className="flex-grow pb-[72px] md:pb-0">
@@ -41,7 +42,8 @@ export function HomeContent() {
                         <Advantage />
                         <WaveDivider variant="default" />
                         <AgentTeams />
-                        <WaveDivider variant="subtle" />
+                        <GameTheory />
+                        <WaveDivider variant="default" />
                         <Services />
                         <WaveDivider variant="default" />
                         <FAQ />
