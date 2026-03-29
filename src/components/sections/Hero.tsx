@@ -14,19 +14,19 @@ import { siteBrand } from "@/lib/site-brand";
 import { m, useReducedMotion } from "framer-motion";
 
 const engineersFromLogos = [
-    { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true },
-    { name: "Stanford", src: "/images/logos/Stanford-University-Logo.png", dark: false },
-    { name: "WorldQuant", src: "/images/logos/worldquant.svg", dark: false },
-    { name: "OpenAI x Bain", src: "/images/logos/openai-bain.png", dark: true },
+    { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true, url: "https://www.iitb.ac.in" },
+    { name: "Stanford", src: "/images/logos/Stanford-University-Logo.png", dark: false, url: "https://www.stanford.edu", width: 1129, height: 1288, className: "h-10" },
+    { name: "WorldQuant", src: "/images/logos/worldquant.svg", dark: false, url: "https://www.worldquant.com" },
+    { name: "OpenAI x Bain", src: "/images/logos/openai-bain.png", dark: true, url: "https://openai.com" },
 ];
 
-const clientLogos = [
-    { name: "Climitra", src: "/images/logos/climitra.svg", dark: true, square: false },
-    { name: "Visusta", src: "/images/logos/visusta.png", dark: false, square: false },
-    { name: "Alan Scott Automation", src: "/images/logos/automation-logo.svg", dark: true, square: false },
-    { name: "Alan Scott LearniX", src: "/images/logos/learnix-logo.svg", dark: true, square: false },
-    { name: "Alan Scott Retail", src: "/images/logos/retail-logo.svg", dark: true, square: false },
-    { name: "Satwik Himalayan Products", src: "/images/logos/satwik-logo.svg", dark: true, square: false },
+const clientLogos: { name: string; src: string; dark: boolean; url?: string }[] = [
+    { name: "Climitra", src: "/images/logos/climitra.svg", dark: true },
+    { name: "Visusta", src: "/images/logos/visusta.png", dark: false },
+    { name: "Alan Scott Automation", src: "/images/logos/automation-logo.svg", dark: true },
+    { name: "Alan Scott LearniX", src: "/images/logos/learnix-logo.svg", dark: true },
+    { name: "Alan Scott Retail", src: "/images/logos/retail-logo.svg", dark: true },
+    { name: "Satwik Himalayan Products", src: "/images/logos/satwik-logo.svg", dark: true },
 ];
 
 const trustSignals = [
@@ -224,21 +224,28 @@ export function Hero() {
                                     <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                                         Engineers from
                                     </p>
-                                    <div className="flex flex-wrap items-center gap-3 grayscale transition-all duration-500 hover:grayscale-0">
-                                        {engineersFromLogos.map((logo) => (
-                                            <div key={logo.name} className="flex h-12 items-center rounded-xl border border-ink/80 bg-ink px-3 shadow-[0_10px_20px_rgba(24,18,13,0.14)]">
-                                                <img
-                                                    src={logo.src}
-                                                    alt={logo.name}
-                                                    width={176}
-                                                    height={40}
-                                                    className={cn(
-                                                        "h-10 w-auto max-w-[176px] object-contain opacity-95",
-                                                        !logo.dark && "brightness-0 invert"
-                                                    )}
-                                                />
-                                            </div>
-                                        ))}
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        {engineersFromLogos.map((logo) => {
+                                            const pill = (
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                    <img
+                                                        src={logo.src}
+                                                        alt={logo.name}
+                                                        width={logo.width ?? 160}
+                                                        height={logo.height ?? 36}
+                                                        className={cn(
+                                                            "h-8 w-auto max-w-[160px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100",
+                                                            logo.className
+                                                        )}
+                                                    />
+                                                </div>
+                                            );
+                                            return logo.url ? (
+                                                <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">{pill}</a>
+                                            ) : (
+                                                <div key={logo.name}>{pill}</div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
 
@@ -246,21 +253,27 @@ export function Hero() {
                                     <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                                         Built for
                                     </p>
-                                    <div className="flex flex-wrap items-center gap-3 grayscale transition-all duration-500 hover:grayscale-0">
-                                        {clientLogos.map((logo) => (
-                                            <div key={logo.name} className="flex h-12 items-center rounded-xl border border-ink/80 bg-ink px-3 shadow-[0_10px_20px_rgba(24,18,13,0.14)]">
-                                                <img
-                                                    src={logo.src}
-                                                    alt={logo.name}
-                                                    width={180}
-                                                    height={36}
-                                                    className={cn(
-                                                        "h-9 w-auto max-w-[170px] object-contain opacity-95",
-                                                        !logo.dark && "brightness-0 invert"
-                                                    )}
-                                                />
-                                            </div>
-                                        ))}
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        {clientLogos.map((logo) => {
+                                            const pill = (
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                    <img
+                                                        src={logo.src}
+                                                        alt={logo.name}
+                                                        width={160}
+                                                        height={32}
+                                                        className={cn(
+                                                            "h-7 w-auto max-w-[150px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100"
+                                                        )}
+                                                    />
+                                                </div>
+                                            );
+                                            return logo.url ? (
+                                                <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">{pill}</a>
+                                            ) : (
+                                                <div key={logo.name}>{pill}</div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
