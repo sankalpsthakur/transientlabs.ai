@@ -1,306 +1,193 @@
 'use client';
 
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/ui/Motion";
-import { SplitText } from "@/components/motion/SplitText";
-import { AgentSwarm } from "@/components/motion/AgentSwarm";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { useContactModal } from "@/lib/contact-modal-context";
-import { trackEvent } from "@/lib/analytics";
-import { cn } from "@/lib/utils";
-import { siteBrand } from "@/lib/site-brand";
+import { useRef, useEffect, useCallback, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { useContactModal } from '@/lib/contact-modal-context';
+import { trackEvent } from '@/lib/analytics';
+import { FadeIn } from '@/components/ui/Motion';
+import { useReducedMotion } from 'framer-motion';
 
-import { m, useReducedMotion } from "framer-motion";
-
-const engineersFromLogos = [
-    { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true, url: "https://www.iitb.ac.in" },
-    { name: "Stanford", src: "/images/logos/Stanford-University-Logo.png", dark: false, url: "https://www.stanford.edu", width: 1129, height: 1288, className: "h-10" },
-    { name: "WorldQuant", src: "/images/logos/worldquant.svg", dark: false, url: "https://www.worldquant.com" },
-    { name: "OpenAI x Bain", src: "/images/logos/openai-bain.png", dark: true, url: "https://openai.com" },
-];
-
-const clientLogos: { name: string; src: string; dark: boolean; url?: string }[] = [
-    { name: "Climitra", src: "/images/logos/climitra.svg", dark: true },
-    { name: "Visusta", src: "/images/logos/visusta.png", dark: false },
-    { name: "Alan Scott Automation", src: "/images/logos/automation-logo.svg", dark: true },
-    { name: "Alan Scott LearniX", src: "/images/logos/learnix-logo.svg", dark: true },
-    { name: "Alan Scott Retail", src: "/images/logos/retail-logo.svg", dark: true },
-    { name: "Satwik Himalayan Products", src: "/images/logos/satwik-logo.svg", dark: true },
-];
-
-const trustSignals = [
-    "Free quote in 24h",
-    "Dedicated senior team",
-    "15+ projects delivered",
-    "100% IP ownership",
-];
-
-const heroStats = [
-    { value: "$4,999", label: "Fixed sprint" },
-    { value: "3 weeks", label: "Launch window" },
-    { value: "SOC2-ready", label: "Delivery posture" },
+const BG_OPTIONS = [
+  { type: 'video' as const, src: '/videos/hero-video.mp4', label: 'Video — Particle lines' },
+  { type: 'image' as const, src: '/images/hero-options/hero-bg-1.png', label: 'Light trails' },
+  { type: 'image' as const, src: '/images/hero-options/hero-bg-2.png', label: 'Neural network' },
+  { type: 'image' as const, src: '/images/hero-options/hero-bg-3.png', label: 'Volumetric smoke' },
 ];
 
 export function Hero() {
-    const { open } = useContactModal();
-    const prefersReducedMotion = useReducedMotion();
+  const [email, setEmail] = useState('');
+  const [bgIndex, setBgIndex] = useState(0);
+  const { open } = useContactModal();
+  const prefersReducedMotion = useReducedMotion();
+  const bg = BG_OPTIONS[bgIndex];
 
-    return (
-        <section
-            id="hero"
-            className="relative flex min-h-[calc(100vh-4rem)] items-start overflow-hidden bg-transparent pt-20 pb-14 sm:pt-[5.25rem] lg:pt-20 lg:pb-18 xl:pt-[5.25rem] xl:pb-20"
-        >
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
-            <div className="absolute left-[-10rem] top-[5.5rem] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgba(31,63,147,0.12),transparent_68%)] blur-3xl sm:left-[-12rem] sm:top-[6rem] sm:h-[28rem] sm:w-[28rem] lg:left-[-14rem] lg:top-[7rem] lg:h-[30rem] lg:w-[30rem]" />
-            <div className="absolute right-[-12rem] top-[12rem] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgba(24,18,13,0.07),transparent_66%)] blur-3xl lg:right-[-14rem] lg:top-[10rem] lg:h-[28rem] lg:w-[28rem]" />
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const animFrameRef = useRef<number>(0);
+  const fadingOutRef = useRef(false);
+  const opacityRef = useRef(0);
 
-            <Container className="relative z-10">
-                <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:gap-14 xl:gap-16">
-                    <div className="max-w-3xl lg:max-w-[42rem]">
-                        <FadeIn delay={0}>
-                            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_8px_20px_rgba(24,18,13,0.04)] backdrop-blur-sm sm:gap-3 sm:text-[11px] sm:tracking-[0.22em]">
-                                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                                <span className="sm:hidden whitespace-nowrap">Eternal Transience</span>
-                                <span className="hidden whitespace-nowrap sm:inline">{siteBrand.tagline}</span>
-                                <span className="hidden text-ink/30 sm:inline">•</span>
-                                <span className="whitespace-nowrap font-[var(--font-signature)] text-[15px] normal-case tracking-normal text-ink sm:text-[18px]">
-                                    Transient Labs
-                                </span>
-                            </div>
-                        </FadeIn>
+  const fadeTo = useCallback((target: number, duration: number) => {
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    const start = opacityRef.current;
+    const startTime = performance.now();
 
-                        <FadeIn delay={0.1}>
-                            <h1 className="mt-5 max-w-[8.25ch] text-balance text-[2.95rem] leading-[0.95] tracking-[-0.065em] text-ink sm:mt-6 sm:text-[3.4rem] md:text-[4.45rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
-                                <span className="lg:hidden">
-                                    <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>{" "}
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
-                                    </span>
+    function step(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = start + (target - start) * progress;
+      opacityRef.current = current;
+      if (videoRef.current) {
+        videoRef.current.style.opacity = String(current);
+      }
+      if (progress < 1) {
+        animFrameRef.current = requestAnimationFrame(step);
+      }
+    }
 
-                                    <span className="mt-3 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins in weeks, not months.
-                                        </SplitText>
-                                    </span>
-                                </span>
+    animFrameRef.current = requestAnimationFrame(step);
+  }, []);
 
-                                <span className="hidden lg:block">
-                                    <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-accent">
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
-                                    </span>
-                                    <span className="mt-2 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-ink-light">
-                                        <SplitText
-                                            delay={0.38}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            in weeks, not months.
-                                        </SplitText>
-                                    </span>
-                                </span>
-                            </h1>
-                        </FadeIn>
+  useEffect(() => {
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, []);
 
-                        <FadeIn delay={0.2}>
-                            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-light md:text-xl lg:max-w-[35rem] lg:text-[1.08rem]">
-                                A senior product team for founders who need the full build: UX, full-stack, AI, evals, guardrails, deployment, and SOC2 readiness.
-                            </p>
-                            <p className="mt-4 max-w-2xl text-sm font-medium tracking-wide text-ink-muted md:text-base lg:hidden">
-                                Sprint $4,999 · Security Assessment $2,499 · Fractional CTO $9,999/mo
-                            </p>
-                            <div className="mt-5 hidden lg:inline-flex items-center overflow-hidden rounded-full border border-border bg-white/70 p-1 text-[10px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_10px_24px_rgba(24,18,13,0.05)] backdrop-blur-sm">
-                                <span className="rounded-full px-4 py-2">Sprint $4,999</span>
-                                <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">Security Assessment $2,499</span>
-                                <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">Fractional CTO $9,999/mo</span>
-                            </div>
-                        </FadeIn>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    trackEvent('cta_click', { cta_text: 'Email Submit', cta_location: 'hero' });
+    open(email);
+  };
 
-                        <FadeIn delay={0.3}>
-                            <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">
-                                <Button variant="primary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Request a Call', cta_location: 'hero' }); open(); }}>
-                                    Request a Call
-                                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                </Button>
-                                <Button variant="secondary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book Security Assessment', cta_location: 'hero' }); open(); }}>
-                                    Book Security Assessment
-                                </Button>
-                                <Button
-                                    variant="text"
-                                    size="md"
-                                    className="sm:hidden px-0 h-auto min-w-0"
-                                    onClick={() => { trackEvent('cta_click', { cta_text: 'See Pricing', cta_location: 'hero' }); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                >
-                                    See Pricing
-                                </Button>
-                            </div>
-                            <div
-                                className="mt-4 flex flex-wrap gap-2"
-                                tabIndex={0}
-                                role="region"
-                                aria-label="Trust signals"
-                            >
-                                {trustSignals.map((signal) => (
-                                    <div
-                                        key={signal}
-                                        className="rounded-full border border-border bg-white/65 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_8px_18px_rgba(24,18,13,0.03)] backdrop-blur-sm"
-                                    >
-                                        {signal}
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen bg-black overflow-hidden flex flex-col"
+    >
+      {/* Background — Video or Image */}
+      {!prefersReducedMotion && bg.type === 'video' && (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover translate-y-[17%] brightness-[0.4]"
+          muted
+          autoPlay
+          playsInline
+          preload="auto"
+          loop={false}
+          src={bg.src}
+          style={{ opacity: 0 }}
+          onCanPlay={() => fadeTo(1, 500)}
+          onTimeUpdate={(e) => {
+            const video = e.currentTarget;
+            if (
+              video.duration - video.currentTime <= 0.55 &&
+              !fadingOutRef.current
+            ) {
+              fadingOutRef.current = true;
+              fadeTo(0, 500);
+            }
+          }}
+          onEnded={(e) => {
+            const video = e.currentTarget;
+            video.style.opacity = '0';
+            opacityRef.current = 0;
+            setTimeout(() => {
+              video.currentTime = 0;
+              video.play();
+              fadeTo(1, 500);
+              fadingOutRef.current = false;
+            }, 100);
+          }}
+        />
+      )}
+      {bg.type === 'image' && (
+        <img
+          src={bg.src}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.5]"
+        />
+      )}
 
-                        <FadeIn delay={0.35}>
-                            <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:hidden">
-                                {heroStats.map((stat) => (
-                                    <div
-                                        key={stat.label}
-                                        className="rounded-[1.5rem] border border-border bg-white/60 p-4 shadow-[0_12px_30px_rgba(24,18,13,0.04)] backdrop-blur-sm"
-                                    >
-                                        <div className="text-2xl font-semibold tracking-[-0.04em] text-ink md:text-[1.75rem]">
-                                            {stat.value}
-                                        </div>
-                                        <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                                            {stat.label}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
+      {/* Dark scrim over video for text readability */}
+      <div className="absolute inset-0 z-[1] bg-black/70" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black/70" />
 
-                        <FadeIn delay={0.4}>
-                            <div className="mt-10 space-y-5 rounded-[2rem] border border-border bg-white/55 p-5 shadow-[0_18px_46px_rgba(24,18,13,0.04)] backdrop-blur-sm md:p-6 lg:mt-14">
-                                <div>
-                                    <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                        Engineers from
-                                    </p>
-                                    <div className="flex flex-wrap items-center gap-3">
-                                        {engineersFromLogos.map((logo) => {
-                                            const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
-                                                    <img
-                                                        src={logo.src}
-                                                        alt={logo.name}
-                                                        width={logo.width ?? 160}
-                                                        height={logo.height ?? 36}
-                                                        className={cn(
-                                                            "h-8 w-auto max-w-[160px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100",
-                                                            logo.className
-                                                        )}
-                                                    />
-                                                </div>
-                                            );
-                                            return logo.url ? (
-                                                <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">{pill}</a>
-                                            ) : (
-                                                <div key={logo.name}>{pill}</div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
+      {/* Hero Content */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[5%]">
+        <FadeIn delay={0.2}>
+          <h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight whitespace-nowrap"
+            style={{ fontFamily: "'Instrument Serif', serif" }}
+          >
+            We ship AI Agents<br />
+            <span className="text-white/80">that boost margins</span><br />
+            <span className="text-white/60">in weeks, not months.</span>
+          </h1>
 
-                                <div>
-                                    <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                        Built for
-                                    </p>
-                                    <div className="flex flex-wrap items-center gap-3">
-                                        {clientLogos.map((logo) => {
-                                            const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
-                                                    <img
-                                                        src={logo.src}
-                                                        alt={logo.name}
-                                                        width={160}
-                                                        height={32}
-                                                        className={cn(
-                                                            "h-7 w-auto max-w-[150px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100"
-                                                        )}
-                                                    />
-                                                </div>
-                                            );
-                                            return logo.url ? (
-                                                <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">{pill}</a>
-                                            ) : (
-                                                <div key={logo.name}>{pill}</div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        </FadeIn>
-                    </div>
+          {/* Email Input Bar */}
+          <div className="max-w-xl w-full space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="liquid-glass rounded-full pl-6 pr-2 py-2 flex items-center gap-3 bg-white/[0.08]"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                className="flex-1 bg-transparent outline-none text-white placeholder:text-white/40 text-base"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="bg-white rounded-full p-3 text-black hover:bg-white/90 transition-colors"
+                aria-label="Submit email"
+              >
+                <ArrowRight size={20} />
+              </button>
+            </form>
 
-                    <FadeIn delay={0.5} className="relative hidden lg:block lg:pt-2 xl:pt-3">
-                        <div className="rounded-[2.25rem] border border-border/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,242,233,0.96))] p-4 shadow-[0_32px_90px_rgba(24,18,13,0.08)] backdrop-blur-sm">
-                            <AgentSwarm />
-                        </div>
-                    </FadeIn>
-                </div>
-            </Container>
+            {/* Subtitle */}
+            <p className="text-white/70 text-sm leading-relaxed px-4">
+              Agentic systems that ship fast, scale clean, and pass audit. From architecture to SOC2.
+            </p>
 
-            {/* Scroll-down indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block">
-                {prefersReducedMotion ? (
-                    <ChevronDown className="w-6 h-6 text-ink-muted opacity-40" />
-                ) : (
-                    <m.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <ChevronDown className="w-6 h-6 text-ink-muted opacity-40" />
-                    </m.div>
-                )}
+            {/* Secondary CTA */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  trackEvent('cta_click', { cta_text: 'Our Approach', cta_location: 'hero' });
+                  document.getElementById('approach')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="liquid-glass rounded-full px-8 py-3 text-white text-sm font-medium bg-white/[0.06] hover:bg-white/10 transition-colors"
+              >
+                Our Approach
+              </button>
             </div>
-        </section>
-    );
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-black/50 z-10 pointer-events-none" />
+
+      {/* Background Switcher (dev only — remove before shipping) */}
+      <div className="absolute bottom-6 left-6 z-50 flex flex-col gap-2">
+        {BG_OPTIONS.map((opt, i) => (
+          <button
+            key={opt.src}
+            onClick={() => setBgIndex(i)}
+            className={`text-left text-xs px-3 py-2 rounded-lg transition-all ${
+              i === bgIndex
+                ? 'bg-white text-black font-medium'
+                : 'bg-white/10 text-white/70 hover:bg-white/20'
+            }`}
+          >
+            {i + 1}. {opt.label}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
 }

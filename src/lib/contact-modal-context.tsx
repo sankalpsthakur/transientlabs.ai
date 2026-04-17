@@ -4,7 +4,8 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ContactModalContextType {
     isOpen: boolean;
-    open: () => void;
+    prefillEmail: string;
+    open: (emailOrEvent?: string | unknown) => void;
     close: () => void;
 }
 
@@ -12,13 +13,21 @@ const ContactModalContext = createContext<ContactModalContextType | null>(null);
 
 export function ContactModalProvider({ children }: { children: ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [prefillEmail, setPrefillEmail] = useState('');
 
     return (
         <ContactModalContext.Provider
             value={{
                 isOpen,
-                open: () => setIsOpen(true),
-                close: () => setIsOpen(false),
+                prefillEmail,
+                open: (emailOrEvent?: string | unknown) => {
+                    if (typeof emailOrEvent === 'string' && emailOrEvent) setPrefillEmail(emailOrEvent);
+                    setIsOpen(true);
+                },
+                close: () => {
+                    setIsOpen(false);
+                    setPrefillEmail('');
+                },
             }}
         >
             {children}
