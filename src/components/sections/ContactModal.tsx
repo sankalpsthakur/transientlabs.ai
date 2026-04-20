@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { useContactModal } from "@/lib/contact-modal-context";
 
 const services = [
     {
@@ -104,17 +103,10 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
-    const { prefillEmail } = useContactModal();
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
     const formStartedRef = useRef(false);
-    const prefillAppliedRef = useRef('');
-
-    if (isOpen && prefillEmail && prefillAppliedRef.current !== prefillEmail) {
-        prefillAppliedRef.current = prefillEmail;
-        setFormData(prev => ({ ...prev, email: prefillEmail }));
-    }
 
     const handleFormFocus = () => {
         if (!formStartedRef.current) {
