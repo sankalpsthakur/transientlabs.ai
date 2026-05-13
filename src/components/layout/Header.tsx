@@ -20,6 +20,7 @@ export function Header() {
 
     const navLinks = [
         { href: "#work", label: "Work" },
+        { href: "#industries", label: "Industries" },
         { href: "#approach", label: "Approach" },
         { href: "#edge", label: "Edge" },
         { href: "#agent-teams", label: "Teams" },
@@ -36,7 +37,7 @@ export function Header() {
     };
 
     useEffect(() => {
-        const sectionIds = ["work", "approach", "edge", "agent-teams", "services", "faq"];
+        const sectionIds = ["work", "industries", "approach", "edge", "agent-teams", "services", "faq"];
         const elements = sectionIds
             .map((id) => document.getElementById(id))
             .filter(Boolean) as HTMLElement[];

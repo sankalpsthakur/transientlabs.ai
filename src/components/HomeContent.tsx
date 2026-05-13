@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { CaseStudies } from "@/components/sections/CaseStudies";
+import { Industries } from "@/components/sections/Industries";
 
 import { PainPoints } from "@/components/sections/PainPoints";
 import { Advantage } from "@/components/sections/Advantage";
@@ -29,13 +30,15 @@ export function HomeContent() {
         <MotionProvider>
             <ContactModalProvider>
                 <ScrollProgressBar className="z-[60]" />
-                <SectionIndicators sections={['work', 'approach', 'edge', 'agent-teams', 'game-theory', 'services', 'faq']} />
+                <SectionIndicators sections={['work', 'industries', 'approach', 'edge', 'agent-teams', 'game-theory', 'services', 'faq']} />
                 <div className="min-h-screen flex flex-col font-sans bg-paper text-ink selection:bg-accent selection:text-white">
                     <Header />
                     <main className="flex-grow pb-[72px] md:pb-0">
                         <Hero />
                         <WaveDivider variant="accent" />
                         <CaseStudies />
+                        <WaveDivider variant="subtle" />
+                        <Industries />
                         <WaveDivider variant="subtle" />
                         <PainPoints />
                         <WaveDivider variant="subtle" />
