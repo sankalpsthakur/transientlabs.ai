@@ -1,28 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { m, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import { m, useScroll, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 // Global scroll progress indicator (top bar)
 export function ScrollProgressBar({ className }: { className?: string }) {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const [p, setP] = useState(0);
   const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => scrollYProgress.on('change', (v) => setP(v)), [scrollYProgress]);
 
   if (prefersReducedMotion) return null;
 
   return (
-    <m.div
+    <div
+      data-testid="scroll-progress-bar"
+      style={{ ['--progress' as any]: p }}
       className={cn(
-        'fixed top-0 left-0 right-0 h-0.5 bg-ink origin-left z-50',
-        className
+        'fixed left-0 top-0 h-[2px] w-full origin-left',
+        'bg-[linear-gradient(to_right,var(--color-accent)_calc(var(--progress)*100%),transparent_calc(var(--progress)*100%))]',
+        className,
       )}
-      style={{ scaleX }}
     />
   );
 }
