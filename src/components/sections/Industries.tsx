@@ -82,7 +82,7 @@ export function Industries() {
                         const Icon = context.icon;
                         return (
                             <StaggerItem key={context.name}>
-                                <article className="group h-full overflow-hidden rounded-[1.5rem] border border-border bg-white/75 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)]">
+                                <article className="group h-full overflow-hidden rounded-[1.5rem] border border-border bg-white/75 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_64px_-32px_rgba(84,69,56,0.45)] focus-within:-translate-y-1">
                                     <div className="relative aspect-[16/10] overflow-hidden bg-paper">
                                         <Image
                                             src={context.image}
@@ -100,7 +100,7 @@ export function Industries() {
                                     </div>
                                     <div className="p-6">
                                         <div className="flex items-start gap-4">
-                                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-paper text-ink">
+                                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-paper text-ink transition-transform duration-300 ease-out group-hover:translate-x-0.5">
                                                 <Icon className="h-4 w-4" />
                                             </span>
                                             <div>
