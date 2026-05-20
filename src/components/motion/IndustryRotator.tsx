@@ -41,10 +41,14 @@ export function IndustryRotator({
       if (charCount > 0) {
         next = setTimeout(() => setCharCount((c) => c - 1), deleteMs);
       } else {
+        // Advance to the next word and immediately start typing its first char so
+        // the visible word slot is never empty for more than one frame. This kills
+        // the "cursor only, no word" flash that was visible across viewports.
         next = setTimeout(() => {
-          setPhase('typing');
           setWordIdx((i) => (i + 1) % words.length);
-        }, 200);
+          setCharCount(1);
+          setPhase('typing');
+        }, 30);
       }
     }
     return () => clearTimeout(next);

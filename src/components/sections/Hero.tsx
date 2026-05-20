@@ -65,8 +65,8 @@ export function Hero() {
                                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                                 <span className="sm:hidden whitespace-nowrap">Eternal Transience</span>
                                 <span className="hidden whitespace-nowrap sm:inline">{siteBrand.tagline}</span>
-                                <span className="hidden text-ink/30 sm:inline">•</span>
-                                <span className="hidden whitespace-nowrap normal-case tracking-normal text-ink sm:inline">
+                                <span className="hidden text-ink/30 sm:inline lg:hidden xl:inline">•</span>
+                                <span className="hidden whitespace-nowrap normal-case tracking-normal text-ink sm:inline lg:hidden xl:inline">
                                     Built for <IndustryRotator words={[...INDUSTRY_NAMES]} className="text-accent font-medium" />
                                 </span>
                                 <span className="hidden text-ink/30 sm:inline">•</span>
@@ -77,7 +77,7 @@ export function Hero() {
                         </FadeIn>
 
                         <FadeIn delay={0.1}>
-                            <h1 className="mt-5 max-w-[8.25ch] text-balance text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:text-[3.3rem] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
+                            <h1 className="mt-5 max-w-[18ch] text-balance text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:max-w-[12ch] sm:text-[3.3rem] md:max-w-[14ch] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
                                 <span className="lg:hidden">
                                     <span className="block">
                                         <SplitText
