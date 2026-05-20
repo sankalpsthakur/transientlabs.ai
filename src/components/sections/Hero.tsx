@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/Motion";
 import { SplitText } from "@/components/motion/SplitText";
 import { AgentSwarm } from "@/components/motion/AgentSwarm";
-import { IndustryRotator } from '@/components/motion/IndustryRotator';
-import { INDUSTRY_NAMES } from '@/lib/industries';
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useContactModal } from "@/lib/contact-modal-context";
 import { trackEvent } from "@/lib/analytics";
@@ -65,10 +63,6 @@ export function Hero() {
                                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                                 <span className="sm:hidden whitespace-nowrap">Eternal Transience</span>
                                 <span className="hidden whitespace-nowrap sm:inline">{siteBrand.tagline}</span>
-                                <span className="hidden text-ink/30 sm:inline lg:hidden xl:inline">•</span>
-                                <span className="hidden whitespace-nowrap normal-case tracking-normal text-ink sm:inline lg:hidden xl:inline">
-                                    Built for <IndustryRotator words={[...INDUSTRY_NAMES]} className="text-accent font-medium" />
-                                </span>
                                 <span className="hidden text-ink/30 sm:inline">•</span>
                                 <span className="whitespace-nowrap font-[var(--font-signature)] text-[15px] normal-case tracking-normal text-ink sm:text-[18px]">
                                     Transient Labs

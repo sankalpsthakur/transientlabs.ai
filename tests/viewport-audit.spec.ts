@@ -132,9 +132,40 @@ for (const vp of VIEWPORTS) {
             warnings.push('HEADER_BRAND_HIDDEN');
         }
 
+        // 9. IndustryShowcase band is visible, sits between Hero and HeroVideo, and is "big enough".
+        const showcase = page.locator('[data-testid="industry-showcase"]').first();
+        const showcaseVisible = await showcase.isVisible({ timeout: 3000 }).catch(() => false);
+        if (!showcaseVisible) {
+            issues.push('INDUSTRY_SHOWCASE_NOT_VISIBLE');
+        } else {
+            const sb = await showcase.boundingBox();
+            const heroBox = await page.locator('section#hero').first().boundingBox();
+            const videoSection = await page.locator('section[aria-label*="motion"]').first().boundingBox();
+            if (sb && heroBox && sb.y + 4 < heroBox.y + heroBox.height) {
+                issues.push(`SHOWCASE_BEFORE_HERO_END: showcase.y=${sb.y} hero.bottom=${heroBox.y + heroBox.height}`);
+            }
+            if (sb && videoSection && sb.y > videoSection.y + 2) {
+                issues.push(`SHOWCASE_AFTER_VIDEO_START: showcase.y=${sb.y} video.y=${videoSection.y}`);
+            }
+            const headline = page.locator('[data-testid="industry-showcase-headline"]').first();
+            if (await headline.isVisible().catch(() => false)) {
+                const fontPx = await headline.evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+                const minExpected = vp.w >= 768 ? 48 : 36;
+                if (fontPx < minExpected - 1) {
+                    issues.push(`SHOWCASE_HEADLINE_TOO_SMALL: ${fontPx}px (expected >= ${minExpected}px at viewport ${vp.w})`);
+                }
+            } else {
+                issues.push('SHOWCASE_HEADLINE_MISSING');
+            }
+            if (sb && (sb.x < -1 || sb.x + sb.width > vp.w + 2)) {
+                issues.push(`SHOWCASE_CLIPPED_X: ${JSON.stringify(sb)}`);
+            }
+        }
+
         // Per-section visual captures. Each is one viewport tall.
         const sections = [
             { name: 'hero', selector: 'section#hero' },
+            { name: 'showcase', selector: '[data-testid="industry-showcase"]' },
             { name: 'video', selector: 'section[aria-label*="motion"]' },
             { name: 'industries', selector: 'section#industries' },
             { name: 'work', selector: 'section#work' },
