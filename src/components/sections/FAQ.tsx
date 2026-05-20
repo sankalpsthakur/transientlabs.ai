@@ -47,7 +47,7 @@ export function FAQ() {
 
   return (
     <Section id="faq" className="bg-paper">
-      <Container className="max-w-3xl">
+      <Container width="reading">
         <div className="mb-16">
           <FadeIn>
             <p className="text-sm text-ink-muted mb-4">FAQ</p>
