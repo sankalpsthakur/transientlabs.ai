@@ -110,7 +110,7 @@ export function PainPoints() {
                                         aria-hidden="true"
                                         className="absolute left-[0.65rem] top-8 hidden h-3 w-3 rounded-full border border-accent/30 bg-paper shadow-[0_0_0_5px_rgba(31,63,147,0.08)] lg:block"
                                     />
-                                    <article className="group relative overflow-hidden rounded-[1.7rem] border border-border/80 bg-white/82 p-5 shadow-[0_10px_30px_rgba(10,10,10,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-ink/15 hover:shadow-[0_22px_55px_rgba(10,10,10,0.08)] lg:grid lg:grid-cols-[3.35rem_minmax(0,1.32fr)_minmax(11.5rem,0.78fr)] lg:items-start lg:gap-5 lg:px-5 lg:py-4">
+                                    <article className="group relative overflow-hidden rounded-[1.7rem] border border-border/80 bg-white/82 p-5 shadow-[0_10px_30px_rgba(10,10,10,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-ink/15 hover:shadow-[0_28px_60px_-32px_rgba(10,10,10,0.4)] focus-within:-translate-y-1 lg:grid lg:grid-cols-[3.35rem_minmax(0,1.32fr)_minmax(11.5rem,0.78fr)] lg:items-start lg:gap-5 lg:px-5 lg:py-4">
                                         <div
                                             aria-hidden="true"
                                             className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
@@ -126,7 +126,7 @@ export function PainPoints() {
                                                     </h3>
                                                 </div>
                                             </div>
-                                            <div className="font-mono text-[2.4rem] leading-none text-ink/10" aria-hidden="true">
+                                            <div className="font-mono text-[2.4rem] leading-none text-ink/10 transition-colors duration-300 group-hover:text-accent/70" aria-hidden="true">
                                                 0{idx + 1}
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@ export function PainPoints() {
                                             </p>
                                         </div>
 
-                                        <div className="mt-4 rounded-[1.2rem] border border-border/80 bg-paper-warm/55 px-4 py-3 lg:mt-0 lg:min-h-full lg:rounded-none lg:border-0 lg:border-l lg:border-accent/20 lg:bg-transparent lg:px-0 lg:py-0 lg:pl-5">
+                                        <div className="mt-4 rounded-[1.2rem] border border-border/80 bg-paper-warm/55 px-4 py-3 transition-colors duration-300 lg:mt-0 lg:min-h-full lg:rounded-none lg:border-0 lg:border-l lg:border-accent/20 lg:bg-transparent lg:px-0 lg:py-0 lg:pl-5 group-hover:lg:border-accent/30">
                                             <p className="text-sm leading-relaxed text-ink-light italic lg:text-[0.92rem]">
                                                     {item.signal}
                                             </p>
