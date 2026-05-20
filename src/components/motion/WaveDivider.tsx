@@ -1,6 +1,6 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 
 type WaveDividerVariant = 'default' | 'accent' | 'subtle';
 
@@ -36,15 +36,18 @@ export function WaveDivider({ variant = 'default', className = '' }: WaveDivider
   return (
     <div className={`w-full overflow-hidden ${className}`} aria-hidden="true">
       <svg viewBox="0 0 1200 24" className="w-full h-6" preserveAspectRatio="none">
-        {/* Wave path with dashed stroke animation */}
-        <path
+        {/* Wave path with stroke-dashoffset reveal */}
+        <m.path
           d={wavePath}
           fill="none"
           stroke={color}
-          strokeWidth="1"
-          opacity="0.3"
-          strokeDasharray="8 6"
-          className="noodle-dash"
+          strokeWidth={1}
+          strokeOpacity={0.3}
+          strokeDasharray={1200}
+          initial={{ strokeDashoffset: 1200 }}
+          whileInView={{ strokeDashoffset: 0 }}
+          viewport={{ once: true, margin: '-15% 0px' }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         />
 
         {/* Traveling particle 1 */}
