@@ -102,7 +102,7 @@ export function PayoffMatrix() {
               <m.div
                 key={c}
                 className={cn(
-                  'relative flex flex-col items-center gap-2 rounded-xl border p-3 transition-colors',
+                  'relative flex flex-col items-center gap-2 rounded-xl border p-2 transition-colors sm:p-3',
                   cellIsNash
                     ? 'border-emerald-400/50 bg-emerald-500/10'
                     : 'border-white/10 bg-white/[0.03]',
@@ -119,7 +119,7 @@ export function PayoffMatrix() {
                     Nash
                   </div>
                 )}
-                <div className="flex items-center gap-3">
+                <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3">
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[8px] font-mono uppercase text-amber-400/50">A</span>
                     <Stepper
@@ -127,7 +127,7 @@ export function PayoffMatrix() {
                       onChange={(v) => updatePayoff(r, c, 0, v)}
                     />
                   </div>
-                  <div className="h-6 w-px bg-white/10" />
+                  <div className="hidden h-6 w-px bg-white/10 sm:block" />
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[8px] font-mono uppercase text-cyan-400/50">B</span>
                     <Stepper
