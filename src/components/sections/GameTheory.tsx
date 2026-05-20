@@ -83,23 +83,33 @@ export function GameTheory() {
 
       <Container className="relative">
         {/* Header */}
-        <div className="mb-14 max-w-3xl lg:mb-16">
-          <FadeIn>
-            <p className="mb-4 text-sm font-mono uppercase tracking-[0.28em] text-indigo-300">
-              Equilibrium Design
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <h2 className="mb-5 text-3xl font-semibold tracking-tight text-paper md:text-[3.6rem] md:leading-[0.92]">
-              We design the game. <br />
-              <span className="text-paper/52">Not just the agents.</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.14}>
-            <p className="max-w-[38rem] text-base leading-relaxed text-paper/72 md:text-[1.05rem]">
-              Every production multi-agent system is a game — agents with objectives, constraints, and incentives. We architect the equilibrium so the system converges to the right outcome by construction.
-            </p>
-          </FadeIn>
+        <div className="mb-14 grid items-end gap-8 lg:mb-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+          <div>
+            <FadeIn>
+              <p className="mb-4 text-sm font-mono uppercase tracking-[0.28em] text-indigo-300">
+                Equilibrium Design
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.08}>
+              <h2 className="text-3xl font-semibold tracking-tight text-paper md:text-[3.6rem] md:leading-[0.92]">
+                We design the game. <br />
+                <span className="text-paper/52">Not just the agents.</span>
+              </h2>
+            </FadeIn>
+          </div>
+          <div className="space-y-5">
+            <FadeIn delay={0.14}>
+              <p className="max-w-[34rem] text-base leading-relaxed text-paper/72 md:text-[1.05rem]">
+                Every production multi-agent system is a game — agents with objectives, constraints, and incentives. We architect the equilibrium so the system converges to the right outcome by construction.
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.22}>
+              <p className="max-w-[34rem] text-sm leading-relaxed text-paper/52">
+                Nash equilibria, Stackelberg hierarchies, and observable payoffs are not academic abstractions.
+                They are the engineering primitives behind agent systems that hold up under pressure.
+              </p>
+            </FadeIn>
+          </div>
         </div>
 
         {/* Demo grid */}
@@ -113,16 +123,6 @@ export function GameTheory() {
             </StaggerItem>
           ))}
         </Stagger>
-
-        {/* Closing */}
-        <FadeIn delay={0.3}>
-          <div className="mt-14 flex flex-col items-center gap-3 text-center lg:mt-16">
-            <p className="max-w-xl text-sm leading-relaxed text-paper/52">
-              Nash equilibria, Stackelberg hierarchies, and observable payoffs are not academic abstractions.
-              They are the engineering primitives behind agent systems that hold up under pressure.
-            </p>
-          </div>
-        </FadeIn>
       </Container>
     </Section>
   );
