@@ -410,7 +410,7 @@ function OperationsDashboard() {
                     <div className="relative xl:pl-2">
                         <div className="pointer-events-none absolute inset-x-8 top-10 h-44 rounded-full bg-[radial-gradient(circle_at_center,rgba(17,17,17,0.18),transparent_72%)] blur-3xl" />
                         <div className="rounded-[28px] border border-border/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.62),rgba(247,240,231,0.9))] p-3 shadow-[0_28px_80px_-56px_rgba(24,24,24,0.55)] sm:p-4 lg:p-5">
-                            <div className="mb-4 flex flex-wrap gap-2">
+                            <div className="mb-4 mt-1 flex flex-wrap gap-2">
                                 {dashboardMetrics.map((item) => (
                                     <span
                                         key={item.label}
@@ -426,13 +426,11 @@ function OperationsDashboard() {
                             </div>
                         </div>
 
-                        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                        <div className="mt-5 grid gap-x-5 gap-y-3 px-1 sm:grid-cols-3 sm:px-2 lg:px-3">
                             {dashboardMetrics.map((item) => (
-                                <div key={`${item.label}-detail`} className="border-t border-border/80 pt-3">
-                                    <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-ink-muted">
-                                        {item.label}
-                                    </p>
-                                    <p className="mt-2 text-sm leading-relaxed text-ink">
+                                <div key={`${item.label}-detail`} className="flex items-start gap-3">
+                                    <span aria-hidden="true" className="mt-[3px] h-1 w-3 rounded-full bg-ink/40" />
+                                    <p className="text-sm leading-snug text-ink">
                                         {item.value}
                                     </p>
                                 </div>
