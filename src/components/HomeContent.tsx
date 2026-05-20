@@ -3,6 +3,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { HeroVideo } from "@/components/sections/HeroVideo";
 import { CaseStudies } from "@/components/sections/CaseStudies";
 import { Industries } from "@/components/sections/Industries";
 
@@ -35,15 +36,12 @@ export function HomeContent() {
                     <Header />
                     <main className="flex-grow pb-[72px] md:pb-0">
                         <Hero />
+                        <HeroVideo />
                         <WaveDivider variant="accent" />
-                        <CaseStudies />
-                        <WaveDivider variant="subtle" />
                         <Industries />
-                        <WaveDivider variant="subtle" />
+                        <CaseStudies />
                         <PainPoints />
-                        <WaveDivider variant="subtle" />
                         <Advantage />
-                        <WaveDivider variant="default" />
                         <AgentTeams />
                         <GameTheory />
                         <WaveDivider variant="default" />
