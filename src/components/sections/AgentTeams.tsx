@@ -50,6 +50,12 @@ const orchestrationCapabilities = [
     },
 ];
 
+const layerSummary = [
+    { id: '01', name: 'Specialized Teams', tokens: specializedTeams.map((t) => t.name) },
+    { id: '02', name: 'Orchestrator Factory', tokens: orchestrationCapabilities.map((c) => c.name) },
+    { id: '03', name: 'Universal Data Plane', tokens: dataPlaneTokens },
+];
+
 function ArchitectureDiagram() {
     return (
         <FadeIn className="relative isolate h-full w-full">
@@ -172,6 +178,26 @@ export function AgentTeams() {
                             <p className="max-w-[34rem] text-base leading-relaxed text-paper/72 md:text-[1.05rem]">
                                 We architect your AI infrastructure using a multi-layered approach. A central orchestrator directs specialized teams operating on top of a unified, compliant data plane.
                             </p>
+                            <div className="mt-8 grid gap-3 md:mt-10">
+                                {layerSummary.map((layer) => (
+                                    <div
+                                        key={layer.id}
+                                        className="flex items-baseline gap-4 border-t border-paper/12 pt-3"
+                                    >
+                                        <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-indigo-300/80">
+                                            Layer {layer.id}
+                                        </span>
+                                        <div className="flex-1">
+                                            <p className="text-[15px] font-medium text-paper/90">
+                                                {layer.name}
+                                            </p>
+                                            <p className="mt-1 text-[12px] text-paper/52">
+                                                {layer.tokens.join(' · ')}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </FadeIn>
 
                     </div>
