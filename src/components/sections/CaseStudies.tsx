@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn } from "@/components/ui/Motion";
 import { OptionB } from "./showcase/OptionB";
+import { CountUp } from "@/components/motion/CountUp";
 
 export function CaseStudies() {
     return (
@@ -45,15 +46,21 @@ export function CaseStudies() {
                                 <FadeIn delay={0.16}>
                                     <div className="mt-8 grid grid-cols-3 gap-6">
                                         <div>
-                                            <div className="text-2xl md:text-3xl font-semibold text-ink">$20k</div>
+                                            <div className="text-2xl md:text-3xl font-semibold text-ink">
+                                                <CountUp end={20} prefix="$" suffix="k" />
+                                            </div>
                                             <div className="text-xs text-ink-muted">last 2 months</div>
                                         </div>
                                         <div>
-                                            <div className="text-2xl md:text-3xl font-semibold text-ink">67+</div>
+                                            <div className="text-2xl md:text-3xl font-semibold text-ink">
+                                                <CountUp end={67} suffix="+" />
+                                            </div>
                                             <div className="text-xs text-ink-muted">skills shipped</div>
                                         </div>
                                         <div>
-                                            <div className="text-2xl md:text-3xl font-semibold text-ink">4+</div>
+                                            <div className="text-2xl md:text-3xl font-semibold text-ink">
+                                                <CountUp end={4} suffix="+" />
+                                            </div>
                                             <div className="text-xs text-ink-muted">departments</div>
                                         </div>
                                     </div>
