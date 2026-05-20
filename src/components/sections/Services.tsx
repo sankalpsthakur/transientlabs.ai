@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
@@ -118,10 +117,10 @@ export function Services() {
                                     {services.map((service) => (
                                         <div
                                             key={service.title}
-                                            className={`rounded-2xl border px-4 py-3 transition-colors duration-300 ${
+                                            className={`rounded-2xl border px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(10,10,10,0.06)] ${
                                                 service.featured
-                                                    ? "border-ink/20 bg-paper-warm/80"
-                                                    : "border-border/70 bg-white hover:border-ink/15"
+                                                    ? "border-ink/20 bg-paper-warm/80 hover:bg-paper-warm/95"
+                                                    : "border-border/70 bg-white hover:border-ink/15 hover:bg-paper-warm/55"
                                             }`}
                                         >
                                             <div className="flex items-center justify-between gap-3">
@@ -157,7 +156,7 @@ export function Services() {
                                     <article
                                         className={`group flex h-full flex-col overflow-hidden rounded-[1.85rem] border bg-white/82 shadow-[0_10px_30px_rgba(10,10,10,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_22px_55px_rgba(10,10,10,0.1)] ${
                                             service.featured
-                                                ? "border-ink/20 bg-[linear-gradient(180deg,#fffdf8_0%,#fff7ef_100%)]"
+                                                ? "border-ink/20 bg-[linear-gradient(180deg,#fffdf8_0%,#fff7ef_100%)] hover:ring-2 hover:ring-accent/30 hover:ring-offset-2 hover:ring-offset-paper"
                                                 : "border-border/80"
                                         }`}
                                     >
@@ -268,13 +267,7 @@ export function Services() {
                     </div>
                 </div>
 
-                <FadeIn delay={0.3}>
-                    <div className="mt-16 text-center">
-                        <Button variant="primary" size="lg" onClick={open}>
-                            Request a Call
-                        </Button>
-                    </div>
-                </FadeIn>
+
             </Container>
         </Section>
     );
