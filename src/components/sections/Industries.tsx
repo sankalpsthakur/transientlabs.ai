@@ -5,10 +5,11 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
 import { Cpu, Factory, Gauge, Leaf, ShoppingCart, Wrench } from "lucide-react";
+import { INDUSTRY_NAMES } from '@/lib/industries';
 
 const contexts = [
     {
-        name: "Biochar",
+        name: INDUSTRY_NAMES[0],
         signal: "Kiln batches, buyer evidence, carbon receipts.",
         detail: "MRV, feedstock intake, batch evidence, buyer workflows, and carbon-credit reporting.",
         icon: Leaf,
@@ -16,7 +17,7 @@ const contexts = [
         imageAlt: "Biochar kiln batches with buyer evidence and carbon receipts",
     },
     {
-        name: "Submersible pumps",
+        name: INDUSTRY_NAMES[1],
         signal: "Dealer queues and field service made visible.",
         detail: "Dealer operations, service telemetry, warranty intelligence, and field-team dashboards.",
         icon: Gauge,
@@ -24,7 +25,7 @@ const contexts = [
         imageAlt: "Submersible pump cutaway with telemetry and warranty queue",
     },
     {
-        name: "Retail",
+        name: INDUSTRY_NAMES[2],
         signal: "Demand signals instead of stale reports.",
         detail: "Inventory copilots, CRM automation, demand signals, and store-level operating views.",
         icon: ShoppingCart,
@@ -32,7 +33,7 @@ const contexts = [
         imageAlt: "Retail aisle with demand signal and inventory command overlay",
     },
     {
-        name: "Hardware programs",
+        name: INDUSTRY_NAMES[3],
         signal: "BOM changes, routings, and station work made executable.",
         detail: "Forge-style systems for EBOM-to-MBOM handoff, ECO review, supplier impact, routing release, line readiness, traveler signoff, and signed audit trails.",
         icon: Wrench,
@@ -40,7 +41,7 @@ const contexts = [
         imageAlt: "Hard-tech test stand with BOM, routing, supplier impact, and line-readiness evidence",
     },
     {
-        name: "Industrial teams",
+        name: INDUSTRY_NAMES[4],
         signal: "Plant-floor exceptions with owners attached.",
         detail: "Ops dashboards, audit trails, maintenance workflows, and manager-facing control planes.",
         icon: Factory,
@@ -48,7 +49,7 @@ const contexts = [
         imageAlt: "Industrial plant floor with exception queues and operations control",
     },
     {
-        name: "AI-native SaaS",
+        name: INDUSTRY_NAMES[5],
         signal: "Agentic products with runtime truth built in.",
         detail: "Agents, RAG, evals, observability, billing, roles, and production app architecture.",
         icon: Cpu,
@@ -77,7 +78,7 @@ export function Industries() {
                     </FadeIn>
                 </div>
 
-                <Stagger className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.06}>
+                <Stagger className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6" staggerDelay={0.06}>
                     {contexts.map((context) => {
                         const Icon = context.icon;
                         return (
