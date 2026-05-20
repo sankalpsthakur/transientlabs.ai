@@ -372,7 +372,7 @@ function OperationsDashboard() {
         <div className="mt-14 lg:mt-16">
             <div className="grid gap-8 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:items-start">
                 <FadeIn>
-                    <div className="xl:pt-2">
+                    <div className="xl:pt-3">
                         <div className="mb-5 flex items-center gap-3">
                             <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
                             <p className="text-xs font-mono uppercase tracking-[0.28em] text-ink-muted">
@@ -386,9 +386,9 @@ function OperationsDashboard() {
                             Shared memory, live traces, and runtime signals make the system legible while it is running.
                         </p>
 
-                        <div className="mt-8 space-y-5">
+                        <div className="mt-7 space-y-4">
                             {dashboardNotes.map((note) => (
-                                <div key={note.id} className="border-t border-border/80 pt-4">
+                                <div key={note.id} className="border-t-2 border-border/60 pt-4">
                                     <div className="mb-2 flex items-baseline gap-3">
                                         <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">
                                             {note.id}
