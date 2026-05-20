@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/Motion";
 import { SplitText } from "@/components/motion/SplitText";
 import { AgentSwarm } from "@/components/motion/AgentSwarm";
+import { IndustryRotator } from '@/components/motion/IndustryRotator';
+import { INDUSTRY_NAMES } from '@/lib/industries';
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useContactModal } from "@/lib/contact-modal-context";
 import { trackEvent } from "@/lib/analytics";
@@ -49,20 +51,24 @@ export function Hero() {
     return (
         <section
             id="hero"
-            className="relative flex min-h-[calc(100vh-4rem)] items-start overflow-hidden bg-transparent pt-20 pb-14 sm:pt-[5.25rem] lg:pt-20 lg:pb-18 xl:pt-[5.25rem] xl:pb-20"
+            className="relative flex min-h-[calc(100svh-4rem)] items-start overflow-hidden bg-transparent pt-20 pb-14 sm:pt-[5.25rem] sm:pb-16 lg:pt-20 lg:pb-18 xl:pt-[5.25rem] xl:pb-20"
         >
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
             <div className="absolute left-[-10rem] top-[5.5rem] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgba(31,63,147,0.12),transparent_68%)] blur-3xl sm:left-[-12rem] sm:top-[6rem] sm:h-[28rem] sm:w-[28rem] lg:left-[-14rem] lg:top-[7rem] lg:h-[30rem] lg:w-[30rem]" />
             <div className="absolute right-[-12rem] top-[12rem] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgba(24,18,13,0.07),transparent_66%)] blur-3xl lg:right-[-14rem] lg:top-[10rem] lg:h-[28rem] lg:w-[28rem]" />
 
             <Container className="relative z-10">
-                <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:gap-14 xl:gap-16">
+                <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] lg:gap-12 xl:gap-14">
                     <div className="max-w-3xl lg:max-w-[42rem]">
                         <FadeIn delay={0}>
                             <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_8px_20px_rgba(24,18,13,0.04)] backdrop-blur-sm sm:gap-3 sm:text-[11px] sm:tracking-[0.22em]">
                                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                                 <span className="sm:hidden whitespace-nowrap">Eternal Transience</span>
                                 <span className="hidden whitespace-nowrap sm:inline">{siteBrand.tagline}</span>
+                                <span className="hidden text-ink/30 sm:inline">•</span>
+                                <span className="hidden whitespace-nowrap normal-case tracking-normal text-ink sm:inline">
+                                    Built for <IndustryRotator words={[...INDUSTRY_NAMES]} className="text-accent font-medium" />
+                                </span>
                                 <span className="hidden text-ink/30 sm:inline">•</span>
                                 <span className="whitespace-nowrap font-[var(--font-signature)] text-[15px] normal-case tracking-normal text-ink sm:text-[18px]">
                                     Transient Labs
@@ -71,7 +77,7 @@ export function Hero() {
                         </FadeIn>
 
                         <FadeIn delay={0.1}>
-                            <h1 className="mt-5 max-w-[8.25ch] text-balance text-[2.95rem] leading-[0.95] tracking-[-0.065em] text-ink sm:mt-6 sm:text-[3.4rem] md:text-[4.45rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
+                            <h1 className="mt-5 max-w-[8.25ch] text-balance text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:text-[3.3rem] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
                                 <span className="lg:hidden">
                                     <span className="block">
                                         <SplitText
