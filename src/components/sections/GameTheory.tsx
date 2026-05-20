@@ -41,7 +41,7 @@ const demos = [
 
 function DemoCard({ level, title, subtitle, description, Component }: typeof demos[number]) {
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0a0a0a] shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0a0a0a] shadow-[0_0_40px_rgba(0,0,0,0.5)]">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/5 bg-[#161616] px-4 py-2.5">
         <div className="flex items-center gap-2.5">
@@ -114,11 +114,11 @@ export function GameTheory() {
 
         {/* Demo grid */}
         <Stagger
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 items-stretch"
           staggerDelay={0.1}
         >
           {demos.map((demo) => (
-            <StaggerItem key={demo.level}>
+            <StaggerItem key={demo.level} className="h-full">
               <DemoCard {...demo} />
             </StaggerItem>
           ))}
