@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
 import { Button } from "@/components/ui/Button";
-import { Plus, Minus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -46,7 +46,7 @@ export function FAQ() {
   const { open } = useContactModal();
 
   return (
-    <Section id="faq" className="bg-paper">
+    <Section id="faq" className="scroll-mt-20 bg-paper md:scroll-mt-28">
       <Container width="reading">
         <div className="mb-16">
           <FadeIn>
@@ -64,8 +64,11 @@ export function FAQ() {
             <StaggerItem key={idx}>
               <div
                 className={cn(
-                  "card-hover border-accent-left pl-4 -ml-4 transition-colors duration-300",
-                  openIndex === idx && "active bg-paper-warm/50",
+                  "card-hover relative pl-4 -ml-4 transition-all duration-300",
+                  "before:absolute before:left-0 before:top-3 before:bottom-3 before:w-px before:bg-transparent before:transition-colors before:duration-300",
+                  openIndex === idx
+                    ? "bg-paper-warm/60 before:bg-accent"
+                    : "hover:bg-paper-warm/30",
                 )}
               >
                 <button
@@ -76,14 +79,11 @@ export function FAQ() {
                     {item.q}
                   </span>
                   <m.div
-                    animate={{ rotate: openIndex === idx ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    animate={{ rotate: openIndex === idx ? 45 : 0 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex-shrink-0"
                   >
-                    {openIndex === idx ? (
-                      <Minus className="w-5 h-5 text-ink-muted flex-shrink-0" />
-                    ) : (
-                      <Plus className="w-5 h-5 text-ink-muted flex-shrink-0" />
-                    )}
+                    <Plus className="w-5 h-5 text-ink-muted transition-colors group-hover:text-ink" />
                   </m.div>
                 </button>
                 <AnimatePresence>
@@ -92,7 +92,7 @@ export function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="pb-6 text-ink-light leading-relaxed">
