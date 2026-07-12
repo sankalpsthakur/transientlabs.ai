@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { MotionValue } from 'framer-motion';
 import { m, useTransform } from 'framer-motion';
 import type { ModuleId } from '@/lib/stack/content';
@@ -21,8 +21,7 @@ interface ScaleLadderHUDProps {
 }
 
 /**
- * Textual scale continuum that stays in lockstep with scroll-scrubbed 3D.
- * Shows active rung + full ladder so viewers never lose the zoom context.
+ * Log-scale depth HUD: active rung + continuum bar across orders of magnitude.
  */
 export function ScaleLadderHUD({
   moduleId,
@@ -35,17 +34,31 @@ export function ScaleLadderHUD({
   const [rung, setRung] = useState<ScaleRung>(() =>
     activeRung(moduleId, reduced ? 0.85 : 0)
   );
+  const [p, setP] = useState(reduced ? 0.85 : 0);
   const opacity = useTransform(progress, [0.02, 0.08], [0, 1]);
 
   useEffect(() => {
     if (reduced) {
       setRung(activeRung(moduleId, 0.85));
+      setP(0.85);
       return;
     }
     return progress.on('change', (v) => {
       setRung(activeRung(moduleId, v));
+      setP(v);
     });
   }, [progress, moduleId, reduced]);
+
+  // Log-scale position of current length on the ladder
+  const logMeta = useMemo(() => {
+    const logs = ladder.map((r) => Math.log10(Math.max(r.lengthM, 1e-16)));
+    const min = Math.min(...logs);
+    const max = Math.max(...logs);
+    const cur = Math.log10(Math.max(rung.lengthM, 1e-16));
+    const t = max === min ? 0 : (cur - min) / (max - min);
+    // Invert so macro is left, micro is right (zooming in)
+    return { min, max, t: 1 - t };
+  }, [ladder, rung]);
 
   return (
     <m.div
@@ -55,7 +68,7 @@ export function ScaleLadderHUD({
       )}
       style={{ opacity: reduced ? 1 : opacity }}
     >
-      <div className="rounded-xl border border-white/10 bg-black/55 p-3 backdrop-blur-md">
+      <div className="rounded-xl border border-white/10 bg-black/65 p-3 shadow-[0_-20px_60px_rgba(0,0,0,0.5)] backdrop-blur-md">
         {/* Active rung */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -63,7 +76,7 @@ export function ScaleLadderHUD({
               className="font-mono text-[10px] uppercase tracking-[0.22em]"
               style={{ color: accent }}
             >
-              Scale · {rung.label}
+              Depth · {rung.label}
             </div>
             <p className="mt-1 text-sm font-medium leading-snug text-white/90">
               {rung.caption}
@@ -73,9 +86,33 @@ export function ScaleLadderHUD({
             </p>
           </div>
           <div className="shrink-0 text-right font-mono text-[10px] text-white/40">
-            <div>{formatLengthM(rung.lengthM)}</div>
+            <div className="text-sm text-white/70">{formatLengthM(rung.lengthM)}</div>
             <div className="mt-0.5 text-white/30">{rung.scaleNote}</div>
+            <div className="mt-1 text-white/25">scroll {(p * 100).toFixed(0)}%</div>
           </div>
+        </div>
+
+        {/* Log continuum bar — macro ← → micro */}
+        <div className="relative mt-4 h-2 overflow-hidden rounded-full bg-white/5">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full opacity-80"
+            style={{
+              width: `${Math.round(logMeta.t * 100)}%`,
+              background: `linear-gradient(90deg, ${accent}33, ${accent})`,
+            }}
+          />
+          <div
+            className="absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-black shadow"
+            style={{
+              left: `calc(${Math.round(logMeta.t * 100)}% - 6px)`,
+              backgroundColor: accent,
+            }}
+          />
+        </div>
+        <div className="mt-1 flex justify-between font-mono text-[8px] uppercase tracking-wider text-white/25">
+          <span>macro</span>
+          <span>orders of magnitude</span>
+          <span>micro</span>
         </div>
 
         {/* Full ladder ticks */}
@@ -91,11 +128,7 @@ export function ScaleLadderHUD({
                     ? 'border-transparent text-black'
                     : 'border-white/10 text-white/35'
                 )}
-                style={
-                  active
-                    ? { backgroundColor: accent }
-                    : undefined
-                }
+                style={active ? { backgroundColor: accent } : undefined}
                 title={`${step.label}: ${step.scaleNote}`}
               >
                 {step.label}

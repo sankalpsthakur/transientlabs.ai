@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import type { MotionValue } from 'framer-motion';
 import type { Group, PerspectiveCamera } from 'three';
 import * as THREE from 'three';
+import { DepthRig } from '@/components/stack/webgl';
 import { CellLayers } from './CellLayers';
 import { JellyRoll } from './JellyRoll';
 import { PackAssembly } from './PackAssembly';
@@ -164,27 +165,25 @@ export function BatteriesScene({
 
   return (
     <>
-      <color attach="background" args={['#0a0907']} />
-      <fog attach="fog" args={['#0a0907', 5, 16]} />
-
-      <ambientLight intensity={0.28} color="#c8c4bc" />
+      <DepthRig
+        progress={progress}
+        accent={accent}
+        mood="lab"
+        reduced={reduced}
+        dust={reduced ? 60 : 180}
+      />
       <directionalLight
         ref={keyLight}
         position={[4, 6, 3]}
-        intensity={1.2}
+        intensity={1.1}
         color="#fff6e8"
         castShadow
         shadow-mapSize={[1024, 1024]}
       />
-      <directionalLight
-        position={[-3, 2, -2]}
-        intensity={0.35}
-        color="#8a9bb0"
-      />
       <pointLight
         ref={rimLight}
         position={[-1.5, 0.5, 2]}
-        intensity={0.4}
+        intensity={0.55}
         color={accent}
         distance={8}
         decay={2}

@@ -14,16 +14,32 @@ export function StackHero() {
       id="intro"
       className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#070605] px-5 pb-24 pt-28 md:px-8"
     >
-      {/* Atmospheric field */}
+      {/* Atmospheric field — multi-plane depth */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden
         style={{
           background: `
-            radial-gradient(ellipse 80% 50% at 50% -10%, rgba(31, 63, 147, 0.35), transparent 55%),
-            radial-gradient(ellipse 40% 40% at 80% 60%, rgba(92, 225, 168, 0.06), transparent 50%),
-            radial-gradient(ellipse 40% 40% at 15% 70%, rgba(232, 168, 124, 0.06), transparent 50%)
+            radial-gradient(ellipse 80% 50% at 50% -10%, rgba(31, 63, 147, 0.4), transparent 55%),
+            radial-gradient(ellipse 40% 40% at 80% 60%, rgba(92, 225, 168, 0.08), transparent 50%),
+            radial-gradient(ellipse 40% 40% at 15% 70%, rgba(232, 168, 124, 0.08), transparent 50%),
+            radial-gradient(ellipse 50% 30% at 50% 100%, rgba(0,0,0,0.7), transparent 50%)
           `,
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] opacity-[0.07]"
+        aria-hidden
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #7EA2FF 1px, transparent 1px),
+            linear-gradient(to bottom, #7EA2FF 1px, transparent 1px)
+          `,
+          backgroundSize: '56px 56px',
+          maskImage: 'linear-gradient(to top, black, transparent)',
+          WebkitMaskImage: 'linear-gradient(to top, black, transparent)',
+          transform: 'perspective(500px) rotateX(58deg)',
+          transformOrigin: 'center bottom',
         }}
       />
 

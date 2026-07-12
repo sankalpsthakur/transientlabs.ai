@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import type { MotionValue } from 'framer-motion';
 import type { Group } from 'three';
 import * as THREE from 'three';
+import { DepthRig } from '@/components/stack/webgl';
 import { Vehicle } from './Vehicle';
 import { Sensors } from './Sensors';
 import { PerceptionOverlay } from './PerceptionOverlay';
@@ -150,31 +151,23 @@ export function Scene({
 
   return (
     <>
-      {/* Night-street ambient lighting */}
-      <color attach="background" args={['#050408']} />
-      <fog attach="fog" args={['#050408', 8, 18]} />
-
-      <ambientLight intensity={0.28} />
-      <directionalLight
-        position={[4, 6, 3]}
-        intensity={0.85}
-        color="#e8e4f0"
-      />
-      <directionalLight
-        position={[-3, 2, -2]}
-        intensity={0.35}
-        color={accent}
+      <DepthRig
+        progress={progress}
+        accent={accent}
+        mood="night"
+        reduced={reduced}
+        dust={reduced ? 50 : 160}
       />
       <pointLight
         position={[0, 2.2, 1.5]}
-        intensity={0.55}
+        intensity={0.7}
         color={accent}
         distance={8}
         decay={2}
       />
       <pointLight
         position={[1.5, 1, -1]}
-        intensity={0.25}
+        intensity={0.35}
         color="#7EA2FF"
         distance={6}
         decay={2}

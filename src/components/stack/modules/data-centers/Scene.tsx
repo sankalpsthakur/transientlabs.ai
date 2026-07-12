@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import type { MotionValue } from 'framer-motion';
 import type { Group, PerspectiveCamera } from 'three';
+import { DepthRig } from '@/components/stack/webgl';
 import { Campus } from './Campus';
 import { Racks } from './Racks';
 import { PowerFlow } from './PowerFlow';
@@ -128,44 +129,29 @@ export function Scene({
 
   return (
     <>
-      <color attach="background" args={['#070605']} />
-      <fog attach="fog" args={['#070605', reduced ? 4 : 9, reduced ? 14 : 24]} />
-
-      <ambientLight intensity={0.16} color="#2a221c" />
-      <directionalLight
-        position={[6, 10, 4]}
-        intensity={0.8}
-        color="#fff4e8"
+      <DepthRig
+        progress={progress}
+        accent={accent}
+        mood="industrial"
+        reduced={reduced}
+        dust={reduced ? 70 : 200}
       />
       <pointLight
         position={[0, 1.4, 0.5]}
-        intensity={0.5}
+        intensity={0.55}
         color="#6ec8ff"
         distance={8}
       />
       <pointLight
         position={[-2, 2.2, 2]}
-        intensity={0.55}
+        intensity={0.65}
         color={accent}
         distance={10}
-      />
-      <pointLight
-        position={[-3.2, 0.9, 0.5]}
-        intensity={0.4}
-        color="#5CE1A8"
-        distance={5}
-      />
-      <spotLight
-        position={[0, 4.2, 0.5]}
-        angle={0.55}
-        penumbra={0.75}
-        intensity={0.32}
-        color="#d8c4a8"
       />
       {/* Micro-scale key light locked to hero rack */}
       <pointLight
         position={[HERO_RACK[0] + 0.2, HERO_RACK[1] + 0.35, HERO_RACK[2] + 0.35]}
-        intensity={0.65}
+        intensity={0.85}
         color="#a8d4ff"
         distance={2.2}
       />

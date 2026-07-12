@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { MotionValue } from 'framer-motion';
+import { DepthRig } from '@/components/stack/webgl';
 import { Earth } from './Earth';
 import { SatelliteShell, DEFAULT_SHELLS } from './SatelliteShell';
 import { CoverageBeam } from './CoverageBeam';
@@ -33,20 +34,20 @@ type CamKey = {
 };
 
 const CAM_KEYS: CamKey[] = [
-  // Constellation establish
-  { p: 0.0, pos: [0.15, 1.55, 6.2], look: [0, -0.05, 0], fov: 38 },
+  // Constellation establish — wide, deep space
+  { p: 0.0, pos: [0.2, 2.2, 8.5], look: [0, -0.2, 0], fov: 42 },
   // Orbital shell focus
-  { p: 0.18, pos: [0.55, 1.15, 4.85], look: [0.35, 0.08, 0.15], fov: 36 },
-  // Approach hero sat
-  { p: 0.32, pos: [1.2, 0.55, 2.65], look: [1.7, 0.3, 0.5], fov: 34 },
+  { p: 0.16, pos: [0.7, 1.35, 5.4], look: [0.4, 0.05, 0.1], fov: 36 },
+  // Approach hero sat — aggressive dolly
+  { p: 0.3, pos: [1.35, 0.65, 2.9], look: [1.7, 0.3, 0.5], fov: 32 },
   // Satellite bus three-quarter
-  { p: 0.45, pos: [2.15, 0.55, 1.35], look: [...HERO_SAT_POS], fov: 32 },
-  // Phased array face fill
-  { p: 0.58, pos: [1.85, 0.32, 1.35], look: [1.85, 0.32, 0.72], fov: 28 },
+  { p: 0.44, pos: [2.25, 0.6, 1.25], look: [...HERO_SAT_POS], fov: 28 },
+  // Phased array face fill — intimate
+  { p: 0.58, pos: [1.88, 0.32, 1.05], look: [1.85, 0.32, 0.72], fov: 24 },
   // RF / optical link along beam toward peer
-  { p: 0.74, pos: [1.95, 0.4, 0.95], look: [2.35, 0.42, 1.55], fov: 30 },
-  // Bit stream grain — ride the link
-  { p: 1.0, pos: [2.15, 0.42, 1.25], look: [2.55, 0.44, 1.85], fov: 26 },
+  { p: 0.74, pos: [2.05, 0.38, 0.85], look: [2.4, 0.42, 1.6], fov: 22 },
+  // Bit stream grain — macro photography FOV
+  { p: 1.0, pos: [2.2, 0.4, 1.1], look: [2.6, 0.44, 1.9], fov: 18 },
 ];
 
 function sampleCamera(p: number): {
@@ -194,23 +195,12 @@ export function Scene({
 
   return (
     <>
-      {/* Cinematic lighting stack */}
-      <ambientLight intensity={0.18} color="#6a7a9a" />
-      <directionalLight
-        position={[4.5, 2.8, 3.2]}
-        intensity={1.35}
-        color="#fff4e8"
-      />
-      <directionalLight
-        position={[-3.5, -1.2, -2.5]}
-        intensity={0.35}
-        color="#4a6ab0"
-      />
-      <pointLight
-        position={[0, 0, 3.5]}
-        intensity={0.25}
-        color={accent}
-        distance={12}
+      <DepthRig
+        progress={progress}
+        accent={accent}
+        mood="space"
+        reduced={reduced}
+        dust={reduced ? 80 : 220}
       />
       {/* Local key for hero bus as we dive */}
       <pointLight
@@ -219,18 +209,18 @@ export function Scene({
           HERO_SAT_POS[1] + 0.5,
           HERO_SAT_POS[2] + 0.6,
         ]}
-        intensity={0.65}
+        intensity={0.85}
         color="#fff2e0"
         distance={4}
       />
       <pointLight
         position={[HERO_SAT_POS[0], HERO_SAT_POS[1], HERO_SAT_POS[2] + 0.3]}
-        intensity={0.4}
+        intensity={0.55}
         color={accent}
         distance={2.5}
       />
 
-      <Starfield count={reduced ? 280 : 520} />
+      <Starfield count={reduced ? 280 : 620} />
 
       {/* Macro: Earth + shells + coverage — rotates then settles; fades on bus dive */}
       <group ref={macroRootRef}>

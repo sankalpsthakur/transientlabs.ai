@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 import type { MotionValue } from 'framer-motion';
 import type { PerspectiveCamera } from 'three';
+import { DepthRig } from '@/components/stack/webgl';
 import { ReactorLayers } from './ReactorLayers';
 import { Particles } from './Particles';
 import { FootprintCompare } from './FootprintCompare';
@@ -77,11 +78,11 @@ export function Scene({
 
     // Camera keyframes: pad establish → peel approach → assembly dive → pellet → fission → economy
     const keys = {
-      x: [3.6, 3.0, 1.85, 1.05, 0.85, 0.95],
-      y: [1.85, 1.45, 0.95, 0.42, 0.28, 0.32],
-      z: [5.6, 4.6, 3.1, 1.85, 1.55, 1.7],
-      lookY: [-0.15, 0.05, 0.08, 0.04, 0.05, 0.04],
-      fov: [36, 34, 32, 30, 28, 30],
+      x: [4.2, 3.2, 1.95, 0.95, 0.7, 0.85],
+      y: [2.2, 1.55, 0.95, 0.38, 0.22, 0.28],
+      z: [7.2, 5.0, 3.2, 1.65, 1.25, 1.45],
+      lookY: [-0.2, 0.05, 0.08, 0.04, 0.05, 0.04],
+      fov: [40, 34, 30, 26, 22, 24],
     };
 
     // Map stage onto 0..5 keyframe span
@@ -125,21 +126,16 @@ export function Scene({
 
   return (
     <>
-      <ambientLight intensity={0.28} />
-      <hemisphereLight args={['#1a2e26', '#050807', 0.55]} />
-      <directionalLight
-        position={[4.5, 5.5, 3.2]}
-        intensity={0.75}
-        color="#e8f5ef"
-      />
-      <directionalLight
-        position={[-3, 2, -2]}
-        intensity={0.22}
-        color="#5ce1a8"
+      <DepthRig
+        progress={progress}
+        accent={accent}
+        mood="energy"
+        reduced={reduced}
+        dust={reduced ? 70 : 200}
       />
       <pointLight
         position={[0, 0.2, 0.4]}
-        intensity={0.55}
+        intensity={0.75}
         color={accent}
         distance={6}
         decay={2}
