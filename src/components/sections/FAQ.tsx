@@ -12,8 +12,8 @@ import { useContactModal } from "@/lib/contact-modal-context";
 
 const faqs = [
   {
-    q: "What's included in the $4,999 Sprint MVP?",
-    a: "A fixed-scope MVP: UX flow, full-stack build (Next.js + Supabase), one core AI workflow (RAG/copilot/agent), QA, deployment, and handoff.",
+    q: "What's included in the $15,000 delivery sprint?",
+    a: "A six-week, fixed-scope product or automation delivery: workflow and UX design, full-stack build, the agreed AI workflow, QA, deployment, and handoff.",
   },
   {
     q: "What if I'm not happy with the result?",

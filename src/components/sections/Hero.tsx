@@ -37,9 +37,9 @@ const trustSignals = [
 ];
 
 const heroStats = [
-    { value: "$4,999", label: "Fixed sprint" },
-    { value: "3 weeks", label: "Launch window" },
-    { value: "SOC2-ready", label: "Delivery posture" },
+    { value: "$15,000", label: "Fixed sprint" },
+    { value: "6 weeks", label: "Delivery window" },
+    { value: "$3,000", label: "SOC 2 readiness" },
 ];
 
 export function Hero() {
@@ -154,14 +154,14 @@ export function Hero() {
                                 A senior product team for founders who need the full build: UX, full-stack, AI, evals, guardrails, deployment, and SOC2 readiness.
                             </p>
                             <p className="mt-4 max-w-2xl text-sm font-medium tracking-wide text-ink-muted md:text-base lg:hidden">
-                                Sprint $4,999 · Security Assessment $2,499 · Fractional CTO $9,999/mo
+                                6-week sprint $15,000 · SOC 2 readiness $3,000 · Industrial sprint $40,000
                             </p>
                             <div className="mt-5 hidden lg:inline-flex items-center overflow-hidden rounded-full border border-border bg-white/70 p-1 text-[10px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_10px_24px_rgba(24,18,13,0.05)] backdrop-blur-sm">
-                                <span className="rounded-full px-4 py-2">Sprint $4,999</span>
+                                <span className="rounded-full px-4 py-2">6-week sprint $15,000</span>
                                 <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">Security Assessment $2,499</span>
+                                <span className="rounded-full px-4 py-2">SOC 2 readiness $3,000</span>
                                 <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">Fractional CTO $9,999/mo</span>
+                                <span className="rounded-full px-4 py-2">Industrial sprint $40,000</span>
                             </div>
                         </FadeIn>
 
@@ -171,8 +171,8 @@ export function Hero() {
                                     Request a Call
                                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Button>
-                                <Button variant="secondary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book Security Assessment', cta_location: 'hero' }); open(); }}>
-                                    Book Security Assessment
+                                <Button variant="secondary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book SOC 2 Readiness', cta_location: 'hero' }); open(); }}>
+                                    Book SOC 2 Readiness
                                 </Button>
                                 <Button
                                     variant="text"

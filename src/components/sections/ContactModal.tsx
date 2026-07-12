@@ -8,11 +8,25 @@ import { trackEvent } from "@/lib/analytics";
 
 const services = [
     {
-        id: 'sprint-mvp',
-        title: 'Sprint MVP',
-        duration: '3 weeks',
-        price: '$4,999',
-        description: 'AI-ready MVP build (Fixed scope)',
+        id: 'delivery-sprint',
+        title: 'Product & Automation Sprint',
+        duration: '6 weeks',
+        price: '$15,000',
+        description: 'Production-ready product or automation delivery (fixed scope)',
+    },
+    {
+        id: 'soc2-readiness',
+        title: 'SOC 2 Readiness',
+        duration: 'Fixed scope',
+        price: '$3,000',
+        description: 'Control gaps, evidence requirements, and remediation roadmap',
+    },
+    {
+        id: 'industrial-energy-automation',
+        title: 'Industrial Energy Audit & Automation',
+        duration: '4 weeks',
+        price: '$40,000',
+        description: 'Energy audit, automation assessment and design, and innovation roadmap',
     },
     {
         duration: 'Monthly',
@@ -49,9 +63,10 @@ const industries = [
 ];
 
 const budgetRanges = [
-    'Sprint ($4,999)',
-    '$10,000 – $25,000',
-    '$25,000 – $75,000',
+    'SOC 2 readiness ($3,000)',
+    '6-week sprint ($15,000)',
+    'Industrial sprint ($40,000)',
+    '$40,000 – $75,000',
     '$75,000+',
     "Let's discuss",
 ];

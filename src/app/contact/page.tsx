@@ -167,9 +167,11 @@ export default function ContactPage() {
                       className="w-full border border-border bg-white px-4 py-3 text-ink focus:outline-none focus:border-accent transition-colors"
                     >
                       <option>General Inquiry</option>
-                      <option>3-Week AI MVP Sprint</option>
-                      <option>AI Integration / Automation</option>
-                      <option>Custom AI Development</option>
+                      <option>6-Week Product &amp; Automation Sprint</option>
+                      <option>SOC 2 Readiness</option>
+                      <option>Industrial Energy Audit &amp; Automation Sprint</option>
+                      <option>Fractional CTO</option>
+                      <option>Custom Scope</option>
                       <option>Scoping Call</option>
                     </select>
                   </div>
