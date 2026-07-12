@@ -19,3 +19,4 @@ tsconfig.tsbuildinfo
 .DS_Store
 public/videos/
 public/demos/*.mp4
+.claude/
