@@ -1,0 +1,49 @@
+{
+  "$schema": "./cms.schema.json",
+  "version": 1,
+  "updatedAt": "2026-07-13",
+  "site": {
+    "title": "The Physical Stack",
+    "eyebrow": "Infrastructure megatrends",
+    "tagline": "Five bets. One story. The atoms being poured to power an AI-and-electrification century.",
+    "host": "stack.transientlabs.ai"
+  },
+  "modules": {
+    "satellites": {
+      "hookStat": "7,000+",
+      "hookLabel": "active Starlink sats in LEO — and climbing",
+      "title": "LEO Constellations",
+      "subtitle": "Starlink-type low-Earth-orbit mesh",
+      "enabled": true
+    },
+    "data-centers": {
+      "hookStat": "100+ MW",
+      "hookLabel": "per campus — some AI builds push toward gigawatt scale",
+      "title": "Hyperscale Data Centers",
+      "subtitle": "AI training & inference campuses",
+      "enabled": true
+    },
+    "nuclear": {
+      "hookStat": "24/7",
+      "hookLabel": "firm power — the attribute intermittent renewables cannot fake alone",
+      "title": "Nuclear / SMR Reactors",
+      "subtitle": "Firm carbon-free baseload for the AI grid",
+      "enabled": true
+    },
+    "batteries": {
+      "hookStat": "GWh",
+      "hookLabel": "annual cell output per plant — the unit that replaced 'factory'",
+      "title": "Battery Gigafactories",
+      "subtitle": "Cells → modules → packs → grid storage",
+      "enabled": true
+    },
+    "autonomous-vehicles": {
+      "hookStat": "360°",
+      "hookLabel": "multi-modal sensing — the car as a mobile robot",
+      "title": "Autonomous Vehicles",
+      "subtitle": "Sensor stacks, maps, and edge cases",
+      "enabled": true
+    }
+  },
+  "notes": "Edit this file and redeploy to update hook stats without touching TS modules. Full narrative body still lives in src/lib/stack/content.ts until a headless CMS is connected."
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-12T22:59:38.802Z",
+  "compression": "none (placeholder) — use Draco in production",
+  "budget": {
+    "maxTrianglesPerModule": 80000,
+    "texture": "KTX2 preferred"
+  },
+  "assets": [
+    {
+      "id": "SatelliteBus",
+      "module": "satellites",
+      "path": "/stack/models/satellite-bus.gltf",
+      "bytes": 1538,
+      "placeholder": true
+    },
+    {
+      "id": "GpuPackage",
+      "module": "data-centers",
+      "path": "/stack/models/gpu-package.gltf",
+      "bytes": 1534,
+      "placeholder": true
+    },
+    {
+      "id": "ReactorVessel",
+      "module": "nuclear",
+      "path": "/stack/models/reactor-vessel.gltf",
+      "bytes": 2266,
+      "placeholder": true
+    },
+    {
+      "id": "BatteryCell",
+      "module": "batteries",
+      "path": "/stack/models/battery-cell.gltf",
+      "bytes": 2076,
+      "placeholder": true
+    },
+    {
+      "id": "VehicleBody",
+      "module": "autonomous-vehicles",
+      "path": "/stack/models/vehicle-body.gltf",
+      "bytes": 1540,
+      "placeholder": true
+    }
+  ]
+}

@@ -26,6 +26,7 @@ export function Header() {
         { href: "#agent-teams", label: "Teams" },
         { href: "#services", label: "Pricing" },
         { href: "#faq", label: "FAQ" },
+        { href: "/stack", label: "Stack" },
     ];
 
     const handleNavClick = (label: string, href: string) => {
