@@ -19,24 +19,24 @@ import type { ModuleId } from '@/lib/stack/content';
 
 type VisualFn = (
   progress: MotionValue<number>,
-  options: { reduced: boolean; accent: string }
+  options: { reduced: boolean; accent: string; fullBleed?: boolean }
 ) => ReactNode;
 
 const visuals: Record<ModuleId, VisualFn> = {
-  satellites: (p, { reduced, accent }) => (
-    <SatellitesExperience progress={p} reduced={reduced} accent={accent} />
+  satellites: (p, { reduced, accent, fullBleed }) => (
+    <SatellitesExperience progress={p} reduced={reduced} accent={accent} fullBleed={fullBleed} />
   ),
-  'data-centers': (p, { reduced, accent }) => (
-    <DataCentersExperience progress={p} reduced={reduced} accent={accent} />
+  'data-centers': (p, { reduced, accent, fullBleed }) => (
+    <DataCentersExperience progress={p} reduced={reduced} accent={accent} fullBleed={fullBleed} />
   ),
-  nuclear: (p, { reduced, accent }) => (
-    <NuclearExperience progress={p} reduced={reduced} accent={accent} />
+  nuclear: (p, { reduced, accent, fullBleed }) => (
+    <NuclearExperience progress={p} reduced={reduced} accent={accent} fullBleed={fullBleed} />
   ),
-  batteries: (p, { reduced, accent }) => (
-    <BatteriesExperience progress={p} reduced={reduced} accent={accent} />
+  batteries: (p, { reduced, accent, fullBleed }) => (
+    <BatteriesExperience progress={p} reduced={reduced} accent={accent} fullBleed={fullBleed} />
   ),
-  'autonomous-vehicles': (p, { reduced, accent }) => (
-    <AutonomyExperience progress={p} reduced={reduced} accent={accent} />
+  'autonomous-vehicles': (p, { reduced, accent, fullBleed }) => (
+    <AutonomyExperience progress={p} reduced={reduced} accent={accent} fullBleed={fullBleed} />
   ),
 };
 

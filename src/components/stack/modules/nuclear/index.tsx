@@ -24,11 +24,13 @@ export function ModuleExperience({
   accent = DEFAULT_ACCENT,
   reduced = false,
   className,
+  fullBleed = false,
 }: ModuleExperienceProps) {
   return (
     <div
       className={cn(
         'relative mx-auto aspect-square w-full max-w-lg',
+        fullBleed && 'lg:h-[100dvh] lg:max-w-none lg:aspect-auto',
         className
       )}
     >
@@ -36,6 +38,7 @@ export function ModuleExperience({
         className="h-full max-w-none w-full"
         camera={{ position: [3.6, 1.85, 5.6], fov: 36 }}
         maxDpr={reduced ? 1 : undefined}
+        fullBleed={fullBleed}
       >
         <Scene
           progress={progress}

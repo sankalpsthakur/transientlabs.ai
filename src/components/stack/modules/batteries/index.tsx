@@ -181,6 +181,7 @@ export function ModuleExperience({
   accent = ACCENT,
   reduced = false,
   className,
+  fullBleed = false,
 }: ModuleExperienceProps) {
   const camera = useMemo(
     () => ({ position: [3.6, 2.6, 5.4] as [number, number, number], fov: 42 }),
@@ -189,7 +190,7 @@ export function ModuleExperience({
 
   if (reduced) {
     return (
-      <div className={cn('relative mx-auto w-full max-w-lg', className)}>
+      <div className={cn('relative mx-auto w-full max-w-lg', fullBleed && 'lg:h-[100dvh] lg:max-w-none', className)}>
         <ReducedStatic accent={accent} />
         <ScaleLadderHUD
           moduleId="batteries"
@@ -202,11 +203,12 @@ export function ModuleExperience({
   }
 
   return (
-    <div className={cn('relative mx-auto w-full max-w-lg', className)}>
+    <div className={cn('relative mx-auto w-full max-w-lg', fullBleed && 'lg:h-[100dvh] lg:max-w-none', className)}>
       <StackCanvas
         className="w-full max-w-none"
         camera={camera}
         rootMargin="220px 0px"
+        fullBleed={fullBleed}
       >
         <BatteriesScene
           progress={progress}

@@ -25,6 +25,7 @@ export function ModuleExperience({
   accent = ACCENT,
   reduced = false,
   className,
+  fullBleed = false,
 }: ModuleExperienceProps) {
   // Freeze HUD on GPU+die rung when reduced (avoid ScaleLadderHUD's default 0.85 = bit)
   const freezeProgress = useMemo(() => motionValue(REDUCED_PROGRESS), []);
@@ -38,11 +39,12 @@ export function ModuleExperience({
   }, [reduced, freezeProgress]);
 
   return (
-    <div className={cn('relative mx-auto w-full max-w-lg', className)}>
+    <div className={cn('relative mx-auto w-full max-w-lg', fullBleed && 'lg:h-[100dvh] lg:max-w-none', className)}>
       <StackCanvas
         className="aspect-[4/3] w-full max-w-none border-white/10 bg-[#070605]/90 sm:aspect-square"
         camera={{ position: [5.2, 3.8, 5.5], fov: 40 }}
         maxDpr={reduced ? 1 : undefined}
+        fullBleed={fullBleed}
       >
         <Scene progress={progress} accent={accent} reduced={reduced} />
       </StackCanvas>

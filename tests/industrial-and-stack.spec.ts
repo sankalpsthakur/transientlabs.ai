@@ -42,6 +42,52 @@ for (const route of ['/stack/satellites', '/stack/data-centers', '/stack/nuclear
   });
 }
 
+for (const route of ['/stack/satellites', '/stack/data-centers', '/stack/nuclear', '/stack/batteries', '/stack/autonomous-vehicles']) {
+  test(`${route} uses a full-bleed desktop stage behind translucent copy`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(route, { waitUntil: 'domcontentloaded' });
+    const section = page.locator('[data-module]').first();
+    const stage = section.locator('[data-full-bleed="true"]').first();
+    const copy = section.locator('[data-stack-copy-card]');
+    await expect(stage).toBeVisible();
+    await expect(copy).toBeVisible();
+    const stageBox = await stage.boundingBox();
+    const copyBox = await copy.boundingBox();
+    expect(stageBox).not.toBeNull();
+    expect(copyBox).not.toBeNull();
+    expect(stageBox!.width).toBeGreaterThanOrEqual(1400);
+    expect(stageBox!.height).toBeGreaterThanOrEqual(880);
+    expect(copyBox!.x).toBeGreaterThan(stageBox!.x);
+    expect(copyBox!.x + copyBox!.width).toBeLessThan(stageBox!.x + stageBox!.width);
+  });
+}
+
+test('mobile keeps copy before the contained 3D stage', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/stack/satellites', { waitUntil: 'domcontentloaded' });
+  const section = page.locator('[data-module]').first();
+  const copy = section.locator('[data-stack-copy-card]');
+  const stage = section.locator('[data-full-bleed="true"]').first();
+  const copyBox = await copy.boundingBox();
+  const stageBox = await stage.boundingBox();
+  expect(copyBox).not.toBeNull();
+  expect(stageBox).not.toBeNull();
+  expect(copyBox!.y).toBeLessThan(stageBox!.y);
+  expect(stageBox!.width).toBeLessThanOrEqual(350);
+});
+
+test('integrated stack keeps each module scroll runway concise', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/stack', { waitUntil: 'domcontentloaded' });
+  const sections = page.locator('[data-module]');
+  await expect(sections).toHaveCount(5);
+  for (const section of await sections.all()) {
+    const box = await section.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.height).toBeLessThanOrEqual(1800);
+  }
+});
+
 for (const route of ['/stack/satellites', '/stack/data-centers', '/stack/nuclear']) {
   test(`${route} exposes an enterprise decision brief without overflow`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });

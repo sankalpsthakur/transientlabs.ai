@@ -106,7 +106,7 @@ function DepthStrataList({
 
 export type ModuleVisualFn = (
   progress: MotionValue<number>,
-  options: { reduced: boolean; accent: string }
+  options: { reduced: boolean; accent: string; fullBleed?: boolean }
 ) => ReactNode;
 
 interface ModuleSectionProps {
@@ -126,7 +126,7 @@ export function ModuleSection({
   const prefersReduced = useReducedMotion();
   const strata = depthStrata[module.id];
 
-  // Longer runway = more camera depth per scroll pixel
+  // Keep enough runway for depth without making the integrated story exhausting.
   const { ref, progress } = useGsapSectionProgress({
     start: 'top bottom',
     end: 'bottom top',
@@ -155,24 +155,24 @@ export function ModuleSection({
       data-module={module.id}
       className={cn(
         'relative border-t border-white/[0.06]',
-        // Deep scroll runway for full scale continuum
-        standalone ? 'min-h-[260vh]' : 'min-h-[300vh]',
+        standalone ? 'min-h-[260vh]' : 'min-h-[190vh]',
         className
       )}
       style={{ background: module.color }}
       aria-labelledby={`${module.id}-title`}
     >
-      <div className="sticky top-0 flex min-h-[100dvh] flex-col justify-center overflow-hidden py-16 md:py-20">
+      <div className="sticky top-0 flex min-h-[100dvh] flex-col justify-center overflow-hidden py-16 md:py-20 lg:py-0">
         <DepthField
           progress={smooth}
           accent={module.accent}
           cameraLabel={module.cameraLabel}
         />
 
-        <div className="relative mx-auto grid w-full min-w-0 max-w-7xl gap-8 overflow-hidden px-5 lg:grid-cols-12 lg:items-center lg:gap-10 lg:overflow-visible lg:px-8">
+        <div className="relative mx-auto grid w-full min-w-0 max-w-7xl gap-8 overflow-hidden px-5 lg:min-h-[100dvh] lg:grid-cols-12 lg:items-center lg:gap-10 lg:overflow-visible lg:px-8">
           {/* Copy — 5 cols, parallax */}
           <m.div
-            className="order-1 min-w-0 lg:col-span-5"
+            data-stack-copy-card
+            className="relative z-10 order-1 min-w-0 lg:col-span-5 lg:rounded-[2rem] lg:border lg:border-white/[0.14] lg:bg-black/35 lg:p-7 lg:shadow-[0_32px_90px_-38px_rgba(0,0,0,0.95)] lg:backdrop-blur-2xl xl:p-8"
             style={
               prefersReduced
                 ? undefined
@@ -221,11 +221,13 @@ export function ModuleSection({
             </p>
 
             {/* Depth strata — spatial relations, scroll-synced highlight */}
-            <DepthStrataList
-              strata={strata}
-              progress={smooth}
-              accent={module.accent}
-            />
+            <div className="lg:hidden">
+              <DepthStrataList
+                strata={strata}
+                progress={smooth}
+                accent={module.accent}
+              />
+            </div>
 
             {/* Classic mechanism (condensed) */}
             <details className="mt-8 group">
@@ -293,12 +295,12 @@ export function ModuleSection({
 
           {/* Visual — 7 cols, larger cinematic stage */}
           <m.div
-            className="order-2 min-w-0 lg:col-span-7"
+            className="order-2 min-w-0 lg:absolute lg:bottom-0 lg:left-[calc(50%-50vw)] lg:right-[calc(50%-50vw)] lg:top-0 lg:z-0 lg:overflow-hidden"
             style={prefersReduced ? undefined : { y: visualY }}
           >
-            <div className="relative mx-auto w-full min-w-0 max-w-2xl overflow-hidden lg:max-w-none">
+            <div className="relative mx-auto h-full w-full min-w-0 max-w-2xl overflow-hidden lg:max-w-none lg:overflow-visible">
               {/* Floating depth label above stage */}
-              <div className="mb-2 flex items-center justify-between px-1">
+              <div className="mb-2 flex items-center justify-between px-1 lg:absolute lg:inset-x-8 lg:top-24 lg:z-20 lg:mb-0">
                 <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
                   spatial stage
                 </span>
@@ -312,9 +314,18 @@ export function ModuleSection({
               {visual(smooth, {
                 reduced: !!prefersReduced,
                 accent: module.accent,
+                fullBleed: true,
               })}
             </div>
           </m.div>
+
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 left-[calc(50%-50vw)] right-[calc(50%-50vw)] top-0 z-[1] hidden lg:block"
+            style={{
+              background: `linear-gradient(90deg, ${module.color} 0%, ${module.color}E8 18%, ${module.color}92 42%, transparent 70%), linear-gradient(0deg, ${module.color}88 0%, transparent 28%, transparent 72%, ${module.color}66 100%)`,
+            }}
+          />
         </div>
       </div>
     </section>

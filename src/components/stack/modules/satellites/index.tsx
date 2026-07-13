@@ -20,16 +20,19 @@ export function ModuleExperience({
   accent = DEFAULT_ACCENT,
   reduced = false,
   className,
+  fullBleed = false,
 }: ModuleExperienceProps) {
   return (
     <div
       className={cn(
         'relative mx-auto aspect-square w-full max-w-lg',
+        fullBleed && 'lg:h-[100dvh] lg:max-w-none lg:aspect-auto',
         className
       )}
     >
       <StackCanvas
         className="h-full max-w-none w-full"
+        fullBleed={fullBleed}
         camera={{ position: [0, 1.5, 6.2], fov: 38 }}
       >
         <Scene progress={progress} accent={accent} reduced={reduced} />

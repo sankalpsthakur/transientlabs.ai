@@ -17,6 +17,8 @@ export interface StackCanvasProps {
   maxDpr?: number;
   /** Cinematic frame: taller stage with depth vignette */
   cinematic?: boolean;
+  /** Desktop viewport-filling treatment; mobile remains contained. */
+  fullBleed?: boolean;
 }
 
 /**
@@ -33,6 +35,7 @@ export function StackCanvas({
   camera = { position: [0, 0, 6], fov: 40 },
   maxDpr,
   cinematic = true,
+  fullBleed = false,
 }: StackCanvasProps) {
   const { ref, mounted } = useInViewMount(rootMargin);
   const tier = useDeviceTier();
@@ -40,6 +43,8 @@ export function StackCanvas({
   const dpr: [number, number] =
     maxDpr != null
       ? [1, maxDpr]
+      : fullBleed
+        ? [1, tier === 'low' ? 1 : 1.5]
       : tier === 'low'
         ? [1, 1]
         : tier === 'medium'
@@ -49,11 +54,13 @@ export function StackCanvas({
   return (
     <div
       ref={ref}
+      data-full-bleed={fullBleed || undefined}
       className={cn(
         'relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 shadow-[0_0_80px_-20px_rgba(0,0,0,0.9)]',
         cinematic
           ? 'aspect-[4/5] max-w-none min-h-[min(72vh,640px)] sm:aspect-[5/6] lg:aspect-square lg:min-h-[min(78vh,720px)]'
           : 'aspect-square max-w-lg',
+        fullBleed && 'lg:h-[100dvh] lg:min-h-0 lg:aspect-auto lg:rounded-none lg:border-0 lg:bg-transparent lg:shadow-none',
         className
       )}
     >

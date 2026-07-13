@@ -9,6 +9,8 @@ export interface ModuleExperienceProps {
   /** Prefer static / low-motion presentation */
   reduced?: boolean;
   className?: string;
+  /** Expand the 3D stage to the desktop viewport while retaining the contained mobile stage. */
+  fullBleed?: boolean;
 }
 
 export type ModuleExperience = (props: ModuleExperienceProps) => ReactNode;
