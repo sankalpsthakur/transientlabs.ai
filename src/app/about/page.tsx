@@ -7,14 +7,14 @@ const BASE_URL = "https://transientlabs.ai";
 export const metadata: Metadata = {
   title: "About Us | Transient Labs",
   description:
-    "Transient Labs was founded in 2024 to help founders go from idea to working AI MVP in 3 weeks. Based in Dubai and Bangalore with deep expertise in AI/ML, full-stack, and product.",
+    "Transient Labs was founded in 2024 to help teams turn bounded operating problems into production AI products and automation systems. Based in Dubai and Bangalore with deep expertise in AI/ML, full-stack, and product.",
   alternates: {
     canonical: `${BASE_URL}/about`,
   },
   openGraph: {
     title: "About Transient Labs",
     description:
-      "We help founders ship working AI products in 3 weeks — not 3 months. Learn about our story, team, and mission.",
+      "We help teams ship working AI products and automation systems through focused, fixed-scope delivery. Learn about our story, team, and mission.",
     url: `${BASE_URL}/about`,
     type: "website",
   },
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <div className="space-y-4 text-ink-muted leading-relaxed">
             <p>
               We&apos;ve watched too many founders spend 6+ months and $100k+ building AI
-              products that could have been validated in 3 weeks. The problem isn&apos;t
+              products that could have been validated through a focused delivery sprint. The problem isn&apos;t
               ambition — it&apos;s execution infrastructure.
             </p>
             <p>
@@ -93,7 +93,7 @@ export default function AboutPage() {
             </p>
             <p>
               Our flagship offer is a{" "}
-              <strong className="text-ink">3-week AI MVP sprint for $4,999</strong> — a
+              <strong className="text-ink">six-week Product &amp; Automation Sprint for $15,000</strong> — a
               fixed-scope, fixed-price engagement that gets you from idea to deployed
               product. Everything from LLM integration to frontend to infrastructure is
               handled by us.
@@ -157,7 +157,7 @@ export default function AboutPage() {
         {/* CTA */}
         <div className="border-t border-border pt-12 text-center">
           <p className="text-ink-muted mb-6">
-            Ready to go from idea to shipped product in 3 weeks?
+            Ready to go from a bounded problem to a shipped product in six weeks?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

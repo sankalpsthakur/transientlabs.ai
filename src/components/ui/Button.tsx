@@ -22,7 +22,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <Comp
                 ref={ref}
                 className={cn(
-                    "group inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans font-medium tracking-[0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:pointer-events-none disabled:opacity-50",
+                    "group inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans font-medium tracking-[0.01em] transition-[transform,background-color,border-color,color,box-shadow,opacity] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:pointer-events-none disabled:opacity-50",
                     "relative overflow-hidden rounded-full border",
 
                     variant === "primary" && [

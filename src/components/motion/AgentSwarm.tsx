@@ -75,13 +75,13 @@ const taskSequences: TaskEvent[][] = [
 function AgentRow({ agent, task, status }: { agent: Agent; task: string | null; status: "idle" | "routing" | "active" | "done" }) {
     return (
         <div className={cn(
-            "group relative flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-all duration-500",
+            "group relative flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-[border-color,background-color,box-shadow,transform] duration-500",
             status === "active" ? agent.colorMuted : "bg-white/[0.03] border-white/[0.06]",
             status === "done" && "bg-emerald-500/[0.06] border-emerald-500/[0.12]",
         )}>
             {/* Agent icon */}
             <div className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-medium transition-all duration-500",
+                "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-medium transition-[background-color,color,transform] duration-500",
                 status === "active" ? `${agent.colorMuted} ${agent.color}` : "bg-white/[0.06] text-white/40",
                 status === "done" && "bg-emerald-500/10 text-emerald-400",
             )}>

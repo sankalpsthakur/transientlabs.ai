@@ -102,7 +102,7 @@ export function TrustGame() {
           type="button"
           onClick={() => setObservability(v => !v)}
           className={cn(
-            'relative h-5 w-10 rounded-full transition-colors',
+            'relative h-11 w-14 rounded-full transition-colors',
             observability ? 'bg-emerald-500/30' : 'bg-white/10',
           )}
           role="switch"
@@ -110,8 +110,8 @@ export function TrustGame() {
           aria-label="Toggle observability"
         >
           <m.div
-            className="absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm"
-            animate={{ left: observability ? 22 : 2 }}
+            className="absolute top-2.5 h-6 w-6 rounded-full bg-white shadow-sm"
+            animate={{ left: observability ? 28 : 4 }}
             transition={{ duration: 0.2 }}
           />
         </button>

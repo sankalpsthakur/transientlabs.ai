@@ -48,8 +48,8 @@ const technicalEdge = [
 const processProof = [
     {
         label: "Timeline",
-        value: "3 weeks",
-        detail: "from discovery to live MVP",
+        value: "6 weeks",
+        detail: "from scope lock to production handoff",
     },
     {
         label: "Commercials",
@@ -71,13 +71,13 @@ const howWeWork = [
         deliverables: ["Roadmap", "UX flow", "Technical plan"],
     },
     {
-        week: "Week 2",
-        title: "Ship the core loop",
-        summary: "The MVP turns real: product logic, schema, integrations, and the main user path.",
+        week: "Weeks 2–4",
+        title: "Build the core system",
+        summary: "Product logic, schema, integrations, and the main user path move through weekly working demos.",
         deliverables: ["Core build", "Data model", "Integrations"],
     },
     {
-        week: "Week 3",
+        week: "Weeks 5–6",
         title: "Harden and launch",
         summary: "We run the checks, deploy production, and hand over something usable on day one.",
         deliverables: ["Regression pass", "Production deploy", "Live handoff"],
@@ -140,7 +140,7 @@ function DeliveryProofBoard() {
                         </div>
                         <div className="mt-5 flex items-end gap-3">
                             <span className="font-mono text-[4.6rem] leading-none tracking-[-0.08em] text-ink lg:text-[5.2rem]">
-                                03
+                                06
                             </span>
                             <div className="pb-2">
                                 <p className="text-[10px] font-mono uppercase tracking-[0.28em] text-ink-muted">
@@ -334,7 +334,7 @@ function TechnicalPatterns() {
             <div className="space-y-3">
                 {technicalEdge.map((item, idx) => (
                     <FadeIn key={item.title} delay={idx * 0.04}>
-                        <article className="grid gap-3 rounded-[1.35rem] border border-border/75 bg-white/74 px-4 py-3 shadow-[0_10px_24px_-22px_rgba(24,24,24,0.18)] transition-all duration-300 hover:border-ink/15 hover:shadow-[0_18px_36px_-28px_rgba(24,24,24,0.22)] md:grid-cols-[auto_minmax(0,1fr)] xl:grid-cols-[auto_minmax(0,1fr)_minmax(11rem,0.62fr)] xl:items-center">
+                        <article className="grid gap-3 rounded-[1.35rem] border border-border/75 bg-white/74 px-4 py-3 shadow-[0_10px_24px_-22px_rgba(24,24,24,0.18)] transition-[border-color,box-shadow] duration-300 hover:border-ink/15 hover:shadow-[0_18px_36px_-28px_rgba(24,24,24,0.22)] md:grid-cols-[auto_minmax(0,1fr)] xl:grid-cols-[auto_minmax(0,1fr)_minmax(11rem,0.62fr)] xl:items-center">
                             <div className="flex items-center gap-3">
                                 <span className={`rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.22em] ${categoryStyles[item.category] ?? "border-border bg-paper-warm/70 text-ink-muted"}`}>
                                     {item.category}
@@ -456,7 +456,7 @@ export function Advantage() {
                                     <span className="h-1 w-1 rounded-full bg-border" />
                                     <span>Fixed scope</span>
                                     <span className="h-1 w-1 rounded-full bg-border" />
-                                    <span>Production ready in 3 weeks</span>
+                                <span>Production ready in 6 weeks</span>
                                 </div>
                             </FadeIn>
                             <FadeIn delay={0.1}>
@@ -487,7 +487,7 @@ export function Advantage() {
                                             Core ship
                                         </p>
                                         <p className="mt-2 text-sm font-medium leading-snug text-ink">
-                                            Real product logic, integrations, and data model land in week two.
+                                            Real product logic, integrations, and data model land across weeks two to four.
                                         </p>
                                     </div>
                                     <div className="rounded-[1.15rem] border border-border/75 bg-white/65 px-4 py-3">
@@ -495,7 +495,7 @@ export function Advantage() {
                                             Live handoff
                                         </p>
                                         <p className="mt-2 text-sm font-medium leading-snug text-ink">
-                                            Launch, regression pass, and production-ready transfer happen in week three.
+                                            Evals, regression, launch, and production handoff happen in weeks five and six.
                                         </p>
                                     </div>
                                 </div>
@@ -515,19 +515,16 @@ export function Advantage() {
                                     Week 1: scope, UX, architecture
                                 </div>
                                 <div className="rounded-full border border-border/70 bg-paper-warm/70 px-4 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-ink">
-                                    Week 2: core build and integrations
+                                    Weeks 2–4: core build and integrations
                                 </div>
                                 <div className="rounded-full border border-border/70 bg-paper-warm/70 px-4 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-ink">
-                                    Week 3: launch, hardening, handoff
+                                    Weeks 5–6: evals, hardening, handoff
                                 </div>
                             </div>
                         </div>
                     </FadeIn>
                 </div>
 
-                <SprintTimeline />
-                <TechnicalPatterns />
-                <OperationsDashboard />
             </Container>
         </Section>
     );

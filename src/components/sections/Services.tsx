@@ -107,71 +107,35 @@ export function Services() {
             />
 
             <Container className="relative">
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start">
-                    <div className="lg:sticky lg:top-28">
+                <div>
+                    <div className="mb-10 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
                         <FadeIn>
                             <p className="text-sm uppercase tracking-[0.3em] text-ink-muted">
                                 Services
                             </p>
                         </FadeIn>
                         <FadeIn delay={0.08}>
-                            <h2 className="mt-4 max-w-lg text-4xl font-semibold tracking-tight text-ink md:text-5xl">
+                            <h2 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-ink md:text-5xl">
                                 Simple pricing, framed for real decisions
                             </h2>
                         </FadeIn>
                         <FadeIn delay={0.14}>
-                            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-light">
+                            <p className="max-w-xl text-base leading-relaxed text-ink-light lg:justify-self-end">
                                 Fixed scope when the work is bounded. Retainer when leadership matters. Custom scope when the brief needs room.
                             </p>
                         </FadeIn>
 
-                        <FadeIn delay={0.2}>
-                            <div className="mt-8 rounded-[2rem] border border-border/80 bg-white/80 p-5 shadow-[0_18px_45px_rgba(10,10,10,0.06)] backdrop-blur-sm">
-                                <div className="text-[10px] uppercase tracking-[0.28em] text-ink-muted">
-                                    At a glance
-                                </div>
-                                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-                                    {services.map((service) => (
-                                        <div
-                                            key={service.title}
-                                            className={`rounded-2xl border px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(10,10,10,0.06)] ${
-                                                service.featured
-                                                    ? "border-ink/20 bg-paper-warm/80 hover:bg-paper-warm/95"
-                                                    : "border-border/70 bg-white hover:border-ink/15 hover:bg-paper-warm/55"
-                                            }`}
-                                        >
-                                            <div className="flex items-center justify-between gap-3">
-                                                <p className="text-[10px] uppercase tracking-[0.28em] text-ink-muted">
-                                                    {service.label}
-                                                </p>
-                                                <p className="font-mono text-xs text-ink-muted">
-                                                    {service.duration}
-                                                </p>
-                                            </div>
-                                            <div className="mt-3 flex items-end justify-between gap-3">
-                                                <p className="text-lg font-semibold tracking-tight text-ink">
-                                                    {service.price}
-                                                </p>
-                                                <p className="text-xs text-ink-muted text-right">
-                                                    {service.whoItsFor}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </FadeIn>
                     </div>
 
-                    <div className="lg:pt-3">
+                    <div>
                         <Stagger
-                            className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2"
+                            className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-3"
                             staggerDelay={0.07}
                         >
                             {services.map((service) => (
-                                <StaggerItem key={service.title}>
+                                <StaggerItem key={service.title} className="min-w-[84vw] snap-start md:min-w-0">
                                     <article
-                                        className={`group flex h-full flex-col overflow-hidden rounded-[1.85rem] border bg-white/82 shadow-[0_10px_30px_rgba(10,10,10,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_22px_55px_rgba(10,10,10,0.1)] ${
+                                        className={`group flex h-full flex-col overflow-hidden rounded-[1.85rem] border bg-white/82 shadow-[0_10px_30px_rgba(10,10,10,0.05)] backdrop-blur-sm transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_22px_55px_rgba(10,10,10,0.1)] ${
                                             service.featured
                                                 ? "border-ink/20 bg-[linear-gradient(180deg,#fffdf8_0%,#fff7ef_100%)] hover:ring-2 hover:ring-accent/30 hover:ring-offset-2 hover:ring-offset-paper"
                                                 : "border-border/80"
@@ -218,18 +182,18 @@ export function Services() {
                                             </p>
                                         </div>
 
-                                        <div className="relative border-b border-border/70 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.9),rgba(237,230,221,0.85))] px-5 py-6 md:px-6">
+                                        <div className="relative hidden border-b border-border/70 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.9),rgba(237,230,221,0.85))] px-5 py-4 sm:block md:px-6">
                                             <div
                                                 aria-hidden="true"
                                                 className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.55),transparent_45%)]"
                                             />
-                                            <div className="relative flex h-28 items-center justify-center">
+                                            <div className="relative flex h-20 items-center justify-center">
                                                 <Image
                                                     src={service.icon}
                                                     alt={service.title}
                                                     width={112}
                                                     height={112}
-                                                    className="h-24 w-24 object-contain drop-shadow-[0_24px_40px_rgba(10,10,10,0.18)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-2deg] md:h-28 md:w-28"
+                                                    className="h-20 w-20 object-contain drop-shadow-[0_24px_40px_rgba(10,10,10,0.18)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-2deg]"
                                                 />
                                             </div>
                                         </div>
@@ -249,7 +213,7 @@ export function Services() {
                                                 ))}
                                             </div>
 
-                                            <div className="mt-5 rounded-[1.35rem] border border-border/70 bg-paper/45 p-4">
+                                            <div className="mt-4 rounded-[1.1rem] border border-border/70 bg-paper/45 p-3">
                                                 <p className="text-xs uppercase tracking-[0.26em] text-ink-muted">
                                                     Best for
                                                 </p>
@@ -266,7 +230,7 @@ export function Services() {
                                             <button
                                                 type="button"
                                                 onClick={open}
-                                                className="group flex w-full items-center justify-between rounded-full border border-ink bg-ink px-4 py-3 text-left text-xs font-mono uppercase tracking-[0.26em] text-white transition-all duration-300 hover:bg-ink-light"
+                                                className="group flex min-h-11 w-full items-center justify-between rounded-full border border-ink bg-ink px-4 py-3 text-left text-xs font-mono uppercase tracking-[0.26em] text-white transition-colors duration-300 hover:bg-ink-light"
                                             >
                                                 <span>{service.ctaLabel ?? "Request a call"}</span>
                                                 <span className="text-lg leading-none transition-transform duration-300 group-hover:translate-x-0.5">

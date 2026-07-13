@@ -17,5 +17,9 @@ tsconfig.tsbuildinfo
 /services-*.png
 *.bak
 .DS_Store
-public/videos/
+public/videos/*
+!public/videos/deepdives/
+!public/videos/deepdives/**
 public/demos/*.mp4
+.claude/
+/tmp/

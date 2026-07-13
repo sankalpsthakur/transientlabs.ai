@@ -228,10 +228,10 @@ export default function ContactPage() {
                 </span>
               </div>
               <a
-                href="mailto:admin@100xai.engineering"
+                href="mailto:hello@transientlabs.ai"
                 className="font-mono text-sm text-ink hover:text-accent transition-colors break-all"
               >
-                admin@100xai.engineering
+                hello@transientlabs.ai
               </a>
             </div>
 

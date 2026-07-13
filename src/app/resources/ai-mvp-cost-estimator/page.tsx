@@ -44,7 +44,7 @@ export default function AIMVPCostEstimatorPage() {
           </h1>
           <p className="text-ink-muted text-lg leading-relaxed">
             Answer 4 quick questions. Get a real estimate of what your AI product would cost
-            to build — in-house, via freelancers, or with our 3-week sprint.
+            to build — in-house, via freelancers, or with our six-week sprint.
           </p>
         </div>
 

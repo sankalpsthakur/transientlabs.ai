@@ -178,6 +178,49 @@ export function Footer() {
                     </div>
                 </FadeIn>
 
+                {/* Explore */}
+                <FadeIn delay={0.25}>
+                    <div className="flex flex-wrap items-center gap-6 border-t border-border py-6 text-sm">
+                        <a
+                            href="/stack"
+                            className="font-medium text-ink transition-opacity hover:opacity-70"
+                            onClick={() =>
+                                trackEvent('nav_click', {
+                                    destination: 'Stack',
+                                    href: '/stack',
+                                    location: 'footer',
+                                })
+                            }
+                        >
+                            The Physical Stack
+                        </a>
+                        <a
+                            href="/industrial-energy-automation"
+                            className="font-medium text-ink transition-opacity hover:opacity-70"
+                        >
+                            Industrial Energy & Automation
+                        </a>
+                        <a
+                            href="/blog"
+                            className="text-ink-muted transition-opacity hover:opacity-70"
+                        >
+                            Blog
+                        </a>
+                        <a
+                            href="/insights/equilibrium-design"
+                            className="text-ink-muted transition-opacity hover:opacity-70"
+                        >
+                            Equilibrium Design
+                        </a>
+                        <a
+                            href="/resources"
+                            className="text-ink-muted transition-opacity hover:opacity-70"
+                        >
+                            Resources
+                        </a>
+                    </div>
+                </FadeIn>
+
                 {/* Copyright */}
                 <FadeIn delay={0.3}>
                     <div className="pt-6 border-t border-border">

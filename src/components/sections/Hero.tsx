@@ -10,11 +10,13 @@ import { useContactModal } from "@/lib/contact-modal-context";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { siteBrand } from "@/lib/site-brand";
+import Image from "next/image";
+import Link from "next/link";
 
 import { m, useReducedMotion } from "framer-motion";
 
 const engineersFromLogos = [
-    { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true, url: "https://www.iitb.ac.in" },
+    { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true, url: "https://www.iitb.ac.in", width: 1280, height: 1248 },
     { name: "Stanford", src: "/images/logos/Stanford-University-Logo.png", dark: false, url: "https://www.stanford.edu", width: 1129, height: 1288, className: "h-10" },
     { name: "WorldQuant", src: "/images/logos/worldquant.svg", dark: false, url: "https://www.worldquant.com" },
     { name: "OpenAI x Bain", src: "/images/logos/openai-bain.png", dark: true, url: "https://openai.com" },
@@ -171,8 +173,10 @@ export function Hero() {
                                     Request a Call
                                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Button>
-                                <Button variant="secondary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book SOC 2 Readiness', cta_location: 'hero' }); open(); }}>
-                                    Book SOC 2 Readiness
+                                <Button variant="secondary" size="lg" asChild animate={false}>
+                                    <Link href="/industrial-energy-automation" onClick={() => trackEvent('cta_click', { cta_text: 'Explore Industrial Automation', cta_location: 'hero' })}>
+                                        Explore Industrial Automation
+                                    </Link>
                                 </Button>
                                 <Button
                                     variant="text"
@@ -227,12 +231,13 @@ export function Hero() {
                                     <div className="flex flex-wrap items-center gap-3">
                                         {engineersFromLogos.map((logo) => {
                                             const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
-                                                    <img
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                    <Image
                                                         src={logo.src}
                                                         alt={logo.name}
                                                         width={logo.width ?? 160}
                                                         height={logo.height ?? 36}
+                                                        sizes="160px"
                                                         className={cn(
                                                             "h-8 w-auto max-w-[160px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100",
                                                             logo.className
@@ -256,12 +261,13 @@ export function Hero() {
                                     <div className="flex flex-wrap items-center gap-3">
                                         {clientLogos.map((logo) => {
                                             const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-all duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
-                                                    <img
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                    <Image
                                                         src={logo.src}
                                                         alt={logo.name}
                                                         width={160}
                                                         height={32}
+                                                        sizes="150px"
                                                         className={cn(
                                                             "h-7 w-auto max-w-[150px] object-contain brightness-0 opacity-75 transition-opacity hover:opacity-100"
                                                         )}

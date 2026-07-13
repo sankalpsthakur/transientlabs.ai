@@ -154,7 +154,7 @@ export function ArticleLayout({
               Book a 15-min scope call
             </h2>
             <p className="text-[#a1a1aa] text-[0.9375rem] leading-relaxed mb-7">
-              We design, build, and ship AI MVPs in 3 weeks. $4,999 fixed price.
+              We design, build, and ship production AI products in a six-week, $15,000 fixed-scope sprint.
             </p>
             <Link
               href={ctaUrl}

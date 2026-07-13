@@ -64,7 +64,7 @@ export function OptionB() {
 
     return (
         <div className="bg-paper pb-14 md:pb-8">
-            <div className="grid gap-4 lg:h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.28fr)_320px] lg:items-stretch xl:grid-cols-[minmax(0,1.32fr)_340px]">
+            <div className="grid gap-4 lg:h-[calc(100vh-6rem)] lg:grid-cols-[minmax(0,1.28fr)_320px] lg:items-stretch xl:grid-cols-[minmax(0,1.32fr)_340px]">
                 <article
                     id={panelId}
                     role="tabpanel"
@@ -218,7 +218,7 @@ export function OptionB() {
                                     onClick={() => setActiveIndex(index)}
                                     onKeyDown={(event) => handleKeyDown(event, index)}
                                     className={cn(
-                                        'group relative overflow-hidden rounded-[24px] border text-left transition-all duration-300 ease-out',
+                                        'group relative overflow-hidden rounded-[24px] border text-left transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out',
                                         selected
                                             ? 'border-ink/12 shadow-[0_18px_38px_-28px_rgba(24,18,13,0.35)]'
                                             : 'border-border/80 hover:-translate-y-0.5 hover:border-border-dark hover:shadow-[0_16px_30px_-26px_rgba(24,18,13,0.24)]',

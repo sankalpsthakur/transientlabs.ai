@@ -1,34 +1,21 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('hero industry rotator', () => {
-  test('cycles through industry names with a blinking cursor', async ({ page }) => {
+test.describe('hero conversion copy', () => {
+  test('leads with a stable outcome and explicit industrial path', async ({ page }) => {
     await page.goto('/');
-    const rotator = page.getByTestId('industry-rotator');
-    await expect(rotator).toBeVisible();
-    const industries = ['Biochar', 'Submersible pumps', 'Retail', 'Hardware programs', 'Industrial teams', 'AI-native SaaS'];
-    await expect.poll(async () => (await rotator.innerText()).trim(), { timeout: 6000, intervals: [150] })
-      .toMatch(new RegExp(industries.join('|')));
-    await expect(rotator.getByTestId('industry-cursor')).toBeVisible();
-    const seen = new Set<string>();
-    for (let i = 0; i < 50; i++) {
-      const text = (await rotator.innerText()).trim();
-      for (const ind of industries) if (text.includes(ind)) seen.add(ind);
-      if (seen.size >= 2) break;
-      await page.waitForTimeout(150);
-    }
-    expect(seen.size).toBeGreaterThanOrEqual(2);
+    await expect(page.locator('section#hero h1')).toContainText(/AI.*Agents/i);
+    await expect(page.locator('section#hero h1')).toContainText(/boost.*margins/i);
+    await expect(page.getByRole('link', { name: /explore industrial automation/i })).toBeVisible();
+    await expect(page.getByTestId('industry-rotator')).toHaveCount(0);
   });
 
-  test('respects prefers-reduced-motion', async ({ browser }) => {
+  test('keeps the complete business proposition under reduced motion', async ({ browser }) => {
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await context.newPage();
     await page.goto('/');
-    const rotator = page.getByTestId('industry-rotator');
-    await expect(rotator).toBeVisible();
-    await page.waitForTimeout(800);
-    const text = (await rotator.innerText()).trim();
-    expect(text.length).toBeGreaterThan(20);
-    await expect(rotator.getByTestId('industry-cursor')).toHaveCount(0);
+    await expect(page.locator('section#hero')).toContainText('6-week sprint $15,000');
+    await expect(page.locator('section#hero')).toContainText('Industrial sprint $40,000');
+    await expect(page.locator('section#hero').getByRole('button', { name: /request a call/i })).toBeVisible();
     await context.close();
   });
 });

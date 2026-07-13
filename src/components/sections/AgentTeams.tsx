@@ -162,16 +162,16 @@ export function AgentTeams() {
                     data-testid="agent-teams-layout"
                     className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-start lg:gap-12"
                 >
-                    <div className="order-2 lg:order-1">
+                    <div className="order-2 min-w-0 lg:order-1">
                         <ArchitectureDiagram />
                     </div>
 
-                    <div className="order-1 lg:order-2 lg:pr-4">
+                    <div className="order-1 min-w-0 lg:order-2 lg:pr-4">
                         <FadeIn>
                             <p className="mb-4 text-sm font-mono uppercase tracking-[0.28em] text-indigo-300">
                                 Structure & Governance
                             </p>
-                            <h2 className="mb-5 max-w-[15.5ch] text-3xl font-semibold tracking-tight text-paper md:text-[3.6rem] md:leading-[0.92]">
+                            <h2 className="mb-5 max-w-[15.5ch] text-[clamp(2rem,4.2vw,3.6rem)] font-semibold leading-[0.98] tracking-tight text-paper">
                                 Enterprise Foundation. <br />
                                 <span className="text-paper/52">Unified Orchestration.</span>
                             </h2>
