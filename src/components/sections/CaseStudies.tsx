@@ -96,7 +96,7 @@ export function CaseStudies() {
                         </div>
                     </div>
                     {/* ── Interactive Showcase ── */}
-                    <div className="mt-14 md:mt-18">
+                    <div className="mt-10 md:mt-12">
                         <OptionB />
                     </div>
                 </Container>

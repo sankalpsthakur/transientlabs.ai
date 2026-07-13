@@ -64,7 +64,7 @@ export function OptionB() {
 
     return (
         <div className="bg-paper pb-14 md:pb-8">
-            <div className="grid gap-4 lg:h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.28fr)_320px] lg:items-stretch xl:grid-cols-[minmax(0,1.32fr)_340px]">
+            <div className="grid gap-4 lg:h-[calc(100vh-6rem)] lg:grid-cols-[minmax(0,1.28fr)_320px] lg:items-stretch xl:grid-cols-[minmax(0,1.32fr)_340px]">
                 <article
                     id={panelId}
                     role="tabpanel"

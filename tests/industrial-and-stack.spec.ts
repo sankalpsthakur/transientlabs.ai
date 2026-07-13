@@ -3,8 +3,11 @@ import { expect, test } from '@playwright/test';
 test('mobile navigation closes after choosing pricing', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(700);
   const toggle = page.getByRole('button', { name: 'Toggle menu' });
+  await page.waitForFunction(() => {
+    const button = document.querySelector<HTMLButtonElement>('button[aria-label="Toggle menu"]');
+    return !!button && Object.keys(button).some((key) => key.startsWith('__reactProps$'));
+  });
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await page.locator('#mobile-navigation a[href="#services"]').click();

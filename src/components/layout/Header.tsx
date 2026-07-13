@@ -122,7 +122,7 @@ export function Header() {
                     {/* Mobile Menu Button - min 44x44px touch target */}
                     <button
                         className="md:hidden p-2.5 min-w-11 min-h-11 flex items-center justify-center text-ink"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        onClick={() => setMobileMenuOpen((open) => !open)}
                         aria-label="Toggle menu"
                         aria-expanded={mobileMenuOpen}
                         aria-controls="mobile-navigation"
