@@ -36,6 +36,14 @@ const faqs = [
     a: "You can run with the codebase, or keep us on as Fractional CTO ($9,999/mo) to lead the roadmap, hiring, and reliability as you scale.",
   },
   {
+    q: "What is included in the $40,000 industrial engagement?",
+    a: "A four-week energy and automation assessment covering the site energy baseline, opportunity register, automation architecture, safety and operator-control boundaries, and a sequenced innovation roadmap. Hardware procurement and installation are quoted separately after the assessment.",
+  },
+  {
+    q: "What plant data do you need for an energy audit?",
+    a: "We start with utility bills, interval or meter data where available, equipment schedules, production volumes, operating hours, and a site walkthrough. We confirm the exact data boundary before kickoff and can work around reasonable gaps with clearly stated assumptions.",
+  },
+  {
     q: "Who owns the IP?",
     a: "You do. You get the repo, keys, and deploy ownership.",
   },
@@ -64,7 +72,7 @@ export function FAQ() {
             <StaggerItem key={idx}>
               <div
                 className={cn(
-                  "card-hover relative pl-4 -ml-4 transition-all duration-300",
+                  "card-hover relative pl-4 -ml-4 transition-colors duration-300",
                   "before:absolute before:left-0 before:top-3 before:bottom-3 before:w-px before:bg-transparent before:transition-colors before:duration-300",
                   openIndex === idx
                     ? "bg-paper-warm/60 before:bg-accent"
@@ -74,6 +82,8 @@ export function FAQ() {
                 <button
                   className="w-full py-6 flex items-center justify-between text-left group"
                   onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                  aria-expanded={openIndex === idx}
+                  aria-controls={`faq-answer-${idx}`}
                 >
                   <span className="text-ink font-medium pr-8 group-hover:text-ink-light transition-colors">
                     {item.q}
@@ -89,6 +99,7 @@ export function FAQ() {
                 <AnimatePresence>
                   {openIndex === idx && (
                     <m.div
+                      id={`faq-answer-${idx}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -119,7 +130,7 @@ export function FAQ() {
                 Request a Call
               </Button>
               <a
-                href="mailto:admin@100xai.engineering"
+                href="mailto:hello@transientlabs.ai"
                 className="text-sm text-ink-muted hover:text-ink transition-colors"
               >
                 or email us

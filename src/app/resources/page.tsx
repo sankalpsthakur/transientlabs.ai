@@ -15,7 +15,7 @@ const resources = [
     tag: "Interactive Tool",
     title: "AI MVP Cost Estimator",
     description:
-      "Answer 4 quick questions and get a real cost breakdown — in-house hiring vs. freelancers vs. our 3-week sprint. See exactly how much you'd save.",
+      "Answer 4 quick questions and compare in-house hiring, freelancers, and our six-week fixed-scope sprint.",
     cta: "Get your free estimate",
     highlight: true,
   },
@@ -25,7 +25,7 @@ const resources = [
     tag: "Playbook",
     title: "AI MVP Playbook",
     description:
-      "25 pages covering everything you need to go from idea to shipped AI product in 3 weeks. Architecture, stack decisions, LLM integration patterns, and launch checklist.",
+      "25 pages covering the architecture, stack decisions, LLM integration patterns, and launch checklist behind a focused AI product sprint.",
     cta: "Get the free playbook",
     highlight: false,
   },

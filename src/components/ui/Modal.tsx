@@ -35,6 +35,9 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
                 <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
                     {/* Backdrop */}
                     <m.div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Request a call"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

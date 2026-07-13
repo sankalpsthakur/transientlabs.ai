@@ -3,15 +3,12 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { IndustryShowcase } from "@/components/sections/IndustryShowcase";
-import { HeroVideo } from "@/components/sections/HeroVideo";
+import { BuyerPaths } from "@/components/sections/BuyerPaths";
 import { CaseStudies } from "@/components/sections/CaseStudies";
 import { Industries } from "@/components/sections/Industries";
 
-import { PainPoints } from "@/components/sections/PainPoints";
 import { Advantage } from "@/components/sections/Advantage";
 import { AgentTeams } from "@/components/sections/AgentTeams";
-import { GameTheory } from "@/components/sections/GameTheory";
 import { Services } from "@/components/sections/Services";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactModal } from "@/components/sections/ContactModal";
@@ -32,21 +29,16 @@ export function HomeContent() {
         <MotionProvider>
             <ContactModalProvider>
                 <ScrollProgressBar className="z-[60]" />
-                <SectionIndicators sections={['work', 'industries', 'approach', 'edge', 'agent-teams', 'game-theory', 'services', 'faq']} />
+                <SectionIndicators sections={['work', 'industries', 'edge', 'agent-teams', 'services', 'faq']} />
                 <div className="min-h-screen flex flex-col font-sans bg-paper text-ink selection:bg-accent selection:text-white">
                     <Header />
-                    <main className="flex-grow pb-[72px] md:pb-0">
+                    <main className="flex-grow overflow-x-clip pb-[72px] md:pb-0">
                         <Hero />
-                        <IndustryShowcase />
-                        <HeroVideo />
-                        <WaveDivider variant="accent" />
+                        <BuyerPaths />
                         <Industries />
                         <CaseStudies />
-                        <PainPoints />
                         <Advantage />
                         <AgentTeams />
-                        <GameTheory />
-                        <WaveDivider variant="default" />
                         <Services />
                         <WaveDivider variant="default" />
                         <FAQ />

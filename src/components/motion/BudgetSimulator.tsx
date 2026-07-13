@@ -58,7 +58,7 @@ export function BudgetSimulator() {
             type="button"
             onClick={() => setPolicy(p.key)}
             className={cn(
-              'flex-1 rounded-full px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] transition-all',
+              'min-h-11 flex-1 rounded-full px-3 py-2 text-[10px] font-mono uppercase tracking-[0.14em] transition-[background-color,color,box-shadow]',
               policy === p.key
                 ? 'bg-white/12 text-white shadow-[0_2px_8px_rgba(255,255,255,0.06)]'
                 : 'text-white/40 hover:text-white/60',

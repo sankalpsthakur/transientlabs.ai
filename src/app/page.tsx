@@ -41,13 +41,29 @@ const organizationSchema = {
     contactType: "sales",
     availableLanguage: "English",
   },
-  offers: {
-    "@type": "Offer",
-    name: "AI MVP Sprint",
-    price: "4999",
-    priceCurrency: "USD",
-    description: "Production-grade AI MVP delivered in 3 weeks",
-  },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Product & Automation Sprint",
+      price: "15000",
+      priceCurrency: "USD",
+      description: "Production-grade product or automation system delivered in a six-week fixed-scope sprint",
+    },
+    {
+      "@type": "Offer",
+      name: "Industrial Energy Audit & Automation",
+      price: "40000",
+      priceCurrency: "USD",
+      description: "Four-week energy baseline, automation assessment, safety boundary, and innovation roadmap",
+    },
+    {
+      "@type": "Offer",
+      name: "SOC 2 Readiness",
+      price: "3000",
+      priceCurrency: "USD",
+      description: "Fixed-scope readiness assessment with evidence requirements and remediation roadmap",
+    },
+  ],
 };
 
 const faqSchema = {
@@ -59,7 +75,7 @@ const faqSchema = {
       name: "What is an AI MVP sprint?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "An AI MVP sprint is a focused 3-week engagement where we design, build, and ship a production-ready AI-powered product. We handle everything from architecture and model integration to deployment, so founders can validate their AI idea with real users fast.",
+        text: "Our delivery sprint is a focused six-week engagement where we design, build, test, deploy, and hand off a production-ready AI-powered product or automation workflow.",
       },
     },
     {
@@ -67,7 +83,7 @@ const faqSchema = {
       name: "How much does an AI MVP cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Our AI MVP sprint starts at $4,999. This covers the full build — product scoping, AI/ML integration, frontend, backend, and deployment. There are no hidden fees; you get a production-grade MVP ready for users.",
+        text: "Our fixed-scope Product & Automation Sprint is $15,000. SOC 2 readiness is $3,000, and the four-week Industrial Energy Audit & Automation engagement is $40,000.",
       },
     },
     {
@@ -75,7 +91,7 @@ const faqSchema = {
       name: "How long does it take to build an AI MVP?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We deliver a production-ready AI MVP in 3 weeks. The first week is discovery and architecture, the second week is core development and AI integration, and the third week is polish, testing, and deployment.",
+        text: "The fixed Product & Automation Sprint runs for six weeks: scope and architecture, core build and integrations, then evals, hardening, deployment, and handoff.",
       },
     },
     {

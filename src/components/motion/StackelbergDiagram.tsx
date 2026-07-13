@@ -72,7 +72,7 @@ function LevelRow({ level, isActive, isDownstream, onClick }: {
         type="button"
         onClick={onClick}
         className={cn(
-          'group relative flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-300',
+          'group relative flex min-h-11 items-center gap-3 rounded-xl border px-4 py-3 text-left transition-[border-color,background-color] duration-300',
           isActive ? level.colorMuted : 'border-white/[0.08] bg-white/[0.02]',
           isDownstream && !isActive && 'border-white/[0.12] bg-white/[0.04]',
           !isActive && !isDownstream && 'hover:border-white/[0.12] hover:bg-white/[0.03]',

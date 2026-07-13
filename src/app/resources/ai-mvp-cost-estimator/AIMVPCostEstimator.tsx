@@ -79,7 +79,7 @@ function calcEstimate(data: FormData): Estimate {
     return {
       inHouse: 0,
       freelancer: 0,
-      sprint: 4999,
+      sprint: 15000,
       totalHours: 0,
       calendarWeeks: 0,
       savingsVsHire: 0,
@@ -105,7 +105,7 @@ function calcEstimate(data: FormData): Estimate {
   // $35k/month fully-loaded senior AI engineer + $42k recruiting/onboarding
   const inHouse = Math.round((calendarMonths * 35_000 + 42_000) / 1000) * 1000;
 
-  const sprint = 4999;
+  const sprint = 15000;
   const savingsVsHire = inHouse - sprint;
   const weeksFaster = Math.max(0, calendarWeeks - 3);
 
@@ -455,12 +455,11 @@ function ResultsView({
             maxValue={maxVal}
             color="bg-accent"
             highlight
-            badge="3 weeks"
+            badge="6 weeks"
           />
           <div className="pl-4 -mt-1">
             <p className="text-xs text-ink-muted leading-relaxed">
-              Fixed price. Dedicated team. Full-stack AI MVP shipped in 3 weeks or your
-              money back.
+              Fixed price. Dedicated senior team. Production AI product delivered through a six-week scope.
             </p>
           </div>
         </div>
@@ -520,7 +519,7 @@ function ResultsView({
             Book a 15-Min Scope Call
           </h3>
           <p className="text-paper/70 mb-6 text-sm leading-relaxed max-w-sm mx-auto">
-            We&apos;ll review your specific requirements, confirm the 3-week timeline, and give
+            We&apos;ll review your specific requirements, confirm the six-week scope, and give
             you a precise quote — no obligation, no sales pressure.
           </p>
           <a
@@ -539,7 +538,7 @@ function ResultsView({
             <ChevronRight className="w-4 h-4" />
           </a>
           <p className="mt-4 text-xs text-paper/40 font-mono">
-            $4,999 fixed price · 3-week delivery · No surprise costs
+            $15,000 fixed price · 6-week delivery · No surprise costs
           </p>
         </div>
 
@@ -926,7 +925,7 @@ export function AIMVPCostEstimator() {
               {[
                 { label: 'Hire In-House', value: '████████████ $XXX,XXX' },
                 { label: 'Freelancers', value: '███████ $XX,XXX' },
-                { label: 'Transient Labs Sprint', value: '█ $4,999', accent: true },
+                { label: 'Transient Labs Sprint', value: '█ $15,000', accent: true },
               ].map(({ label, value, accent }) => (
                 <div
                   key={label}

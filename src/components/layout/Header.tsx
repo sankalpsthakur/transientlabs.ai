@@ -21,8 +21,7 @@ export function Header() {
     const navLinks = [
         { href: "#work", label: "Work" },
         { href: "#industries", label: "Industries" },
-        { href: "#approach", label: "Approach" },
-        { href: "#edge", label: "Edge" },
+        { href: "/industrial-energy-automation", label: "Industrial" },
         { href: "#agent-teams", label: "Teams" },
         { href: "#services", label: "Pricing" },
         { href: "#faq", label: "FAQ" },
@@ -38,7 +37,7 @@ export function Header() {
     };
 
     useEffect(() => {
-        const sectionIds = ["work", "industries", "approach", "edge", "agent-teams", "services", "faq"];
+        const sectionIds = ["work", "industries", "edge", "agent-teams", "services", "faq"];
         const elements = sectionIds
             .map((id) => document.getElementById(id))
             .filter(Boolean) as HTMLElement[];
@@ -62,6 +61,20 @@ export function Header() {
 
         return () => observer.disconnect();
     }, []);
+
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+        const previous = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") setMobileMenuOpen(false);
+        };
+        window.addEventListener("keydown", closeOnEscape);
+        return () => {
+            document.body.style.overflow = previous;
+            window.removeEventListener("keydown", closeOnEscape);
+        };
+    }, [mobileMenuOpen]);
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-paper/95 backdrop-blur-md">
@@ -92,7 +105,7 @@ export function Header() {
                                 href={link.href}
                                 onClick={() => handleNavClick(link.label, link.href)}
                                 className={cn(
-                                    "text-sm transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-ink after:transition-all after:duration-200",
+                                    "text-sm transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-ink after:transition-[width] after:duration-200",
                                     activeSection === link.href.slice(1)
                                         ? "text-ink after:w-full"
                                         : "text-ink-muted hover:text-ink after:w-0 hover:after:w-full"
@@ -111,6 +124,8 @@ export function Header() {
                         className="md:hidden p-2.5 min-w-11 min-h-11 flex items-center justify-center text-ink"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
+                        aria-expanded={mobileMenuOpen}
+                        aria-controls="mobile-navigation"
                     >
                         <AnimatePresence mode="wait" initial={false}>
                             <m.div
@@ -131,14 +146,15 @@ export function Header() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <m.div
-                        className="md:hidden border-t border-border bg-paper overflow-hidden"
-                        initial={prefersReducedMotion ? false : { height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
+                        id="mobile-navigation"
+                        className="absolute inset-x-0 top-full z-10 h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-border bg-paper md:hidden"
+                        initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <Container>
-                            <nav className="py-4 flex flex-col gap-2">
+                            <nav className="flex min-h-full flex-col gap-2 py-6">
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.href}

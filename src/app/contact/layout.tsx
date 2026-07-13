@@ -5,7 +5,7 @@ const BASE_URL = "https://transientlabs.ai";
 export const metadata: Metadata = {
   title: "Contact | Transient Labs",
   description:
-    "Get in touch with Transient Labs. We help founders ship AI MVPs in 3 weeks. Based in Delhi and San Francisco. Email: admin@100xai.engineering",
+    "Get in touch with Transient Labs for a six-week product sprint, industrial energy and automation engagement, SOC 2 readiness, fractional CTO support, or custom scope. Email: hello@transientlabs.ai",
   alternates: {
     canonical: `${BASE_URL}/contact`,
   },

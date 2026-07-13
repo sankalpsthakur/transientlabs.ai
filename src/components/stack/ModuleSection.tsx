@@ -156,7 +156,7 @@ export function ModuleSection({
       className={cn(
         'relative border-t border-white/[0.06]',
         // Deep scroll runway for full scale continuum
-        standalone ? 'min-h-[320vh]' : 'min-h-[380vh]',
+        standalone ? 'min-h-[260vh]' : 'min-h-[300vh]',
         className
       )}
       style={{ background: module.color }}
@@ -169,10 +169,10 @@ export function ModuleSection({
           cameraLabel={module.cameraLabel}
         />
 
-        <div className="relative mx-auto grid w-full max-w-7xl gap-8 px-5 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8">
+        <div className="relative mx-auto grid w-full min-w-0 max-w-7xl gap-8 overflow-hidden px-5 lg:grid-cols-12 lg:items-center lg:gap-10 lg:overflow-visible lg:px-8">
           {/* Copy — 5 cols, parallax */}
           <m.div
-            className="order-2 lg:order-1 lg:col-span-5"
+            className="order-1 min-w-0 lg:col-span-5"
             style={
               prefersReduced
                 ? undefined
@@ -293,10 +293,10 @@ export function ModuleSection({
 
           {/* Visual — 7 cols, larger cinematic stage */}
           <m.div
-            className="order-1 lg:order-2 lg:col-span-7"
+            className="order-2 min-w-0 lg:col-span-7"
             style={prefersReduced ? undefined : { y: visualY }}
           >
-            <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
+            <div className="relative mx-auto w-full min-w-0 max-w-2xl overflow-hidden lg:max-w-none">
               {/* Floating depth label above stage */}
               <div className="mb-2 flex items-center justify-between px-1">
                 <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">

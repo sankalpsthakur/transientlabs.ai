@@ -27,7 +27,7 @@ for (const vp of VIEWPORTS) {
         const warnings: string[] = [];
 
         await page.setViewportSize({ width: vp.w, height: vp.h });
-        await page.goto('/', { waitUntil: 'networkidle' });
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
         await page.waitForTimeout(900);
 
         // 1. Real horizontal overflow (the only "overflow" that actually matters).
@@ -64,23 +64,14 @@ for (const vp of VIEWPORTS) {
             issues.push(`CTA_CLIPPED_X: box=${JSON.stringify(ctaBox)} vp=${vp.w}`);
         }
 
-        // 3. Studio reel video must be visible + full bleed.
-        const heroVideo = page.locator('section[aria-label*="motion"] video').first();
-        try {
-            await expect(heroVideo).toBeVisible({ timeout: 4000 });
-            const vb = await heroVideo.boundingBox();
-            if (!vb || vb.width < vp.w - 4) {
-                issues.push(`VIDEO_NOT_FULL_WIDTH: width=${vb?.width}, vp=${vp.w}`);
+        // 3. Both buyer paths must be visible and usable near the hero.
+        const buyerPaths = page.locator('#buyer-paths a');
+        if (await buyerPaths.count() !== 2) issues.push('BUYER_PATHS_MISSING');
+        for (const path of await buyerPaths.all()) {
+            const box = await path.boundingBox();
+            if (!box || box.x < -1 || box.x + box.width > vp.w + 2) {
+                issues.push(`BUYER_PATH_CLIPPED: ${JSON.stringify(box)}`);
             }
-            // Aspect ratio sanity — 2.17:1 cinematic. At any viewport it should be at least 1.5:1.
-            if (vb && vb.height > 0) {
-                const ratio = vb.width / vb.height;
-                if (ratio < 1.4 || ratio > 4.0) {
-                    warnings.push(`VIDEO_ASPECT_OUTLIER: ${ratio.toFixed(2)}:1 (w=${vb.width} h=${vb.height})`);
-                }
-            }
-        } catch {
-            issues.push('VIDEO_NOT_FOUND');
         }
 
         // 4. Mobile sticky CTA — should appear at <md (768px) after hero is scrolled past.
@@ -112,61 +103,20 @@ for (const vp of VIEWPORTS) {
             issues.push(`HERO_H1_CLIPPED: ${JSON.stringify(h1Box)}`);
         }
 
-        // 7. Rotator pill fits its container at this width.
-        const rotator = page.locator('[data-testid="industry-rotator"]').first();
-        const rotatorVisible = await rotator.isVisible().catch(() => false);
-        if (rotatorVisible) {
-            const rb = await rotator.boundingBox();
-            if (rb && (rb.x < 0 || rb.x + rb.width > vp.w + 2)) {
-                issues.push(`ROTATOR_CLIPPED: right=${rb ? rb.x + rb.width : '?'} vp=${vp.w}`);
-            }
-        } else if (vp.w >= 640) {
-            // Rotator is `sm:inline` only — hidden below 640. Above 640 it should be visible.
-            warnings.push('ROTATOR_HIDDEN_AT_GTE_SM');
-        }
-
-        // 8. Header brand mark visible.
-        const brand = page.locator('header a:has-text("Transient Labs")').first();
+        // 7. Header brand mark visible.
+        const brand = page.locator('header a[aria-label="Transient Labs home"]').first();
         const brandVisible = await brand.isVisible().catch(() => false);
         if (!brandVisible) {
             warnings.push('HEADER_BRAND_HIDDEN');
         }
 
-        // 9. IndustryShowcase band is visible, sits between Hero and HeroVideo, and is "big enough".
-        const showcase = page.locator('[data-testid="industry-showcase"]').first();
-        const showcaseVisible = await showcase.isVisible({ timeout: 3000 }).catch(() => false);
-        if (!showcaseVisible) {
-            issues.push('INDUSTRY_SHOWCASE_NOT_VISIBLE');
-        } else {
-            const sb = await showcase.boundingBox();
-            const heroBox = await page.locator('section#hero').first().boundingBox();
-            const videoSection = await page.locator('section[aria-label*="motion"]').first().boundingBox();
-            if (sb && heroBox && sb.y + 4 < heroBox.y + heroBox.height) {
-                issues.push(`SHOWCASE_BEFORE_HERO_END: showcase.y=${sb.y} hero.bottom=${heroBox.y + heroBox.height}`);
-            }
-            if (sb && videoSection && sb.y > videoSection.y + 2) {
-                issues.push(`SHOWCASE_AFTER_VIDEO_START: showcase.y=${sb.y} video.y=${videoSection.y}`);
-            }
-            const headline = page.locator('[data-testid="industry-showcase-headline"]').first();
-            if (await headline.isVisible().catch(() => false)) {
-                const fontPx = await headline.evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
-                const minExpected = vp.w >= 768 ? 48 : 36;
-                if (fontPx < minExpected - 1) {
-                    issues.push(`SHOWCASE_HEADLINE_TOO_SMALL: ${fontPx}px (expected >= ${minExpected}px at viewport ${vp.w})`);
-                }
-            } else {
-                issues.push('SHOWCASE_HEADLINE_MISSING');
-            }
-            if (sb && (sb.x < -1 || sb.x + sb.width > vp.w + 2)) {
-                issues.push(`SHOWCASE_CLIPPED_X: ${JSON.stringify(sb)}`);
-            }
-        }
+        // 8. Industrial path must resolve to the dedicated offer page.
+        await expect(page.locator('#buyer-paths a[href="/industrial-energy-automation"]')).toBeVisible();
 
         // Per-section visual captures. Each is one viewport tall.
         const sections = [
             { name: 'hero', selector: 'section#hero' },
-            { name: 'showcase', selector: '[data-testid="industry-showcase"]' },
-            { name: 'video', selector: 'section[aria-label*="motion"]' },
+            { name: 'buyer-paths', selector: '#buyer-paths' },
             { name: 'industries', selector: 'section#industries' },
             { name: 'work', selector: 'section#work' },
             { name: 'services', selector: 'section#services' },
@@ -207,7 +157,7 @@ for (const vp of VIEWPORTS) {
 
         // Soft-assert — collect issues but do not abort the suite.
         // Hard fail only if there's a real horizontal overflow or video missing.
-        const hardFails = issues.filter((i) => i.startsWith('HORIZONTAL_OVERFLOW') || i.startsWith('VIDEO_NOT_FOUND') || i.startsWith('VIDEO_NOT_FULL_WIDTH'));
+        const hardFails = issues.filter((i) => i.startsWith('HORIZONTAL_OVERFLOW') || i.startsWith('BUYER_PATH'));
         if (hardFails.length > 0) {
             // Re-throw so CI catches the worst issues, but file the full list.
             throw new Error(`HARD viewport issues @ ${vp.name}:\n  - ${hardFails.join('\n  - ')}\nAll issues: ${JSON.stringify(issues)}`);

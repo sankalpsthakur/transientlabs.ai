@@ -218,7 +218,7 @@ export function OptionB() {
                                     onClick={() => setActiveIndex(index)}
                                     onKeyDown={(event) => handleKeyDown(event, index)}
                                     className={cn(
-                                        'group relative overflow-hidden rounded-[24px] border text-left transition-all duration-300 ease-out',
+                                        'group relative overflow-hidden rounded-[24px] border text-left transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out',
                                         selected
                                             ? 'border-ink/12 shadow-[0_18px_38px_-28px_rgba(24,18,13,0.35)]'
                                             : 'border-border/80 hover:-translate-y-0.5 hover:border-border-dark hover:shadow-[0_16px_30px_-26px_rgba(24,18,13,0.24)]',

@@ -44,16 +44,16 @@ function Stepper({ value, onChange }: { value: number; onChange: (v: number) => 
       <button
         type="button"
         onClick={() => onChange(value - 1)}
-        className="flex h-5 w-5 items-center justify-center rounded bg-white/10 text-[10px] font-mono text-white/60 transition-colors hover:bg-white/20 hover:text-white"
+        className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-base font-mono text-white/70 transition-colors hover:bg-white/20 hover:text-white"
         aria-label="Decrease"
       >
         -
       </button>
-      <span className="w-5 text-center font-mono text-xs text-white/90">{value}</span>
+      <span className="w-6 text-center font-mono text-sm text-white/90">{value}</span>
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="flex h-5 w-5 items-center justify-center rounded bg-white/10 text-[10px] font-mono text-white/60 transition-colors hover:bg-white/20 hover:text-white"
+        className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-base font-mono text-white/70 transition-colors hover:bg-white/20 hover:text-white"
         aria-label="Increase"
       >
         +
@@ -81,7 +81,7 @@ export function PayoffMatrix() {
   return (
     <div className="flex flex-col gap-4">
       {/* Column headers */}
-      <div className="grid grid-cols-[4.5rem_1fr_1fr] gap-2">
+      <div className="grid grid-cols-[3.75rem_1fr_1fr] gap-2 sm:grid-cols-[4.5rem_1fr_1fr]">
         <div />
         {STRATEGIES.map(s => (
           <div key={s} className="text-center text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400/70">
@@ -92,7 +92,7 @@ export function PayoffMatrix() {
 
       {/* Matrix rows */}
       {STRATEGIES.map((rowStrat, r) => (
-        <div key={rowStrat} className="grid grid-cols-[4.5rem_1fr_1fr] gap-2">
+        <div key={rowStrat} className="grid grid-cols-[3.75rem_1fr_1fr] gap-2 sm:grid-cols-[4.5rem_1fr_1fr]">
           <div className="flex items-center text-[10px] font-mono uppercase tracking-[0.2em] text-amber-400/70">
             A: {rowStrat}
           </div>

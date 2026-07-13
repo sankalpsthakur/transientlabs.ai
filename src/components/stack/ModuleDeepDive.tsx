@@ -14,6 +14,8 @@ import { ModuleExperience as AutonomyExperience } from './modules/autonomous-veh
 import type { MotionValue } from 'framer-motion';
 import Link from 'next/link';
 import { STACK_PATH } from '@/lib/stack/content';
+import { enterpriseBriefs } from '@/lib/stack/enterprise';
+import { EnterpriseBrief } from './EnterpriseBrief';
 
 type VisualFn = (
   progress: MotionValue<number>,
@@ -43,6 +45,7 @@ interface ModuleDeepDiveProps {
 }
 
 export function ModuleDeepDive({ module }: ModuleDeepDiveProps) {
+  const enterpriseBrief = enterpriseBriefs[module.id];
   return (
     <MotionProvider>
       <StackGsapProvider>
@@ -62,6 +65,7 @@ export function ModuleDeepDive({ module }: ModuleDeepDiveProps) {
               visual={visuals[module.id]}
               standalone
             />
+            {enterpriseBrief ? <EnterpriseBrief module={module} brief={enterpriseBrief} /> : null}
             <section className="border-t border-white/10 px-5 py-16 md:px-8">
               <div className="mx-auto max-w-2xl">
                 <h3 className="text-lg font-medium text-white">

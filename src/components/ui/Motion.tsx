@@ -33,18 +33,18 @@ export function FadeIn({
   delay = 0,
   direction = 'up',
   className,
-  duration = 0.6,
+  duration = 0.42,
   once = true,
 }: FadeInProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: '-100px' });
+  const isInView = useInView(ref, { once, margin: '-40px' });
   const prefersReducedMotion = useReducedMotion();
 
   const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { y: 0, x: 40 },
-    right: { y: 0, x: -40 },
+    up: { y: 24, x: 0 },
+    down: { y: -24, x: 0 },
+    left: { y: 0, x: 24 },
+    right: { y: 0, x: -24 },
     none: { y: 0, x: 0 },
   };
 
@@ -148,7 +148,7 @@ export function StaggerItem({
       x: 0,
       scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: easings.easeOutQuint,
       },
     },

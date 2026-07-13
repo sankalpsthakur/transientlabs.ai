@@ -5,17 +5,17 @@ import { LeadMagnetGate } from "@/components/ui/LeadMagnetGate";
 export const metadata: Metadata = {
   title: "AI MVP Playbook — Free 25-Page Guide | Transient Labs",
   description:
-    "Download the free AI MVP Playbook: everything founders need to go from idea to shipped AI product in 3 weeks. Architecture, stack, LLM patterns, and launch checklist.",
+    "Download the free AI MVP Playbook: architecture, stack, LLM patterns, evaluation, and a six-week launch plan.",
 };
 
 const tableOfContents = [
   { num: "01", title: "Why AI MVPs Are Different", desc: "The unique constraints and opportunities of shipping with LLMs" },
-  { num: "02", title: "Scoping Your AI Product", desc: "How to define a 3-week deliverable that actually ships" },
+  { num: "02", title: "Scoping Your AI Product", desc: "How to define a bounded six-week deliverable that actually ships" },
   { num: "03", title: "Choosing Your Stack", desc: "Next.js, Supabase, OpenAI, Anthropic — when to use what" },
   { num: "04", title: "LLM Integration Patterns", desc: "RAG, function calling, agents, and guardrails" },
   { num: "05", title: "Building the Data Layer", desc: "Vector databases, embeddings, and real-time pipelines" },
   { num: "06", title: "AI Evaluation & Quality", desc: "How to measure and iterate on LLM outputs" },
-  { num: "07", title: "Week-by-Week Sprint Plan", desc: "Exact milestones for a 3-week AI MVP sprint" },
+  { num: "07", title: "Week-by-Week Sprint Plan", desc: "Milestones for a six-week AI product sprint" },
   { num: "08", title: "Launch & Post-Launch", desc: "Monitoring, bug-fix window, and scaling considerations" },
 ];
 
@@ -65,7 +65,7 @@ const previewContent = (
         AI MVP Playbook
       </h1>
       <p className="text-lg text-ink-muted">
-        Everything you need to go from idea to shipped AI product in 3 weeks.
+        Everything you need to go from a bounded idea to a shipped AI product in six weeks.
         Architecture decisions, stack picks, LLM integration patterns, and a
         week-by-week sprint plan.
       </p>

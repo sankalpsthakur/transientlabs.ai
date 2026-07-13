@@ -412,7 +412,7 @@ function ResultsView({ rec, formData }: { rec: StackRecommendation; formData: Fo
           <p className="font-mono text-xs uppercase tracking-widest text-paper/60 mb-3">Skip the Setup</p>
           <h3 className="font-mono text-2xl font-bold text-paper mb-3">We&apos;ll Build It For You — In 3 Weeks</h3>
           <p className="text-paper/70 mb-6 text-sm leading-relaxed max-w-sm mx-auto">
-            Transient Labs builds production-ready AI MVPs using exactly this stack. Fixed price, 3-week delivery, money-back guarantee.
+            Transient Labs builds production-ready AI products using this stack through a fixed-scope six-week delivery.
           </p>
           <a
             href="https://cal.com/100x/scope-call"
@@ -424,7 +424,7 @@ function ResultsView({ rec, formData }: { rec: StackRecommendation; formData: Fo
             Book Free Scope Call
             <ChevronRight className="w-4 h-4" />
           </a>
-          <p className="mt-4 text-xs text-paper/40 font-mono">$4,999 fixed price · 3-week delivery · No surprise costs</p>
+          <p className="mt-4 text-xs text-paper/40 font-mono">$15,000 fixed price · 6-week delivery · No surprise costs</p>
         </div>
 
         {/* Restart */}

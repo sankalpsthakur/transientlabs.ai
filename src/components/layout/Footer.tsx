@@ -195,10 +195,22 @@ export function Footer() {
                             The Physical Stack
                         </a>
                         <a
+                            href="/industrial-energy-automation"
+                            className="font-medium text-ink transition-opacity hover:opacity-70"
+                        >
+                            Industrial Energy & Automation
+                        </a>
+                        <a
                             href="/blog"
                             className="text-ink-muted transition-opacity hover:opacity-70"
                         >
                             Blog
+                        </a>
+                        <a
+                            href="/insights/equilibrium-design"
+                            className="text-ink-muted transition-opacity hover:opacity-70"
+                        >
+                            Equilibrium Design
                         </a>
                         <a
                             href="/resources"

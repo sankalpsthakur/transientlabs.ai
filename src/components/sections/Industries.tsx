@@ -78,12 +78,12 @@ export function Industries() {
                     </FadeIn>
                 </div>
 
-                <Stagger className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6" staggerDelay={0.06}>
+                <Stagger className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mt-12 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 lg:gap-6" staggerDelay={0.06}>
                     {contexts.map((context) => {
                         const Icon = context.icon;
                         return (
-                            <StaggerItem key={context.name}>
-                                <article className="group h-full overflow-hidden rounded-[1.5rem] border border-border bg-white/75 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_64px_-32px_rgba(84,69,56,0.45)] focus-within:-translate-y-1">
+                            <StaggerItem key={context.name} className="min-w-[82vw] snap-start md:min-w-0">
+                                <article className="group h-full overflow-hidden rounded-[1.5rem] border border-border bg-white/75 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_64px_-32px_rgba(84,69,56,0.45)] focus-within:-translate-y-1">
                                     <div className="relative aspect-[16/10] overflow-hidden bg-paper">
                                         <Image
                                             src={context.image}
