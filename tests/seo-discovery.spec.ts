@@ -1,6 +1,16 @@
 import { expect, test } from '@playwright/test';
 
 const indexNowKey = '55fddc4df7b4e4a17bc833eb0b25b030';
+const bingVerificationToken = '774F6C50AF7FB048BE7E179F0B9564D2';
+
+test('homepage exposes the Bing Webmaster verification tag', async ({ request }) => {
+  const response = await request.get('/');
+  expect(response.ok()).toBeTruthy();
+  const html = await response.text();
+  expect(html).toContain(
+    `<meta name="msvalidate.01" content="${bingVerificationToken}"`,
+  );
+});
 
 test('robots advertises the canonical sitemap', async ({ request }) => {
   const response = await request.get('/robots.txt');

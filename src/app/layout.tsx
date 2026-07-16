@@ -86,7 +86,9 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "verification_token",
+    other: {
+      "msvalidate.01": "774F6C50AF7FB048BE7E179F0B9564D2",
+    },
   },
 };
 
