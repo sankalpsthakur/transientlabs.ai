@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { BuyerPaths } from "@/components/sections/BuyerPaths";
 import { CaseStudies } from "@/components/sections/CaseStudies";
+import { Proof } from "@/components/sections/Proof";
 import { Industries } from "@/components/sections/Industries";
 
 import { Advantage } from "@/components/sections/Advantage";
@@ -36,6 +37,7 @@ export function HomeContent() {
                         <BuyerPaths />
                         <Industries />
                         <CaseStudies />
+                        <Proof />
                         <Advantage />
                         <Services />
                         <WaveDivider variant="default" />
