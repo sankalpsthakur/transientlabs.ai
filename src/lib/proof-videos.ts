@@ -25,9 +25,10 @@ export interface ProofVideo {
 
 /**
  * The homepage Proof section renders exactly what is listed here and renders
- * nothing while this is empty. To publish a film: drop the master into
- * public/videos/proof/ and its poster into public/images/proof/ using the
- * filenames from docs/video-production-briefs.md, then add its entry.
+ * nothing while this is empty. To publish a film: put its poster in
+ * public/images/proof/ and host the master on a CDN (public/videos/* is
+ * gitignored and never deploys — use an absolute URL in `src`), following
+ * the filenames in docs/video-production-briefs.md, then add its entry.
  *
  * Example entry:
  * {

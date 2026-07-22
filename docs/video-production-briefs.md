@@ -64,9 +64,14 @@ recommendation line. 30–40 min of tape per subject yields the 75–90 s cut.
 | VID-08 | Industrial site film | 90 s | `/videos/proof/vid-08-industrial.mp4` | `/images/proof/vid-08-industrial-poster.jpg` |
 
 Vertical cutdowns append `-vertical` (not loaded by the site; for social).
-Drop files into `public/videos/proof/` and `public/images/proof/`, add one
-entry to `src/lib/proof-videos.ts`, and the homepage Proof section renders
-automatically.
+
+**Hosting.** Posters go in the repo at `public/images/proof/` (small JPGs).
+Video masters do NOT go in the repo — `public/videos/*` is gitignored and
+never reaches the production deploy. Host masters on a CDN (Cloudflare
+R2/Stream or Mux) using the filenames above, then put the absolute URL in the
+`src` field of the entry in `src/lib/proof-videos.ts`. Local previews can use
+`public/videos/proof/` — swap to the hosted URL before publishing. Once an
+entry is added, the homepage Proof section renders automatically.
 
 ---
 
