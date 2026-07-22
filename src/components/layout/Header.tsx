@@ -22,7 +22,6 @@ export function Header() {
         { href: "#work", label: "Work" },
         { href: "#industries", label: "Industries" },
         { href: "/industrial-energy-automation", label: "Industrial" },
-        { href: "#agent-teams", label: "Teams" },
         { href: "#services", label: "Pricing" },
         { href: "#faq", label: "FAQ" },
         { href: "/stack", label: "Stack" },
@@ -37,7 +36,7 @@ export function Header() {
     };
 
     useEffect(() => {
-        const sectionIds = ["work", "industries", "edge", "agent-teams", "services", "faq"];
+        const sectionIds = ["work", "industries", "edge", "services", "faq"];
         const elements = sectionIds
             .map((id) => document.getElementById(id))
             .filter(Boolean) as HTMLElement[];

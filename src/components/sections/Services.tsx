@@ -1,7 +1,5 @@
 'use client';
 
-import Image from "next/image";
-
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
@@ -14,7 +12,6 @@ const services = [
         duration: "Monthly",
         price: "$9,999/mo",
         description: "Senior technical leadership for AI products: architecture, roadmap, hiring, and reliability.",
-        icon: "/images/service-cto-v4.png",
         highlights: [
             "Architecture and roadmap",
             "Evals, guardrails, cost control",
@@ -30,7 +27,6 @@ const services = [
         duration: "6 weeks",
         price: "$15,000",
         description: "Ship a production-ready product or automation workflow with full-stack architecture, AI guardrails, and automated testing.",
-        icon: "/images/service-sprint-v4.png",
         highlights: [
             "Product spec and workflow design",
             "Build, evals, and guardrails",
@@ -47,7 +43,6 @@ const services = [
         duration: "Fixed scope",
         price: "$3,000",
         description: "A focused SOC 2 readiness assessment with control gaps, evidence requirements, and a prioritized remediation roadmap.",
-        icon: "/images/service-sprint-v4.png",
         highlights: [
             "Control and architecture review",
             "Evidence requirements",
@@ -64,7 +59,6 @@ const services = [
         duration: "4 weeks",
         price: "$40,000",
         description: "One combined engagement covering the energy audit, industrial automation assessment and design, and an actionable innovation roadmap.",
-        icon: "/images/service-agentic-v4.png",
         highlights: [
             "Energy baseline and opportunity audit",
             "Automation assessment and design",
@@ -81,7 +75,6 @@ const services = [
         duration: "Scoped",
         price: "Let’s talk",
         description: "Multi-role AI workflows, complex integrations, mobile, or enterprise requirements.",
-        icon: "/images/service-agentic-v4.png",
         highlights: [
             "Scoped roadmap and milestones",
             "APIs, tools, integrations",
@@ -182,25 +175,9 @@ export function Services() {
                                             </p>
                                         </div>
 
-                                        <div className="relative hidden border-b border-border/70 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.9),rgba(237,230,221,0.85))] px-5 py-4 sm:block md:px-6">
-                                            <div
-                                                aria-hidden="true"
-                                                className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.55),transparent_45%)]"
-                                            />
-                                            <div className="relative flex h-20 items-center justify-center">
-                                                <Image
-                                                    src={service.icon}
-                                                    alt={service.title}
-                                                    width={112}
-                                                    height={112}
-                                                    className="h-20 w-20 object-contain drop-shadow-[0_24px_40px_rgba(10,10,10,0.18)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-2deg]"
-                                                />
-                                            </div>
-                                        </div>
-
                                         <div className="flex flex-1 flex-col px-5 py-4 md:px-6">
                                             <div className="text-[10px] uppercase tracking-[0.28em] text-ink-muted">
-                                                Proof artifacts
+                                                What you get
                                             </div>
                                             <div className="mt-3 flex flex-wrap gap-2">
                                                 {service.highlights.map((item) => (
