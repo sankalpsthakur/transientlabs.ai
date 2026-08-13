@@ -58,9 +58,9 @@ export function Industries() {
                         const Icon = context.icon;
                         return (
                             <StaggerItem key={context.name} className="min-w-[82vw] snap-start md:min-w-0">
-                                <article className="group flex h-full flex-col rounded-[1.5rem] border border-border bg-white/75 p-6 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_64px_-32px_rgba(84,69,56,0.45)] focus-within:-translate-y-1">
+                                <article className="group flex h-full flex-col rounded-[1.5rem] border border-border bg-white/75 p-6 shadow-[0_18px_48px_-38px_rgba(84,69,56,0.34)] transition-[transform,box-shadow] duration-150 ease-out hover:-translate-y-px hover:shadow-[0_18px_40px_-32px_rgba(84,69,56,0.4)] focus-within:-translate-y-px">
                                     <div className="flex items-center gap-3">
-                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-paper text-ink transition-transform duration-300 ease-out group-hover:translate-x-0.5">
+                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-paper text-ink transition-transform duration-150 ease-out group-hover:translate-x-0.5">
                                             <Icon className="h-4 w-4" />
                                         </span>
                                         <h3 className="text-xl font-semibold tracking-tight text-ink">{context.name}</h3>

@@ -108,7 +108,7 @@ export function PlantDrawing({
           style={{
             transform: `translate(${tx * 10}px, ${ty * 6.2}px) scale(${scale})`,
             transformOrigin: `${originX}% ${originY}%`,
-            transition: reduced ? 'none' : 'transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: reduced ? 'none' : 'transform 700ms cubic-bezier(0, 0, 0.2, 1)',
           }}
         >
           {/* Site boundary */}

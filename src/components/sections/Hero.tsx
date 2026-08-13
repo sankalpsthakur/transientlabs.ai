@@ -3,7 +3,6 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/Motion";
-import { SplitText } from "@/components/motion/SplitText";
 import { AgentSwarm } from "@/components/motion/AgentSwarm";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useContactModal } from "@/lib/contact-modal-context";
@@ -64,86 +63,31 @@ export function Hero() {
                             </div>
                         </FadeIn>
 
-                        <FadeIn delay={0.1}>
+                        <FadeIn delay={0.04}>
                             <h1 className="mt-5 max-w-[18ch] text-balance text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:max-w-[12ch] sm:text-[3.3rem] md:max-w-[14ch] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
-                                <span className="lg:hidden">
+                                {/* Plain text. This headline used to be four SplitText
+                                    instances sliding each word up from its own height on
+                                    staggered delays — roughly a second of choreography
+                                    before the sentence could be read. */}
+                                <span className="font-sans font-semibold lg:hidden">
                                     <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>{" "}
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
+                                        We ship <span className="text-accent">AI Agents</span>
                                     </span>
-
                                     <span className="mt-3 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins in weeks, not months.
-                                        </SplitText>
+                                        that boost margins in weeks, not months.
                                     </span>
                                 </span>
 
-                                <span className="hidden lg:block">
-                                    <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-accent">
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
-                                    </span>
-                                    <span className="mt-2 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-ink-light">
-                                        <SplitText
-                                            delay={0.38}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            in weeks, not months.
-                                        </SplitText>
-                                    </span>
+                                <span className="hidden font-sans font-semibold lg:block">
+                                    <span className="block">We ship</span>
+                                    <span className="block text-accent">AI Agents</span>
+                                    <span className="mt-2 block text-ink-light">that boost margins</span>
+                                    <span className="block text-ink-light">in weeks, not months.</span>
                                 </span>
                             </h1>
                         </FadeIn>
 
-                        <FadeIn delay={0.2}>
+                        <FadeIn delay={0.08}>
                             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-light md:text-xl lg:max-w-[35rem] lg:text-[1.08rem]">
                                 A senior team for the full build: interface, full-stack, AI, evals, and the guardrails that keep it running in production.
                             </p>
@@ -152,7 +96,7 @@ export function Hero() {
                             </p>
                         </FadeIn>
 
-                        <FadeIn delay={0.3}>
+                        <FadeIn delay={0.08}>
                             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">
                                 <Button variant="primary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book a working session', cta_location: 'hero' }); open(); }}>
                                     Book a working session
@@ -181,7 +125,7 @@ export function Hero() {
                             </div>
                         </FadeIn>
 
-                        <FadeIn delay={0.35}>
+                        <FadeIn delay={0.12}>
                             <div className="mt-10 space-y-5 rounded-[2rem] border border-border bg-white/55 p-5 shadow-[0_18px_46px_rgba(24,18,13,0.04)] backdrop-blur-sm md:p-6 lg:mt-14">
                                 <div>
                                     <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
@@ -190,7 +134,7 @@ export function Hero() {
                                     <div className="flex flex-wrap items-center gap-3">
                                         {engineersFromLogos.map((logo) => {
                                             const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-150 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
                                                     <Image
                                                         src={logo.src}
                                                         alt={logo.name}
@@ -220,7 +164,7 @@ export function Hero() {
                                     <div className="flex flex-wrap items-center gap-3">
                                         {clientLogos.map((logo) => {
                                             const pill = (
-                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-300 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
+                                                <div className="flex h-10 items-center rounded-lg border border-border/60 bg-white/60 px-3 transition-[background-color,box-shadow] duration-150 hover:bg-white/90 hover:shadow-[0_4px_12px_rgba(24,18,13,0.06)]">
                                                     <Image
                                                         src={logo.src}
                                                         alt={logo.name}
@@ -245,7 +189,7 @@ export function Hero() {
                         </FadeIn>
                     </div>
 
-                    <FadeIn delay={0.5} className="relative hidden lg:block lg:pt-2 xl:pt-3">
+                    <FadeIn delay={0.12} className="relative hidden lg:block lg:pt-2 xl:pt-3">
                         <div className="rounded-[2.25rem] border border-border/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,242,233,0.96))] p-4 shadow-[0_32px_90px_rgba(24,18,13,0.08)] backdrop-blur-sm">
                             <AgentSwarm />
                         </div>

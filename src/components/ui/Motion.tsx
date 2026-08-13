@@ -2,27 +2,69 @@
 
 import { m, useInView, useReducedMotion, Variants } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
-import { cn } from '@/lib/utils';
 
-// ============================================================================
-// Easing Standards
-// ============================================================================
+/**
+ * Motion system.
+ *
+ * One curve, two durations, one travel distance. Everything on the site reveals
+ * the same way, which is the point: motion should be the thing you don't notice.
+ *
+ * What this replaced: eleven separate entrance primitives with travel distances
+ * of 24-30px, durations up to 0.8s, entrance `scale`, `blur(8px)`, 3D `rotateY`,
+ * and an `easeSpring` curve that overshot to 1.56. Elements flew in, popped, and
+ * bounced. It read as a template.
+ *
+ * Rules:
+ * - Opacity leads. Travel is a hint (6px), never a journey.
+ * - No scale, blur, or rotation on entrance. Ever.
+ * - No overshoot. The curve decelerates and stops.
+ * - Reveals fire once and settle. Nothing loops.
+ * - Reduced motion renders the final state with no transition.
+ */
 
+/** Decelerate, no overshoot. The only curve on the site. */
+export const EASE = [0, 0, 0.2, 1] as [number, number, number, number];
+
+export const DURATION = {
+  /** Hover, focus, toggles: fast enough to feel like a direct response. */
+  micro: 0.14,
+  /** Scroll reveals. */
+  base: 0.22,
+} as const;
+
+/** Entrance travel. A hint of direction, not a slide. */
+const TRAVEL = 6;
+
+/** Gap between staggered siblings. Four items = 120ms total, not a parade. */
+const STAGGER = 0.04;
+
+/**
+ * The old curve names, all aliased to the one curve. Kept so existing call sites
+ * keep compiling, and so no component can quietly reintroduce a second
+ * personality — `easeSpring` in particular used to overshoot to 1.56.
+ */
 export const easings = {
-  easeOutQuint: [0.22, 1, 0.36, 1] as [number, number, number, number],
-  easeOutExpo: [0.16, 1, 0.3, 1] as [number, number, number, number],
-  easeInOutCubic: [0.65, 0, 0.35, 1] as [number, number, number, number],
-  easeSpring: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
+  standard: EASE,
+  easeOutQuint: EASE,
+  easeOutExpo: EASE,
+  easeInOutCubic: EASE,
+  easeSpring: EASE,
 };
 
-// ============================================================================
-// Fade In Component
-// ============================================================================
+const offsets: Record<string, { x: number; y: number }> = {
+  up: { y: TRAVEL, x: 0 },
+  down: { y: -TRAVEL, x: 0 },
+  left: { y: 0, x: TRAVEL },
+  right: { y: 0, x: -TRAVEL },
+  none: { y: 0, x: 0 },
+};
+
+type Direction = keyof typeof offsets;
 
 interface FadeInProps {
   children: ReactNode;
   delay?: number;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'none';
+  direction?: Direction;
   className?: string;
   duration?: number;
   once?: boolean;
@@ -33,42 +75,31 @@ export function FadeIn({
   delay = 0,
   direction = 'up',
   className,
-  duration = 0.42,
+  duration = DURATION.base,
   once = true,
 }: FadeInProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once, margin: '-40px' });
   const prefersReducedMotion = useReducedMotion();
 
-  const directions = {
-    up: { y: 24, x: 0 },
-    down: { y: -24, x: 0 },
-    left: { y: 0, x: 24 },
-    right: { y: 0, x: -24 },
-    none: { y: 0, x: 0 },
-  };
-
-  // Reduced motion: just show content without animation
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
 
+  const from = offsets[direction] ?? offsets.up;
+
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, ...directions[direction] }}
-      animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, ...directions[direction] }}
-      transition={{ duration, delay, ease: easings.easeOutQuint }}
+      initial={{ opacity: 0, ...from }}
+      animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, ...from }}
+      transition={{ duration, delay, ease: EASE }}
       className={className}
     >
       {children}
     </m.div>
   );
 }
-
-// ============================================================================
-// Stagger Components
-// ============================================================================
 
 interface StaggerProps {
   children: ReactNode;
@@ -79,7 +110,7 @@ interface StaggerProps {
 
 export function Stagger({
   children,
-  staggerDelay = 0.08,
+  staggerDelay = STAGGER,
   className,
   delay = 0,
 }: StaggerProps) {
@@ -87,7 +118,6 @@ export function Stagger({
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const prefersReducedMotion = useReducedMotion();
 
-  // Reduced motion: just show children without animation wrapper
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
@@ -100,7 +130,8 @@ export function Stagger({
       variants={{
         visible: {
           transition: {
-            staggerChildren: staggerDelay,
+            // Clamped: a long list should not turn into a slow reveal queue.
+            staggerChildren: Math.min(staggerDelay, STAGGER),
             delayChildren: delay,
           },
         },
@@ -119,38 +150,24 @@ export function StaggerItem({
 }: {
   children: ReactNode;
   className?: string;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'none' | 'scale';
+  /** 'scale' is accepted and ignored; entrances do not scale. */
+  direction?: Direction | 'scale';
 }) {
   const prefersReducedMotion = useReducedMotion();
 
-  // Reduced motion: just show content
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
 
-  const directions: Record<string, object> = {
-    up: { y: 30, x: 0 },
-    down: { y: -30, x: 0 },
-    left: { y: 0, x: 30 },
-    right: { y: 0, x: -30 },
-    none: { y: 0, x: 0 },
-    scale: { scale: 0.98 },
-  };
+  const from = offsets[direction] ?? offsets.up;
 
   const variants: Variants = {
-    hidden: {
-      opacity: 0,
-      ...directions[direction],
-    },
+    hidden: { opacity: 0, ...from },
     visible: {
       opacity: 1,
       y: 0,
       x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: easings.easeOutQuint,
-      },
+      transition: { duration: DURATION.base, ease: EASE },
     },
   };
 
@@ -161,228 +178,42 @@ export function StaggerItem({
   );
 }
 
-// ============================================================================
-// Scale In Component
-// ============================================================================
-
-interface ScaleInProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  scale?: number;
-}
-
-export function ScaleIn({
-  children,
-  className,
-  delay = 0,
-  scale = 0.95,
-}: ScaleInProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <m.div
-      ref={ref}
-      initial={{ opacity: 0, scale }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale }}
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: easings.easeOutQuint,
-      }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-// ============================================================================
-// Blur Reveal Component (for photos)
-// ============================================================================
-
-interface BlurRevealProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  blur?: number;
-}
-
+/**
+ * Photo reveal. Previously blurred 8px and scaled from 0.9; now it is a plain
+ * fade, because a photograph arriving out of focus is a effect, not a reveal.
+ */
 export function BlurReveal({
   children,
   className,
   delay = 0,
-  blur = 8,
-}: BlurRevealProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <m.div
-      ref={ref}
-      initial={{ opacity: 0, filter: `blur(${blur}px)`, scale: 0.9 }}
-      animate={
-        isInView
-          ? { opacity: 1, filter: 'blur(0px)', scale: 1 }
-          : { opacity: 0, filter: `blur(${blur}px)`, scale: 0.9 }
-      }
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: easings.easeOutQuint,
-      }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-// ============================================================================
-// 3D Perspective Card
-// ============================================================================
-
-interface PerspectiveCardProps {
+}: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  rotateY?: number;
-}
-
-export function PerspectiveCard({
-  children,
-  className,
-  delay = 0,
-  rotateY = -5,
-}: PerspectiveCardProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
+  /** Accepted and ignored. */
+  blur?: number;
+}) {
   return (
-    <div ref={ref} className="perspective-container">
-      <m.div
-        initial={{ opacity: 0, rotateY, transformPerspective: 1000 }}
-        animate={
-          isInView
-            ? { opacity: 1, rotateY: 0 }
-            : { opacity: 0, rotateY }
-        }
-        transition={{
-          duration: 0.8,
-          delay,
-          ease: easings.easeOutQuint,
-        }}
-        className={cn('perspective-card', className)}
-      >
-        {children}
-      </m.div>
-    </div>
-  );
-}
-
-// ============================================================================
-// Border Draw Container
-// ============================================================================
-
-interface BorderDrawProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}
-
-export function BorderDraw({ children, className, delay = 0 }: BorderDrawProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <div ref={ref} className={cn('relative', className)}>
+    <FadeIn className={className} delay={delay} direction="none">
       {children}
-      <m.div
-        className="absolute inset-0 pointer-events-none border-2 border-ink/10"
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-        transition={{
-          duration: 0.5,
-          delay,
-          ease: easings.easeOutQuint,
-        }}
-      />
-    </div>
+    </FadeIn>
   );
 }
 
-// ============================================================================
-// Reveal Text Line by Line
-// ============================================================================
-
-interface RevealLinesProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  staggerDelay?: number;
-}
-
-export function RevealLines({
-  children,
-  className,
-  delay = 0,
-  staggerDelay = 0.1,
-}: RevealLinesProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <m.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={{
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-            delayChildren: delay,
-          },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-export function RevealLine({
+/**
+ * Hover affordance. Callers used to pass scale up to 1.15 and y up to -4; both
+ * are now clamped hard. A card acknowledges the cursor, it does not jump at it.
+ */
+export function HoverScale({
   children,
   className,
 }: {
   children: ReactNode;
   className?: string;
+  /** Accepted and ignored. */
+  scale?: number;
+  /** Accepted and ignored. */
+  y?: number;
 }) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -392,94 +223,8 @@ export function RevealLine({
 
   return (
     <m.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.5,
-            ease: easings.easeOutQuint,
-          },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-// ============================================================================
-// Hover Scale Effect
-// ============================================================================
-
-interface HoverScaleProps {
-  children: ReactNode;
-  className?: string;
-  scale?: number;
-  y?: number;
-}
-
-export function HoverScale({
-  children,
-  className,
-  scale = 1.02,
-  y = -4,
-}: HoverScaleProps) {
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <m.div
-      whileHover={{ scale, y }}
-      transition={{
-        duration: 0.3,
-        ease: easings.easeOutQuint,
-      }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-// ============================================================================
-// Animated Container (for scroll-triggered reveals)
-// ============================================================================
-
-interface AnimatedContainerProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}
-
-export function AnimatedContainer({
-  children,
-  className,
-  delay = 0,
-}: AnimatedContainerProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <m.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{
-        duration: 0.6,
-        delay,
-        ease: easings.easeOutQuint,
-      }}
+      whileHover={{ y: -1 }}
+      transition={{ duration: DURATION.micro, ease: EASE }}
       className={className}
     >
       {children}

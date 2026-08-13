@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { DURATION, EASE } from "@/components/ui/Motion";
 
 interface Agent {
     id: string;
@@ -75,13 +76,13 @@ const taskSequences: TaskEvent[][] = [
 function AgentRow({ agent, task, status }: { agent: Agent; task: string | null; status: "idle" | "routing" | "active" | "done" }) {
     return (
         <div className={cn(
-            "group relative flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-[border-color,background-color,box-shadow,transform] duration-500",
+            "group relative flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-[border-color,background-color,box-shadow,transform] duration-150",
             status === "active" ? agent.colorMuted : "bg-white/[0.03] border-white/[0.06]",
             status === "done" && "bg-emerald-500/[0.06] border-emerald-500/[0.12]",
         )}>
             {/* Agent icon */}
             <div className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-medium transition-[background-color,color,transform] duration-500",
+                "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-medium transition-[background-color,color,transform] duration-150",
                 status === "active" ? `${agent.colorMuted} ${agent.color}` : "bg-white/[0.06] text-white/40",
                 status === "done" && "bg-emerald-500/10 text-emerald-400",
             )}>
@@ -92,7 +93,7 @@ function AgentRow({ agent, task, status }: { agent: Agent; task: string | null; 
             <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                     <span className={cn(
-                        "text-[11px] font-semibold tracking-wide transition-colors duration-300",
+                        "text-[11px] font-semibold tracking-wide transition-colors duration-150",
                         status === "active" ? agent.color : "text-white/60",
                         status === "done" && "text-emerald-400/80",
                     )}>
@@ -118,7 +119,7 @@ function AgentRow({ agent, task, status }: { agent: Agent; task: string | null; 
                         )}
                     </div>
                 </div>
-                <div className="mt-0.5 truncate text-[10px] text-white/35 transition-colors duration-300">
+                <div className="mt-0.5 truncate text-[10px] text-white/35 transition-colors duration-150">
                     {task ? (
                         <m.span
                             key={task}
@@ -246,7 +247,7 @@ export function AgentSwarm() {
                                     key={agent.id}
                                     initial={{ opacity: 0, y: 6 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{ duration: DURATION.base, ease: EASE }}
                                 >
                                     <AgentRow
                                         agent={agent}
@@ -273,7 +274,7 @@ export function AgentSwarm() {
                             <m.div
                                 className="h-full rounded-full bg-gradient-to-r from-accent to-emerald-500"
                                 animate={{ width: `${(completedCount / agents.length) * 100}%` }}
-                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                transition={{ duration: DURATION.base, ease: "easeOut" }}
                             />
                         </div>
                     </div>
