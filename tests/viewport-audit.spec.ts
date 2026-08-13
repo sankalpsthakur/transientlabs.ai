@@ -41,10 +41,10 @@ for (const vp of VIEWPORTS) {
 
         // 2. Hero primary CTA — try several selectors, accept any.
         const ctaCandidates = [
-            'section#hero button:has-text("Request a Call")',
-            'section#hero >> text=Request a Call',
-            'header button:has-text("Request a Call")',
-            'button:has-text("Request a Call")',
+            'section#hero button:has-text("Book a working session")',
+            'section#hero >> text=Book a working session',
+            'header button:has-text("Book a working session")',
+            'button:has-text("Book a working session")',
         ];
         let ctaFound = false;
         let ctaBox: { x: number; y: number; width: number; height: number } | null = null;
@@ -64,9 +64,10 @@ for (const vp of VIEWPORTS) {
             issues.push(`CTA_CLIPPED_X: box=${JSON.stringify(ctaBox)} vp=${vp.w}`);
         }
 
-        // 3. Both buyer paths must be visible and usable near the hero.
-        const buyerPaths = page.locator('#buyer-paths a');
-        if (await buyerPaths.count() !== 2) issues.push('BUYER_PATHS_MISSING');
+        // 3. Three buyer paths must be visible and usable near the hero. Each lane
+        // now also carries its own Sprint CTA (buyer-paths and services merged).
+        const buyerPaths = page.locator('#buyer-paths a[data-buyer-path]');
+        if (await buyerPaths.count() !== 3) issues.push(`BUYER_PATHS_MISSING: ${await buyerPaths.count()}`);
         for (const path of await buyerPaths.all()) {
             const box = await path.boundingBox();
             if (!box || box.x < -1 || box.x + box.width > vp.w + 2) {
@@ -92,7 +93,7 @@ for (const vp of VIEWPORTS) {
 
         // 5. Industries cards count.
         const cardCount = await page.locator('section#industries article').count();
-        if (cardCount !== 6) {
+        if (cardCount !== 4) {
             issues.push(`INDUSTRY_CARDS_WRONG_COUNT: ${cardCount}`);
         }
 
@@ -113,13 +114,37 @@ for (const vp of VIEWPORTS) {
         // 8. Industrial path must resolve to the dedicated offer page.
         await expect(page.locator('#buyer-paths a[href="/industrial-energy-automation"]')).toBeVisible();
 
+        // 9. Home order: Hero → BuyerPaths (services nested) → OfferingStages →
+        // Industries → Work → FAQ. Proof self-hides until footage lands; skip missing ids.
+        const sectionOrder = await page.evaluate(() => {
+            const ids = ['hero', 'buyer-paths', 'services', 'offerings', 'industries', 'work', 'faq'];
+            const present = ids
+                .map((id) => document.getElementById(id))
+                .filter((el): el is HTMLElement => Boolean(el));
+            for (let i = 1; i < present.length; i++) {
+                const follows = Boolean(
+                    present[i - 1].compareDocumentPosition(present[i]) & Node.DOCUMENT_POSITION_FOLLOWING,
+                );
+                if (!follows) {
+                    return { ok: false, prev: present[i - 1].id, next: present[i].id };
+                }
+            }
+            return { ok: true, ids: present.map((el) => el.id) };
+        });
+        if (!sectionOrder.ok) {
+            issues.push(`HOME_SECTION_ORDER: ${JSON.stringify(sectionOrder)}`);
+        }
+
         // Per-section visual captures. Each is one viewport tall.
         const sections = [
             { name: 'hero', selector: 'section#hero' },
             { name: 'buyer-paths', selector: '#buyer-paths' },
+            { name: 'offerings', selector: '#offerings' },
             { name: 'industries', selector: 'section#industries' },
             { name: 'work', selector: 'section#work' },
-            { name: 'services', selector: 'section#services' },
+            { name: 'proof', selector: '#proof' },
+            { name: 'services', selector: '#services' },
+            { name: 'faq', selector: 'section#faq' },
         ];
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(300);
@@ -157,7 +182,9 @@ for (const vp of VIEWPORTS) {
 
         // Soft-assert — collect issues but do not abort the suite.
         // Hard fail only if there's a real horizontal overflow or video missing.
-        const hardFails = issues.filter((i) => i.startsWith('HORIZONTAL_OVERFLOW') || i.startsWith('BUYER_PATH'));
+        const hardFails = issues.filter((i) =>
+            i.startsWith('HORIZONTAL_OVERFLOW') || i.startsWith('BUYER_PATH') || i.startsWith('HOME_SECTION_ORDER'),
+        );
         if (hardFails.length > 0) {
             // Re-throw so CI catches the worst issues, but file the full list.
             throw new Error(`HARD viewport issues @ ${vp.name}:\n  - ${hardFails.join('\n  - ')}\nAll issues: ${JSON.stringify(issues)}`);

@@ -5,174 +5,266 @@ import { ContactShadows, Edges, Line, RoundedBox, Text } from '@react-three/drei
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
-type NodeSpec = {
-  id: string;
+const PLANT = '#1f3f93';
+const LEDGER = '#8b5e34';
+const EVIDENCE = '#3d5c4a';
+const CONTROL = '#18120d';
+const PAPER = '#f4eee4';
+
+function Slab({
+  position,
+  label,
+  color,
+  size = [1.05, 0.28, 0.72],
+}: {
+  position: [number, number, number];
   label: string;
-  position: THREE.Vector3;
   color: string;
-};
+  size?: [number, number, number];
+}) {
+  return (
+    <group position={position}>
+      <RoundedBox args={size} radius={0.06} smoothness={4}>
+        <meshStandardMaterial
+          color={PAPER}
+          roughness={0.5}
+          metalness={0.04}
+          emissive={color}
+          emissiveIntensity={0.05}
+        />
+        <Edges scale={1.004} color={color} threshold={18} />
+      </RoundedBox>
+      <Text
+        position={[0, 0, size[2] / 2 + 0.02]}
+        fontSize={0.11}
+        color={CONTROL}
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={size[0] - 0.12}
+      >
+        {label}
+      </Text>
+    </group>
+  );
+}
 
-type EdgeSpec = {
-  from: number;
-  to: number;
-  color: string;
-  phase: number;
-};
+function PlantIsland() {
+  const labels = ['Field', 'PLC', 'SCADA', 'MES', 'ERP'];
+  return (
+    <group position={[-2.55, -0.15, 0]}>
+      {labels.map((label, i) => (
+        <Slab key={label} position={[0, 1.15 - i * 0.42, 0]} label={label} color={PLANT} />
+      ))}
+    </group>
+  );
+}
 
-function WorkflowScene() {
-  const groupRef = useRef<THREE.Group>(null);
-  const packetRefs = useRef<Array<THREE.Mesh | null>>([]);
+function FinanceIsland() {
+  const rings = useMemo(
+    () =>
+      [0.55, 0.85, 1.15, 1.45].map((r, i) => {
+        const pts = Array.from({ length: 48 }, (_, k) => {
+          const a = (k / 48) * Math.PI * 2;
+          return new THREE.Vector3(Math.cos(a) * r, 0.02, Math.sin(a) * r);
+        });
+        pts.push(pts[0].clone());
+        return { pts, color: i === 3 ? CONTROL : LEDGER };
+      }),
+    []
+  );
+
+  return (
+    <group position={[2.45, -0.05, 0.1]}>
+      <Slab position={[0, 0.12, 0]} label="Ledger" color={LEDGER} size={[0.95, 0.32, 0.7]} />
+      {rings.map((ring, i) => (
+        <Line key={i} points={ring.pts} color={ring.color} lineWidth={1} transparent opacity={0.45} />
+      ))}
+      {['T1', 'T2', 'T3', 'T4'].map((label, i) => {
+        const a = -Math.PI / 2 + i * 0.55;
+        const r = 0.55 + i * 0.3;
+        return (
+          <Text
+            key={label}
+            position={[Math.cos(a) * r, 0.18, Math.sin(a) * r]}
+            fontSize={0.09}
+            color={LEDGER}
+            anchorX="center"
+            anchorY="middle"
+          >
+            {label}
+          </Text>
+        );
+      })}
+      <Slab position={[0, -0.85, 0]} label="Gate" color={CONTROL} size={[0.82, 0.26, 0.55]} />
+    </group>
+  );
+}
+
+function EvidenceIsland() {
+  const orbit = useMemo(() => {
+    return Array.from({ length: 6 }, (_, i) => {
+      const a = (i / 6) * Math.PI * 2;
+      return { label: ['Design', 'Track', 'Verify', 'Defend', 'Retire', 'Lineage'][i], a };
+    });
+  }, []);
+
+  return (
+    <group position={[0, -0.35, -2.15]}>
+      <mesh rotation={[Math.PI / 2.4, 0, 0]} position={[0, 0.15, 0]}>
+        <cylinderGeometry args={[0.38, 0.48, 1.15, 16]} />
+        <meshStandardMaterial color={PAPER} roughness={0.48} metalness={0.06} emissive={EVIDENCE} emissiveIntensity={0.06} />
+        <Edges color={EVIDENCE} />
+      </mesh>
+      <Text position={[0, 0.95, 0.2]} fontSize={0.11} color={CONTROL} anchorX="center">
+        Batch
+      </Text>
+      {orbit.map((item) => (
+        <Text
+          key={item.label}
+          position={[Math.cos(item.a) * 1.05, 0.35, Math.sin(item.a) * 1.05]}
+          fontSize={0.085}
+          color={EVIDENCE}
+          anchorX="center"
+        >
+          {item.label}
+        </Text>
+      ))}
+    </group>
+  );
+}
+
+function ControlNucleus() {
+  return (
+    <group position={[0, 0.35, 0.35]}>
+      <RoundedBox args={[1.35, 0.62, 0.62]} radius={0.1} smoothness={5}>
+        <meshStandardMaterial
+          color={PAPER}
+          roughness={0.42}
+          metalness={0.08}
+          emissive={CONTROL}
+          emissiveIntensity={0.1}
+        />
+        <Edges color={CONTROL} />
+      </RoundedBox>
+      <Text position={[0, 0.05, 0.34]} fontSize={0.13} color={CONTROL} anchorX="center" anchorY="middle">
+        Approve
+      </Text>
+    </group>
+  );
+}
+
+function Dust() {
+  const points = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const count = 90;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 12;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 7;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, []);
+
+  return (
+    <points geometry={points}>
+      <pointsMaterial color="#c4b49a" size={0.018} transparent opacity={0.35} depthWrite={false} />
+    </points>
+  );
+}
+
+function Packets({ reduced }: { reduced: boolean }) {
+  const refs = useRef<Array<THREE.Mesh | null>>([]);
+  const paths = useMemo(
+    () => [
+      new THREE.QuadraticBezierCurve3(new THREE.Vector3(-2.55, 0.7, 0), new THREE.Vector3(-1.2, 0.9, 0.4), new THREE.Vector3(0, 0.45, 0.35)),
+      new THREE.QuadraticBezierCurve3(new THREE.Vector3(2.45, 0.1, 0.1), new THREE.Vector3(1.2, 0.5, 0.5), new THREE.Vector3(0, 0.25, 0.35)),
+      new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0.2, -2.15), new THREE.Vector3(0.2, 0.8, -0.8), new THREE.Vector3(0, 0.45, 0.2)),
+    ],
+    []
+  );
+  const colors = [PLANT, LEDGER, EVIDENCE];
   const { invalidate } = useThree();
 
-  const nodes: NodeSpec[] = useMemo(
-    () => [
-      { id: 'strategy', label: 'Strategy', position: new THREE.Vector3(-2.35, 1.35, 0.18), color: '#0ea5e9' },
-      { id: 'design', label: 'Design', position: new THREE.Vector3(-0.2, 1.75, -0.18), color: '#22c55e' },
-      { id: 'engineering', label: 'Engineering', position: new THREE.Vector3(2.05, 1.0, 0.1), color: '#a855f7' },
-      { id: 'ai', label: 'AI', position: new THREE.Vector3(2.2, -0.95, -0.12), color: '#f59e0b' },
-      { id: 'qa', label: 'QA', position: new THREE.Vector3(0.15, -1.75, 0.12), color: '#ef4444' },
-      { id: 'deploy', label: 'Deploy', position: new THREE.Vector3(-2.1, -0.85, -0.08), color: '#6366f1' },
-    ],
-    []
-  );
-
-  const edges: EdgeSpec[] = useMemo(
-    () => [
-      { from: 0, to: 1, color: '#0ea5e9', phase: 0.0 },
-      { from: 1, to: 2, color: '#22c55e', phase: 0.18 },
-      { from: 2, to: 3, color: '#a855f7', phase: 0.36 },
-      { from: 3, to: 4, color: '#f59e0b', phase: 0.54 },
-      { from: 4, to: 5, color: '#ef4444', phase: 0.72 },
-    ],
-    []
-  );
-
-  const curves = useMemo(() => {
-    return edges.map((edge) => {
-      const from = nodes[edge.from].position;
-      const to = nodes[edge.to].position;
-      const mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
-      // Pull the curve slightly "forward" and "up" for depth + readability.
-      const lift = 0.35 + Math.abs(from.x - to.x) * 0.06;
-      mid.z += 0.35;
-      mid.y += lift;
-
-      const curve = new THREE.QuadraticBezierCurve3(from.clone(), mid, to.clone());
-      return curve;
+  useFrame((state) => {
+    if (reduced) return;
+    const t = state.clock.elapsedTime;
+    paths.forEach((curve, i) => {
+      const mesh = refs.current[i];
+      if (!mesh) return;
+      curve.getPointAt((t * 0.12 + i * 0.33) % 1, mesh.position);
     });
-  }, [edges, nodes]);
+    invalidate();
+  });
+
+  if (reduced) return null;
+
+  return (
+    <>
+      {paths.map((curve, i) => (
+        <group key={i}>
+          <Line points={curve.getPoints(20)} color={colors[i]} transparent opacity={0.22} lineWidth={1} />
+          <mesh ref={(el) => { refs.current[i] = el; }}>
+            <sphereGeometry args={[0.045, 10, 10]} />
+            <meshStandardMaterial color={colors[i]} emissive={colors[i]} emissiveIntensity={0.5} />
+          </mesh>
+        </group>
+      ))}
+    </>
+  );
+}
+
+function OrbitalRig({ reduced }: { reduced: boolean }) {
+  const group = useRef<THREE.Group>(null);
+  const { camera, invalidate } = useThree();
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-
-    if (groupRef.current) {
-      groupRef.current.rotation.y = t * 0.12;
-      groupRef.current.rotation.x = Math.sin(t * 0.25) * 0.08;
+    if (!reduced) {
+      const az = t * 0.08;
+      const el = 0.42 + Math.sin(t * 0.17) * 0.08;
+      const r = 7.6;
+      camera.position.set(Math.cos(az) * r, 1.15 + Math.sin(el) * 1.4, Math.sin(az) * r);
+      camera.lookAt(0, 0.05, 0);
+      if (group.current) {
+        group.current.rotation.y = Math.sin(t * 0.05) * 0.08;
+      }
     }
-
-    curves.forEach((curve, i) => {
-      const phase = (t * 0.25 + edges[i].phase) % 1;
-      const packet = packetRefs.current[i];
-      if (!packet) return;
-      curve.getPointAt(phase, packet.position);
-      packet.position.y += Math.sin(t * 2.0 + i) * 0.03;
-    });
-
     invalidate();
   });
 
   return (
-    <group ref={groupRef}>
-      <ContactShadows
-        position={[0, -2.2, 0]}
-        opacity={0.25}
-        scale={12}
-        blur={2.8}
-        far={6}
-      />
-
-      {/* Nodes */}
-      {nodes.map((node) => (
-        <group key={node.id} position={node.position}>
-          <RoundedBox args={[1.1, 0.66, 0.38]} radius={0.10} smoothness={6}>
-            <meshStandardMaterial
-              color={new THREE.Color('#f7f7f7')}
-              roughness={0.42}
-              metalness={0.08}
-              emissive={new THREE.Color(node.color)}
-              emissiveIntensity={0.08}
-              transparent
-              opacity={0.96}
-            />
-            <Edges scale={1.01} color={node.color} opacity={0.55} transparent />
-          </RoundedBox>
-
-          <Text
-            position={[0, 0, 0.22]}
-            fontSize={0.14}
-            color="#111111"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={0.95}
-            outlineWidth={0.012}
-            outlineColor="rgba(255,255,255,0.75)"
-          >
-            {node.label}
-          </Text>
-        </group>
-      ))}
-
-      {/* Connections + packets */}
-      {edges.map((edge, idx) => {
-        const curve = curves[idx];
-        const points = curve.getPoints(18);
-        return (
-          <group key={`${edge.from}-${edge.to}`}>
-            <Line
-              points={points}
-              color={edge.color}
-              lineWidth={1}
-              transparent
-              opacity={0.28}
-            />
-            <mesh
-              ref={(el) => {
-                packetRefs.current[idx] = el;
-              }}
-            >
-              <sphereGeometry args={[0.06, 10, 10]} />
-              <meshStandardMaterial
-                color={edge.color}
-                emissive={edge.color}
-                emissiveIntensity={0.65}
-                roughness={0.35}
-                metalness={0.15}
-                transparent
-                opacity={0.95}
-              />
-            </mesh>
-          </group>
-        );
-      })}
+    <group ref={group}>
+      <Dust />
+      <PlantIsland />
+      <FinanceIsland />
+      <EvidenceIsland />
+      <ControlNucleus />
+      <Packets reduced={reduced} />
+      <ContactShadows position={[0, -2.15, 0]} opacity={0.18} scale={16} blur={2.8} far={7} />
     </group>
   );
 }
 
 export function HeroWorkflow() {
+  const reduced =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
       <Canvas
-        camera={{ position: [0, 0.25, 7], fov: 45 }}
+        camera={{ position: [5.4, 2.1, 5.8], fov: 40 }}
         frameloop="demand"
         dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true }}
+        gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.65} />
-        <directionalLight position={[6, 7, 4]} intensity={0.55} />
-        <directionalLight position={[-5, -4, 6]} intensity={0.28} />
-        <pointLight position={[0, 2.2, 2.8]} intensity={0.45} />
-        <WorkflowScene />
+        <ambientLight intensity={0.72} />
+        <directionalLight position={[6, 8, 4]} intensity={0.55} />
+        <directionalLight position={[-4, 2, -3]} intensity={0.2} />
+        <OrbitalRig reduced={reduced} />
       </Canvas>
     </div>
   );

@@ -92,15 +92,21 @@ export function OptionB() {
                         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/6 pb-4">
                             <div>
                                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                    Active case study
+                                    Active engagement
                                 </p>
-                                <p className="mt-1 text-sm text-ink">{activeProject.category}</p>
+                                <p className="mt-1 text-sm text-ink">
+                                    {activeProject.category}
+                                    {activeProject.featured ? ' · Featured' : ''}
+                                </p>
                             </div>
                             <div className="text-left sm:text-right">
                                 <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink-muted">
                                     {PadIndex(activeIndex + 1)} / {PadIndex(projects.length)}
                                 </p>
-                                <p className="mt-1 text-sm text-ink-light">{activeProject.label}</p>
+                                <p className="mt-1 text-sm text-ink-light">
+                                    {activeProject.blueprint}
+                                    {activeProject.readTime ? ` · ${activeProject.readTime}` : ''}
+                                </p>
                             </div>
                         </div>
 
@@ -171,15 +177,24 @@ export function OptionB() {
                                 </AnimatePresence>
 
                                 <div className="grid gap-2.5">
-                                    {activeProject.highlights.map((highlight) => (
+                                    {activeProject.metrics.map((metric) => (
                                         <div
-                                            key={highlight}
+                                            key={`${metric.value}-${metric.label}`}
                                             className="rounded-[18px] border border-black/6 bg-white/70 px-4 py-2.5 shadow-[0_12px_35px_-28px_rgba(24,18,13,0.3)]"
                                         >
-                                            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                                                Highlight
-                                            </p>
-                                            <p className="mt-1 text-sm font-medium text-ink">{highlight}</p>
+                                            <div className="flex items-center justify-between gap-2">
+                                                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                                                    {metric.kind === 'measured' ? 'Measured' : 'Illustrative'}
+                                                </p>
+                                                <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted/80">
+                                                    {activeProject.blueprint}
+                                                </span>
+                                            </div>
+                                            <p className="mt-1 text-lg font-semibold tracking-tight text-ink">{metric.value}</p>
+                                            <p className="mt-0.5 text-sm text-ink-light">{metric.label}</p>
+                                            {metric.scope ? (
+                                                <p className="mt-1 text-[11px] leading-snug text-ink-muted">Scope: {metric.scope}</p>
+                                            ) : null}
                                         </div>
                                     ))}
                                 </div>
@@ -191,10 +206,10 @@ export function OptionB() {
                 <div className="rounded-[28px] border border-border/80 bg-white/70 p-3 shadow-[0_22px_80px_-38px_rgba(84,69,56,0.28)] backdrop-blur-sm lg:flex lg:h-full lg:flex-col">
                     <div className="mb-3 px-2 pt-1 lg:mb-2">
                         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                            Browse the five systems
+                            Browse the engagements
                         </p>
                         <p className="mt-1.5 text-sm leading-relaxed text-ink-light">
-                            Click or use the arrow keys to move through the active case study.
+                            Five operating processes. Mapped to Evidence Lens and Plant Loop.
                         </p>
                     </div>
 

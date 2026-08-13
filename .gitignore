@@ -23,3 +23,8 @@ public/videos/*
 public/demos/*.mp4
 .claude/
 /tmp/
+
+# Deck binaries (PPTX/PDF) live on the decks/five-offerings-production branch,
+# not in the app repo history.
+docs/decks/
+.DS_Store

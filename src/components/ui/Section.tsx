@@ -10,10 +10,12 @@ export const Section = forwardRef<HTMLElement, SectionProps>(function Section({
     children,
     ...props
 }, ref) {
+    // Vertical rhythm was py-16..28. Tightened one step across the board as part of
+    // the landing compression; sections still breathe, the page is a viewport shorter.
     return (
         <section
             ref={ref}
-            className={cn("py-16 sm:py-20 md:py-24 lg:py-28", className)}
+            className={cn("py-12 sm:py-14 md:py-16 lg:py-20", className)}
             {...props}
         >
             {children}

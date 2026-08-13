@@ -9,45 +9,7 @@ import { useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useContactModal } from "@/lib/contact-modal-context";
-
-const faqs = [
-  {
-    q: "What's included in the $15,000 delivery sprint?",
-    a: "A six-week, fixed-scope product or automation delivery: workflow and UX design, full-stack build, the agreed AI workflow, QA, deployment, and handoff.",
-  },
-  {
-    q: "What if I'm not happy with the result?",
-    a: "We work in weekly milestones with a demo every Friday, so you verify progress before we move forward. If something in the agreed scope is off, we fix it, and we include a post-launch bug-fix window.",
-  },
-  {
-    q: "Can you build AI features into my MVP?",
-    a: "Yes—RAG over docs, copilots inside your product, tool-calling agents, and voice prototypes. We ship with evals + guardrails so it's usable in production.",
-  },
-  {
-    q: "How do you keep AI reliable (not a demo)?",
-    a: "We use structured outputs, validation, regression evals, tracing, and fallbacks. Quality is measured and improves over time instead of drifting.",
-  },
-  {
-    q: "Do you work with non-technical founders?",
-    a: "Yes. We can take you from idea → scope → UX → build → launch, and set you up for iteration after the sprint.",
-  },
-  {
-    q: "What happens after the sprint?",
-    a: "You can run with the codebase, or keep us on as Fractional CTO ($9,999/mo) to lead the roadmap, hiring, and reliability as you scale.",
-  },
-  {
-    q: "What is included in the $40,000 industrial engagement?",
-    a: "A four-week energy and automation assessment covering the site energy baseline, opportunity register, automation architecture, safety and operator-control boundaries, and a sequenced innovation roadmap. Hardware procurement and installation are quoted separately after the assessment.",
-  },
-  {
-    q: "What plant data do you need for an energy audit?",
-    a: "We start with utility bills, interval or meter data where available, equipment schedules, production volumes, operating hours, and a site walkthrough. We confirm the exact data boundary before kickoff and can work around reasonable gaps with clearly stated assumptions.",
-  },
-  {
-    q: "Who owns the IP?",
-    a: "You do. You get the repo, keys, and deploy ownership.",
-  },
-];
+import { FAQS as faqs } from "@/lib/faq";
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -126,8 +88,8 @@ export function FAQ() {
               <p className="text-sm text-ink-muted">We reply within 24 hours</p>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="primary" size="sm" onClick={open}>
-                Request a Call
+              <Button variant="primary" size="sm" onClick={() => open()}>
+                Book a working session
               </Button>
               <a
                 href="mailto:hello@transientlabs.ai"

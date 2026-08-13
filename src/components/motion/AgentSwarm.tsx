@@ -98,19 +98,19 @@ function AgentRow({ agent, task, status }: { agent: Agent; task: string | null; 
                     )}>
                         {agent.name}
                     </span>
-                    {/* Status indicator */}
+                    {/* Static state marks. No infinite pulse — a running job does not
+                        need to blink at the reader to be legible. */}
                     <div className="flex items-center gap-1.5">
                         {status === "active" && (
-                            <m.div
+                            <span
                                 className={cn("h-1.5 w-1.5 rounded-full", agent.color.replace("text-", "bg-"))}
-                                animate={{ opacity: [1, 0.3, 1] }}
-                                transition={{ duration: 1.2, repeat: Infinity }}
                             />
                         )}
                         {status === "done" && (
                             <m.span
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
                                 className="text-[10px] text-emerald-400"
                             >
                                 ✓
@@ -196,17 +196,9 @@ export function AgentSwarm() {
                 setWaveIndex(prev => prev + 1);
             }, 2200);
             return () => clearTimeout(timer);
-        } else {
-            // Reset after showing final state
-            const resetTimer = setTimeout(() => {
-                setAgentStates(Object.fromEntries(agents.map(a => [a.id, { task: null, status: "idle" as const }])));
-                setCompletedCount(0);
-                setWaveIndex(-1);
-                // Restart
-                setTimeout(() => setWaveIndex(0), 1200);
-            }, 6000);
-            return () => clearTimeout(resetTimer);
         }
+        // Plays once, then rests on the completed state. It previously looped forever,
+        // which kept pulling the eye away from the copy it sits next to.
     }, [waveIndex, processWave, prefersReducedMotion]);
 
     const activeCount = Object.values(agentStates).filter(s => s.status === "active").length;
@@ -218,24 +210,14 @@ export function AgentSwarm() {
 
             <div className="relative flex w-full flex-col overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0a0a0a] shadow-[0_0_40px_rgba(0,0,0,0.5)]">
 
-                {/* Header */}
-                <div className="h-10 bg-[#161616] border-b border-white/5 flex items-center justify-between px-4">
-                    <div className="flex items-center gap-2">
-                        <div className="flex gap-1.5">
-                            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                        </div>
+                {/* Header. Labelled as an illustration on purpose: this is a scripted
+                    sequence, not instrumented telemetry, and must not read as live. */}
+                <div className="flex h-10 items-center justify-between border-b border-white/5 bg-[#161616] px-4">
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+                        Agent Swarm
                     </div>
-                    <div className="text-[10px] font-mono tracking-widest text-white/30 uppercase">
-                        Agent Swarm // 5 Teams
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                        </span>
-                        <span className="text-[10px] font-mono text-emerald-500 uppercase tracking-widest">Live</span>
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-white/25">
+                        Illustrative sequence
                     </div>
                 </div>
 
@@ -262,10 +244,9 @@ export function AgentSwarm() {
                             return (
                                 <m.div
                                     key={agent.id}
-                                    layout
-                                    initial={{ opacity: 0, y: 8 }}
+                                    initial={{ opacity: 0, y: 6 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4 }}
+                                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                                 >
                                     <AgentRow
                                         agent={agent}

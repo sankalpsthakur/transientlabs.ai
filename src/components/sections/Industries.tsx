@@ -3,8 +3,8 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
-import { Cpu, Factory, Gauge, Leaf, ShoppingCart, Wrench } from "lucide-react";
-import { INDUSTRY_NAMES } from '@/lib/industries';
+import { Factory, Gauge, Leaf, Wrench } from "lucide-react";
+import { ALSO_SHIPPED_INDUSTRIES, INDUSTRY_NAMES } from '@/lib/industries';
 
 const contexts = [
     {
@@ -21,27 +21,15 @@ const contexts = [
     },
     {
         name: INDUSTRY_NAMES[2],
-        signal: "Demand signals instead of stale reports.",
-        detail: "Inventory copilots, CRM automation, demand signals, and store-level operating views.",
-        icon: ShoppingCart,
+        signal: "Plant-floor exceptions with owners attached.",
+        detail: "Ops dashboards, audit trails, maintenance workflows, and manager-facing control planes.",
+        icon: Factory,
     },
     {
         name: INDUSTRY_NAMES[3],
         signal: "BOM changes, routings, and station work made executable.",
         detail: "Forge-style systems for EBOM-to-MBOM handoff, ECO review, supplier impact, routing release, line readiness, traveler signoff, and signed audit trails.",
         icon: Wrench,
-    },
-    {
-        name: INDUSTRY_NAMES[4],
-        signal: "Plant-floor exceptions with owners attached.",
-        detail: "Ops dashboards, audit trails, maintenance workflows, and manager-facing control planes.",
-        icon: Factory,
-    },
-    {
-        name: INDUSTRY_NAMES[5],
-        signal: "Agentic products with runtime truth built in.",
-        detail: "Agents, RAG, evals, observability, billing, roles, and production app architecture.",
-        icon: Cpu,
     },
 ];
 
@@ -52,7 +40,7 @@ export function Industries() {
                 <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
                     <FadeIn>
                         <div>
-                            <p className="text-sm text-ink-muted">Industries we work with</p>
+                            <p className="text-sm text-ink-muted">Proof strip · Industries we work with</p>
                             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink md:text-4xl">
                                 Built close to the work.
                             </h2>
@@ -60,12 +48,12 @@ export function Industries() {
                     </FadeIn>
                     <FadeIn delay={0.08}>
                         <p className="max-w-2xl text-base leading-7 text-ink-light lg:justify-self-end">
-                            Biochar kilns, pump dealerships, retail aisles, hardware programs, plant floors, and AI SaaS runtimes all have different truths.
+                            Biochar kilns, pump dealerships, plant floors, and hardware programs, plus finance close cycles when the same control layer is needed on the ledger.
                         </p>
                     </FadeIn>
                 </div>
 
-                <Stagger className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mt-12 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 lg:gap-6" staggerDelay={0.06}>
+                <Stagger className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mt-12 md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4 lg:gap-6" staggerDelay={0.06}>
                     {contexts.map((context) => {
                         const Icon = context.icon;
                         return (
@@ -84,6 +72,12 @@ export function Industries() {
                         );
                     })}
                 </Stagger>
+
+                <FadeIn delay={0.12}>
+                    <p className="mt-8 text-sm text-ink-muted">
+                        Also shipped: {ALSO_SHIPPED_INDUSTRIES.join(' · ')}.
+                    </p>
+                </FadeIn>
             </Container>
         </Section>
     );
