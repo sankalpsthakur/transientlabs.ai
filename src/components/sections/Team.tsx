@@ -11,7 +11,7 @@ const team = [
         // role: "Founding Architect",
         bio: "We treat LLMs like stochastic components in a deterministic system. If you can't measure the error rate, don't ship it.",
         background: "IIT (ISM) Dhanbad",
-        experience: "Emtribe. Ex-Hygenco, Ex-WorldQuant",
+        experience: "Emtribe. Ex-WorldQuant",
         focus: "Python, AI Agents, Enterprise Systems",
         image: "https://avatars.githubusercontent.com/u/31366524?v=4",
         social: {

@@ -1,69 +1,165 @@
+export interface ProjectMetric {
+  value: string;
+  label: string;
+  kind: 'measured' | 'illustrative';
+  scope?: string;
+}
+
 export interface Project {
-    label: string;
-    src: string;
-    alt: string;
-    category: string;
-    title: string;
-    summary: string;
-    description: string;
-    highlights: string[];
-    accent: string; // background tint color for cinema mode
+  label: string;
+  src: string;
+  alt: string;
+  category: string;
+  title: string;
+  summary: string;
+  description: string;
+  blueprint: 'Evidence Lens' | 'Plant Loop';
+  featured?: boolean;
+  readTime?: string;
+  metrics: [ProjectMetric, ProjectMetric];
+  /** @deprecated Prefer metrics — kept for any leftover consumers */
+  highlights?: string[];
+  accent: string;
+  href?: string;
 }
 
 export const projects: Project[] = [
-    {
-        label: "Emissions Dashboard",
-        src: "/images/case-scope3-dashboard.png",
-        alt: "Scope3 carbon emissions tracking dashboard",
-        category: "Sustainability SaaS",
-        title: "Scope3 Global Dashboard",
-        summary: "Live supplier and reporting visibility.",
-        description: "Full-stack carbon accounting platform with real-time emissions tracking, supplier management, and ESRS-compliant reporting.",
-        highlights: ["Real-time emissions rollups", "Supplier mix explorer", "ESRS-ready reporting exports"],
-        accent: "#15283d",
-    },
-    {
-        label: "AI Video Editor",
-        src: "/images/case-reelgen.png",
-        alt: "ReelGen AI-powered video generation tool",
-        category: "Creative Tools",
-        title: "ReelGen",
-        summary: "Prompt-driven editing built for campaign teams.",
-        description: "AI-powered video editor with prompt-to-clip generation, timeline editing, and style presets for marketing teams.",
-        highlights: ["Prompt-to-clip generation", "Timeline fine cuts", "Brand-safe style presets"],
-        accent: "#f5f0eb",
-    },
-    {
-        label: "Sales Intelligence",
-        src: "/images/case-sales-assistant.png",
-        alt: "Real-time sales call assistant with live transcription",
-        category: "Revenue Intelligence",
-        title: "Live Call Assistant",
-        summary: "Sales guidance that arrives inside the conversation.",
-        description: "Real-time sales copilot with live transcription, sentiment analysis, battlecard suggestions, and smart objection handling.",
-        highlights: ["Live transcript overlays", "Sentiment and objection cues", "Battlecards in-call"],
-        accent: "#162d40",
-    },
-    {
-        label: "Mobile App",
-        src: "/images/case-mobile-app.png",
-        alt: "Astrology and wellness mobile application",
-        category: "Consumer Mobile",
-        title: "Cosmic Wellness App",
-        summary: "Daily rituals and readings in a guided mobile flow.",
-        description: "Personalized astrology and wellness app with daily readings, muhurat timings, ritual guides, and time-travel birth chart explorer.",
-        highlights: ["Daily readings and rituals", "Muhurat timing lookups", "Birth-chart time travel"],
-        accent: "#2a2a48",
-    },
-    {
-        label: "Document AI",
-        src: "/images/case-smartdocs.png",
-        alt: "SmartDocs PDF analysis with AI assistant",
-        category: "Enterprise AI",
-        title: "SmartDocs Assistant",
-        summary: "Grounded PDF analysis for technical and compliance teams.",
-        description: "Technical document analysis with AI-powered Q&A, compliance extraction, highlighted source citations, and export workflows.",
-        highlights: ["Grounded Q&A sidecar", "Compliance field extraction", "Highlighted source citations"],
-        accent: "#f8f6f3",
-    },
+  {
+    label: 'Field MRV',
+    src: '/images/industries/field-work.png',
+    alt: 'Field operators capturing batch evidence for a biochar MRV workflow',
+    category: 'Biochar / CDR',
+    title: 'Batch Evidence Loop',
+    summary: 'Field crews capture biomass-to-shipment evidence offline; the desk reviews an audit-grade chain.',
+    description:
+      'Field crews capture biomass-to-shipment evidence offline; the desk reviews an audit-grade chain instead of spreadsheet theatre.',
+    blueprint: 'Evidence Lens',
+    featured: true,
+    readTime: '5 min',
+    metrics: [
+      {
+        value: 'Offline → sync',
+        label: 'Field PWA capture',
+        kind: 'measured',
+        scope: 'shipped field capture pattern',
+      },
+      {
+        value: 'Biomass → credit',
+        label: 'Evidence chain coverage',
+        kind: 'measured',
+        scope: 'process loop, not credit volume',
+      },
+    ],
+    accent: '#1f3f2e',
+  },
+  {
+    label: 'Carbon ops plane',
+    src: '/images/workflow-command-layer.png',
+    alt: 'Operator control plane spanning project origination through O&M',
+    category: 'Carbon project ops',
+    title: 'Project Control Spine',
+    summary: 'Origination, EPCC, batch ops, supply, finance, and HSE on one control plane.',
+    description:
+      'Origination, EPCC, batch ops, supply, finance, and HSE sit on one control plane so carbon projects run like plants, not slide decks.',
+    blueprint: 'Evidence Lens',
+    readTime: '6 min',
+    metrics: [
+      {
+        value: 'One spine',
+        label: 'Full project lifecycle',
+        kind: 'measured',
+        scope: 'module coverage',
+      },
+      {
+        value: 'Ops + HSE + finance',
+        label: 'Operator shell',
+        kind: 'measured',
+        scope: 'architecture surface',
+      },
+    ],
+    accent: '#243447',
+  },
+  {
+    label: 'Plant Loop entry',
+    src: '/images/industries/production-floors.png',
+    alt: 'Industrial site energy and control assessment workspace',
+    category: 'Industrial energy',
+    title: 'Energy Measure Loop',
+    summary: 'Site energy balance, ranked losses, and a governed control path — the four-week Plant Loop entry.',
+    description:
+      'Site energy balance, ranked losses, and a governed control path — the four-week Plant Loop entry, not a savings promise.',
+    blueprint: 'Plant Loop',
+    featured: true,
+    readTime: '5 min',
+    href: '/industrial-energy-automation',
+    metrics: [
+      {
+        value: '4 weeks',
+        label: 'Audit → roadmap',
+        kind: 'measured',
+        scope: 'Plant Loop entry sprint',
+      },
+      {
+        value: 'Measure → verify',
+        label: 'EnMS control loop',
+        kind: 'illustrative',
+        scope: 'demo EnMS site',
+      },
+    ],
+    accent: '#111616',
+  },
+  {
+    label: 'Closed-loop plant',
+    src: '/images/industries/test-stands.png',
+    alt: 'Edge sensing and dispatch pattern for a green hydrogen plant',
+    category: 'Green hydrogen',
+    title: 'Edge Dispatch Loop',
+    summary: 'Edge sensing and electrolyzer dispatch under operator authority — client unnamed.',
+    description:
+      'Edge sensing and electrolyzer dispatch optimization under operator authority — closed-loop plant pattern from a green-H₂ site. Client unnamed.',
+    blueprint: 'Plant Loop',
+    readTime: '6 min',
+    metrics: [
+      {
+        value: 'OT edge path',
+        label: 'PLC / Modbus → historian',
+        kind: 'measured',
+        scope: 'field-derived pattern',
+      },
+      {
+        value: 'Dispatch setpoints',
+        label: 'Day / night switch points',
+        kind: 'illustrative',
+        scope: 'optimizer pattern',
+      },
+    ],
+    accent: '#1a2a32',
+  },
+  {
+    label: 'Corporate lane',
+    src: '/images/case-scope3-dashboard.png',
+    alt: 'Scope 1/2/3 carbon accounting and ESRS-ready reporting dashboard',
+    category: 'Corporate ESG',
+    title: 'Carbon Assurance Desk',
+    summary: 'Supplier evidence, Scope rollups, and ESRS-ready exports beside project MRV.',
+    description:
+      'Supplier evidence, Scope rollups, and ESRS-ready exports for the corporate lane beside project-level MRV.',
+    blueprint: 'Evidence Lens',
+    readTime: '5 min',
+    metrics: [
+      {
+        value: 'ESRS-ready',
+        label: 'Export path',
+        kind: 'measured',
+        scope: 'toolkit + UI shipped',
+      },
+      {
+        value: 'Demo ledger',
+        label: 'Live rollups',
+        kind: 'illustrative',
+        scope: 'demo tenant',
+      },
+    ],
+    accent: '#15283d',
+  },
 ];

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { projects } from './projects';
 import { cn } from '@/lib/utils';
+import { EASE } from "@/components/ui/Motion";
 
 function PadIndex(i: number) {
     return String(i).padStart(2, '0');
@@ -92,15 +93,21 @@ export function OptionB() {
                         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/6 pb-4">
                             <div>
                                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                    Active case study
+                                    Active engagement
                                 </p>
-                                <p className="mt-1 text-sm text-ink">{activeProject.category}</p>
+                                <p className="mt-1 text-sm text-ink">
+                                    {activeProject.category}
+                                    {activeProject.featured ? ' · Featured' : ''}
+                                </p>
                             </div>
                             <div className="text-left sm:text-right">
                                 <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink-muted">
                                     {PadIndex(activeIndex + 1)} / {PadIndex(projects.length)}
                                 </p>
-                                <p className="mt-1 text-sm text-ink-light">{activeProject.label}</p>
+                                <p className="mt-1 text-sm text-ink-light">
+                                    {activeProject.blueprint}
+                                    {activeProject.readTime ? ` · ${activeProject.readTime}` : ''}
+                                </p>
                             </div>
                         </div>
 
@@ -127,7 +134,7 @@ export function OptionB() {
                                             initial={prefersReducedMotion ? false : { opacity: 0, y: 16, scale: 0.985 }}
                                             animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
                                             exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12, scale: 0.985 }}
-                                            transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+                                            transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: EASE }}
                                             className="absolute inset-0"
                                         >
                                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),transparent_54%)]" />
@@ -153,7 +160,7 @@ export function OptionB() {
                                         initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
                                         animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                                         exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
-                                        transition={{ duration: prefersReducedMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                        transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: EASE }}
                                         className="space-y-3"
                                     >
                                         <span className="inline-flex items-center rounded-full border border-black/6 bg-white/80 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted">
@@ -171,15 +178,24 @@ export function OptionB() {
                                 </AnimatePresence>
 
                                 <div className="grid gap-2.5">
-                                    {activeProject.highlights.map((highlight) => (
+                                    {activeProject.metrics.map((metric) => (
                                         <div
-                                            key={highlight}
+                                            key={`${metric.value}-${metric.label}`}
                                             className="rounded-[18px] border border-black/6 bg-white/70 px-4 py-2.5 shadow-[0_12px_35px_-28px_rgba(24,18,13,0.3)]"
                                         >
-                                            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                                                Highlight
-                                            </p>
-                                            <p className="mt-1 text-sm font-medium text-ink">{highlight}</p>
+                                            <div className="flex items-center justify-between gap-2">
+                                                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                                                    {metric.kind === 'measured' ? 'Measured' : 'Illustrative'}
+                                                </p>
+                                                <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted/80">
+                                                    {activeProject.blueprint}
+                                                </span>
+                                            </div>
+                                            <p className="mt-1 text-lg font-semibold tracking-tight text-ink">{metric.value}</p>
+                                            <p className="mt-0.5 text-sm text-ink-light">{metric.label}</p>
+                                            {metric.scope ? (
+                                                <p className="mt-1 text-[11px] leading-snug text-ink-muted">Scope: {metric.scope}</p>
+                                            ) : null}
                                         </div>
                                     ))}
                                 </div>
@@ -191,10 +207,10 @@ export function OptionB() {
                 <div className="rounded-[28px] border border-border/80 bg-white/70 p-3 shadow-[0_22px_80px_-38px_rgba(84,69,56,0.28)] backdrop-blur-sm lg:flex lg:h-full lg:flex-col">
                     <div className="mb-3 px-2 pt-1 lg:mb-2">
                         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                            Browse the five systems
+                            Browse the engagements
                         </p>
                         <p className="mt-1.5 text-sm leading-relaxed text-ink-light">
-                            Click or use the arrow keys to move through the active case study.
+                            Five operating processes. Mapped to Evidence Lens and Plant Loop.
                         </p>
                     </div>
 
@@ -218,10 +234,10 @@ export function OptionB() {
                                     onClick={() => setActiveIndex(index)}
                                     onKeyDown={(event) => handleKeyDown(event, index)}
                                     className={cn(
-                                        'group relative overflow-hidden rounded-[24px] border text-left transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out',
+                                        'group relative overflow-hidden rounded-[24px] border text-left transition-[transform,border-color,background-color,box-shadow] duration-150 ease-out',
                                         selected
                                             ? 'border-ink/12 shadow-[0_18px_38px_-28px_rgba(24,18,13,0.35)]'
-                                            : 'border-border/80 hover:-translate-y-0.5 hover:border-border-dark hover:shadow-[0_16px_30px_-26px_rgba(24,18,13,0.24)]',
+                                            : 'border-border/80 hover:-translate-y-px hover:border-border-dark hover:shadow-[0_12px_24px_-24px_rgba(24,18,13,0.22)]',
                                     )}
                                     style={{
                                         background: selected
@@ -230,7 +246,7 @@ export function OptionB() {
                                     }}
                                 >
                                     <div
-                                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
                                         style={{
                                             background: `radial-gradient(circle at top right, rgba(${projectRgb}, 0.12), transparent 34%)`,
                                         }}
@@ -266,7 +282,7 @@ export function OptionB() {
                                                 fill
                                                 sizes="72px"
                                                 className={cn(
-                                                    'object-contain p-2 transition-transform duration-300 ease-out',
+                                                    'object-contain p-2 transition-transform duration-150 ease-out',
                                                     selected ? 'scale-[1.04]' : 'group-hover:scale-[1.04]',
                                                 )}
                                             />

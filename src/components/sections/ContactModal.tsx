@@ -1,18 +1,13 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { trackEvent } from '@/lib/analytics';
+import { SPRINT_OPTIONS } from '@/lib/sprints';
 
-const services = [
-  ['delivery-sprint', '6-week Product & Automation Sprint — $15,000'],
-  ['industrial-energy-automation', 'Industrial Energy & Automation — $40,000'],
-  ['soc2-readiness', 'SOC 2 Readiness — $3,000'],
-  ['fractional-cto', 'Fractional CTO — $9,999/mo'],
-  ['custom-scope', 'Custom Scope'],
-] as const;
+const services = SPRINT_OPTIONS;
 
 type FormData = {
   name: string;
@@ -32,11 +27,27 @@ const initialFormData: FormData = {
   honeypot: '',
 };
 
-export function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export function ContactModal({
+  isOpen,
+  onClose,
+  service = '',
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  /** Engagement preselected by the CTA that opened the modal. */
+  service?: string;
+}) {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const formStartedRef = useRef(false);
+
+  // Seed the engagement from whichever CTA opened the modal. Only on open, so a
+  // visitor who changes the select is not overridden while typing.
+  useEffect(() => {
+    if (!isOpen) return;
+    setFormData((current) => ({ ...current, service: service || current.service }));
+  }, [isOpen, service]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -81,19 +92,19 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-ink text-paper">
               <Check className="h-8 w-8" />
             </div>
-            <h2 className="mb-3 text-2xl font-semibold text-ink">Request received</h2>
+            <h2 className="mb-3 text-2xl font-semibold text-ink">Session request received</h2>
             <p className="mx-auto mb-7 max-w-md text-ink-light">
-              We will reply within one business day with fit, next steps, and the right scope.
+              We will reply within one business day with fit, Sprint shape, and a fixed-fee range if it is a yes.
             </p>
             <Button variant="secondary" onClick={handleClose}>Close</Button>
           </div>
         ) : (
           <>
             <div className="mb-7 pr-10">
-              <p className="mb-2 text-xs font-mono uppercase tracking-[0.24em] text-ink-muted">Start with the decision</p>
-              <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Request a focused scoping call</h2>
+              <p className="mb-2 text-xs font-mono uppercase tracking-[0.24em] text-ink-muted">No discovery call</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Book a working session</h2>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-light">
-                Five fields. No sales maze. We will confirm fit, inputs, and the next available slot.
+                Bring the operating problem — Plant Loop, Finance Workflows, or Evidence Lens. We will show what a Sprint looks like, and whether we should stop.
               </p>
             </div>
 
@@ -142,9 +153,9 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               {status === 'error' ? <p className="text-sm text-red-700" role="alert">{errorMessage}</p> : null}
 
               <Button type="submit" variant="primary" size="lg" className="group w-full" disabled={status === 'loading'}>
-                {status === 'loading' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending…</> : <>Request a call<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /></>}
+                {status === 'loading' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending…</> : <>Book a working session<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /></>}
               </Button>
-              <p className="text-center text-xs text-ink-muted">No spam. We reply within one business day.</p>
+              <p className="text-center text-xs text-ink-muted">Senior engineer on the first session. We reply within one business day.</p>
             </form>
           </>
         )}

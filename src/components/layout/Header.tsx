@@ -11,6 +11,7 @@ import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { siteBrand } from "@/lib/site-brand";
+import { DURATION, EASE } from "@/components/ui/Motion";
 
 export function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,8 +22,10 @@ export function Header() {
     const navLinks = [
         { href: "#work", label: "Work" },
         { href: "#industries", label: "Industries" },
+        { href: "#buyer-paths", label: "Pathways" },
         { href: "/industrial-energy-automation", label: "Industrial" },
-        { href: "#services", label: "Pricing" },
+        // Was "Pricing", pointing at a section that no longer shows a price.
+        { href: "#services", label: "Sprints" },
         { href: "#faq", label: "FAQ" },
         { href: "/stack", label: "Stack" },
     ];
@@ -32,7 +35,7 @@ export function Header() {
     };
 
     const handleCtaClick = () => {
-        trackEvent('cta_click', { cta_text: 'Request a Call', cta_location: 'nav' });
+        trackEvent('cta_click', { cta_text: 'Book a working session', cta_location: 'nav' });
     };
 
     useEffect(() => {
@@ -114,7 +117,7 @@ export function Header() {
                             </Link>
                         ))}
                         <Button variant="primary" size="sm" onClick={() => { handleCtaClick(); open(); }}>
-                            Request a Call
+                            Book a working session
                         </Button>
                     </nav>
 
@@ -150,7 +153,7 @@ export function Header() {
                         initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: DURATION.base, ease: EASE }}
                     >
                         <Container>
                             <nav className="flex min-h-full flex-col gap-2 py-6">
@@ -182,7 +185,7 @@ export function Header() {
                                         open();
                                     }}
                                 >
-                                    Request a Call
+                                    Book a working session
                                 </Button>
                             </nav>
                         </Container>
