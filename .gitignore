@@ -23,3 +23,6 @@ public/videos/*
 public/demos/*.mp4
 .claude/
 /tmp/
+# Decks live in a worktree; never add the 76MB package to this repo.
+docs/decks/
+.worktrees/

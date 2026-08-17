@@ -93,9 +93,9 @@ export default function AboutPage() {
             </p>
             <p>
               Our flagship offer is a{" "}
-              <strong className="text-ink">six-week Product &amp; Automation Sprint for $15,000</strong> — a
-              fixed-scope, fixed-price engagement that gets you from idea to deployed
-              product. Everything from LLM integration to frontend to infrastructure is
+              <strong className="text-ink">six-week Product &amp; Automation Sprint</strong> — a
+              fixed-scope engagement that gets you from idea to deployed
+              product. Fees are quoted in the working session. Everything from LLM integration to frontend to infrastructure is
               handled by us.
             </p>
           </div>

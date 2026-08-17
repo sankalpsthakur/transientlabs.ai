@@ -15,7 +15,6 @@ import { ContactModal } from "@/components/sections/ContactModal";
 import { ContactModalProvider, useContactModal } from "@/lib/contact-modal-context";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { ScrollProgressBar, SectionIndicators } from "@/components/motion/ScrollProgress";
-import { WaveDivider } from "@/components/motion/WaveDivider";
 
 import { MobileStickyCTA } from "@/components/layout/MobileStickyCTA";
 
@@ -40,7 +39,6 @@ export function HomeContent() {
                         <Proof />
                         <Advantage />
                         <Services />
-                        <WaveDivider variant="default" />
                         <FAQ />
                     </main>
                     <Footer />

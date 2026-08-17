@@ -15,12 +15,12 @@ test('mobile navigation closes after choosing pricing', async ({ page }) => {
   await expect(page.locator('#mobile-navigation')).toHaveCount(0);
 });
 
-test('industrial engagement exposes price, artifacts, inputs, and safety boundary', async ({ page }) => {
+test('industrial engagement exposes artifacts, inputs, and safety boundary', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/industrial-energy-automation', { waitUntil: 'domcontentloaded' });
 
   await expect(page.getByRole('heading', { level: 1 })).toContainText('See the losses');
-  await expect(page.getByText('$40,000', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText('Quoted', { exact: true }).first()).toBeVisible();
   await expect(page.getByText('What leaves the room at week four.')).toBeVisible();
   await expect(page.getByText('Automation does not erase authority.')).toBeVisible();
   await expect(page.getByText('Minimum useful inputs')).toBeVisible();

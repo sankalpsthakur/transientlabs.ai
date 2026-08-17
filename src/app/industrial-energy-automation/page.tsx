@@ -7,7 +7,7 @@ import { Container } from '@/components/ui/Container';
 
 export const metadata: Metadata = {
   title: 'Industrial Energy Audit & Automation Sprint | Transient Labs',
-  description: 'A four-week, $40,000 industrial engagement: energy baseline, automation assessment, safety boundaries, opportunity register, and innovation roadmap.',
+  description: 'A four-week industrial engagement: energy baseline, automation assessment, safety boundaries, opportunity register, and innovation roadmap.',
   alternates: { canonical: 'https://transientlabs.ai/industrial-energy-automation' },
 };
 
@@ -41,7 +41,7 @@ function IndustrialHeader() {
         <div className="flex min-h-20 items-center justify-between gap-5">
           <Link href="/" aria-label="Transient Labs home"><BrandLogo variant="wordmark" tone="dark" className="h-5 w-auto sm:h-6" /></Link>
           <nav className="flex items-center gap-3 sm:gap-6">
-            <Link href="/#services" className="hidden text-sm text-[#f1eee5]/65 transition-colors hover:text-white sm:block">Pricing</Link>
+            <Link href="/#services" className="hidden text-sm text-[#f1eee5]/65 transition-colors hover:text-white sm:block">Sprints</Link>
             <Link href="/contact" className="inline-flex min-h-11 items-center rounded-full bg-[#d7ff64] px-4 text-xs font-semibold uppercase tracking-[0.16em] text-[#111616] transition-transform hover:-translate-y-0.5">Scope the site</Link>
           </nav>
         </div>
@@ -68,7 +68,7 @@ export default function IndustrialEnergyAutomationPage() {
                   <a href="#deliverables" className="inline-flex min-h-12 items-center rounded-full border border-white/20 px-6 text-sm font-medium text-white transition-colors hover:border-white/45">Review deliverables</a>
                 </div>
                 <div className="mt-9 grid max-w-2xl gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3">
-                  {[["$40,000", 'Fixed scope'], ['4 weeks', 'Audit to roadmap'], ['Operator-first', 'Control boundary']].map(([value, label]) => <div key={label} className="bg-[#151c1c] p-4"><p className="text-xl font-semibold text-[#d7ff64]">{value}</p><p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">{label}</p></div>)}
+                  {[["Quoted", 'Fixed scope'], ['4 weeks', 'Audit to roadmap'], ['Operator-first', 'Control boundary']].map(([value, label]) => <div key={label} className="bg-[#151c1c] p-4"><p className="text-xl font-semibold text-[#d7ff64]">{value}</p><p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">{label}</p></div>)}
                 </div>
               </div>
 

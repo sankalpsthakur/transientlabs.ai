@@ -12,7 +12,7 @@ import { useContactModal } from "@/lib/contact-modal-context";
 
 const faqs = [
   {
-    q: "What's included in the $15,000 delivery sprint?",
+    q: "What's included in the delivery sprint?",
     a: "A six-week, fixed-scope product or automation delivery: workflow and UX design, full-stack build, the agreed AI workflow, QA, deployment, and handoff.",
   },
   {
@@ -33,10 +33,10 @@ const faqs = [
   },
   {
     q: "What happens after the sprint?",
-    a: "You can run with the codebase, or keep us on as Fractional CTO ($9,999/mo) to lead the roadmap, hiring, and reliability as you scale.",
+    a: "You can run with the codebase, or keep us on as Fractional CTO to lead the roadmap, hiring, and reliability as you scale.",
   },
   {
-    q: "What is included in the $40,000 industrial engagement?",
+    q: "What is included in the industrial engagement?",
     a: "A four-week energy and automation assessment covering the site energy baseline, opportunity register, automation architecture, safety and operator-control boundaries, and a sequenced innovation roadmap. Hardware procurement and installation are quoted separately after the assessment.",
   },
   {
@@ -127,7 +127,7 @@ export function FAQ() {
             </div>
             <div className="flex items-center gap-4">
               <Button variant="primary" size="sm" onClick={open}>
-                Request a Call
+                Book a working session
               </Button>
               <a
                 href="mailto:hello@transientlabs.ai"

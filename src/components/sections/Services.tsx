@@ -10,7 +10,7 @@ const services = [
         title: "Fractional CTO",
         label: "Retainer",
         duration: "Monthly",
-        price: "$9,999/mo",
+        price: "Quoted",
         description: "Senior technical leadership for AI products: architecture, roadmap, hiring, and reliability.",
         highlights: [
             "Architecture and roadmap",
@@ -25,7 +25,7 @@ const services = [
         title: "Product & Automation Sprint",
         label: "Sprint",
         duration: "6 weeks",
-        price: "$15,000",
+        price: "Quoted",
         description: "Ship a production-ready product or automation workflow with full-stack architecture, AI guardrails, and automated testing.",
         highlights: [
             "Product spec and workflow design",
@@ -41,7 +41,7 @@ const services = [
         title: "SOC 2 Readiness",
         label: "Compliance",
         duration: "Fixed scope",
-        price: "$3,000",
+        price: "Quoted",
         description: "A focused SOC 2 readiness assessment with control gaps, evidence requirements, and a prioritized remediation roadmap.",
         highlights: [
             "Control and architecture review",
@@ -57,7 +57,7 @@ const services = [
         title: "Industrial Energy Audit & Automation",
         label: "Industrial sprint",
         duration: "4 weeks",
-        price: "$40,000",
+        price: "Quoted",
         description: "One combined engagement covering the energy audit, industrial automation assessment and design, and an actionable innovation roadmap.",
         highlights: [
             "Energy baseline and opportunity audit",
@@ -109,7 +109,7 @@ export function Services() {
                         </FadeIn>
                         <FadeIn delay={0.08}>
                             <h2 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-ink md:text-5xl">
-                                Simple pricing, framed for real decisions
+                                Bounded sprints, framed for real decisions
                             </h2>
                         </FadeIn>
                         <FadeIn delay={0.14}>
@@ -154,7 +154,7 @@ export function Services() {
                                             <div className="mt-5 flex items-end justify-between gap-4">
                                                 <div>
                                                     <div className="text-[10px] uppercase tracking-[0.28em] text-ink-muted">
-                                                        Investment
+                                                        Fee
                                                     </div>
                                                     <div className="mt-1 text-3xl font-semibold tracking-tight text-ink">
                                                         {service.price}

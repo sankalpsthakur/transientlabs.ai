@@ -7,10 +7,10 @@ import { Modal } from '@/components/ui/Modal';
 import { trackEvent } from '@/lib/analytics';
 
 const services = [
-  ['delivery-sprint', '6-week Product & Automation Sprint — $15,000'],
-  ['industrial-energy-automation', 'Industrial Energy & Automation — $40,000'],
-  ['soc2-readiness', 'SOC 2 Readiness — $3,000'],
-  ['fractional-cto', 'Fractional CTO — $9,999/mo'],
+  ['delivery-sprint', '6-week Product & Automation Sprint'],
+  ['industrial-energy-automation', 'Industrial Energy & Automation'],
+  ['soc2-readiness', 'SOC 2 Readiness'],
+  ['fractional-cto', 'Fractional CTO'],
   ['custom-scope', 'Custom Scope'],
 ] as const;
 

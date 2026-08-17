@@ -22,7 +22,7 @@ export function Header() {
         { href: "#work", label: "Work" },
         { href: "#industries", label: "Industries" },
         { href: "/industrial-energy-automation", label: "Industrial" },
-        { href: "#services", label: "Pricing" },
+        { href: "#services", label: "Sprints" },
         { href: "#faq", label: "FAQ" },
         { href: "/stack", label: "Stack" },
     ];
@@ -32,7 +32,7 @@ export function Header() {
     };
 
     const handleCtaClick = () => {
-        trackEvent('cta_click', { cta_text: 'Request a Call', cta_location: 'nav' });
+        trackEvent('cta_click', { cta_text: 'Book a working session', cta_location: 'nav' });
     };
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export function Header() {
                             </Link>
                         ))}
                         <Button variant="primary" size="sm" onClick={() => { handleCtaClick(); open(); }}>
-                            Request a Call
+                            Book a working session
                         </Button>
                     </nav>
 
@@ -182,7 +182,7 @@ export function Header() {
                                         open();
                                     }}
                                 >
-                                    Request a Call
+                                    Book a working session
                                 </Button>
                             </nav>
                         </Container>

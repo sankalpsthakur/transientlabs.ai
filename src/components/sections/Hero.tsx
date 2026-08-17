@@ -3,7 +3,6 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/Motion";
-import { SplitText } from "@/components/motion/SplitText";
 import { AgentSwarm } from "@/components/motion/AgentSwarm";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useContactModal } from "@/lib/contact-modal-context";
@@ -12,8 +11,6 @@ import { cn } from "@/lib/utils";
 import { siteBrand } from "@/lib/site-brand";
 import Image from "next/image";
 import Link from "next/link";
-
-import { m, useReducedMotion } from "framer-motion";
 
 const engineersFromLogos = [
     { name: "IIT Bombay", src: "/images/logos/Indian_Institute_of_Technology_Bombay_Logo.svg.png", dark: true, url: "https://www.iitb.ac.in", width: 1280, height: 1248 },
@@ -32,21 +29,14 @@ const clientLogos: { name: string; src: string; dark: boolean; url?: string }[] 
 ];
 
 const trustSignals = [
-    "Free quote in 24h",
-    "Dedicated senior team",
-    "15+ projects delivered",
-    "100% IP ownership",
-];
-
-const heroStats = [
-    { value: "$15,000", label: "Fixed sprint" },
-    { value: "6 weeks", label: "Delivery window" },
-    { value: "$3,000", label: "SOC 2 readiness" },
+    "Reply in one business day",
+    "Senior engineer on the session",
+    "Written go / no-go",
+    "You own the repo and keys",
 ];
 
 export function Hero() {
     const { open } = useContactModal();
-    const prefersReducedMotion = useReducedMotion();
 
     return (
         <section
@@ -72,119 +62,44 @@ export function Hero() {
                             </div>
                         </FadeIn>
 
-                        <FadeIn delay={0.1}>
-                            <h1 className="mt-5 max-w-[18ch] text-balance text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:max-w-[12ch] sm:text-[3.3rem] md:max-w-[14ch] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
+                        <FadeIn delay={0.04}>
+                            <h1 className="mt-5 max-w-[18ch] text-balance font-sans font-semibold text-[2.85rem] leading-[0.96] tracking-[-0.06em] text-ink sm:mt-6 sm:max-w-[12ch] sm:text-[3.3rem] md:max-w-[14ch] md:text-[3.95rem] lg:mt-6 lg:max-w-none lg:text-[4.2rem] xl:text-[4.5rem]">
                                 <span className="lg:hidden">
                                     <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>{" "}
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
+                                        We ship <span className="text-accent">AI Agents</span>
                                     </span>
-
                                     <span className="mt-3 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins in weeks, not months.
-                                        </SplitText>
+                                        that boost margins in weeks, not months.
                                     </span>
                                 </span>
-
                                 <span className="hidden lg:block">
-                                    <span className="block">
-                                        <SplitText
-                                            delay={0.08}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            We ship
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-accent">
-                                        <SplitText
-                                            delay={0.18}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold text-accent"
-                                        >
-                                            AI Agents
-                                        </SplitText>
-                                    </span>
-                                    <span className="mt-2 block text-ink-light">
-                                        <SplitText
-                                            delay={0.28}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            that boost margins
-                                        </SplitText>
-                                    </span>
-                                    <span className="block text-ink-light">
-                                        <SplitText
-                                            delay={0.38}
-                                            staggerDelay={0.025}
-                                            trigger="mount"
-                                            className="font-sans font-semibold"
-                                        >
-                                            in weeks, not months.
-                                        </SplitText>
-                                    </span>
+                                    <span className="block">We ship</span>
+                                    <span className="block text-accent">AI Agents</span>
+                                    <span className="mt-2 block text-ink-light">that boost margins</span>
+                                    <span className="block text-ink-light">in weeks, not months.</span>
                                 </span>
                             </h1>
                         </FadeIn>
 
-                        <FadeIn delay={0.2}>
+                        <FadeIn delay={0.08}>
                             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-light md:text-xl lg:max-w-[35rem] lg:text-[1.08rem]">
-                                A senior product team for founders who need the full build: UX, full-stack, AI, evals, guardrails, deployment, and SOC2 readiness.
+                                A senior team for the full build: interface, full-stack, AI, evals, and the guardrails that keep it running in production.
                             </p>
-                            <p className="mt-4 max-w-2xl text-sm font-medium tracking-wide text-ink-muted md:text-base lg:hidden">
-                                6-week sprint $15,000 · SOC 2 readiness $3,000 · Industrial sprint $40,000
+                            <p className="mt-4 max-w-2xl text-sm font-medium tracking-wide text-ink-muted md:text-base">
+                                Every engagement starts as a bounded sprint. Fees are quoted in the working session.
                             </p>
-                            <div className="mt-5 hidden lg:inline-flex items-center overflow-hidden rounded-full border border-border bg-white/70 p-1 text-[10px] uppercase tracking-[0.18em] text-ink-muted shadow-[0_10px_24px_rgba(24,18,13,0.05)] backdrop-blur-sm">
-                                <span className="rounded-full px-4 py-2">6-week sprint $15,000</span>
-                                <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">SOC 2 readiness $3,000</span>
-                                <span className="h-4 w-px bg-border" />
-                                <span className="rounded-full px-4 py-2">Industrial sprint $40,000</span>
-                            </div>
                         </FadeIn>
 
-                        <FadeIn delay={0.3}>
+                        <FadeIn delay={0.08}>
                             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">
-                                <Button variant="primary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Request a Call', cta_location: 'hero' }); open(); }}>
-                                    Request a Call
+                                <Button variant="primary" size="lg" onClick={() => { trackEvent('cta_click', { cta_text: 'Book a working session', cta_location: 'hero' }); open(); }}>
+                                    Book a working session
                                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Button>
                                 <Button variant="secondary" size="lg" asChild animate={false}>
                                     <Link href="/industrial-energy-automation" onClick={() => trackEvent('cta_click', { cta_text: 'Explore Industrial Automation', cta_location: 'hero' })}>
                                         Explore Industrial Automation
                                     </Link>
-                                </Button>
-                                <Button
-                                    variant="text"
-                                    size="md"
-                                    className="sm:hidden px-0 h-auto min-w-0"
-                                    onClick={() => { trackEvent('cta_click', { cta_text: 'See Pricing', cta_location: 'hero' }); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                >
-                                    See Pricing
                                 </Button>
                             </div>
                             <div
@@ -204,25 +119,7 @@ export function Hero() {
                             </div>
                         </FadeIn>
 
-                        <FadeIn delay={0.35}>
-                            <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:hidden">
-                                {heroStats.map((stat) => (
-                                    <div
-                                        key={stat.label}
-                                        className="rounded-[1.5rem] border border-border bg-white/60 p-4 shadow-[0_12px_30px_rgba(24,18,13,0.04)] backdrop-blur-sm"
-                                    >
-                                        <div className="text-2xl font-semibold tracking-[-0.04em] text-ink md:text-[1.75rem]">
-                                            {stat.value}
-                                        </div>
-                                        <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                                            {stat.label}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
-
-                        <FadeIn delay={0.4}>
+                        <FadeIn delay={0.12}>
                             <div className="mt-10 space-y-5 rounded-[2rem] border border-border bg-white/55 p-5 shadow-[0_18px_46px_rgba(24,18,13,0.04)] backdrop-blur-sm md:p-6 lg:mt-14">
                                 <div>
                                     <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted">
@@ -286,7 +183,7 @@ export function Hero() {
                         </FadeIn>
                     </div>
 
-                    <FadeIn delay={0.5} className="relative hidden lg:block lg:pt-2 xl:pt-3">
+                    <FadeIn delay={0.12} className="relative hidden lg:block lg:pt-2 xl:pt-3">
                         <div className="rounded-[2.25rem] border border-border/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(248,242,233,0.96))] p-4 shadow-[0_32px_90px_rgba(24,18,13,0.08)] backdrop-blur-sm">
                             <AgentSwarm />
                         </div>
@@ -294,18 +191,8 @@ export function Hero() {
                 </div>
             </Container>
 
-            {/* Scroll-down indicator */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block">
-                {prefersReducedMotion ? (
-                    <ChevronDown className="w-6 h-6 text-ink-muted opacity-40" />
-                ) : (
-                    <m.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <ChevronDown className="w-6 h-6 text-ink-muted opacity-40" />
-                    </m.div>
-                )}
+                <ChevronDown className="w-6 h-6 text-ink-muted opacity-40" />
             </div>
         </section>
     );

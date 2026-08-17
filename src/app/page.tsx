@@ -41,26 +41,20 @@ const organizationSchema = {
     contactType: "sales",
     availableLanguage: "English",
   },
-  offers: [
+  makesOffer: [
     {
-      "@type": "Offer",
+      "@type": "Service",
       name: "Product & Automation Sprint",
-      price: "15000",
-      priceCurrency: "USD",
       description: "Production-grade product or automation system delivered in a six-week fixed-scope sprint",
     },
     {
-      "@type": "Offer",
+      "@type": "Service",
       name: "Industrial Energy Audit & Automation",
-      price: "40000",
-      priceCurrency: "USD",
       description: "Four-week energy baseline, automation assessment, safety boundary, and innovation roadmap",
     },
     {
-      "@type": "Offer",
+      "@type": "Service",
       name: "SOC 2 Readiness",
-      price: "3000",
-      priceCurrency: "USD",
       description: "Fixed-scope readiness assessment with evidence requirements and remediation roadmap",
     },
   ],
@@ -83,7 +77,7 @@ const faqSchema = {
       name: "How much does an AI MVP cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Our fixed-scope Product & Automation Sprint is $15,000. SOC 2 readiness is $3,000, and the four-week Industrial Energy Audit & Automation engagement is $40,000.",
+        text: "Fees are quoted in a working session. Product & Automation is a six-week fixed-scope sprint. SOC 2 readiness is a fixed-scope assessment. The industrial energy and automation engagement runs four weeks.",
       },
     },
     {

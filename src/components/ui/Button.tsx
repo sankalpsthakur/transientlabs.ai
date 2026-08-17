@@ -12,8 +12,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     animate?: boolean;
 }
 
-const _easingsSpring = [0.34, 1.56, 0.64, 1] as const;
-
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant = "primary", size = "md", asChild = false, animate = true, ...props }, ref) => {
         const Comp = asChild ? Slot : "button";
@@ -65,54 +63,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             return buttonContent;
         }
 
-        if (variant === "primary") {
-            return (
-                <m.div
-                    className="inline-flex"
-                    whileHover={{ y: -1, scale: 1.01 }}
-                    whileTap={{ y: 1, scale: 0.985 }}
-                    transition={{ duration: 0.18, ease: easings.easeOutQuint }}
-                >
-                    <m.div
-                        className="relative"
-                        whileHover={{ boxShadow: "0 18px 32px rgba(24,18,13,0.12)" }}
-                        transition={{ duration: 0.2, ease: easings.easeOutQuint }}
-                    >
-                        {buttonContent}
-                        <m.div
-                            className="pointer-events-none absolute inset-0"
-                            initial={{ opacity: 0, x: "-120%" }}
-                            whileHover={{ opacity: 1, x: "120%" }}
-                            transition={{ duration: 0.65, ease: easings.easeOutQuint }}
-                            style={{
-                                background:
-                                    "linear-gradient(110deg, transparent 18%, rgba(255,255,255,0.22) 50%, transparent 82%)",
-                            }}
-                        />
-                    </m.div>
-                </m.div>
-            );
-        }
-
-        if (variant === "secondary") {
-            return (
-                <m.div
-                    className="group inline-flex relative"
-                    whileHover={{ y: -1, scale: 1.01 }}
-                    whileTap={{ y: 1, scale: 0.987 }}
-                    transition={{ duration: 0.18, ease: easings.easeOutQuint }}
-                >
-                    {buttonContent}
-                </m.div>
-            );
-        }
-
         return (
             <m.div
-                className="inline-flex"
-                whileHover={{ y: -1, scale: 1.005 }}
-                whileTap={{ y: 1, scale: 0.99 }}
-                transition={{ duration: 0.18, ease: easings.easeOutQuint }}
+                className={cn("inline-flex", variant === "secondary" && "group relative")}
+                whileHover={{ y: -1 }}
+                whileTap={{ y: 1 }}
+                transition={{ duration: 0.14, ease: easings.easeOutQuint }}
             >
                 {buttonContent}
             </m.div>

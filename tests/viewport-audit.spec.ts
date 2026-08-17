@@ -41,10 +41,10 @@ for (const vp of VIEWPORTS) {
 
         // 2. Hero primary CTA — try several selectors, accept any.
         const ctaCandidates = [
-            'section#hero button:has-text("Request a Call")',
-            'section#hero >> text=Request a Call',
-            'header button:has-text("Request a Call")',
-            'button:has-text("Request a Call")',
+            'section#hero button:has-text("Book a working session")',
+            'section#hero >> text=Book a working session',
+            'header button:has-text("Book a working session")',
+            'button:has-text("Book a working session")',
         ];
         let ctaFound = false;
         let ctaBox: { x: number; y: number; width: number; height: number } | null = null;
@@ -59,7 +59,7 @@ for (const vp of VIEWPORTS) {
             } catch { /* try next */ }
         }
         if (!ctaFound) {
-            issues.push('CTA_REQUEST_A_CALL_NOT_VISIBLE');
+            issues.push('CTA_BOOK_SESSION_NOT_VISIBLE');
         } else if (ctaBox && (ctaBox.x < 0 || ctaBox.x + ctaBox.width > vp.w + 2)) {
             issues.push(`CTA_CLIPPED_X: box=${JSON.stringify(ctaBox)} vp=${vp.w}`);
         }
