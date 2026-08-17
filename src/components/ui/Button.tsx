@@ -2,7 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { DURATION, EASE } from "@/components/ui/Motion";
+import { easings } from "@/components/ui/Motion";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "primary" | "secondary" | "outline" | "ghost" | "text";
@@ -11,6 +11,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     animate?: boolean;
 }
+
+const _easingsSpring = [0.34, 1.56, 0.64, 1] as const;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant = "primary", size = "md", asChild = false, animate = true, ...props }, ref) => {
@@ -63,15 +65,54 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             return buttonContent;
         }
 
-        // One hover behaviour for every variant: a 1px lift, no scale. The primary
-        // button used to grow 1% and sweep a white gradient across itself over
-        // 0.65s. Hover shadows are already handled by the variant classes above.
+        if (variant === "primary") {
+            return (
+                <m.div
+                    className="inline-flex"
+                    whileHover={{ y: -1, scale: 1.01 }}
+                    whileTap={{ y: 1, scale: 0.985 }}
+                    transition={{ duration: 0.18, ease: easings.easeOutQuint }}
+                >
+                    <m.div
+                        className="relative"
+                        whileHover={{ boxShadow: "0 18px 32px rgba(24,18,13,0.12)" }}
+                        transition={{ duration: 0.2, ease: easings.easeOutQuint }}
+                    >
+                        {buttonContent}
+                        <m.div
+                            className="pointer-events-none absolute inset-0"
+                            initial={{ opacity: 0, x: "-120%" }}
+                            whileHover={{ opacity: 1, x: "120%" }}
+                            transition={{ duration: 0.65, ease: easings.easeOutQuint }}
+                            style={{
+                                background:
+                                    "linear-gradient(110deg, transparent 18%, rgba(255,255,255,0.22) 50%, transparent 82%)",
+                            }}
+                        />
+                    </m.div>
+                </m.div>
+            );
+        }
+
+        if (variant === "secondary") {
+            return (
+                <m.div
+                    className="group inline-flex relative"
+                    whileHover={{ y: -1, scale: 1.01 }}
+                    whileTap={{ y: 1, scale: 0.987 }}
+                    transition={{ duration: 0.18, ease: easings.easeOutQuint }}
+                >
+                    {buttonContent}
+                </m.div>
+            );
+        }
+
         return (
             <m.div
-                className={cn("inline-flex", variant === "secondary" && "group relative")}
-                whileHover={{ y: -1 }}
-                whileTap={{ y: 0 }}
-                transition={{ duration: DURATION.micro, ease: EASE }}
+                className="inline-flex"
+                whileHover={{ y: -1, scale: 1.005 }}
+                whileTap={{ y: 1, scale: 0.99 }}
+                transition={{ duration: 0.18, ease: easings.easeOutQuint }}
             >
                 {buttonContent}
             </m.div>

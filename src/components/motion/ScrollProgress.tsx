@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useScroll, useReducedMotion } from 'framer-motion';
+import { m, useScroll, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 // Global scroll progress indicator (top bar)
@@ -92,15 +92,20 @@ export function SectionIndicators({ sections, className }: SectionIndicatorProps
           className="group relative p-2"
           aria-label={`Scroll to ${section}`}
         >
-          {/* The active dot used to scale to 1.5x. Colour carries the state now;
-              geometry stays put so the rail does not twitch as you scroll. */}
-          <div
+          <m.div
             className={cn(
-              'h-1.5 w-1.5 rounded-full transition-colors duration-150 ease-out',
+              'w-2 h-2 rounded-full transition-colors duration-300',
               activeSection === index
                 ? 'bg-ink'
-                : 'bg-ink/20 group-hover:bg-ink/40'
+                : 'bg-gray-300 group-hover:bg-gray-400'
             )}
+            animate={{
+              scale: activeSection === index ? 1.5 : 1,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           />
           {/* Tooltip */}
           <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 text-xs bg-ink text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">

@@ -20,7 +20,7 @@ test('header uses a compact brand lockup without wrapping', async ({ page }) => 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-  const headerLogo = page.getByRole('banner').getByRole('img', { name: /transient labs logo/i });
+  const headerLogo = page.locator('header').getByRole('img', { name: /transient labs logo/i });
   await expect(headerLogo).toBeVisible();
 });
 
@@ -78,10 +78,7 @@ test('header brand lockup stays within the desktop header bounds', async ({ page
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-  // The offering stages each render their own <article><header>, so a bare
-  // locator('header') is a strict-mode violation. Only the top-level header is
-  // a banner landmark, which is exactly the one this test is about.
-  const header = page.getByRole('banner');
+  const header = page.locator('header');
   const logo = header.getByRole('img', { name: /transient labs logo/i });
 
   const headerBox = await header.boundingBox();
@@ -96,5 +93,5 @@ test('mobile header still exposes the brand clearly', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-  await expect(page.getByRole('banner').getByRole('img', { name: /transient labs logo/i })).toBeVisible();
+  await expect(page.locator('header').getByRole('img', { name: /transient labs logo/i })).toBeVisible();
 });

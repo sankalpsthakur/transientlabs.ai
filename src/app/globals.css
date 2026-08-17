@@ -66,21 +66,18 @@
   --font-mono: var(--font-jetbrains);
   --font-display: var(--font-signature);
 
-  /* Motion System — one curve, matching EASE in components/ui/Motion.tsx.
-     The aliases below all resolve to it so no stylesheet can reintroduce a
-     second personality. --ease-spring overshot to 1.56 and is now flat. */
-  --ease-standard: cubic-bezier(0, 0, 0.2, 1);
-  --ease-out-quint: var(--ease-standard);
-  --ease-out-expo: var(--ease-standard);
-  --ease-in-out-cubic: var(--ease-standard);
-  --ease-spring: var(--ease-standard);
+  /* Motion System - Easing Standards */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Motion System - Duration Standards. Was 150/300/500/800/1000ms. */
-  --duration-micro: 140ms;
-  --duration-fast: 140ms;
-  --duration-standard: 220ms;
-  --duration-slow: 220ms;
-  --duration-hero: 220ms;
+  /* Motion System - Duration Standards */
+  --duration-micro: 150ms;
+  --duration-fast: 300ms;
+  --duration-standard: 500ms;
+  --duration-slow: 800ms;
+  --duration-hero: 1000ms;
 
   /* Motion System - Stagger Delays */
   --stagger-fast: 50ms;
@@ -363,9 +360,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-hover:hover {
-  /* Was -4px. A card acknowledges the cursor; it does not levitate. */
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* Shine effect for featured items */

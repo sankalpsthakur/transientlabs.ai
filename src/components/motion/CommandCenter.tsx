@@ -98,8 +98,11 @@ export function CommandCenter() {
                         <Zap className="w-3 h-3 text-amber-400" />
                     </div>
                     <div className="flex items-center gap-1.5 text-[9px]">
-                        <span className="inline-flex h-1.5 w-1.5 rounded-full bg-white/30" />
-                        <span className="tracking-wider text-white/30">ILLUSTRATIVE</span>
+                        <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                        </span>
+                        <span className="text-emerald-500 tracking-wider">SYSTEM OPTIMAL</span>
                     </div>
                 </div>
             </div>
@@ -168,7 +171,7 @@ export function CommandCenter() {
                                         <span className={cn(
                                             "text-[9px] uppercase tracking-wider",
                                             task.status === "completed" ? "text-emerald-500" :
-                                                task.status === "running" ? "text-accent" : "text-white/30"
+                                                task.status === "running" ? "text-accent animate-pulse" : "text-white/30"
                                         )}>{task.status}</span>
                                     </div>
                                     <div className="text-xs text-white/80 mb-3 truncate">{task.task}</div>
@@ -199,16 +202,20 @@ export function CommandCenter() {
                                 <Cpu className="w-5 h-5 text-white/80" />
                             </div>
 
-                            {/* Team nodes, fixed. They used to orbit on a 20s loop, which
-                                made a topology diagram look like a loading spinner. */}
-                            <div className="absolute inset-0 rounded-full border border-dashed border-white/5">
+                            {/* Orbiting nodes */}
+                            <m.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                className="absolute inset-0 rounded-full border border-white/5 border-dashed"
+                            >
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded bg-blue-900/50 border border-blue-500/30 flex items-center justify-center text-[8px] text-blue-400">ENG</div>
                                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-6 h-6 rounded bg-emerald-900/50 border border-emerald-500/30 flex items-center justify-center text-[8px] text-emerald-400">QA</div>
                                 <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded bg-amber-900/50 border border-amber-500/30 flex items-center justify-center text-[8px] text-amber-400">MKT</div>
                                 <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded bg-cyan-900/50 border border-cyan-500/30 flex items-center justify-center text-[8px] text-cyan-400">SLS</div>
-                            </div>
+                            </m.div>
 
-                            <div className="pointer-events-none absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/20" />
+                            {/* Center Pulse */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full border border-accent/20 animate-pulse-ring pointer-events-none" />
                         </div>
                     </div>
                 </div>
@@ -252,9 +259,10 @@ export function CommandCenter() {
                         </div>
                     </div>
 
-                    <div className="mt-4 flex items-center gap-2 border-t border-white/5 pt-4 text-[10px] text-white/50">
+                    {/* Fake Terminal Prompt */}
+                    <div className="mt-4 pt-4 border-t border-white/5 text-[10px] flex items-center gap-2 text-white/50">
                         <span className="text-accent">root@sys-core:~#</span>
-                        <span className="h-3 w-1.5 bg-white/30" />
+                        <span className="w-1.5 h-3 bg-white/50 animate-pulse" />
                     </div>
                 </div>
 

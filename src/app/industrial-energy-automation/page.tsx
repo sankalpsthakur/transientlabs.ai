@@ -110,22 +110,16 @@ export default function IndustrialEnergyAutomationPage() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <article className="rounded-[1.6rem] border border-[#111616]/12 bg-white/55 p-6">
-                  <p className="font-mono text-[10px] uppercase tracking-[.22em] text-[#54621f]">Green hydrogen plant edge</p>
-                  <h3 className="mt-5 text-2xl font-semibold tracking-tight">PLC and meter signals into a governed loop.</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-[#111616]/60">Anonymous plant-edge pattern: S7/Modbus sensing into a cloud historian boundary, with operator-safe setpoints for an electrolyzer + BESS + solar forecast loop. No client name, no invented savings.</p>
-                  <ul className="mt-6 space-y-2 border-t border-[#111616]/12 pt-5 text-sm text-[#111616]/70"><li>↳ Edge ingest and tag map</li><li>↳ Forecast → storage → electrolyzer handoff</li><li>↳ Fail-safe and override path named</li></ul>
-                </article>
-                <article className="rounded-[1.6rem] border border-[#111616]/12 bg-white/55 p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[.22em] text-[#54621f]">Refinery automation architecture</p>
                   <h3 className="mt-5 text-2xl font-semibold tracking-tight">One-way intelligence. Operator authority preserved.</h3>
                   <p className="mt-4 text-sm leading-relaxed text-[#111616]/60">A five-zone refinery concept connecting plant evidence to a governed intelligence layer. Cloud systems could watch, recommend, and advise; no action returned without explicit operator approval.</p>
                   <ul className="mt-6 space-y-2 border-t border-[#111616]/12 pt-5 text-sm text-[#111616]/70"><li>↳ Endpoint and constraint map</li><li>↳ Operator-approval boundary</li><li>↳ Pilot milestones and zone architecture</li></ul>
                 </article>
-                <article className="rounded-[1.6rem] border border-[#111616]/12 bg-white/55 p-6 sm:col-span-2">
+                <article className="rounded-[1.6rem] border border-[#111616]/12 bg-white/55 p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[.22em] text-[#54621f]">Manufacturing workflow system</p>
                   <h3 className="mt-5 text-2xl font-semibold tracking-tight">From engineering change to line readiness.</h3>
-                  <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[#111616]/60">A governed hard-tech workflow spanning EBOM-to-MBOM handoff, ECO review, supplier impact, routing release, traveler signoff, and signed audit trails.</p>
-                  <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#111616]/12 pt-5 text-sm text-[#111616]/70"><li>↳ BOM and routing decision flow</li><li>↳ Supplier-impact evidence</li><li>↳ Line-readiness and signed traceability</li></ul>
+                  <p className="mt-4 text-sm leading-relaxed text-[#111616]/60">A governed hard-tech workflow spanning EBOM-to-MBOM handoff, ECO review, supplier impact, routing release, traveler signoff, and signed audit trails.</p>
+                  <ul className="mt-6 space-y-2 border-t border-[#111616]/12 pt-5 text-sm text-[#111616]/70"><li>↳ BOM and routing decision flow</li><li>↳ Supplier-impact evidence</li><li>↳ Line-readiness and signed traceability</li></ul>
                 </article>
               </div>
             </div>

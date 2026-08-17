@@ -13,16 +13,10 @@ test.describe('hero conversion copy', () => {
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await context.newPage();
     await page.goto('/');
-    await expect(page.locator('section#hero')).toContainText('Every engagement starts as a bounded Sprint.');
-    await expect(
-      page.locator('section#hero').getByRole('button', { name: /book a working session/i }),
-    ).toBeVisible();
+    await expect(page.locator('section#hero')).toContainText('6-week sprint $15,000');
+    await expect(page.locator('section#hero')).toContainText('Industrial sprint $40,000');
+    await expect(page.locator('section#hero').getByRole('button', { name: /request a call/i })).toBeVisible();
     await context.close();
-  });
-
-  test('merchandises no prices on the landing hero', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('section#hero')).not.toContainText('$');
   });
 });
 

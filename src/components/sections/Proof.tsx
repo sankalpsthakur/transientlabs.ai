@@ -30,7 +30,7 @@ export function Proof() {
                     </FadeIn>
                     <FadeIn delay={0.08}>
                         <p className="max-w-2xl text-base leading-7 text-paper/70 lg:justify-self-end">
-                            Real operators, real production systems, real numbers. No scripts.
+                            Real operators, real production systems, real numbers — no scripts.
                         </p>
                     </FadeIn>
                 </div>

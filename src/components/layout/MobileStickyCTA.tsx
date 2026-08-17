@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { useContactModal } from '@/lib/contact-modal-context';
-import { DURATION, EASE } from "@/components/ui/Motion";
 
 export function MobileStickyCTA() {
     const [visible, setVisible] = useState(false);
@@ -32,18 +31,18 @@ export function MobileStickyCTA() {
                     initial={{ y: 80 }}
                     animate={{ y: 0 }}
                     exit={{ y: 80 }}
-                    transition={{ duration: DURATION.base, ease: EASE }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-paper/95 backdrop-blur-md border-t border-border px-4 py-3 flex items-center justify-between gap-3"
                 >
-                    <Button variant="primary" size="sm" className="flex-1" onClick={() => open()}>
-                        Book a working session
+                    <Button variant="primary" size="sm" className="flex-1" onClick={open}>
+                        Request a Call
                     </Button>
                     <button
                         type="button"
                         className="text-sm text-ink hover:text-accent underline-offset-4 hover:underline whitespace-nowrap min-h-11 px-2"
                         onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                        See the Sprints
+                        See Pricing
                     </button>
                 </m.div>
             )}

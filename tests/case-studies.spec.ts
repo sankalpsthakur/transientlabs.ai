@@ -7,13 +7,13 @@ test('case studies section exposes selectable projects and updates the active de
   await expect(workSection).toBeVisible();
 
   await expect(workSection.getByRole('tablist', { name: /case study selector/i })).toBeVisible();
-  await expect(workSection.getByRole('tab', { name: /batch evidence loop/i })).toHaveCount(1);
-  await expect(workSection.getByRole('tab', { name: /energy measure loop/i })).toHaveCount(1);
-  await expect(workSection.getByRole('tabpanel', { name: /batch evidence loop/i })).toBeVisible();
+  await expect(workSection.getByRole('tab', { name: /scope3 global dashboard/i })).toHaveCount(1);
+  await expect(workSection.getByRole('tab', { name: /reelgen/i })).toHaveCount(1);
+  await expect(workSection.getByRole('tabpanel', { name: /scope3 global dashboard/i })).toBeVisible();
 
-  await workSection.getByRole('tab', { name: /carbon assurance desk/i }).click();
-  await expect(workSection.getByRole('tabpanel', { name: /carbon assurance desk/i })).toBeVisible();
-  await expect(workSection.getByText('ESRS-ready', { exact: true })).toBeVisible();
+  await workSection.getByRole('tab', { name: /smartdocs assistant/i }).click();
+  await expect(workSection.getByRole('tabpanel', { name: /smartdocs assistant/i })).toBeVisible();
+  await expect(workSection.getByText('Highlighted source citations', { exact: true })).toBeVisible();
 });
 
 test('desktop case studies gallery fits the active panel and selectors within one viewport', async ({ page }) => {
