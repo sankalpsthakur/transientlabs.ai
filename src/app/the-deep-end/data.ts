@@ -1,6 +1,6 @@
-export const showTitle = "The Deep End — Engineering with Sankalp Thakur";
+export const showTitle = "Deep End Era. Engineering with Sankalp";
 export const showUrl = "https://transientlabs.ai/the-deep-end";
-export const credits = "Scripts generated with Claude Opus. Narration and music generated with Suno. Closing AI disclosure synthesized with Kokoro. Reviewed, listened to, and approved by Sankalp Thakur. A Transient Labs production.";
+export const credits = "Scripts generated with Claude Opus. Synthetic narration generated with Edge TTS. Reviewed, listened to, and approved by Sankalp Thakur.";
 export const profiles = [
   {
     "label": "GitHub",
@@ -19,7 +19,14 @@ export const profiles = [
     "url": "https://huggingface.co/sankalpsthakur"
   }
 ];
-export const platforms: { label: string; url: string }[] = [];
+export const platforms: { label: string; url: string }[] = [
+  { label: "Spotify", url: "https://open.spotify.com/show/3JSKWex5tkq6Ra24tcIb7Y" },
+  { label: "Apple Podcasts", url: "https://podcasts.apple.com/us/podcast/deep-end-era-engineering-with-sankalp/id6821409637" },
+  { label: "Pocket Casts", url: "https://pca.st/1get2cu0" },
+  { label: "Podcast Addict", url: "https://podcastaddict.com/podcast/deep-end-era-engineering-with-sankalp/7307609" },
+  { label: "Castbox", url: "https://www.castbox.fm/channel/id7447682?country=gb" },
+  { label: "TuneIn", url: "https://tunein.com/radio/Deep-End-Era-Engineering-with-Sankalp-p4845900/" },
+];
 export const audioUrls: Record<string, string> = {};
 export const episodes = [
   {
