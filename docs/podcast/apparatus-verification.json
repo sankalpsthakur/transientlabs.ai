@@ -1,0 +1,2014 @@
+{
+  "scope": "Rigid apparatus: all turret headings, handover pin states and flare source counts; other geometry is invariant under controls. Fluid overlays and line-end/browser checks are separate.",
+  "results": [
+    {
+      "episode": 47,
+      "kind": "electrolyser",
+      "variant": "default",
+      "state": {
+        "current": 100,
+        "voltage": 1.9
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 48,
+      "kind": "ammonia",
+      "variant": "default",
+      "state": {
+        "conversion": 15,
+        "passes": 4
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 49,
+      "kind": "solar",
+      "variant": "default",
+      "state": {
+        "sun": 800,
+        "temperature": 45
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 50,
+      "kind": "distillation",
+      "variant": "default",
+      "state": {
+        "alpha": 2,
+        "contacts": 4
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "0",
+      "state": {
+        "heading": 0
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "15",
+      "state": {
+        "heading": 15
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "30",
+      "state": {
+        "heading": 30
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "45",
+      "state": {
+        "heading": 45
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "60",
+      "state": {
+        "heading": 60
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "75",
+      "state": {
+        "heading": 75
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "90",
+      "state": {
+        "heading": 90
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "105",
+      "state": {
+        "heading": 105
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "120",
+      "state": {
+        "heading": 120
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "135",
+      "state": {
+        "heading": 135
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "150",
+      "state": {
+        "heading": 150
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "165",
+      "state": {
+        "heading": 165
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "180",
+      "state": {
+        "heading": 180
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "195",
+      "state": {
+        "heading": 195
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "210",
+      "state": {
+        "heading": 210
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "225",
+      "state": {
+        "heading": 225
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "240",
+      "state": {
+        "heading": 240
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "255",
+      "state": {
+        "heading": 255
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "270",
+      "state": {
+        "heading": 270
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "285",
+      "state": {
+        "heading": 285
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "300",
+      "state": {
+        "heading": 300
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "315",
+      "state": {
+        "heading": 315
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 51,
+      "kind": "turret",
+      "variant": "330",
+      "state": {
+        "heading": 330
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "0",
+      "state": {
+        "checked": 0
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "1",
+      "state": {
+        "checked": 1
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "2",
+      "state": {
+        "checked": 2
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "3",
+      "state": {
+        "checked": 3
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "4",
+      "state": {
+        "checked": 4
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 52,
+      "kind": "handover",
+      "variant": "5",
+      "state": {
+        "checked": 5
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 53,
+      "kind": "layout",
+      "variant": "default",
+      "state": {
+        "wind": 90
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 54,
+      "kind": "firewater",
+      "variant": "default",
+      "state": {
+        "route": "both",
+        "flow": 60
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 55,
+      "kind": "flare",
+      "variant": "1",
+      "state": {
+        "trains": 1,
+        "load": 8
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 55,
+      "kind": "flare",
+      "variant": "2",
+      "state": {
+        "trains": 2,
+        "load": 8
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 55,
+      "kind": "flare",
+      "variant": "3",
+      "state": {
+        "trains": 3,
+        "load": 8
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 56,
+      "kind": "slugcatcher",
+      "variant": "default",
+      "state": {
+        "slug": 60,
+        "time": 3
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 57,
+      "kind": "separator",
+      "variant": "default",
+      "state": {
+        "diameter": 40,
+        "time": 60
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 58,
+      "kind": "dehydration",
+      "variant": "default",
+      "state": {
+        "contacts": 4,
+        "fraction": 25
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 59,
+      "kind": "knockout",
+      "variant": "default",
+      "state": {
+        "level": 35,
+        "recovery": "running"
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 60,
+      "kind": "compressor",
+      "variant": "default",
+      "state": {
+        "ratio": 3,
+        "efficiency": 75
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 61,
+      "kind": "barriers",
+      "variant": "default",
+      "state": {
+        "evidence": "both"
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 62,
+      "kind": "hydrocyclone",
+      "variant": "default",
+      "state": {
+        "velocity": 5,
+        "radius": 50
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 63,
+      "kind": "airreceiver",
+      "variant": "default",
+      "state": {
+        "volume": 4,
+        "demand": 3
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 64,
+      "kind": "deaerator",
+      "variant": "default",
+      "state": {
+        "contacts": 2,
+        "equilibrium": 0.5
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 65,
+      "kind": "intake",
+      "variant": "default",
+      "state": {
+        "blocked": 25,
+        "flow": 1.5
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 66,
+      "kind": "diesel",
+      "variant": "default",
+      "state": {
+        "fuel": 600,
+        "burn": 40
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 67,
+      "kind": "effluent",
+      "variant": "default",
+      "state": {
+        "time": 6,
+        "rate": 0.2
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    },
+    {
+      "episode": 68,
+      "kind": "lng",
+      "variant": "default",
+      "state": {
+        "cold": 110,
+        "ambient": 300
+      },
+      "scope": "FULL_RIGID_APPARATUS_REST_POSE",
+      "failures": 0,
+      "excluded": "Fluid inventory layers and non-material dots/engraved markings are not rigid bodies.",
+      "support": {
+        "loose": [],
+        "hanging": [],
+        "sunk": []
+      },
+      "audit": {
+        "clearance": [],
+        "apart": [],
+        "flight": [],
+        "crowding": [],
+        "cover": [],
+        "terminals": [],
+        "loose": [],
+        "folds": [],
+        "self": [],
+        "wobble": [],
+        "seats": [],
+        "supports": {
+          "loose": [],
+          "hanging": [],
+          "sunk": []
+        },
+        "depth": {
+          "problems": [],
+          "passing": [],
+          "missing": []
+        }
+      }
+    }
+  ]
+}

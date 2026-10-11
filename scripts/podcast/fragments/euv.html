@@ -1,0 +1,61 @@
+<div id="euv-photon-view">
+  <div class="viz-row"><h3>EUV: one photon becomes chemistry</h3><span class="text-small text-muted">13.5 nm · ≈92 eV</span></div>
+  <div class="viz-controls" aria-label="Microscopic exposure stages">
+    <button type="button" class="btn" data-step="0" aria-pressed="true">1 · Photon</button>
+    <button type="button" class="btn" data-step="1" aria-pressed="false">2 · Absorb</button>
+    <button type="button" class="btn" data-step="2" aria-pressed="false">3 · Electrons</button>
+    <button type="button" class="btn" data-step="3" aria-pressed="false">4 · Acid</button>
+    <button type="button" class="btn" data-step="4" aria-pressed="false">5 · Bake</button>
+    <button type="button" class="btn" data-step="5" aria-pressed="false">6 · Pattern</button>
+  </div>
+  <svg class="photon-scene" role="img" aria-label="Molecular view of EUV exposure in a positive-tone chemically amplified resist"></svg>
+  <div class="text-small" data-detail aria-live="polite"></div>
+  <div class="viz-row text-small text-muted photon-legend"><span><i class="photon-key"></i>Photon</span><span><i class="electron-key"></i>Electron</span><span><i class="acid-key"></i>Acid</span><span>Symbols and distances schematic</span></div>
+</div>
+<style>
+#euv-photon-view{width:100%}#euv-photon-view h3{margin:0}#euv-photon-view .photon-scene{display:block;width:100%;height:350px;margin:10px 0}#euv-photon-view .photon-scene text{fill:var(--foreground);font-family:inherit;font-size:12px;font-weight:400}#euv-photon-view .photon-legend{margin-top:12px;gap:12px}#euv-photon-view .photon-legend span{display:inline-flex;align-items:center;gap:5px}#euv-photon-view i{display:inline-block;width:12px;height:12px}#euv-photon-view .photon-key{background:var(--viz-series-1)}#euv-photon-view .electron-key{background:var(--viz-series-2);border-radius:50%}#euv-photon-view .acid-key{background:var(--viz-series-3);transform:rotate(45deg);width:9px;height:9px}#euv-photon-view [data-detail]{min-height:2em}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('euv-photon-view'),svg=root.querySelector('svg'),detail=root.querySelector('[data-detail]'),buttons=[...root.querySelectorAll('[data-step]')];let stage=0;
+const descriptions=[
+'The light’s intensity sets the probability of absorption; individual photon events are random.',
+'One absorbed photon disappears, transferring its energy to the material and releasing a photoelectron.',
+'The photoelectron scatters, losing energy and generating lower-energy secondary electrons.',
+'Electron reactions activate photoacid generators (PAGs); not every event generates acid.',
+'During the bake, acid catalyses deprotection of multiple polymer groups, increasing solubility.',
+'Many random events build a chemical image. Developer removes sufficiently changed regions.'
+];
+const color=n=>`var(--viz-series-${n})`;
+const path=(d,c='var(--border)',w=1,extra='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+const label=(x,y,s,anchor='start')=>`<text x="${x}" y="${y}" text-anchor="${anchor}">${s}</text>`;
+const circ=(x,y,r,c,extra='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${extra}/>`;
+const electron=(x,y)=>circ(x,y,8,color(2))+label(x,y+4,'−','middle');
+const acid=(x,y)=>`<path d="M${x} ${y-9}l9 9-9 9-9-9Z" fill="${color(3)}"/>`+label(x,y+4,'+','middle');
+function photon(x,y){let d='';for(let i=0;i<=72;i++){const xx=x+i,yy=y+Math.sin(i/5)*9*Math.sin(Math.PI*i/72);d+=(i?'L':'M')+xx+' '+yy;}return path(d,color(1),2.6)+path(`M${x+66} ${y-5}l8 5-8 5`,color(1),2);}
+function draw(){const W=Math.max(280,root.clientWidth),H=350,cx=W*.52,cy=190;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);let s='';
+if(stage<5){
+s+=`<rect x="12" y="113" width="${W-24}" height="209" rx="4" fill="var(--muted)" opacity=".28"/>`+label(18,337,'Positive-tone polymer resist');
+const rows=4,cols=Math.max(5,Math.floor((W-42)/48));
+for(let row=0;row<rows;row++){let d='',pts=[];for(let col=0;col<cols;col++){let x=26+col*(W-52)/(cols-1),y=140+row*45+Math.sin(col*1.8+row)*9;pts.push([x,y]);d+=(col?'L':'M')+x+' '+y;}s+=path(d,'var(--border)',2);for(let i=0;i<pts.length;i++){const [x,y]=pts[i],changed=stage===4&&Math.hypot(x-cx,y-cy)<88;s+=circ(x,y,4,'var(--foreground)','opacity=".35"')+path(`M${x} ${y}l7 -13`)+circ(x+7,y-13,changed?4:6,changed?color(3):'var(--card)',`stroke="${changed?color(3):'var(--border)'}" stroke-width="1.5"`);}}
+const pagx=cx+48,pagy=cy+30;
+let hex='';for(let k=0;k<6;k++){let a=k*Math.PI/3,x=pagx+13*Math.cos(a),y=pagy+13*Math.sin(a);hex+=(k?'L':'M')+x+' '+y;}s+=`<path d="${hex}Z" fill="var(--card)" stroke="var(--foreground)" stroke-width="1.2"/>`+label(pagx,pagy+4,'PAG','middle');
+if(stage===0){s+=photon(Math.max(20,cx-123),54)+path(`M${cx-32} 70 Q${cx-14} 108 ${cx} ${cy-15}`,color(1),1.4,'stroke-dasharray="4 5"')+label(cx,28,'Photon symbol · 92 eV','middle')+label(cx,97,'Possible absorption site','middle');s+=circ(cx,cy,18,color(1),'opacity=".12"')+circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`);}
+if(stage===1){s+=circ(cx,cy,32,color(1),'opacity=".12"')+circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`)+label(cx,105,'Photon absorbed','middle');s+=path(`M${cx+11} ${cy-8}L${cx+57} ${cy-44}`,color(2),2)+electron(cx+62,cy-49)+label(cx,58,'Energy → ionization + electron motion','middle');}
+if(stage>=2){const rays=[[cx,cy,cx+28,cy-35,cx+60,cy-27],[cx+28,cy-35,cx-5,cy-53,cx-32,cy-46],[cx+60,cy-27,cx+38,cy+6,pagx,pagy],[cx+38,cy+6,cx+3,cy+22,cx-18,cy+55]];s+=circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`);rays.forEach((p,i)=>{s+=path(`M${p[0]} ${p[1]}L${p[2]} ${p[3]}L${p[4]} ${p[5]}`,color(2),i?1.5:2.4,stage>=4?'opacity=".25"':'');if(stage<4&&!(stage===3&&i===2))s+=electron(p[4],p[5]);});}
+if(stage===2)s+=label(cx,53,'Primary electron → secondary electrons','middle')+label(cx,85,'Scattering spreads the deposited energy','middle');
+if(stage===3){s+=acid(pagx+35,pagy+21)+label(cx,53,'Electron-induced acid generation','middle')+label(cx,85,'Chemical response depends on the resist','middle');}
+if(stage===4){s+=acid(cx+5,cy-2)+acid(cx+61,cy+27)+path(`M${cx+5} ${cy-2}Q${cx-37} ${cy+22} ${cx-54} ${cy-23}`,color(3),1.5,'stroke-dasharray="3 4"')+label(cx,53,'Bake: acid removes protecting groups','middle')+label(cx,85,'Chemical amplification + diffusion','middle');}
+}else{
+const x0=22,x1=W-22,bw=x1-x0,center=W*.5;
+s+=label(center,24,'Optical intensity → random absorption','middle');
+for(let i=0;i<80;i++){let x=x0+i*bw/80,p=Math.exp(-Math.pow((x-center)/(bw*.18),4));s+=`<rect x="${x}" y="43" width="${bw/80+.2}" height="38" fill="${color(1)}" opacity="${.03+.5*p}"/>`;}
+s+=label(center,103,'Accumulated chemistry','middle');
+let seed=2701;function random(){seed=(seed+0x6D2B79F5)|0;let v=Math.imul(seed^(seed>>>15),1|seed);v^=v+Math.imul(v^(v>>>7),61|v);return ((v^(v>>>14))>>>0)/4294967296;}for(let i=0;i<240;i++){let x=x0+random()*bw,y=121+random()*82,p=Math.exp(-Math.pow((x-center)/(bw*.18),4));if(random()<p)s+=circ(x,y,2.2,color(3),'opacity=".7"');}
+const left=center-bw*.18,right=center+bw*.18;let dl=`M${x0} 233H${left}`,dr=`M${right} 233H${x1}V310H${right}`;for(let i=0;i<9;i++){let y=233+i*8.5;dl+=`L${left+Math.sin(i*2.3)*5} ${y}`;}dl+=`L${left} 310L${x0} 310Z`;for(let i=8;i>=0;i--)dr+=`L${right+Math.cos(i*2.1)*5} ${233+i*8.5}`;dr+='Z';s+=`<path d="${dl}" fill="var(--muted)" stroke="var(--border)"/><path d="${dr}" fill="var(--muted)" stroke="var(--border)"/>`+label(center,224,'After development','middle')+label(center,275,'Opening','middle')+path(`M${x0} 311H${x1}`,'var(--foreground)',2)+label(center,338,'Random events + chemical blur → rough edges','middle');
+}
+svg.innerHTML=s;svg.setAttribute('aria-label',descriptions[stage]);detail.textContent=descriptions[stage];buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(stage===i)));root.dataset.stage=stage;
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{stage=+b.dataset.step;draw();}));new ResizeObserver(draw).observe(root);draw();
+})();
+</script>

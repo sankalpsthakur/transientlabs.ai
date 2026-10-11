@@ -1,0 +1,286 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spectral Graph Theory · interactive working principle</title><style>.iso{
+  --anatomy-page:#0b0b0b;--anatomy-card:#131313;--anatomy-text:#a3a3a3;--anatomy-strong:#e6e6e6;--anatomy-muted:#6e6e6e;
+  --anatomy-paper:#131313;--anatomy-face:#1b1b1b;--anatomy-top:#1c1c1c;
+  --anatomy-shade-0:#0f0f0f;--anatomy-shade-1:#121212;--anatomy-shade-2:#151515;--anatomy-shade-3:#181818;
+  --anatomy-lit-top:#262626;--anatomy-lit-shade:#1d1d1d;
+  --anatomy-hi:#d4d4d4;--anatomy-mid:#6a6a6a;--anatomy-lo:#3e3e3e;--anatomy-faint:#2a2a2a;--anatomy-lit:#ffffff;
+  --anatomy-halo:#050505;--anatomy-halo-opacity:.9;--anatomy-dot:#e6e6e6;
+  --anatomy-red:#ff6b6b;--anatomy-green:#6be0a0;--anatomy-blue:#6b9bff;
+  --anatomy-weight:.6px;--anatomy-ease:cubic-bezier(.32,.72,0,1);
+  --anatomy-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --anatomy-lift:inset 0 1px 0 0 #ffffff0a,inset 0 0 0 1px #ffffff06,0 0 0 1px #00000026,0 1px 1px -.5px #00000014,0 3px 3px -1.5px #00000014,0 6px 6px -3px #00000014,0 12px 12px -6px #00000014;
+}
+.iso[data-theme="light"]{
+  --anatomy-page:#f2f2ef;--anatomy-card:#fbfbfa;--anatomy-text:#57575a;--anatomy-strong:#18181a;--anatomy-muted:#8c8c90;
+  --anatomy-paper:#fbfbfa;--anatomy-face:#ffffff;--anatomy-top:#ffffff;
+  --anatomy-shade-0:#dcdcd9;--anatomy-shade-1:#e5e5e2;--anatomy-shade-2:#ededea;--anatomy-shade-3:#f4f4f1;
+  --anatomy-lit-top:#ffffff;--anatomy-lit-shade:#eeeeeb;
+  --anatomy-hi:#26262a;--anatomy-mid:#8a8a8f;--anatomy-lo:#b4b4b8;--anatomy-faint:#d4d4d6;--anatomy-lit:#000000;
+  --anatomy-halo:#8a8a80;--anatomy-halo-opacity:.32;--anatomy-dot:#3a3a3e;
+  --anatomy-red:#e5484d;--anatomy-green:#30a46c;--anatomy-blue:#3e63dd;
+  --anatomy-lift:inset 0 1px 0 0 #ffffff,0 0 0 1px #0000000f,0 1px 1px -.5px #0000000a,0 3px 3px -1.5px #0000000a,0 6px 6px -3px #0000000a,0 12px 12px -6px #0000000a;
+}
+.iso-svg{display:block;width:100%;height:auto;overflow:visible}
+.iso-svg path,.iso-svg circle{vector-effect:non-scaling-stroke}
+.iso-fill{fill:var(--anatomy-paper);stroke:none}
+.iso-solid[data-lit]>.iso-fill{fill:var(--anatomy-face)}
+.iso-shade,.iso-top{stroke:none}
+.iso-shade[data-shade="0"]{fill:var(--anatomy-shade-0)}
+.iso-shade[data-shade="1"]{fill:var(--anatomy-shade-1)}
+.iso-shade[data-shade="2"]{fill:var(--anatomy-shade-2)}
+.iso-shade[data-shade="3"]{fill:var(--anatomy-shade-3)}
+.iso-top{fill:var(--anatomy-top)}
+.iso-solid[data-lit]>.iso-top{fill:var(--anatomy-lit-top)}
+.iso-solid[data-lit]>.iso-shade{fill:var(--anatomy-lit-shade)}
+.iso-solid[data-seamless]>.iso-shade,.iso-solid[data-seamless]>.iso-top{stroke-width:.4;stroke-linejoin:round}
+.iso-solid[data-seamless]>.iso-shade[data-shade="0"]{stroke:var(--anatomy-shade-0)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="1"]{stroke:var(--anatomy-shade-1)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="2"]{stroke:var(--anatomy-shade-2)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="3"]{stroke:var(--anatomy-shade-3)}
+.iso-solid[data-seamless]>.iso-top{stroke:var(--anatomy-top)}
+.iso-solid[data-seamless][data-lit]>.iso-top{stroke:var(--anatomy-lit-top)}
+.iso-solid[data-seamless][data-lit]>.iso-shade{stroke:var(--anatomy-lit-shade)}
+.iso-solid[data-lit]>.iso-edge{stroke:var(--anatomy-lit)}
+.iso-halo{fill:var(--anatomy-halo);stroke:none;filter:blur(9px);opacity:var(--anatomy-halo-opacity);transform:translateY(3px)}
+.iso-line{fill:none;stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight);stroke-linecap:round;stroke-linejoin:round}
+.iso-line[data-tone="hi"]{stroke:var(--anatomy-hi)}
+.iso-line[data-tone="mid"]{stroke:var(--anatomy-mid)}
+.iso-line[data-tone="lo"]{stroke:var(--anatomy-lo)}
+.iso-line[data-tone="faint"]{stroke:var(--anatomy-faint)}
+.iso-line[data-tone="lit"]{stroke:var(--anatomy-lit)}
+.iso-line[data-tone="red"]{stroke:var(--anatomy-red)}
+.iso-line[data-tone="green"]{stroke:var(--anatomy-green)}
+.iso-line[data-tone="blue"]{stroke:var(--anatomy-blue)}
+.iso-line[data-dotted]{stroke-dasharray:.01 3.5;stroke-width:1}
+.iso-line[data-dashed]{stroke-dasharray:3 3}
+.iso-line[data-flow]{stroke-dasharray:2 6}
+.iso-wire-end{fill:var(--anatomy-paper);stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight)}
+.iso-wire[data-tone="hi"] .iso-wire-end{stroke:var(--anatomy-hi)}
+.iso-wire[data-tone="mid"] .iso-wire-end{stroke:var(--anatomy-mid)}
+.iso-wire[data-tone="faint"] .iso-wire-end{stroke:var(--anatomy-faint)}
+.iso-wire[data-tone="lit"] .iso-wire-end{stroke:var(--anatomy-lit)}
+.iso-dots circle{fill:var(--anatomy-dot);stroke:none;opacity:.32}
+.iso-dots[data-tone="hi"] circle{opacity:.85}
+.iso-dots[data-tone="mid"] circle{opacity:.45}
+.iso-dots[data-tone="lo"] circle{opacity:.22}
+.iso-dots[data-tone="faint"] circle{opacity:.12}
+.iso-face-text{fill:var(--anatomy-mid);font-family:var(--anatomy-mono);letter-spacing:.04em}
+.iso-face-text[data-tone="hi"]{fill:var(--anatomy-hi)}
+.iso-face-text[data-tone="lo"]{fill:var(--anatomy-lo)}
+.iso-face-text[data-tone="faint"]{fill:var(--anatomy-faint)}
+.tb-body{fill:var(--anatomy-shade-2);stroke:none}
+.tb-shine{fill:var(--anatomy-top);stroke:none}
+.tb-shade{fill:var(--anatomy-shade-0);stroke:none}
+.tb-ring{fill:none;stroke:var(--anatomy-lo);stroke-width:.45;stroke-linecap:butt;stroke-linejoin:round}
+.tb-ring[data-tone="mid"]{stroke:var(--anatomy-mid)}
+.tb-ring[data-tone="faint"]{stroke:var(--anatomy-faint)}
+.tb-ring[data-tone="hi"]{stroke:var(--anatomy-hi)}
+@keyframes iso-flow{to{stroke-dashoffset:-32}}
+@keyframes iso-pulse{0%,100%{opacity:.18}12%{opacity:1}40%{opacity:.18}}
+.iso-line[data-flow]{animation:iso-flow 1600ms linear infinite}
+.iso-dots circle[data-pulse]{animation:iso-pulse 1600ms steps(1,end) infinite;animation-delay:var(--pulse-at,0ms)}
+.iso-figure{margin:32px 0 36px}
+.iso-plate{position:relative;padding:52px 24px;border-radius:0;background:var(--anatomy-card);box-shadow:0 0 0 1px var(--anatomy-mid);--anatomy-paper:var(--anatomy-card)}
+.iso-plate-corners{position:absolute;inset:18px 20px;pointer-events:none}
+.iso-plate-corner{position:absolute;color:var(--anatomy-muted);font-family:var(--anatomy-mono);font-size:10.5px;line-height:1;letter-spacing:.04em;white-space:nowrap}
+.iso-plate-corner[data-corner="fig"]{top:0;left:0;color:var(--anatomy-text)}
+.iso-plate-corner[data-corner="title"]{top:0;right:0;text-transform:uppercase;letter-spacing:.1em}
+.iso-plate-corner[data-corner="hint"]{bottom:0;left:0;text-transform:uppercase;letter-spacing:.1em}
+.iso-plate-corner[data-corner="readout"]{right:0;bottom:0;color:var(--anatomy-text);font-variant-numeric:tabular-nums}
+.iso-plate .iso-svg{margin:0 auto}
+.iso-legend{display:grid;gap:8px;margin-top:12px;color:var(--anatomy-muted);font-size:13px;line-height:1.55}
+.iso-keys{display:flex;flex-wrap:wrap;gap:6px 18px}
+.iso-key{display:inline-flex;align-items:center;gap:7px}
+.iso-swatch{width:16px;height:10px;flex:none;overflow:visible}
+.iso-swatch path{fill:none;stroke:var(--anatomy-hi);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.iso-swatch[data-mark="raised"] path,.iso-swatch[data-mark="flat"] path{stroke:var(--anatomy-mid)}
+.iso-swatch[data-mark="lit"] path{stroke:var(--anatomy-lit)}
+.iso-swatch[data-mark="dim"] path{stroke:var(--anatomy-lo)}
+.iso-swatch[data-mark="dotted"] path{stroke-dasharray:.01 3;stroke-width:1.4}
+.iso-swatch[data-mark="dashed"] path{stroke-dasharray:3 2.5}
+.iso-swatch[data-mark="red"] path{stroke:var(--anatomy-red)}
+.iso-swatch[data-mark="green"] path{stroke:var(--anatomy-green)}
+.iso-swatch[data-mark="blue"] path{stroke:var(--anatomy-blue)}
+.iso-swatch-crease{stroke:var(--anatomy-lo)!important}
+@media (max-width:560px){.iso-plate{padding:48px 12px 70px}.iso-plate-corner[data-corner="hint"]{bottom:18px}}
+@media (prefers-reduced-motion:reduce){.iso-line[data-flow],.iso-dots circle[data-pulse]{animation:none}}
+
+:root{color-scheme:dark;--foreground:#f1f0ec;--card:#0b0d10;--muted:#242a33;--muted-foreground:#b8bcc5;--border:#46515e;--primary:var(--foreground);--primary-foreground:var(--card);--viz-series-1:#e8ad54;--viz-series-2:#48d3bd;--viz-series-3:#a791eb;--destructive:#f48b8b;--font-size-base:14px}
+*{box-sizing:border-box}html{background:var(--card)}body{margin:0;padding:20px 20px 24px;background:var(--card);color:var(--foreground);font:400 14px/1.6 Arial,Helvetica,sans-serif}h2,h3{font-size:18px;font-weight:500;line-height:1.35;margin:0 0 14px}button,input,select{font:inherit}button,select{border:1px solid var(--border);border-radius:4px;background:var(--card);color:var(--foreground)}button{padding:9px 12px;min-height:44px}button[aria-pressed=true]{background:var(--foreground);color:var(--card)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--viz-series-1);outline-offset:4px}select{padding:8px;min-height:44px;max-width:100%;width:100%}input[type=range]{width:100%;accent-color:var(--viz-series-1);min-height:28px;margin:0}a{color:var(--muted-foreground);text-decoration:underline;text-underline-offset:3px}a:hover{color:var(--foreground)}
+.controls,.sensor-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 24px;margin:16px 0}.control,.form-label{display:grid;gap:8px}.control-heading{display:flex;justify-content:space-between;gap:10px}.control-heading output{color:var(--muted-foreground);font-variant-numeric:tabular-nums}svg.scene{display:block;width:100%;height:340px;margin:12px 0}svg text{font-family:Arial,Helvetica,sans-serif;font-weight:400}.readout{font-size:14px;font-variant-numeric:tabular-nums;margin:8px 0;color:var(--foreground)}.summary{font-size:13px;color:var(--muted-foreground);margin:8px 0}.sources{display:flex;flex-wrap:wrap;gap:5px 15px;margin-top:18px;font-size:12px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-foreground);margin-bottom:10px}.viz-row,.viz-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.text-small{font-size:12px}.text-muted{color:var(--muted-foreground)}.form-range{display:block;width:100%}.tabular-nums{font-variant-numeric:tabular-nums}[hidden]{display:none!important}
+@media(max-width:400px){body{padding:14px 12px 20px}.controls,.sensor-inputs{grid-template-columns:1fr}.control-heading{flex-wrap:wrap}h2,h3{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.iso{--anatomy-paper:#101419;--anatomy-top:#232a32;--anatomy-shade-0:#0f1217;--anatomy-shade-1:#151a21;--anatomy-shade-2:#1a2029;--anatomy-shade-3:#1f2730;--anatomy-hi:#d6d9de;--anatomy-mid:#818c99;--anatomy-lo:#4d5865;--anatomy-faint:#303a45;--anatomy-lit:#f0c482;--anatomy-lit-top:#4f4130;--anatomy-lit-shade:#302a23;--anatomy-dot:#e8ad54}
+.hint{font-size:12px;color:var(--muted-foreground);margin:0 0 20px}.figure-frame{border:1px solid #29323c;border-radius:8px;background:radial-gradient(ellipse at 50% 30%,#171d25,transparent 70%);padding:8px 12px 14px;margin:24px 0}.figure-frame .readout{border-top:1px solid #29323c;padding:15px 8px 0;margin:0;font-size:13px;line-height:1.7}.sources{border-top:1px solid #29323c;padding-top:16px}.summary{line-height:1.8}.tour{margin-top:6px;width:max-content}.scene{contain:layout style}body{padding:24px}h2{font-size:21px;letter-spacing:-.02em;font-weight:600}input[type=range]{min-height:44px}.controls{margin:20px 0}.figure-frame svg.scene{margin:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:400px){.figure-frame{padding:4px 4px 12px}.figure-frame .readout{padding-left:8px;padding-right:8px}.controls{gap:18px}h2{font-size:20px}body{padding:16px}}
+</style></head><body><main class="iso" id="deep-end-model" data-episode="8"><p class="eyebrow">Fig 08 · Working principle</p><h2 data-title></h2><p class="hint">Change a control to see the mechanism respond. Arrow keys work on sliders.</p><div class="controls" data-controls></div><div class="figure-frame"><svg class="scene" role="img" aria-label="Interactive scientific working principle"></svg><div class="readout" data-readout></div></div><p class="summary" data-summary></p><div class="sources" data-sources></div></main><script>(() => {
+  const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const colors = {ink:'var(--foreground)',muted:'var(--muted-foreground)',line:'var(--border)',surface:'var(--muted)',paper:'var(--card)',accent:'var(--viz-series-1)',secondary:'var(--viz-series-2)',tertiary:'var(--viz-series-3)',danger:'var(--destructive)'};
+  const color = tone => colors[tone] || tone;
+  // Keep white labels readable on solid marks, while paths retain bright series colors.
+  const solid = {accent:'#866024',secondary:'#246c60',tertiary:'#655388',danger:'#8e4a4a'};
+  const fill = (tone,o={}) => solid[tone] && (o.opacity===undefined || o.opacity>=.6) ? solid[tone] : color(tone);
+  const finite = value => {
+    if (!Number.isFinite(+value)) throw new Error('Non-finite visual coordinate');
+    return +value;
+  };
+  const options = value => {
+    let attributes='';
+    if(value.opacity!==undefined)attributes+=` opacity="${finite(value.opacity)}"`;
+    if(value.stroke)attributes+=` stroke="${color(value.stroke)}" stroke-width="${finite(value.strokeWidth??1)}"`;
+    if(value.dash)attributes+=` stroke-dasharray="${esc(value.dash)}"`;
+    return attributes;
+  };
+  window.DeepEndHelpers = (W,H=340) => {
+    const path=(d,tone='line',width=1,o={})=>`<path d="${esc(d)}" fill="${o.fill?color(o.fill):'none'}" stroke="${color(tone)}" stroke-width="${finite(width)}" stroke-linecap="round" stroke-linejoin="round"${options({...o,stroke:undefined})}/>`;
+    const line=(x1,y1,x2,y2,tone='line',width=1,o={})=>path(`M${finite(x1)} ${finite(y1)}L${finite(x2)} ${finite(y2)}`,tone,width,o);
+    const rect=(x,y,w,h,tone='surface',o={})=>`<rect x="${finite(x)}" y="${finite(y)}" width="${Math.max(0,finite(w))}" height="${Math.max(0,finite(h))}" rx="${finite(o.radius??3)}" fill="${fill(tone,o)}"${options(o)}/>`;
+    const circle=(x,y,r,tone='ink',o={})=>`<circle cx="${finite(x)}" cy="${finite(y)}" r="${Math.max(0,finite(r))}" fill="${r>=10?fill(tone,o):color(tone)}"${options(o)}/>`;
+    const poly=(points,tone='surface',o={})=>`<polygon points="${points.map(p=>p.map(finite).join(',')).join(' ')}" fill="${color(tone)}"${options(o)}/>`;
+    const text=(x,y,label,anchor='start',o={})=>{
+      const size=o.size===14?14:12;
+      const available=anchor==='middle'?Math.min(x-12,W-x-12)*2:anchor==='end'?x-12:W-x-12;
+      const limit=Math.max(35,Math.min(o.maxWidth??available,available));
+      const maxChars=Math.max(5,Math.floor(limit/(size*.54)));
+      const words=String(label).split(/\s+/),lines=[];let current='';
+      for(const word of words){if(current&&(current+' '+word).length>maxChars){lines.push(current);current=word;}else current+=(current?' ':'')+word;}if(current)lines.push(current);
+      const baseline=Math.max(size+3,Math.min(y,H-5-(lines.length-1)*16));
+      return `<text x="${finite(x)}" y="${finite(baseline)}" text-anchor="${esc(anchor)}" fill="${color(o.muted?'muted':'ink')}" font-size="${size}"${options(o)}>${lines.map((l,i)=>`<tspan x="${finite(x)}" dy="${i?16:0}">${esc(l)}</tspan>`).join('')}</text>`;
+    };
+    const arrow=(x1,y1,x2,y2,tone='accent',width=1.5,o={})=>{
+      const angle=Math.atan2(y2-y1,x2-x1),a=7;
+      return line(x1,y1,x2,y2,tone,width,o)+path(`M${x2-a*Math.cos(angle-.45)} ${y2-a*Math.sin(angle-.45)}L${x2} ${y2}L${x2-a*Math.cos(angle+.45)} ${y2-a*Math.sin(angle+.45)}`,tone,width,o);
+    };
+    return {W,H,esc,color,path,line,rect,circle,poly,text,arrow,clamp:(v,min,max)=>Math.max(min,Math.min(max,v))};
+  };
+})();
+</script><script>(()=>{
+'use strict';
+const M=window.DeepEndModels=window.DeepEndModels||{};
+const range=(key,label,min,max,step,value,unit='')=>({key,label,min,max,step,value,unit});
+const select=(key,label,value,options)=>({key,label,type:'select',value,options:options.map(([value,label])=>({value,label}))});
+const source=(label,url)=>({label,url});
+const H2=p=>p<=0||p>=1?0:-p*Math.log2(p)-(1-p)*Math.log2(1-p);
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const phi=n=>Array.from({length:n},(_,i)=>i+1).filter(k=>gcd(k,n)===1).length;
+const heading=(c,t)=>c.text(16,27,t,'start',{size:14,maxWidth:c.W-32});
+const pointsPath=pts=>pts.map((p,i)=>(i?'L':'M')+p.map(n=>n.toFixed(3)).join(',')).join(' ');
+const qecSource=source('Kelly et al. · stabilizer measurements','https://arxiv.org/abs/1411.5542');
+const infoSource=source('Shannon · A Mathematical Theory of Communication','https://www.nokia.com/bell-labs/publications-and-media/publications/a-mathematical-theory-of-communication/');
+const topologySource=source('Hatcher · Algebraic Topology','https://pi.math.cornell.edu/~hatcher/AT/AT.pdf');
+M[6]={title:'Read the error, preserve the qubit',controls:[select('error','Physical error','x2',[['none','None'],['x1','X on qubit 1'],['x2','X on qubit 2'],['x3','X on qubit 3'],['z1','Z on qubit 1']]),select('stage','Stage','syndrome',[['syndrome','Measure syndrome'],['recover','Apply recovery']])],sources:[qecSource],draw(c,s){
+ const {W,text,line,circle,rect}=c,err=s.error||'x2',idx=err.startsWith('x')?Number(err[1])-1:-1,recovered=s.stage==='recover',a=idx===0||idx===1?-1:1,b=idx===1||idx===2?-1:1;
+ let svg=heading(c,'α|000⟩ + β|111⟩')+text(16,55,'One encoded state · three physical qubits');
+ for(let i=0;i<3;i++){const y=100+i*54;svg+=text(16,y+4,'q'+(i+1))+line(50,y,W-28,y,'line',2)+circle(W*.43,y,15,idx===i?'danger':err==='z1'&&i===0?'secondary':'surface',{stroke:'line'})+text(W*.43,y+4,idx===i?'X':err==='z1'&&i===0?'Z':'I','middle');if(recovered&&idx===i)svg+=circle(W*.73,y,15,'accent',{opacity:.25})+text(W*.73,y+4,'X','middle');}
+ const gap=12,bw=(W-44)/2;svg+=rect(16,244,bw,43,a<0?'secondary':'surface')+rect(28+bw,244,bw,43,b<0?'secondary':'surface')+text(16+bw/2,270,'Z₁Z₂: '+(a<0?'−1':'+1'),'middle')+text(28+bw+bw/2,270,'Z₂Z₃: '+(b<0?'−1':'+1'),'middle')+text(16,316,err==='z1'?'Phase error hides from these checks.':recovered?'Recovery restores α|000⟩ + β|111⟩.':'Parity checks reveal which X occurred.', 'start',{maxWidth:W-32});
+ return{svg,readout:err==='z1'?'Syndrome (+1, +1): undetected phase error':idx<0?'Syndrome (+1, +1): no X error':`Syndrome (${a}, ${b}): X on qubit ${idx+1}`,summary:'This ideal three-qubit quantum repetition code protects an arbitrary encoded superposition against one X error. The parity measurements do not reveal α or β. It does not correct Z errors, multiple X errors, or imperfect measurement; those need richer codes.'};
+}};
+function eigenSymmetric(mat){const n=mat.length,a=mat.map(r=>r.slice()),v=Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>+(i===j)));for(let iter=0;iter<80;iter++){let p=0,q=1;for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)if(Math.abs(a[i][j])>Math.abs(a[p][q])){p=i;q=j;}if(Math.abs(a[p][q])<1e-11)break;const angle=.5*Math.atan2(2*a[p][q],a[q][q]-a[p][p]),co=Math.cos(angle),si=Math.sin(angle),ap=a[p][p],aq=a[q][q],off=a[p][q];for(let k=0;k<n;k++)if(k!==p&&k!==q){const kp=a[k][p],kq=a[k][q];a[k][p]=a[p][k]=co*kp-si*kq;a[k][q]=a[q][k]=si*kp+co*kq;}a[p][p]=co*co*ap-2*co*si*off+si*si*aq;a[q][q]=si*si*ap+2*co*si*off+co*co*aq;a[p][q]=a[q][p]=0;for(let k=0;k<n;k++){const kp=v[k][p],kq=v[k][q];v[k][p]=co*kp-si*kq;v[k][q]=si*kp+co*kq;}}return a.map((r,i)=>({value:r[i],vector:v.map(row=>row[i])})).sort((a,b)=>a.value-b.value);}
+M[8]={title:'Hear a bottleneck in the spectrum',controls:[range('bridge','Middle-edge weight',0,3,.1,.3),select('mode','Laplacian mode','fiedler',[['fiedler','Fiedler mode'],['constant','Constant mode'],['highest','Highest mode']])],sources:[source('MIT · Laplacian spectra and Rayleigh quotient','https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/resources/mit18_409f09_scribe2/')],draw(c,s){
+ const {W,text,line,circle,rect}=c,w=Number(s.bridge),L=[[1,-1,0,0],[-1,1+w,-w,0],[0,-w,1+w,-1],[0,0,-1,1]],es=eigenSymmetric(L),k=s.mode==='constant'?0:s.mode==='highest'?3:1,vec=s.mode==='constant'?[.5,.5,.5,.5]:es[k].vector,amp=Math.max(...vec.map(Math.abs)),xs=[0,1,2,3].map(i=>32+i*(W-64)/3),ys=vec.map(v=>127-43*v/amp);
+ let svg=heading(c,'L = D − A · node height is signal');
+ for(let i=0;i<3;i++)svg+=line(xs[i],ys[i],xs[i+1],ys[i+1],i===1?'secondary':'line',i===1?1+w*2:2,{dash:i===1&&w===0?'4 4':''});
+ for(let i=0;i<4;i++)svg+=line(xs[i],127,xs[i],ys[i],'line',1,{dash:'3 3'})+circle(xs[i],ys[i],11,vec[i]>=0?'accent':'secondary')+text(xs[i],180,String(i+1),'middle');
+ const cell=30,x0=W/2-60,y0=208;svg+=text(W/2,199,'Weighted Laplacian','middle');
+ for(let i=0;i<4;i++)for(let j=0;j<4;j++)svg+=rect(x0+j*cell,y0+i*cell,29,29,L[i][j]!==0?'surface':'paper')+text(x0+j*cell+14,y0+i*cell+19,Number(L[i][j].toFixed(1)).toString(),'middle');
+ return{svg,readout:`λ₂ = ${Math.max(0,es[1].value).toFixed(3)} · selected λ = ${Math.max(0,es[k].value).toFixed(3)}`,summary:'Exact eigenvectors of a four-node weighted path, using its unnormalized Laplacian. A weak middle edge lowers algebraic connectivity. At zero weight the graph has two components and the Fiedler eigenvector is not unique; this display chooses one basis vector.'};
+}};
+function huffman(ps){let list=ps.map((p,i)=>({p,id:i,leaves:[i]})),codes=ps.map(()=>''),seq=4;while(list.length>1){list.sort((a,b)=>a.p-b.p||a.id-b.id);const a=list.shift(),b=list.shift();a.leaves.forEach(i=>codes[i]='0'+codes[i]);b.leaves.forEach(i=>codes[i]='1'+codes[i]);list.push({p:a.p+b.p,id:seq++,leaves:a.leaves.concat(b.leaves)});}return codes;}
+M[15]={title:'Let common symbols take shorter routes',controls:[range('common','Probability of A',25,85,1,55,'%')],sources:[infoSource,source('Huffman · A Method for the Construction of Minimum-Redundancy Codes','https://doi.org/10.1109/JRPROC.1952.273898')],draw(c,s){
+ const {W,text,rect}=c,p=Number(s.common)/100,ps=[p,(1-p)*.5,(1-p)*.3,(1-p)*.2],codes=huffman(ps),H=-ps.reduce((a,p)=>a+p*Math.log2(p),0),avg=ps.reduce((a,p,i)=>a+p*codes[i].length,0);let svg=heading(c,'Prefix-free codewords · exact Huffman code');
+ ps.forEach((p,i)=>{const y=71+i*55;svg+=text(16,y+17,'ABCD'[i])+rect(42,y,Math.max(1,(W*.35-42)*p/.85),30,'surface')+text(47,y+20,(p*100).toFixed(1)+'%');codes[i].split('').forEach((bit,j)=>{const x=W*.48+j*32;svg+=rect(x,y,29,30,bit==='0'?'accent':'secondary',{opacity:.25})+text(x+14,y+20,bit,'middle');});});
+ svg+=text(16,311,'No codeword begins another codeword.', 'start',{maxWidth:W-32});return{svg,readout:`Entropy ${H.toFixed(3)} bits/symbol · average code ${avg.toFixed(3)} bits/symbol`,summary:'An independent four-symbol source, with the remaining probability divided B:C:D = 5:3:2. Huffman merges the least likely symbols to minimize average length among binary prefix codes. Entropy is the asymptotic lossless coding limit, not the length of every individual symbol.'};
+}};
+M[17]={title:'Two residue clocks reconstruct one number',controls:[range('r3','Remainder modulo 3',0,2,1,1),range('r5','Remainder modulo 5',0,4,1,3)],sources:[source('MIT · Chinese remainder theorem','https://ocw.mit.edu/courses/18-781-theory-of-numbers-spring-2012/resources/mit18_781s12_lec5/')],draw(c,s){
+ const {W,text,rect}=c,a=Number(s.r3),b=Number(s.r5),cell=(W-62)/5,x0=44,y0=95,found=Array.from({length:15},(_,x)=>x).find(x=>x%3===a&&x%5===b);let svg=heading(c,'ℤ/15ℤ ↔ ℤ/3ℤ × ℤ/5ℤ')+text(W/2,66,'remainder modulo 5','middle');
+ for(let j=0;j<5;j++)svg+=text(x0+(j+.5)*cell,86,String(j),'middle');for(let i=0;i<3;i++){svg+=text(26,y0+i*52+31,String(i),'middle');for(let j=0;j<5;j++){const x=Array.from({length:15},(_,x)=>x).find(x=>x%3===i&&x%5===j),chosen=i===a&&j===b;svg+=rect(x0+j*cell,y0+i*52,cell-3,49,chosen?'accent':'surface',{opacity:chosen?.3:1,stroke:chosen?'accent':'line'})+text(x0+(j+.5)*cell-1.5,y0+i*52+30,String(x),'middle');}}
+ svg+=text(16,282,'Rows: modulo 3 · cells: x modulo 15','start',{maxWidth:W-32})+text(W/2,317,`${found} ≡ ${a} (mod 3), ${found} ≡ ${b} (mod 5)`,'middle');return{svg,readout:`x = ${found} modulo 15`,summary:'Because 3 and 5 are coprime, every residue pair selects exactly one class modulo 15. The Chinese remainder map preserves both addition and multiplication: this is a ring isomorphism, not just a lookup-table coincidence.'};
+}};
+M[18]={title:'Project a signal onto a function space',controls:[range('modes','Highest Fourier frequency',0,5,1,1)],sources:[source('MIT · Hilbert-space orthogonal projection','https://ocw.mit.edu/courses/18-102-introduction-to-functional-analysis-spring-2021/resources/18102-sp21-lecture-17/')],draw(c,s){
+ const {W,text,path,line}=c,n=Number(s.modes),signal=t=>Math.sin(t)+.5*Math.sin(3*t)+.3*Math.cos(5*t),proj=t=>(n>=1?Math.sin(t):0)+(n>=3?.5*Math.sin(3*t):0)+(n>=5?.3*Math.cos(5*t):0),trace=(fn,y)=>pointsPath(Array.from({length:161},(_,i)=>[22+i*(W-44)/160,y-35*fn(i*2*Math.PI/160)])),err=Math.sqrt((n<1?.5:0)+(n<3?.125:0)+(n<5?.045:0));let svg=heading(c,'f(t) = sin t + 0.5 sin 3t + 0.3 cos 5t')+text(16,62,'Original and orthogonal projection');svg+=line(22,123,W-22,123,'line')+path(trace(signal,123),'muted',2)+path(trace(proj,123),'accent',2.5)+text(16,201,'Residual f − projection')+line(22,251,W-22,251,'line')+path(trace(t=>signal(t)-proj(t),251),'secondary',2)+text(22,312,'0')+text(W-22,312,'2π','end');return{svg,readout:`Residual RMS = ${err.toFixed(3)} · retained frequencies ≤ ${n}`,summary:'A finite Fourier example in periodic L² with normalized measure dt/(2π). Keeping orthogonal sine/cosine modes gives the least-squares approximation in that subspace. Missing components stay in the orthogonal residual; the RMS shown is exact, while the curves are sampled.'};
+}};
+M[19]={title:'Stretch a loop without crossing the hole',controls:[range('winding','Winding number',0,3,1,1),range('deform','Deformation',0,100,1,35,'%')],sources:[topologySource],draw(c,s){
+ const {W,text,path,circle,arrow}=c,k=Number(s.winding),d=Number(s.deform)/100,cx=W/2,cy=176,R=Math.min(85,(W-60)/2),pts=Array.from({length:241},(_,i)=>{const t=i/240;if(k===0){const a=2*Math.PI*t;return[cx+R*.58+R*.24*(1+d*.2*Math.cos(3*a))*Math.cos(a),cy+R*.24*Math.sin(a)];}const a=2*Math.PI*k*t,r=R*(.71+.14*Math.sin(2*Math.PI*t)+.1*d*Math.cos(3*a));return[cx+r*Math.cos(a),cy+r*Math.sin(a)*(1-.18*d)];});let svg=heading(c,'A loop in the punctured plane')+circle(cx,cy,13,'danger',{opacity:.2})+circle(cx,cy,3,'danger')+path(pointsPath(pts),'accent',2.5);for(let i of [35,95,155,215])svg+=arrow(...pts[i],...pts[i+3],'accent',2);svg+=text(cx,cy+R+35,'Removed point','middle')+text(16,315,k===0?'This loop can shrink away from the hole.':'The hole prevents contraction to a point.','start',{maxWidth:W-32});return{svg,readout:`Winding number ${k}: unchanged by this deformation`,summary:'A concrete homotopy illustration in ℝ² minus the origin. The integer winding number classifies loops up to homotopy here. These deformations keep every point of the loop away from the hole; arbitrary stretching that crosses it would change the space and the invariant.'};
+}};
+M[20]={title:'Build the product from its projections',controls:[range('a','Points in A',2,4,1,3),range('b','Points in B',2,3,1,2)],sources:[source('Leinster · Basic Category Theory','https://arxiv.org/abs/1612.09375')],draw(c,s){
+ const {W,text,rect,circle,line}=c,a=Number(s.a),b=Number(s.b),x0=61,y0=92,cw=(W-85)/a,ch=65;let svg=heading(c,'Finite sets: every pair is one product point')+text(W/2,59,'Projection to A','middle');for(let i=0;i<a;i++){const x=x0+(i+.5)*cw;svg+=circle(x,78,5,'accent')+text(x,71,'a'+(i+1),'middle');for(let j=0;j<b;j++)svg+=line(x,84,x,y0+(j+.5)*ch,'line',1,{dash:'3 3'});}for(let j=0;j<b;j++){const y=y0+(j+.5)*ch;svg+=circle(29,y,5,'secondary')+text(16,y-11,'b'+(j+1));for(let i=0;i<a;i++){const x=x0+i*cw;svg+=line(36,y,x+cw/2,y,'line',1,{dash:'3 3'})+rect(x+3,y0+j*ch+6,cw-6,ch-12,'surface',{stroke:'line'})+text(x+cw/2,y+4,`${i+1},${j+1}`,'middle');}}svg+=text(W/2,310,`A × B has ${a*b} pairs`,'middle');return{svg,readout:`|A × B| = ${a} × ${b} = ${a*b}`,summary:'The product in the category of finite sets. A map into A and a map into B uniquely determine a map into A×B by pairing their outputs. The universal property, rather than this particular grid layout, defines the categorical product.'};
+}};
+M[21]={title:'Separate coprime residues, then invert the count',controls:[range('n','Integer n',2,30,1,12)],sources:[source('NIST DLMF · Möbius inversion and Dirichlet convolution','https://dlmf.nist.gov/27.5')],draw(c,s){
+ const {W,text,rect}=c,n=Number(s.n),cols=6,cw=(W-32)/cols,divs=Array.from({length:n},(_,i)=>i+1).filter(d=>n%d===0);let svg=heading(c,'Which residues are coprime to n?');for(let i=1;i<=n;i++){const x=16+((i-1)%cols)*cw,y=62+Math.floor((i-1)/cols)*33,yes=gcd(i,n)===1;svg+=rect(x,y,cw-3,29,yes?'accent':'surface',{opacity:yes?.3:1,stroke:yes?'accent':'line'})+text(x+(cw-3)/2,y+20,String(i),'middle');}svg+=text(16,251,'Accented cells have gcd(k,n) = 1','start',{maxWidth:W-32})+text(16,281,'Divisors: '+divs.join(', '),'start',{maxWidth:W-32})+text(16,316,'Σ φ(d) over d | n = '+divs.map(phi).join(' + ')+' = '+n,'start',{maxWidth:W-32});return{svg,readout:`φ(${n}) = ${phi(n)} · divisor sum = ${n}`,summary:'Euler’s totient counts the coprime residues. Grouping 1,…,n by gcd gives n = Σd|n φ(d). Möbius inversion recovers φ(n) = Σd|n μ(d)n/d, connecting an elementary count to Dirichlet convolution; this finite example does not model modular forms or adeles.'};
+}};
+M[22]={title:'See probability concentrate into a typical set',controls:[range('p','Probability of 1',5,95,1,70,'%'),range('n','Block length',4,8,1,6)],sources:[infoSource],draw(c,s){
+ const {W,text,rect}=c,p=Number(s.p)/100,n=Number(s.n),N=2**n,cols=16,cw=(W-32)/cols,rows=N/cols,ch=Math.min(25,215/rows),H=H2(p),eps=.25;let mass=0,count=0,svg=heading(c,'Every cell is one binary block')+text(16,55,'Border: |information per bit − H| ≤ 0.25','start',{maxWidth:W-32});for(let i=0;i<N;i++){const ones=i.toString(2).split('').filter(x=>x==='1').length,prob=p**ones*(1-p)**(n-ones),typical=Math.abs(-Math.log2(prob)/n-H)<=eps;if(typical){mass+=prob;count++;}svg+=rect(16+(i%cols)*cw,86+Math.floor(i/cols)*ch,cw-2,ch-2,typical?'accent':'muted',{opacity:.2+.8*Math.min(1,prob/(Math.max(p,1-p)**n)),stroke:typical?'accent':'line',strokeWidth:typical?1.5:.5});}svg+=text(16,315,'Brighter cells are individually more probable.','start',{maxWidth:W-32});return{svg,readout:`${count}/${N} blocks in this typical set · probability ${(mass*100).toFixed(1)}% · H = ${H.toFixed(3)} bits`,summary:'An exact finite enumeration of an independent Bernoulli source. Typical means information per symbol lies within 0.25 bits of the entropy. For these short blocks, the set can be empty or have modest mass; probability concentration is an asymptotic theorem as block length grows.'};
+}};
+M[23]={title:'A candidate is easy to check',controls:[range('assignment','Assignment (binary xyz)',0,7,1,5),select('formula','Formula','sat',[['sat','Three-clause example'],['unsat','Contradiction']])],sources:[source('MIT · Cook–Levin theorem and satisfiability','https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/resources/lecture-16-cook-levin-theorem/')],draw(c,s){
+ const {W,text,rect,circle}=c,v=Number(s.assignment),bits=[v>>2&1,v>>1&1,v&1],unsat=s.formula==='unsat',clauses=unsat?[['x',!!bits[0]],['¬x',!bits[0]]]:[['x ∨ y',!!(bits[0]||bits[1])],['¬x ∨ z',!!(!bits[0]||bits[2])],['¬y ∨ ¬z',!!(!bits[1]||!bits[2])]],good=clauses.every(x=>x[1]);let svg=heading(c,'Choose a witness; check each clause');bits.forEach((bit,i)=>{const x=16+i*(W-32)/3;svg+=rect(x,68,(W-38)/3,51,'surface')+text(x+(W-38)/6,88,'xyz'[i],'middle')+text(x+(W-38)/6,108,String(bit),'middle');});clauses.forEach(([label,ok],i)=>{const y=143+i*49;svg+=rect(16,y,W-32,39,ok?'accent':'danger',{opacity:.18})+text(28,y+24,label)+circle(W-41,y+19,8,ok?'accent':'danger')+text(W-64,y+24,ok?'true':'false','end');});svg+=text(16,320,good?'All clauses true: this is a SAT witness.':'At least one clause is false.','start',{maxWidth:W-32});return{svg,readout:`xyz = ${bits.join('')} · ${good?'satisfies':'does not satisfy'} the formula`,summary:'A three-variable finite SAT example: a proposed assignment is checked clause by clause. The contradictory x∧¬x example has no satisfying assignment. Cook–Levin establishes SAT’s NP-completeness in general; an easy tiny instance neither proves nor disproves P=NP.'};
+}};
+M[24]={title:'Local word rules control long-run complexity',controls:[range('n','Word length',2,8,1,5),select('rule','Allowed sequences','golden',[['golden','No adjacent 11'],['full','Every binary word']])],sources:[source('Petersen · Symbolic Dynamics','https://petersen.web.unc.edu/wp-content/uploads/sites/17054/2018/04/M261SymbolicDynamicsS982018_01_15.pdf')],draw(c,s){
+ const {W,text,rect}=c,n=Number(s.n),full=s.rule==='full',all=Array.from({length:2**n},(_,i)=>i.toString(2).padStart(n,'0')),valid=all.filter(x=>full||!x.includes('11')),examples=valid.slice(0,8),cw=Math.min(27,(W-75)/n);let svg=heading(c,full?'Full binary shift':'Golden-mean shift: forbid 11');examples.forEach((word,i)=>{const y=63+i*28;svg+=text(16,y+18,String(i+1));word.split('').forEach((bit,j)=>{const x=44+j*cw;svg+=rect(x,y,cw-2,23,bit==='1'?'secondary':'accent',{opacity:.25})+text(x+(cw-2)/2,y+16,bit,'middle');});});svg+=text(16,315,`Showing ${examples.length} of ${valid.length} legal words`,'start',{maxWidth:W-32});return{svg,readout:`C(${n}) = ${valid.length} · entropy = ${full?'1.000':'0.694'} bits/symbol`,summary:full?'The full binary shift has 2ⁿ legal n-letter words. Its topological entropy, lim log₂ C(n)/n, is one bit per step. These finite prefixes illustrate a symbolic dynamical system, not a physical trajectory.':'Forbidding adjacent 11 gives C(n)=C(n−1)+C(n−2), with C(0)=1 and C(1)=2. Long-run growth is governed by the golden ratio φ; topological entropy is log₂ φ≈0.694 bits per step. Only the first eight legal words are drawn.'};
+}};
+M[25]={title:'Fill the space between paths',controls:[range('fill','Homotopy progress',0,100,1,35,'%')],sources:[topologySource,source('Lurie · Higher Topos Theory','https://arxiv.org/abs/math/0608040')],draw(c,s){
+ const {W,text,path,circle,poly}=c,t=Number(s.fill)/100,A=[35,248],B=[W/2,77],C=[W-35,248],mid=[(1-t)*B[0]+t*(A[0]+C[0])/2,(1-t)*B[1]+t*(A[1]+C[1])/2];let svg=heading(c,'A 2-horn: two given edges')+poly([A,B,C],'accent',{opacity:.08})+path(pointsPath([A,B,C]),'muted',2)+path(pointsPath([A,C]),'line',1.5,{dash:'5 4'})+poly([A,B,C,mid],'accent',{opacity:.16})+path(pointsPath([A,mid,C]),'accent',3);for(let [p,l]of[[A,'A'],[B,'B'],[C,'C']])svg+=circle(...p,5,'ink')+text(p[0],p[1]+(l==='B'?-12:22),l,'middle');svg+=text(W/2,305,t===0?'A → B → C':t===1?'A → C':'A path through the filled triangle','middle');return{svg,readout:`Path deformation ${(t*100).toFixed(0)}% · endpoints stay fixed`,summary:'A concrete 2-horn in the singular simplicial set of the plane: two paths are given, and a triangular map supplies a third edge and a filling. The slider linearly deforms the broken path to the straight one. General Kan complexes require fillers for all horns; this one triangle is only the lowest-dimensional illustration.'};
+}};
+M[26]={title:'A convergent probe sees more than isolated points',controls:[select('topology','Target topology','usual',[['usual','Usual topology on ℝ'],['discrete','Discrete topology on ℝ']]),range('epsilon','Neighborhood radius',3,50,1,15,'%')],sources:[source('Clausen–Scholze · Lectures on Condensed Mathematics','https://www.math.uni-bonn.de/people/scholze/Condensed.pdf')],draw(c,s){
+ const {W,text,line,circle,rect,arrow}=c,eps=Number(s.epsilon)/100,usual=s.topology==='usual',left=27,right=W-27,span=right-left,N=Math.floor(1/eps)+1;let svg=heading(c,'S = {1, 2, 3, …, ∞} · n → ∞')+text(16,62,'Probe f(n) = 1/n, f(∞) = 0');
+ const domain=[1,2,3,4,6,10];domain.forEach((n,i)=>{const x=left+i*span/7;svg+=circle(x,108,4,'secondary')+text(x,96,String(n),'middle');});svg+=text(left+6*span/7,111,'…','middle')+circle(right,108,5,'accent')+text(right,96,'∞','middle');
+ svg+=arrow(W/2,138,W/2,185,'line')+text(W/2,165,'continuous?','middle');
+ if(usual)svg+=rect(left,205,span*eps,48,'accent',{opacity:.2});else svg+=circle(left,229,12,'danger',{opacity:.15});
+ svg+=line(left,229,right,229,'line',1.5);domain.forEach(n=>{const x=left+span/n,inside=usual&&1/n<eps;svg+=circle(x,229,4,inside?'accent':'secondary',{opacity:.8});});svg+=circle(left,229,5,usual?'accent':'danger')+text(left,278,'0','middle')+text(right,278,'1','middle')+text(16,313,usual?`All n ≥ ${N} land inside |x| < ${eps.toFixed(2)}.`:'The open set {0} contains no finite f(n).','start',{maxWidth:W-32});return{svg,readout:usual?'This infinite probe is continuous.':'This infinite probe is not continuous.',summary:'The one-point compactification of discrete ℕ is a profinite test space. The map 1/n→0 is continuous into usual ℝ but fails at ∞ for discrete ℝ: finite points alone miss this distinction. A topological space gives a condensed set S↦Cont(S,X); the dots illustrate an infinite probe, not a complete construction of condensed mathematics.'};
+}};
+})();
+</script><script>(() => {
+  const root=document.getElementById('deep-end-model');
+  const model=window.DeepEndModels[Number(root.dataset.episode)];
+  if(!model)throw new Error('Missing episode visual: '+root.dataset.episode);
+  const title=root.querySelector('[data-title]'),controls=root.querySelector('[data-controls]'),scene=root.querySelector('svg'),readout=root.querySelector('[data-readout]'),summary=root.querySelector('[data-summary]'),sources=root.querySelector('[data-sources]');
+  title.textContent=model.title;
+  const state={},outputs={};let timer=0,step=1,playing=false,announceTimer=0;
+  const still=matchMedia('(prefers-reduced-motion: reduce)');
+  const live=document.createElement('p');live.className='sr-only';live.setAttribute('aria-live','polite');root.append(live);
+  const stop=()=>{clearTimeout(timer);playing=false;if(tour)tour.textContent='Play sequence';};
+  let tour=null;
+  for(const control of model.controls||[]){
+    state[control.key]=control.value;
+    const label=document.createElement('label');label.className='control';
+    const heading=document.createElement('span');heading.className='control-heading';heading.append(document.createTextNode(control.label));
+    let input;
+    if(control.type==='select'){
+      input=document.createElement('select');
+      for(const choice of control.options){const option=document.createElement('option');option.value=choice.value;option.textContent=choice.label;input.append(option);}
+      input.value=control.value;
+    }else{
+      const output=document.createElement('output');outputs[control.key]=output;heading.append(output);
+      input=document.createElement('input');input.type='range';input.min=control.min;input.max=control.max;input.step=control.step??1;input.value=control.value;
+    }
+    input.setAttribute('aria-label',control.label);input.dataset.control=control.key;
+    input.addEventListener('input',()=>{stop();state[control.key]=control.type==='select'?input.value:Number(input.value);draw();});
+    label.append(heading,input);controls.append(label);
+  }
+  const first=(model.controls||[]).find(c=>c.type!=='select');
+  if(first){
+    tour=document.createElement('button');tour.type='button';tour.className='tour';tour.textContent='Play sequence';tour.disabled=still.matches;
+    tour.title=still.matches?'Motion is disabled by your reduced-motion preference':'Step through the first control at a calm pace';
+    tour.addEventListener('click',()=>{if(playing){stop();return;}playing=true;tour.textContent='Pause sequence';tick();});controls.append(tour);
+    function tick(){if(!playing||document.hidden)return;const delta=(first.step??1)*Math.max(1,Math.round((first.max-first.min)/(first.step??1)/16));
+      let next=Number(state[first.key])+delta*step;if(next>first.max||next<first.min){step*=-1;next=Math.max(first.min,Math.min(first.max,Number(state[first.key])+delta*step));}
+      state[first.key]=Number(next.toFixed(6));root.querySelector(`[data-control="${first.key}"]`).value=state[first.key];draw();timer=setTimeout(tick,900);
+    }
+    new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)stop();}).observe(root);
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+    still.addEventListener('change',()=>{stop();tour.disabled=still.matches;});
+  }
+  for(const source of model.sources||[]){const link=document.createElement('a');link.href=source.url;link.textContent=source.label;link.target='_blank';link.rel='noopener noreferrer';sources.append(link);}
+  function notify(){parent.postMessage({type:'deep-end-visual-height',episode:Number(root.dataset.episode),height:Math.ceil(document.body.getBoundingClientRect().height)},'*');}
+  function draw(){
+    const W=Math.max(280,Math.round(scene.getBoundingClientRect().width));
+    const rendered=model.draw(window.DeepEndHelpers(W),state);
+    scene.setAttribute('viewBox',`0 0 ${W} 340`);scene.innerHTML=rendered.svg;
+    scene.setAttribute('aria-label',rendered.summary);readout.textContent=rendered.readout;summary.textContent=rendered.summary;
+    clearTimeout(announceTimer);announceTimer=setTimeout(()=>{live.textContent=rendered.readout;},700);
+    for(const control of model.controls||[]){if(outputs[control.key])outputs[control.key].textContent=String(state[control.key])+(control.unit?' '+control.unit:'');}
+    root.dataset.state=JSON.stringify(state);notify();
+  }
+  new ResizeObserver(draw).observe(root);new ResizeObserver(notify).observe(document.body);draw();
+  window.DeepEndVisual={state:()=>({...state}),draw,episode:Number(root.dataset.episode)};
+})();
+</script></body></html>

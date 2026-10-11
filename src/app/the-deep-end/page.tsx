@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { credits, episodes, platforms, profiles, seriesColor, showTitle, showUrl } from "./data";
 import styles from "./podcast.module.css";
+import { VisualExplorer } from "@/components/podcast/VisualExplorer";
 
 export const metadata: Metadata = {
   title: { absolute: showTitle },
@@ -41,13 +42,15 @@ export default function PodcastPage() {
           </div>
           <Image className={styles.cover} src="/images/the-deep-end/show-cover.jpg" alt={`${showTitle} show cover, by Sankalp Thakur`} width={1200} height={1200} priority sizes="(max-width: 720px) 90vw, 40vw" />
         </section>
+        <section className={styles.visualExplorer} aria-labelledby="explorer-title"><div className={styles.sectionHead}><h2 id="explorer-title">See the ideas work.</h2><span>68 episodes · 68 interactive companions</span></div><p className={styles.intro}>Look inside the mechanism, change a parameter, and connect the result to the episode.</p><VisualExplorer episodes={episodes.map(e => ({ episode_number: e.episode_number, title: e.title, slug: e.slug }))} /></section>
         <section id="episodes" className={styles.collection} aria-labelledby="collection-title">
           <div className={styles.sectionHead}><h2 id="collection-title">The collection</h2><span>Around one hour each</span></div>
           <div className={styles.episodes}>
             {episodes.map(e => <Link key={e.slug} href={`/the-deep-end/${e.slug}`} className={styles.episode} style={{ borderTopColor: seriesColor(e.episode_number) }}>
               <span className={styles.episodeNumber} style={{ color: seriesColor(e.episode_number) }}>{String(e.episode_number).padStart(2, "0")}</span>
+              <Image className={styles.episodeCover} src={e.cover} alt="" width={3000} height={3000} sizes="82px" />
               <span className={styles.episodeText}><span className={styles.series}>{e.series}</span><h3>{e.title}</h3><span className={styles.duration}>{Math.round(e.duration_seconds / 60)} min</span></span>
-              <span className={styles.arrow} aria-hidden="true">↗</span>
+              <span className={styles.visualBadge}>Interactive companion</span><span className={styles.arrow} aria-hidden="true">↗</span>
             </Link>)}
           </div>
         </section>
