@@ -68,5 +68,14 @@
     "source_model_sha256": "fb1a49ad2b8c319fb2499dd04cb4c1a56175b1d30ea1d370be15668a3608b0f9",
     "source_scene_sha256": "2db5e65536115b992d88353e0c1a088624b9d2a7724206058c9fe593655a2b24",
     "source_runtime_sha256": "5b2c88cdbeee43053895108fdbf5ec545453cf82506b8dd61c4f27b540502278"
+  },
+  {
+    "episode": 77,
+    "source": "outputs/next-companions/77-orientation-register",
+    "source_script_sha256": "166aefb6645d4640cc10f259fee989ba727bb1775bf31ccaea7512eb30159bf5",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "927ab52d3fbf8901e7911ad7267db9a9ec1fc07d761affc978214235af073a43",
+    "source_scene_sha256": "84f20bfcb41100d4fc901ae8f5599e7b5f5f93c8cc36748681a2eec94e406828",
+    "source_runtime_sha256": "67b742584f7078cde37aa86dca250fcf206b0fdc857cae2da58490d9b3ebc96b"
   }
 ]

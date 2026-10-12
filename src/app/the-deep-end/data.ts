@@ -4646,7 +4646,7 @@ export const episodes = [
         "title": "Why it matters, and the verification ledger"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 78,
