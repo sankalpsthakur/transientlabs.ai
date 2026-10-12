@@ -26,3 +26,8 @@ public/demos/*.mp4
 # Decks live in a worktree; never add the 76MB package to this repo.
 docs/decks/
 .worktrees/
+
+# Standalone companion builders generate these intermediate templates.
+scripts/podcast/standalone/*/index.html
+scripts/podcast/standalone/*/qa.html
+scripts/podcast/standalone/*/evidence/

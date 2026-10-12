@@ -1,0 +1,134 @@
+[
+  {
+    "episode": 47,
+    "kind": "electrolyser",
+    "solids": 47,
+    "svgBytes": 118716
+  },
+  {
+    "episode": 48,
+    "kind": "ammonia",
+    "solids": 95,
+    "svgBytes": 238309
+  },
+  {
+    "episode": 49,
+    "kind": "solar",
+    "solids": 59,
+    "svgBytes": 143908
+  },
+  {
+    "episode": 50,
+    "kind": "distillation",
+    "solids": 65,
+    "svgBytes": 181955
+  },
+  {
+    "episode": 51,
+    "kind": "turret",
+    "solids": 61,
+    "svgBytes": 166704
+  },
+  {
+    "episode": 52,
+    "kind": "handover",
+    "solids": 37,
+    "svgBytes": 98722
+  },
+  {
+    "episode": 53,
+    "kind": "layout",
+    "solids": 45,
+    "svgBytes": 121202
+  },
+  {
+    "episode": 54,
+    "kind": "firewater",
+    "solids": 56,
+    "svgBytes": 135772
+  },
+  {
+    "episode": 55,
+    "kind": "flare",
+    "solids": 100,
+    "svgBytes": 246449
+  },
+  {
+    "episode": 56,
+    "kind": "slugcatcher",
+    "solids": 115,
+    "svgBytes": 263249
+  },
+  {
+    "episode": 57,
+    "kind": "separator",
+    "solids": 45,
+    "svgBytes": 110887
+  },
+  {
+    "episode": 58,
+    "kind": "dehydration",
+    "solids": 65,
+    "svgBytes": 181493
+  },
+  {
+    "episode": 59,
+    "kind": "knockout",
+    "solids": 57,
+    "svgBytes": 139734
+  },
+  {
+    "episode": 60,
+    "kind": "compressor",
+    "solids": 62,
+    "svgBytes": 140112
+  },
+  {
+    "episode": 61,
+    "kind": "barriers",
+    "solids": 36,
+    "svgBytes": 92115
+  },
+  {
+    "episode": 62,
+    "kind": "hydrocyclone",
+    "solids": 42,
+    "svgBytes": 119495
+  },
+  {
+    "episode": 63,
+    "kind": "airreceiver",
+    "solids": 80,
+    "svgBytes": 220354
+  },
+  {
+    "episode": 64,
+    "kind": "deaerator",
+    "solids": 59,
+    "svgBytes": 165991
+  },
+  {
+    "episode": 65,
+    "kind": "intake",
+    "solids": 49,
+    "svgBytes": 126176
+  },
+  {
+    "episode": 66,
+    "kind": "diesel",
+    "solids": 49,
+    "svgBytes": 124193
+  },
+  {
+    "episode": 67,
+    "kind": "effluent",
+    "solids": 60,
+    "svgBytes": 163155
+  },
+  {
+    "episode": 68,
+    "kind": "lng",
+    "solids": 90,
+    "svgBytes": 246633
+  }
+]

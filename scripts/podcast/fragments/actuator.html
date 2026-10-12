@@ -1,0 +1,49 @@
+<div id="actuator-mechanism-view">
+  <h3>Actuators: energy becomes force and motion</h3>
+  <div class="viz-controls"><button type="button" class="btn" data-type="electric" aria-pressed="true">Electric</button><button type="button" class="btn" data-type="pneumatic" aria-pressed="false">Pneumatic</button><button type="button" class="btn" data-type="hydraulic" aria-pressed="false">Hydraulic</button></div>
+  <svg class="actuator-scene" role="img" aria-label="Electric motor and screw drive converting rotation to linear motion"></svg>
+  <div class="viz-controls"><button type="button" class="btn" data-direction="extend" aria-pressed="true">Extend</button><button type="button" class="btn" data-direction="retract" aria-pressed="false">Retract</button><span class="text-small tabular-nums" data-readout aria-live="polite"></span></div>
+  <div class="text-small" data-detail aria-live="polite"></div>
+  <div class="text-small text-muted actuator-note">Cutaway · illustrative mechanisms · force values exclude friction and outlet backpressure</div>
+</div>
+<style>
+#actuator-mechanism-view{width:100%}#actuator-mechanism-view h3{margin:0 0 12px}#actuator-mechanism-view .actuator-scene{display:block;width:100%;height:350px;margin:8px 0}#actuator-mechanism-view svg text{fill:var(--foreground);font-family:inherit;font-size:12px;font-weight:400}#actuator-mechanism-view [data-detail]{margin-top:10px}#actuator-mechanism-view .actuator-note{margin-top:10px}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('actuator-mechanism-view'),svg=root.querySelector('svg'),types=[...root.querySelectorAll('[data-type]')],directions=[...root.querySelectorAll('[data-direction]')],reduce=matchMedia('(prefers-reduced-motion: reduce)');let type='electric',direction='extend',position=.7,target=.7,frame=0,last=0;
+const path=(d,c='var(--border)',w=1,extra='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+const label=(x,y,s,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${s}</text>`;
+const box=(x,y,w,h,c='var(--muted)',extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="${c}" ${extra}/>`;
+const dot=(x,y,r,c='var(--foreground)',extra='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${extra}/>`;
+function draw(){const W=Math.max(280,root.clientWidth),left=type==='electric'?W*.23:W*.12,right=type==='electric'?W*.62:W*.54,top=116,bottom=212,y=164,px=left+22+position*(right-left-49),tip=right+20+(position-.1)*(right-left-49);let s='';svg.setAttribute('viewBox',`0 0 ${W} 350`);
+const bolt=(x,y)=>dot(x,y,3,'var(--card)','stroke="var(--foreground)" stroke-width="1"')+path(`M${x-1.5} ${y}h3`,'var(--foreground)',1);
+s+=box(left,top,right-left,bottom-top,'var(--muted)','stroke="var(--foreground)" stroke-width="1.5"')+box(left+9,top+9,right-left-18,bottom-top-18,'var(--card)')+box(left-8,top-5,18,bottom-top+10,'var(--muted)','stroke="var(--border)"')+box(right-10,top-5,20,bottom-top+10,'var(--muted)','stroke="var(--border)"');
+for(let i=0;i<4;i++){s+=bolt(left+1,top+10+i*24)+bolt(right,top+10+i*24);}s+=path(`M${left+4} ${top-9}H${right-3}M${left+4} ${bottom+9}H${right-3}`,'var(--border)',3);
+if(type==='electric'){
+const ml=18,mr=left-7;s+=box(ml,125,mr-ml,79,'var(--muted)','stroke="var(--foreground)" stroke-width="1.2"');for(let i=0;i<6;i++)s+=path(`M${ml+8+i*(mr-ml-16)/5} 129V200`);s+=box(ml+5,149,mr-ml-10,30,'var(--card)')+path(`M${ml+11} 164H${right-16}`,'var(--foreground)',4);
+for(let x=left+12;x<right-12;x+=12)s+=path(`M${x} 158l7 12`,'var(--border)',1.5);
+s+=box(px-14,141,28,46,'var(--viz-series-1)','opacity=".7"')+box(px,157,tip-px,14,'var(--muted)','stroke="var(--foreground)" stroke-width="1.3" data-rod="true"')+dot(px-6,150,2,'var(--card)')+dot(px-6,179,2,'var(--card)');
+s+=label(ml,99,'Motor')+label((left+right)/2,83,'Rotating screw','middle')+path(`M${(left+right)/2} 91V113`)+label(px,246,'Guided nut','middle')+path(`M${px} 220V232`)+label(W/2,29,'Current → magnetic torque → screw rotation','middle');
+const rot=position*20*Math.PI,mc=(ml+mr)/2;s+=path(`M${mc-10*Math.cos(rot)} ${164-10*Math.sin(rot)}L${mc+10*Math.cos(rot)} ${164+10*Math.sin(rot)}`,'var(--viz-series-2)',3)+label(W/2,293,direction==='extend'?'Motor drives nut outward':'Reverse motor drives nut inward','middle')+label(W/2,324,'10 mm screw lead → 10 mm travel per turn','middle');
+root.querySelector('[data-detail]').textContent='Magnetic forces produce motor torque. A rotating screw moves a nut that is prevented from rotating, pushing or pulling the rod.';
+root.querySelector('[data-readout]').textContent='Screw travel: '+(position*100).toFixed(0)+' mm';
+}else{
+const press='var(--viz-series-1)',returnC='var(--viz-series-2)',ext=direction==='extend',highLeft=ext;const pl=left+10,pr=right-10,py=top+10,ph=bottom-top-20;
+s+=box(pl,py,Math.max(0,px-pl-6),ph,highLeft?press:returnC,'opacity=".17"')+box(px+6,py,Math.max(0,pr-px-6),ph,highLeft?returnC:press,'opacity=".17"');
+for(let i=0;i<30;i++){const lo=i%2?pl:px+7,hi=i%2?px-7:pr,x=lo+((i*.618)%1)*Math.max(0,hi-lo),yy=py+8+((i*.414)%1)*(ph-16);s+=dot(x,yy,type==='hydraulic'?2:1.6,i%2?(highLeft?press:returnC):(highLeft?returnC:press),'opacity=".45"');}
+s+=box(px-7,top+10,14,bottom-top-20,'var(--muted)','stroke="var(--foreground)" stroke-width="1.5"')+box(px-9,top+13,4,ph-6,'var(--foreground)')+box(px+5,top+13,4,ph-6,'var(--foreground)')+box(px+7,y-7,tip-px-7,14,'var(--muted)','stroke="var(--foreground)" stroke-width="1.3" data-rod="true"');
+const a=left+20,b=right-24;s+=path(`M${a} ${bottom}V257H${W*.43}M${b} ${bottom}V257H${W*.57}`,'var(--border)',5)+path(`M${a} ${bottom}V257H${W*.43}`,highLeft?press:returnC,2)+path(`M${b} ${bottom}V257H${W*.57}`,highLeft?returnC:press,2)+box(W*.43,243,W*.14,29,'var(--muted)','stroke="var(--foreground)"');
+s+=path(ext?`M${W*.45} 263L${W*.55} 249`:`M${W*.45} 249L${W*.55} 263`,'var(--foreground)',1.6)+label(W/2,294,'Directional valve','middle');
+s+=label(W/2,29,type==='pneumatic'?'Compressed air → pressure force':'Pressurized oil → pressure force','middle')+label(a,95,highLeft?'Supply':'Return','middle')+label(b,95,highLeft?'Return':'Supply','middle')+label(W/2,66, type==='pneumatic'?'6 bar · air can compress':'100 bar · oil is nearly incompressible','middle');
+s+=label(W/2,326,ext?'Pressure on full piston area → extend':'Pressure on annular area → retract','middle');
+const D=.04,d=.016,p=type==='pneumatic'?600000:10000000,area=Math.PI/4*(D*D-(ext?0:d*d)),force=p*area;root.dataset.force=force.toFixed(3);root.querySelector('[data-readout]').textContent='Ideal force: '+(force/1000).toFixed(2)+' kN';
+root.querySelector('[data-detail]').textContent=type==='pneumatic'?'A valve supplies air to one chamber and exhausts the other. Pressure difference moves the piston; air compressibility makes the drive compliant.':'A valve sends pump flow to one chamber and returns oil from the other to the tank. Pressure supplies force; flow largely sets speed.';
+}
+s+=box(tip-3,y-15,12,30,'var(--muted)','stroke="var(--border)"')+label(tip,232,'Rod','middle');svg.innerHTML=s;svg.setAttribute('aria-label',`${type} actuator, ${direction}, ${root.querySelector('[data-readout]').textContent}. ${root.querySelector('[data-detail]').textContent}`);root.dataset.type=type;root.dataset.direction=direction;root.dataset.position=position;types.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.type===type)));directions.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.direction===direction)));root.querySelector('.actuator-note').textContent=type==='electric'?'Illustrative screw drive · 10 mm lead · nut constrained against rotation':'Illustrative cylinder: 40 mm bore, 16 mm rod · ideal force excludes friction and outlet backpressure';
+}
+function tick(t){const dt=Math.min(.04,(t-last)/1000||.016);last=t;position+=(target-position)*(1-Math.exp(-dt*7));if(Math.abs(position-target)<.001){position=target;frame=0;draw();return;}draw();frame=requestAnimationFrame(tick);}
+function move(){target=direction==='extend'?.9:.1;if(frame)cancelAnimationFrame(frame);if(reduce.matches){position=target;frame=0;draw();}else{last=0;frame=requestAnimationFrame(tick);}}
+types.forEach(b=>b.addEventListener('click',()=>{type=b.dataset.type;draw();}));directions.forEach(b=>b.addEventListener('click',()=>{direction=b.dataset.direction;move();draw();}));new ResizeObserver(draw).observe(root);draw();
+})();
+</script>

@@ -127,7 +127,7 @@ export function FAQ() {
             </div>
             <div className="flex items-center gap-4">
               <Button variant="primary" size="sm" onClick={open}>
-                Book a working session
+                Scope my project
               </Button>
               <a
                 href="mailto:hello@transientlabs.ai"

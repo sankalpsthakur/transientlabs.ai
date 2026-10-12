@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { HomeContent } from "@/components/HomeContent";
 import { getBrandAssetUrl, getSiteAssetUrl, siteBrand } from "@/lib/site-brand";
+import { episodes } from "@/app/the-deep-end/data";
 
 export const metadata: Metadata = {
+  description: "Ship reliable AI products and workflows with a senior engineering team. Explore recent projects, The Deep End podcast, and fixed-scope product and industrial engagements.",
   alternates: {
     canonical: siteBrand.siteUrl,
   },
@@ -134,7 +136,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <HomeContent />
+      <HomeContent podcast={{ episodeCount: episodes.length, companionCount: episodes.filter(episode => episode.has_visual !== false).length, cover: episodes[1].cover }} />
     </>
   );
 }

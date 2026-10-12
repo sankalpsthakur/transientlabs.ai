@@ -1,0 +1,177 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>EUV Lithography · interactive working principle</title><style>.iso{
+  --anatomy-page:#0b0b0b;--anatomy-card:#131313;--anatomy-text:#a3a3a3;--anatomy-strong:#e6e6e6;--anatomy-muted:#6e6e6e;
+  --anatomy-paper:#131313;--anatomy-face:#1b1b1b;--anatomy-top:#1c1c1c;
+  --anatomy-shade-0:#0f0f0f;--anatomy-shade-1:#121212;--anatomy-shade-2:#151515;--anatomy-shade-3:#181818;
+  --anatomy-lit-top:#262626;--anatomy-lit-shade:#1d1d1d;
+  --anatomy-hi:#d4d4d4;--anatomy-mid:#6a6a6a;--anatomy-lo:#3e3e3e;--anatomy-faint:#2a2a2a;--anatomy-lit:#ffffff;
+  --anatomy-halo:#050505;--anatomy-halo-opacity:.9;--anatomy-dot:#e6e6e6;
+  --anatomy-red:#ff6b6b;--anatomy-green:#6be0a0;--anatomy-blue:#6b9bff;
+  --anatomy-weight:.6px;--anatomy-ease:cubic-bezier(.32,.72,0,1);
+  --anatomy-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --anatomy-lift:inset 0 1px 0 0 #ffffff0a,inset 0 0 0 1px #ffffff06,0 0 0 1px #00000026,0 1px 1px -.5px #00000014,0 3px 3px -1.5px #00000014,0 6px 6px -3px #00000014,0 12px 12px -6px #00000014;
+}
+.iso[data-theme="light"]{
+  --anatomy-page:#f2f2ef;--anatomy-card:#fbfbfa;--anatomy-text:#57575a;--anatomy-strong:#18181a;--anatomy-muted:#8c8c90;
+  --anatomy-paper:#fbfbfa;--anatomy-face:#ffffff;--anatomy-top:#ffffff;
+  --anatomy-shade-0:#dcdcd9;--anatomy-shade-1:#e5e5e2;--anatomy-shade-2:#ededea;--anatomy-shade-3:#f4f4f1;
+  --anatomy-lit-top:#ffffff;--anatomy-lit-shade:#eeeeeb;
+  --anatomy-hi:#26262a;--anatomy-mid:#8a8a8f;--anatomy-lo:#b4b4b8;--anatomy-faint:#d4d4d6;--anatomy-lit:#000000;
+  --anatomy-halo:#8a8a80;--anatomy-halo-opacity:.32;--anatomy-dot:#3a3a3e;
+  --anatomy-red:#e5484d;--anatomy-green:#30a46c;--anatomy-blue:#3e63dd;
+  --anatomy-lift:inset 0 1px 0 0 #ffffff,0 0 0 1px #0000000f,0 1px 1px -.5px #0000000a,0 3px 3px -1.5px #0000000a,0 6px 6px -3px #0000000a,0 12px 12px -6px #0000000a;
+}
+.iso-svg{display:block;width:100%;height:auto;overflow:visible}
+.iso-svg path,.iso-svg circle{vector-effect:non-scaling-stroke}
+.iso-fill{fill:var(--anatomy-paper);stroke:none}
+.iso-solid[data-lit]>.iso-fill{fill:var(--anatomy-face)}
+.iso-shade,.iso-top{stroke:none}
+.iso-shade[data-shade="0"]{fill:var(--anatomy-shade-0)}
+.iso-shade[data-shade="1"]{fill:var(--anatomy-shade-1)}
+.iso-shade[data-shade="2"]{fill:var(--anatomy-shade-2)}
+.iso-shade[data-shade="3"]{fill:var(--anatomy-shade-3)}
+.iso-top{fill:var(--anatomy-top)}
+.iso-solid[data-lit]>.iso-top{fill:var(--anatomy-lit-top)}
+.iso-solid[data-lit]>.iso-shade{fill:var(--anatomy-lit-shade)}
+.iso-solid[data-seamless]>.iso-shade,.iso-solid[data-seamless]>.iso-top{stroke-width:.4;stroke-linejoin:round}
+.iso-solid[data-seamless]>.iso-shade[data-shade="0"]{stroke:var(--anatomy-shade-0)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="1"]{stroke:var(--anatomy-shade-1)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="2"]{stroke:var(--anatomy-shade-2)}
+.iso-solid[data-seamless]>.iso-shade[data-shade="3"]{stroke:var(--anatomy-shade-3)}
+.iso-solid[data-seamless]>.iso-top{stroke:var(--anatomy-top)}
+.iso-solid[data-seamless][data-lit]>.iso-top{stroke:var(--anatomy-lit-top)}
+.iso-solid[data-seamless][data-lit]>.iso-shade{stroke:var(--anatomy-lit-shade)}
+.iso-solid[data-lit]>.iso-edge{stroke:var(--anatomy-lit)}
+.iso-halo{fill:var(--anatomy-halo);stroke:none;filter:blur(9px);opacity:var(--anatomy-halo-opacity);transform:translateY(3px)}
+.iso-line{fill:none;stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight);stroke-linecap:round;stroke-linejoin:round}
+.iso-line[data-tone="hi"]{stroke:var(--anatomy-hi)}
+.iso-line[data-tone="mid"]{stroke:var(--anatomy-mid)}
+.iso-line[data-tone="lo"]{stroke:var(--anatomy-lo)}
+.iso-line[data-tone="faint"]{stroke:var(--anatomy-faint)}
+.iso-line[data-tone="lit"]{stroke:var(--anatomy-lit)}
+.iso-line[data-tone="red"]{stroke:var(--anatomy-red)}
+.iso-line[data-tone="green"]{stroke:var(--anatomy-green)}
+.iso-line[data-tone="blue"]{stroke:var(--anatomy-blue)}
+.iso-line[data-dotted]{stroke-dasharray:.01 3.5;stroke-width:1}
+.iso-line[data-dashed]{stroke-dasharray:3 3}
+.iso-line[data-flow]{stroke-dasharray:2 6}
+.iso-wire-end{fill:var(--anatomy-paper);stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight)}
+.iso-wire[data-tone="hi"] .iso-wire-end{stroke:var(--anatomy-hi)}
+.iso-wire[data-tone="mid"] .iso-wire-end{stroke:var(--anatomy-mid)}
+.iso-wire[data-tone="faint"] .iso-wire-end{stroke:var(--anatomy-faint)}
+.iso-wire[data-tone="lit"] .iso-wire-end{stroke:var(--anatomy-lit)}
+.iso-dots circle{fill:var(--anatomy-dot);stroke:none;opacity:.32}
+.iso-dots[data-tone="hi"] circle{opacity:.85}
+.iso-dots[data-tone="mid"] circle{opacity:.45}
+.iso-dots[data-tone="lo"] circle{opacity:.22}
+.iso-dots[data-tone="faint"] circle{opacity:.12}
+.iso-face-text{fill:var(--anatomy-mid);font-family:var(--anatomy-mono);letter-spacing:.04em}
+.iso-face-text[data-tone="hi"]{fill:var(--anatomy-hi)}
+.iso-face-text[data-tone="lo"]{fill:var(--anatomy-lo)}
+.iso-face-text[data-tone="faint"]{fill:var(--anatomy-faint)}
+.tb-body{fill:var(--anatomy-shade-2);stroke:none}
+.tb-shine{fill:var(--anatomy-top);stroke:none}
+.tb-shade{fill:var(--anatomy-shade-0);stroke:none}
+.tb-ring{fill:none;stroke:var(--anatomy-lo);stroke-width:.45;stroke-linecap:butt;stroke-linejoin:round}
+.tb-ring[data-tone="mid"]{stroke:var(--anatomy-mid)}
+.tb-ring[data-tone="faint"]{stroke:var(--anatomy-faint)}
+.tb-ring[data-tone="hi"]{stroke:var(--anatomy-hi)}
+@keyframes iso-flow{to{stroke-dashoffset:-32}}
+@keyframes iso-pulse{0%,100%{opacity:.18}12%{opacity:1}40%{opacity:.18}}
+.iso-line[data-flow]{animation:iso-flow 1600ms linear infinite}
+.iso-dots circle[data-pulse]{animation:iso-pulse 1600ms steps(1,end) infinite;animation-delay:var(--pulse-at,0ms)}
+.iso-figure{margin:32px 0 36px}
+.iso-plate{position:relative;padding:52px 24px;border-radius:0;background:var(--anatomy-card);box-shadow:0 0 0 1px var(--anatomy-mid);--anatomy-paper:var(--anatomy-card)}
+.iso-plate-corners{position:absolute;inset:18px 20px;pointer-events:none}
+.iso-plate-corner{position:absolute;color:var(--anatomy-muted);font-family:var(--anatomy-mono);font-size:10.5px;line-height:1;letter-spacing:.04em;white-space:nowrap}
+.iso-plate-corner[data-corner="fig"]{top:0;left:0;color:var(--anatomy-text)}
+.iso-plate-corner[data-corner="title"]{top:0;right:0;text-transform:uppercase;letter-spacing:.1em}
+.iso-plate-corner[data-corner="hint"]{bottom:0;left:0;text-transform:uppercase;letter-spacing:.1em}
+.iso-plate-corner[data-corner="readout"]{right:0;bottom:0;color:var(--anatomy-text);font-variant-numeric:tabular-nums}
+.iso-plate .iso-svg{margin:0 auto}
+.iso-legend{display:grid;gap:8px;margin-top:12px;color:var(--anatomy-muted);font-size:13px;line-height:1.55}
+.iso-keys{display:flex;flex-wrap:wrap;gap:6px 18px}
+.iso-key{display:inline-flex;align-items:center;gap:7px}
+.iso-swatch{width:16px;height:10px;flex:none;overflow:visible}
+.iso-swatch path{fill:none;stroke:var(--anatomy-hi);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.iso-swatch[data-mark="raised"] path,.iso-swatch[data-mark="flat"] path{stroke:var(--anatomy-mid)}
+.iso-swatch[data-mark="lit"] path{stroke:var(--anatomy-lit)}
+.iso-swatch[data-mark="dim"] path{stroke:var(--anatomy-lo)}
+.iso-swatch[data-mark="dotted"] path{stroke-dasharray:.01 3;stroke-width:1.4}
+.iso-swatch[data-mark="dashed"] path{stroke-dasharray:3 2.5}
+.iso-swatch[data-mark="red"] path{stroke:var(--anatomy-red)}
+.iso-swatch[data-mark="green"] path{stroke:var(--anatomy-green)}
+.iso-swatch[data-mark="blue"] path{stroke:var(--anatomy-blue)}
+.iso-swatch-crease{stroke:var(--anatomy-lo)!important}
+@media (max-width:560px){.iso-plate{padding:48px 12px 70px}.iso-plate-corner[data-corner="hint"]{bottom:18px}}
+@media (prefers-reduced-motion:reduce){.iso-line[data-flow],.iso-dots circle[data-pulse]{animation:none}}
+
+:root{color-scheme:dark;--foreground:#f1f0ec;--card:#0b0d10;--muted:#242a33;--muted-foreground:#b8bcc5;--border:#46515e;--primary:var(--foreground);--primary-foreground:var(--card);--viz-series-1:#e8ad54;--viz-series-2:#48d3bd;--viz-series-3:#a791eb;--destructive:#f48b8b;--font-size-base:14px}
+*{box-sizing:border-box}html{background:var(--card)}body{margin:0;padding:20px 20px 24px;background:var(--card);color:var(--foreground);font:400 14px/1.6 Arial,Helvetica,sans-serif}h2,h3{font-size:18px;font-weight:500;line-height:1.35;margin:0 0 14px}button,input,select{font:inherit}button,select{border:1px solid var(--border);border-radius:4px;background:var(--card);color:var(--foreground)}button{padding:9px 12px;min-height:44px}button[aria-pressed=true]{background:var(--foreground);color:var(--card)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--viz-series-1);outline-offset:4px}select{padding:8px;min-height:44px;max-width:100%;width:100%}input[type=range]{width:100%;accent-color:var(--viz-series-1);min-height:28px;margin:0}a{color:var(--muted-foreground);text-decoration:underline;text-underline-offset:3px}a:hover{color:var(--foreground)}
+.controls,.sensor-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 24px;margin:16px 0}.control,.form-label{display:grid;gap:8px}.control-heading{display:flex;justify-content:space-between;gap:10px}.control-heading output{color:var(--muted-foreground);font-variant-numeric:tabular-nums}svg.scene{display:block;width:100%;height:340px;margin:12px 0}svg text{font-family:Arial,Helvetica,sans-serif;font-weight:400}.readout{font-size:14px;font-variant-numeric:tabular-nums;margin:8px 0;color:var(--foreground)}.summary{font-size:13px;color:var(--muted-foreground);margin:8px 0}.sources{display:flex;flex-wrap:wrap;gap:5px 15px;margin-top:18px;font-size:12px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-foreground);margin-bottom:10px}.viz-row,.viz-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.text-small{font-size:12px}.text-muted{color:var(--muted-foreground)}.form-range{display:block;width:100%}.tabular-nums{font-variant-numeric:tabular-nums}[hidden]{display:none!important}
+@media(max-width:400px){body{padding:14px 12px 20px}.controls,.sensor-inputs{grid-template-columns:1fr}.control-heading{flex-wrap:wrap}h2,h3{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.iso{--anatomy-paper:#101419;--anatomy-top:#232a32;--anatomy-shade-0:#0f1217;--anatomy-shade-1:#151a21;--anatomy-shade-2:#1a2029;--anatomy-shade-3:#1f2730;--anatomy-hi:#d6d9de;--anatomy-mid:#818c99;--anatomy-lo:#4d5865;--anatomy-faint:#303a45;--anatomy-lit:#f0c482;--anatomy-lit-top:#4f4130;--anatomy-lit-shade:#302a23;--anatomy-dot:#e8ad54}
+.hint{font-size:12px;color:var(--muted-foreground);margin:0 0 20px}.figure-frame{border:1px solid #29323c;border-radius:8px;background:radial-gradient(ellipse at 50% 30%,#171d25,transparent 70%);padding:8px 12px 14px;margin:24px 0}.figure-frame .readout{border-top:1px solid #29323c;padding:15px 8px 0;margin:0;font-size:13px;line-height:1.7}.sources{border-top:1px solid #29323c;padding-top:16px}.summary{line-height:1.8}.tour{margin-top:6px;width:max-content}.scene{contain:layout style}body{padding:24px}h2{font-size:21px;letter-spacing:-.02em;font-weight:600}input[type=range]{min-height:44px}.controls{margin:20px 0}.figure-frame svg.scene{margin:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:400px){.figure-frame{padding:4px 4px 12px}.figure-frame .readout{padding-left:8px;padding-right:8px}.controls{gap:18px}h2{font-size:20px}body{padding:16px}}
+</style></head><body><div id="euv-photon-view">
+  <div class="viz-row"><h3>EUV: one photon becomes chemistry</h3><span class="text-small text-muted">13.5 nm · ≈92 eV</span></div>
+  <div class="viz-controls" aria-label="Microscopic exposure stages">
+    <button type="button" class="btn" data-step="0" aria-pressed="true">1 · Photon</button>
+    <button type="button" class="btn" data-step="1" aria-pressed="false">2 · Absorb</button>
+    <button type="button" class="btn" data-step="2" aria-pressed="false">3 · Electrons</button>
+    <button type="button" class="btn" data-step="3" aria-pressed="false">4 · Acid</button>
+    <button type="button" class="btn" data-step="4" aria-pressed="false">5 · Bake</button>
+    <button type="button" class="btn" data-step="5" aria-pressed="false">6 · Pattern</button>
+  </div>
+  <svg class="photon-scene" role="img" aria-label="Molecular view of EUV exposure in a positive-tone chemically amplified resist"></svg>
+  <div class="text-small" data-detail aria-live="polite"></div>
+  <div class="viz-row text-small text-muted photon-legend"><span><i class="photon-key"></i>Photon</span><span><i class="electron-key"></i>Electron</span><span><i class="acid-key"></i>Acid</span><span>Symbols and distances schematic</span></div>
+</div>
+<style>
+#euv-photon-view{width:100%}#euv-photon-view h3{margin:0}#euv-photon-view .photon-scene{display:block;width:100%;height:350px;margin:10px 0}#euv-photon-view .photon-scene text{fill:var(--foreground);font-family:inherit;font-size:12px;font-weight:400}#euv-photon-view .photon-legend{margin-top:12px;gap:12px}#euv-photon-view .photon-legend span{display:inline-flex;align-items:center;gap:5px}#euv-photon-view i{display:inline-block;width:12px;height:12px}#euv-photon-view .photon-key{background:var(--viz-series-1)}#euv-photon-view .electron-key{background:var(--viz-series-2);border-radius:50%}#euv-photon-view .acid-key{background:var(--viz-series-3);transform:rotate(45deg);width:9px;height:9px}#euv-photon-view [data-detail]{min-height:2em}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('euv-photon-view'),svg=root.querySelector('svg'),detail=root.querySelector('[data-detail]'),buttons=[...root.querySelectorAll('[data-step]')];let stage=0;
+const descriptions=[
+'The light’s intensity sets the probability of absorption; individual photon events are random.',
+'One absorbed photon disappears, transferring its energy to the material and releasing a photoelectron.',
+'The photoelectron scatters, losing energy and generating lower-energy secondary electrons.',
+'Electron reactions activate photoacid generators (PAGs); not every event generates acid.',
+'During the bake, acid catalyses deprotection of multiple polymer groups, increasing solubility.',
+'Many random events build a chemical image. Developer removes sufficiently changed regions.'
+];
+const color=n=>`var(--viz-series-${n})`;
+const path=(d,c='var(--border)',w=1,extra='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+const label=(x,y,s,anchor='start')=>`<text x="${x}" y="${y}" text-anchor="${anchor}">${s}</text>`;
+const circ=(x,y,r,c,extra='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${extra}/>`;
+const electron=(x,y)=>circ(x,y,8,color(2))+label(x,y+4,'−','middle');
+const acid=(x,y)=>`<path d="M${x} ${y-9}l9 9-9 9-9-9Z" fill="${color(3)}"/>`+label(x,y+4,'+','middle');
+function photon(x,y){let d='';for(let i=0;i<=72;i++){const xx=x+i,yy=y+Math.sin(i/5)*9*Math.sin(Math.PI*i/72);d+=(i?'L':'M')+xx+' '+yy;}return path(d,color(1),2.6)+path(`M${x+66} ${y-5}l8 5-8 5`,color(1),2);}
+function draw(){const W=Math.max(280,root.clientWidth),H=350,cx=W*.52,cy=190;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);let s='';
+if(stage<5){
+s+=`<rect x="12" y="113" width="${W-24}" height="209" rx="4" fill="var(--muted)" opacity=".28"/>`+label(18,337,'Positive-tone polymer resist');
+const rows=4,cols=Math.max(5,Math.floor((W-42)/48));
+for(let row=0;row<rows;row++){let d='',pts=[];for(let col=0;col<cols;col++){let x=26+col*(W-52)/(cols-1),y=140+row*45+Math.sin(col*1.8+row)*9;pts.push([x,y]);d+=(col?'L':'M')+x+' '+y;}s+=path(d,'var(--border)',2);for(let i=0;i<pts.length;i++){const [x,y]=pts[i],changed=stage===4&&Math.hypot(x-cx,y-cy)<88;s+=circ(x,y,4,'var(--foreground)','opacity=".35"')+path(`M${x} ${y}l7 -13`)+circ(x+7,y-13,changed?4:6,changed?color(3):'var(--card)',`stroke="${changed?color(3):'var(--border)'}" stroke-width="1.5"`);}}
+const pagx=cx+48,pagy=cy+30;
+let hex='';for(let k=0;k<6;k++){let a=k*Math.PI/3,x=pagx+13*Math.cos(a),y=pagy+13*Math.sin(a);hex+=(k?'L':'M')+x+' '+y;}s+=`<path d="${hex}Z" fill="var(--card)" stroke="var(--foreground)" stroke-width="1.2"/>`+label(pagx,pagy+4,'PAG','middle');
+if(stage===0){s+=photon(Math.max(20,cx-123),54)+path(`M${cx-32} 70 Q${cx-14} 108 ${cx} ${cy-15}`,color(1),1.4,'stroke-dasharray="4 5"')+label(cx,28,'Photon symbol · 92 eV','middle')+label(cx,97,'Possible absorption site','middle');s+=circ(cx,cy,18,color(1),'opacity=".12"')+circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`);}
+if(stage===1){s+=circ(cx,cy,32,color(1),'opacity=".12"')+circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`)+label(cx,105,'Photon absorbed','middle');s+=path(`M${cx+11} ${cy-8}L${cx+57} ${cy-44}`,color(2),2)+electron(cx+62,cy-49)+label(cx,58,'Energy → ionization + electron motion','middle');}
+if(stage>=2){const rays=[[cx,cy,cx+28,cy-35,cx+60,cy-27],[cx+28,cy-35,cx-5,cy-53,cx-32,cy-46],[cx+60,cy-27,cx+38,cy+6,pagx,pagy],[cx+38,cy+6,cx+3,cy+22,cx-18,cy+55]];s+=circ(cx,cy,9,'var(--card)',`stroke="${color(1)}" stroke-width="2"`);rays.forEach((p,i)=>{s+=path(`M${p[0]} ${p[1]}L${p[2]} ${p[3]}L${p[4]} ${p[5]}`,color(2),i?1.5:2.4,stage>=4?'opacity=".25"':'');if(stage<4&&!(stage===3&&i===2))s+=electron(p[4],p[5]);});}
+if(stage===2)s+=label(cx,53,'Primary electron → secondary electrons','middle')+label(cx,85,'Scattering spreads the deposited energy','middle');
+if(stage===3){s+=acid(pagx+35,pagy+21)+label(cx,53,'Electron-induced acid generation','middle')+label(cx,85,'Chemical response depends on the resist','middle');}
+if(stage===4){s+=acid(cx+5,cy-2)+acid(cx+61,cy+27)+path(`M${cx+5} ${cy-2}Q${cx-37} ${cy+22} ${cx-54} ${cy-23}`,color(3),1.5,'stroke-dasharray="3 4"')+label(cx,53,'Bake: acid removes protecting groups','middle')+label(cx,85,'Chemical amplification + diffusion','middle');}
+}else{
+const x0=22,x1=W-22,bw=x1-x0,center=W*.5;
+s+=label(center,24,'Optical intensity → random absorption','middle');
+for(let i=0;i<80;i++){let x=x0+i*bw/80,p=Math.exp(-Math.pow((x-center)/(bw*.18),4));s+=`<rect x="${x}" y="43" width="${bw/80+.2}" height="38" fill="${color(1)}" opacity="${.03+.5*p}"/>`;}
+s+=label(center,103,'Accumulated chemistry','middle');
+let seed=2701;function random(){seed=(seed+0x6D2B79F5)|0;let v=Math.imul(seed^(seed>>>15),1|seed);v^=v+Math.imul(v^(v>>>7),61|v);return ((v^(v>>>14))>>>0)/4294967296;}for(let i=0;i<240;i++){let x=x0+random()*bw,y=121+random()*82,p=Math.exp(-Math.pow((x-center)/(bw*.18),4));if(random()<p)s+=circ(x,y,2.2,color(3),'opacity=".7"');}
+const left=center-bw*.18,right=center+bw*.18;let dl=`M${x0} 233H${left}`,dr=`M${right} 233H${x1}V310H${right}`;for(let i=0;i<9;i++){let y=233+i*8.5;dl+=`L${left+Math.sin(i*2.3)*5} ${y}`;}dl+=`L${left} 310L${x0} 310Z`;for(let i=8;i>=0;i--)dr+=`L${right+Math.cos(i*2.1)*5} ${233+i*8.5}`;dr+='Z';s+=`<path d="${dl}" fill="var(--muted)" stroke="var(--border)"/><path d="${dr}" fill="var(--muted)" stroke="var(--border)"/>`+label(center,224,'After development','middle')+label(center,275,'Opening','middle')+path(`M${x0} 311H${x1}`,'var(--foreground)',2)+label(center,338,'Random events + chemical blur → rough edges','middle');
+}
+svg.innerHTML=s;svg.setAttribute('aria-label',descriptions[stage]);detail.textContent=descriptions[stage];buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(stage===i)));root.dataset.stage=stage;
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{stage=+b.dataset.step;draw();}));new ResizeObserver(draw).observe(root);draw();
+})();
+</script>
+<div class="sources"><a href="https://cxro.lbl.gov/capabilities/resist-fundamentals" target="_blank" rel="noopener noreferrer">Berkeley Lab · EUV resist physics</a></div><script>(()=>{const notify=()=>parent.postMessage({type:'deep-end-visual-height',episode:2,height:Math.ceil(document.body.getBoundingClientRect().height)},'*');new ResizeObserver(notify).observe(document.body);notify();})();</script></body></html>

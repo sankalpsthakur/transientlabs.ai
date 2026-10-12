@@ -91,9 +91,9 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           <>
             <div className="mb-7 pr-10">
               <p className="mb-2 text-xs font-mono uppercase tracking-[0.24em] text-ink-muted">Start with the decision</p>
-              <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Request a focused scoping call</h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Scope your next system</h2>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-light">
-                Five fields. No sales maze. We will confirm fit, inputs, and the next available slot.
+                Tell us what needs to change. We will reply with fit, the inputs we need, and a proposed time to talk. Company is optional.
               </p>
             </div>
 

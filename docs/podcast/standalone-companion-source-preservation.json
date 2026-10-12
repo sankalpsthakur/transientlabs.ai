@@ -1,0 +1,99 @@
+[
+  {
+    "episode": 69,
+    "source": "outputs/next-companions/69-pde",
+    "source_model_sha256": "9ddc961504682f8e8956d546b61c49d49083259447b9b136b5492c227237067f",
+    "source_scene_sha256": "7d7e33b25ec1b4fc9e2007eb96b2730780de743b470196375a104982a62119ea",
+    "source_runtime_sha256": "864fd03c1b5b1e872ec6a51c5b7dc56741bc77db382692b1f0e39cad94f5637b",
+    "copied_source_files_exact": true
+  },
+  {
+    "episode": 70,
+    "source": "outputs/next-companions/70-norm-bench",
+    "source_model_sha256": "7615241673e9ce1ff664af6306d2675d01acb5118ebe2220ce740c6a750225eb",
+    "source_scene_sha256": "c524de547785a19379239f95f369cb835e862c7eab0f237ffc8e2d1b3e80192a",
+    "source_runtime_sha256": "6c05d05eeb2409ae6923e805967fa309956dc4bd6287c49f73a78cc04ed5323e",
+    "copied_source_files_exact": true
+  },
+  {
+    "episode": 71,
+    "source": "outputs/next-companions/71-scaling-comparator",
+    "source_script_sha256": "711b3fc87098592f16ae1c234c9d410b6b59d4cb0c7aae953b917a770738f346",
+    "source_model_sha256": "70cf388f1851a2dbb80956b43e20a0f97547b7411d7152b8f39bdc515df11e7e",
+    "source_scene_sha256": "a69ffb8f401a5261900cb30e44db7842af258a0f2b9dcd3afa568f3dd0703f5b",
+    "source_runtime_sha256": "307ea21c7ba09f7e91d15b686ae85889a08e1fb146c22eca2a8f71e635de0f9a",
+    "copied_source_files_exact": true
+  },
+  {
+    "episode": 72,
+    "source": "outputs/next-companions/72-pressure-flow-cell",
+    "source_script_sha256": "b3a7a2926c730b3f23d90ce4b93ae3431a7b7e676c653bbe03aa933eed37cc60",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "dd9505989c147f0eef54399ac7287a37dbf68f390fc1ee40cf7ebe2f022fdb68",
+    "source_scene_sha256": "a1a72758ffb542c7ac89b03ce0c9a6136fc5f0d173eeadf4791a36dca8299de4",
+    "source_runtime_sha256": "c475d9a6aca384fdec1237c2e4188313ae0ca892fa888c1a9361e82ef329d929"
+  },
+  {
+    "episode": 73,
+    "source": "outputs/next-companions/73-vortex-viewer",
+    "source_script_sha256": "8eff9a3ff97603f5a1ba4b086e6989a7464525fc70062dd0c143fbb02c3eb3d1",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "923cd58ac391949ffb92713c74b01dd2edd02d9a28d7fbc3a959fc7d6e6e2753",
+    "source_scene_sha256": "dfb9aa12cf3bdd66040c15f45758390ea5170cc13da5894ea2b612706d53cd45",
+    "source_runtime_sha256": "1e35820911939577d550f7c052042160b68ccb34c1b1a8c8f78016e20b445c89"
+  },
+  {
+    "episode": 74,
+    "source": "outputs/next-companions/74-similarity-microscope",
+    "source_script_sha256": "2066c4a6a283ec18bd0956814439b7e6fe5e2783e1b0937125180fd04688acec",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "256dbe9ce48b3b57244f93393e270d6674c6c48eba9c5c18762be1f68f12edca",
+    "source_scene_sha256": "f23767f111297fcc0539d31526ac93762a2c32b8bd38a169d9fdb33fa0f46b1b",
+    "source_runtime_sha256": "82cbb66900efec68e079ff508dc7551ea2904282338b96755e605074a8afed73"
+  },
+  {
+    "episode": 75,
+    "source": "outputs/next-companions/75-residual-force-bench",
+    "source_script_sha256": "21fe618edb79845f4dd30c4d88585a69e374085ce76f6c1a68a6396d6aa7d405",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "77899ecff4ab95ba4cdc8eafae3b826a560890c9339f25abbbaf057b4d0f5479",
+    "source_scene_sha256": "bbcbe591daf3a0331a0da769ebb5f8c13dc3fe1c31c02f4f69e7db63743836fa",
+    "source_runtime_sha256": "a24157c90b2891d91ec8b9467a68293e4d7d7eb99b5261368ca20a0d64672f2f"
+  },
+  {
+    "episode": 76,
+    "source": "outputs/next-companions/76-taylor-comparator",
+    "source_script_sha256": "08be0d816bf0a169fc5170023dd2b83f8b65989562daf4d08b14f4ba3d3cf170",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "fb1a49ad2b8c319fb2499dd04cb4c1a56175b1d30ea1d370be15668a3608b0f9",
+    "source_scene_sha256": "2db5e65536115b992d88353e0c1a088624b9d2a7724206058c9fe593655a2b24",
+    "source_runtime_sha256": "5b2c88cdbeee43053895108fdbf5ec545453cf82506b8dd61c4f27b540502278"
+  },
+  {
+    "episode": 77,
+    "source": "outputs/next-companions/77-orientation-register",
+    "source_script_sha256": "166aefb6645d4640cc10f259fee989ba727bb1775bf31ccaea7512eb30159bf5",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "927ab52d3fbf8901e7911ad7267db9a9ec1fc07d761affc978214235af073a43",
+    "source_scene_sha256": "84f20bfcb41100d4fc901ae8f5599e7b5f5f93c8cc36748681a2eec94e406828",
+    "source_runtime_sha256": "67b742584f7078cde37aa86dca250fcf206b0fdc857cae2da58490d9b3ebc96b"
+  },
+  {
+    "episode": 78,
+    "source": "outputs/next-companions/78-prime-power-plotter",
+    "source_script_sha256": "06f0101a77fb15a78b420da14372ad6184a700749ff9db68a0d0d7bf80fb11c1",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "4a7ec57efe2832ce252be704413786a8ecf6107fc25b94608029adf9b496047a",
+    "source_scene_sha256": "52c91257f01db64f6b7b5898af327d76a300cc5f534ec2a4868cf2c9d459a933",
+    "source_runtime_sha256": "c120f7a670cc71dbf0e432bc45b0c1420a13ed89c1b82592bded7d1b952febdb"
+  },
+  {
+    "episode": 79,
+    "source": "outputs/next-companions/79-finite-field-counter",
+    "source_script_sha256": "332d99ebee8123386eac3b69734beee9ae2a9b83222ea59a0a4b1f39d4dc6c2d",
+    "source_model_sha256": "29a5a5211c0fa928cee6f8986c509302998b253d4f9a01a6c407feeaf3c9a768",
+    "source_scene_sha256": "0b79213dc375a56d0d148a4eb66968bf5ca962477ee34388422eedd7873e3d45",
+    "source_runtime_sha256": "781cfc4c097664e80cc9c5b3e7ed80ad678e4d953816802adfadd0dbb635c2bc",
+    "copied_source_files_exact": true
+  }
+]

@@ -1,0 +1,200 @@
+(()=>{
+'use strict';
+const M=window.DeepEndModels=window.DeepEndModels||{};
+const range=(key,label,min,max,step,value,unit)=>({key,label,min,max,step,value,unit});
+const choice=(key,label,value,items)=>({key,label,type:'select',value,options:items.map(([value,label])=>({value,label}))});
+const source=(label,url)=>({label,url});
+const DOE='https://www.energy.gov/ehss/articles/doe-hdbk-10123-92';
+const points=(n,fn)=>Array.from({length:n},(_,i)=>fn(i));
+const curve=(pts)=>pts.map(([x,y],i)=>(i?'L':'M')+x.toFixed(2)+','+y.toFixed(2)).join(' ');
+const fixed=(x,n=1)=>Number(x).toFixed(n);
+
+M[5]={title:'Where a well keeps pressure contained',
+ controls:[range('pressure','Reservoir pressure',10,100,1,60,'%'),choice('seal','Cement bond','bonded',[['bonded','Bonded'],['channel','Connected channel']])],
+ sources:[source('BSEE: annular cement seal integrity','https://www.bsee.gov/research-record/tap-426-long-term-integrity-deep-water-cement-systems')],
+ draw(c,s){const {W,rect,line,path,circle,text,arrow}=c;const mid=W/2,bore=Math.min(70,W*.19),lx=mid-bore/2,rx=mid+bore/2,gap=s.seal==='channel',p=s.pressure/100;let svg='';
+ svg+=rect(22,70,W-44,226,'surface')+rect(lx-29,70,bore+58,226,'secondary',{opacity:.22})+rect(lx-13,70,bore+26,226,'ink',{opacity:.7})+rect(lx,70,bore,226,'paper');
+ for(let y=84;y<292;y+=18){svg+=line(lx-28,y,lx-14,y-9,'line')+line(rx+14,y,rx+28,y-9,'line');}
+ svg+=rect(22,256,W-44,40,'accent',{opacity:.16+.32*p})+rect(lx,256,bore,40,'accent',{opacity:.4});
+ svg+=rect(lx+8,70,bore-16,186,'surface',{stroke:'ink',strokeWidth:2});
+ svg+=rect(lx,236,8,14,'tertiary')+rect(rx-8,236,8,14,'tertiary');
+ for(let y=279;y>92;y-=35)svg+=arrow(mid,y,mid,y-18,'accent',1+p*2);
+ if(gap){svg+=path(`M${rx+19},287 L${rx+21},243 L${rx+18},205 L${rx+22},168 L${rx+19},118 L${rx+21},78`,'danger',5);for(let y=275;y>88;y-=39)svg+=arrow(rx+20,y,rx+20,y-21,'danger',2);}
+ svg+=text(22,35,'Rock → cement → casing','start',{size:14})+text(22,57,'Tubing carries the produced fluid','start',{muted:true});
+ svg+=text(mid,319,'Reservoir','middle')+text(22,221,'Packer','start')+line(66,217,lx,243,'line');
+ svg+=text(W-20,108,gap?'Leak path':'Seal','end')+line(W-55,113,rx+24,131,gap?'danger':'line');
+ return {svg,readout:gap?'A connected channel bypasses the cement seal':'The annular seal interrupts the pressure path',summary:'Illustrative well cross-section. Tubing, packer, casing and cement have different containment roles. The pressure control changes arrows, not a calculated failure rating; real barrier adequacy requires well-specific qualification and tests.'};}
+};
+
+M[7]={title:'Storage is pores; flow is connected throats',
+ controls:[range('permeability','Permeability',10,1000,10,150,'mD'),range('drop','Pressure drop',1,20,1,10,'bar')],
+ sources:[source('USGS: Darcy flow through porous media','https://water.usgs.gov/ogw/pubs/TWRI3-B2/TWRI3-B2-with-links.pdf')],
+ draw(c,s){const {W,rect,circle,line,text,arrow}=c;const left=34,right=W-34,cols=Math.max(4,Math.floor((W-68)/62)),rows=4,dx=(right-left)/(cols-1),dy=49,t=2+5*Math.pow(s.permeability/1000,.25);let svg=rect(20,70,W-40,229,'surface');
+ const nodes=[];for(let j=0;j<rows;j++)for(let i=0;i<cols;i++)nodes.push({i,j,x:left+i*dx,y:108+j*dy+(i%2?10:0)});
+ for(const n of nodes){if(n.i<cols-1){const b=nodes[n.j*cols+n.i+1];svg+=line(n.x,n.y,b.x,b.y,'accent',t,{opacity:.5});}if(n.j<rows-1){const b=nodes[(n.j+1)*cols+n.i];svg+=line(n.x,n.y,b.x,b.y,'accent',t*.65,{opacity:.45});}}
+ for(const n of nodes)svg+=circle(n.x,n.y,12,'paper',{stroke:'line'})+circle(n.x,n.y,8,'accent',{opacity:.3});
+ for(let j=0;j<rows;j++)for(let i=0;i<cols-1;i++){const a=nodes[j*cols+i],b=nodes[j*cols+i+1];svg+=arrow(a.x+15,a.y,b.x-15,b.y,'accent',1+s.drop/15);}
+ const q=s.permeability*9.869233e-16*100*(s.drop*1e5)/(.001*10)*86400;
+ svg+=text(22,30,'Pressure pushes fluid through pore space','start',{maxWidth:W-44,size:14})+text(22,67,'High pressure','start')+text(W-22,67,'Low pressure','end');
+ svg+=text(W/2,322,'Wider paths → less resistance','middle');
+ return {svg,readout:`Darcy flow: ${fixed(q)} m³/day`,summary:'q = kAΔp/(μL). Single-phase, incompressible Darcy flow: A = 100 m², L = 10 m, μ = 1 mPa·s. Pores and throat widths are illustrative; porosity alone does not determine permeability.'};}
+};
+
+M[14]={title:'A crack concentrates load at its tip',
+ controls:[range('crack','Crack length',1,20,1,6,'mm'),range('stress','Applied stress',20,200,5,100,'MPa')],
+ sources:[source('NASA: fatigue crack growth and stress intensity','https://ntrs.nasa.gov/citations/19950013068'),source('NASA: Paris fracture-mechanics paper','https://ntrs.nasa.gov/citations/19640039750')],
+ draw(c,s){const {W,rect,circle,line,path,text,arrow}=c;const x0=30,x1=W-30,y0=86,y1=278,cy=182,tip=x0+(W-60)*(.13+.55*s.crack/20),stretch=3+7*s.stress/200;let svg=rect(x0,y0,W-60,y1-y0,'surface',{stroke:'line'});
+ const spacing=Math.max(17,(W-60)/23),nodes=[];for(let j=0;j<9;j++)for(let i=0;i<Math.floor((W-60)/spacing);i++){const x=x0+10+i*spacing,y=98+j*21;nodes.push({x,y});}
+ for(const n of nodes){const dist=Math.hypot(n.x-tip,n.y-cy),strength=1+3*Math.exp(-dist/40)*s.stress/200;svg+=line(n.x,n.y,n.x+spacing*.7,n.y,'line',strength);if(!(n.x<tip&&Math.abs(n.y-cy)<18))svg+=line(n.x,n.y,n.x,n.y+16,'line',strength);svg+=circle(n.x,n.y,2.6,dist<32?'tertiary':'ink',{opacity:.6});}
+ svg+=path(`M${x0},${cy-stretch} L${tip-14},${cy-3} L${tip},${cy} L${tip-14},${cy+3} L${x0},${cy+stretch} Z`,'paper',1,{fill:'paper'});
+ for(let i=1;i<4;i++)svg+=circle(tip,cy,9+i*8,'paper',{opacity:.07,stroke:'tertiary',strokeWidth:1});
+ for(let x=x0+20;x<x1;x+=(W-60)/4){svg+=arrow(x,83,x,60,'accent',2)+arrow(x,280,x,302,'accent',2);}
+ const K=1.12*s.stress*Math.sqrt(Math.PI*s.crack/1000);
+ svg+=text(22,30,'Stress grows sharply near the crack tip','start',{size:14,maxWidth:W-44})+text(tip+10,cy-41,'Crack tip','start',{maxWidth:W-tip-24})+text(W/2,328,'Repeated loading can advance the crack','middle',{maxWidth:W-40});
+ return {svg,readout:`K ≈ ${fixed(K)} MPa√m`,summary:'Linear elastic estimate: K = Yσ√(πa), with illustrative edge-crack factor Y = 1.12. The atomic bonds are conceptual. Crack growth and failure require material toughness, geometry and load history; this does not predict remaining life.'};}
+};
+
+M[16]={title:'Match the wave before trusting the Earth model',
+ controls:[range('velocity','Trial velocity',1500,3500,50,2000,'m/s'),range('frequency','Wavelet frequency',5,25,1,10,'Hz')],
+ sources:[source('SLB: acoustic and elastic full-waveform inversion','https://www.slb.com/products-and-services/innovating-in-oil-and-gas/reservoir-characterization/seismic/subsurface-imaging/full-waveform-inversion')],
+ draw(c,s){const {W,rect,line,circle,path,text,arrow}=c;let svg=rect(22,66,W-44,101,'surface')+rect(22,167,W-44,25,'secondary',{opacity:.35});
+ const sx=W*.25,rx=W*.75;svg+=line(22,65,W-22,65,'ink',2)+circle(sx,63,6,'accent')+rect(rx-5,58,10,10,'tertiary')+arrow(sx,75,W/2,162,'accent')+arrow(W/2,162,rx,75,'accent');
+ svg+=text(sx,48,'Source','middle')+text(rx,48,'Receiver','middle')+text(W/2,185,'Reflector: 500 m deep','middle');
+ const observed=.4,predicted=1000/s.velocity,f=s.frequency;
+ const ricker=(t,t0)=>{const a=Math.PI*f*(t-t0);return (1-2*a*a)*Math.exp(-a*a);};
+ svg+=text(22,220,'Observed','start')+text(22,274,'Trial model','start');
+ for(const [y,t0,tone]of [[235,observed,'accent'],[289,predicted,'tertiary']]){svg+=line(22,y,W-22,y,'line',1,{opacity:.5});svg+=path(curve(points(181,i=>[22+(W-44)*i/180,y-17*ricker(i/180*.8,t0)])),tone,2);}
+ svg+=line(22+(W-44)*observed/.8,227,22+(W-44)*observed/.8,309,'line',1,{dash:'3 4'});
+ svg+=text(22,327,'0 s','start')+text(W-22,327,'0.8 s','end');
+ return {svg,readout:`Reflection arrival: trial ${fixed(predicted,3)} s · observed 0.400 s`,summary:'Toy 1D acoustic reflection: t = 2d/v, d = 500 m; observed velocity is 2,500 m/s. Ricker wavelets expose phase mismatch. FWI fits entire measured wavefields by updating a velocity model; this illustration is not an inversion solver.'};}
+};
+
+M[30]={title:'One pipe, two phases, very different arrivals',
+ controls:[choice('regime','Flow regime','slug',[['stratified','Stratified'],['slug','Slug'],['annular','Annular']]),range('position','Move along the line',0,100,1,35,'%')],
+ sources:[source('SLB: slug flow mechanism','https://glossary.slb.com/en/terms/s/slug_flow'),source('SLB: production logging and flow regimes','https://www.slb.com/resource-library/oilfield-review/defining-series/defining-production-logging')],
+ draw(c,s){const {W,rect,path,circle,text,arrow,line}=c;const x=24,y=112,w=W-48,h=116;let svg=rect(x,y,w,h,'accent',{opacity:.32})+rect(x,y,w,h,'paper',{opacity:.7,stroke:'ink',strokeWidth:3,radius:9});
+ if(s.regime==='stratified'){const pts=points(61,i=>[x+w*i/60,y+63+4*Math.sin(i*.5+s.position*.1)]);svg+=path(`${curve(pts)} L${x+w},${y+h-3} L${x},${y+h-3} Z`,'accent',1,{fill:'accent',opacity:.65});}
+ else if(s.regime==='slug'){svg+=rect(x+2,y+3,w-4,h-6,'accent',{opacity:.65});for(let i=-2;i<6;i++){const pocketW=Math.max(62,w*.25),px=x+i*(pocketW+35)+(s.position/100)*(pocketW+35);const a=Math.max(x+3,px),b=Math.min(x+w-3,px+pocketW);if(b>a)svg+=rect(a,y+10,b-a,h-33,'paper',{radius:22});}for(let i=0;i<14;i++)svg+=circle(x+9+(w-18)*i/13,y+101,2,'paper',{opacity:.7});}
+ else{svg+=rect(x+2,y+3,w-4,19,'accent',{opacity:.65})+rect(x+2,y+h-23,w-4,20,'accent',{opacity:.65});for(let i=0;i<17;i++)svg+=circle(x+9+((i*37+s.position*2)%(w-18)),y+34+(i%4)*15,2.5,'accent',{opacity:.7});}
+ svg+=text(22,34,'Gas moves through a changing liquid geometry','start',{size:14,maxWidth:W-44})+text(22,82,'Gas: open space','start')+text(22,267,'Liquid: filled region','start');
+ svg+=arrow(x+15,y-14,x+w-15,y-14,'tertiary',2)+arrow(x+15,y+h+17,x+w-15,y+h+17,'accent',2);
+ svg+=line(W-35,y-4,W-35,y+h+5,'danger',1,{dash:'4 4'})+text(W-24,302,'Outlet','end');
+ return {svg,readout:s.regime==='slug'?'Gas pockets alternate with liquid-rich packets':s.regime==='annular'?'A gas core carries droplets inside a liquid film':'Gas flows above a liquid layer',summary:'Illustrative gas–liquid cross-section. Move the view to follow packets. Regimes depend on velocities, inclination, diameter and fluid properties; these controls select a mechanism rather than calculate a regime map.'};}
+};
+
+M[35]={title:'Wet steel becomes an electrochemical circuit',
+ controls:[choice('environment','Electrolyte','wet',[['wet','Wet surface'],['dry','Dry surface']]),choice('protection','Protection','bare',[['bare','Bare steel'],['cathodic','Cathodic protection']])],
+ sources:[source('NPL: corrosion electrochemistry','https://www.npl.co.uk/research/electrochemistry'),source('NPL: corrosion basics','https://resource.npl.co.uk/docs/science_technology/materials/life_management_of_materials/publications/online_guides/pdf/beginners_guide_to_corrosion.pdf')],
+ draw(c,s){const {W,rect,circle,line,path,text,arrow}=c;const wet=s.environment==='wet',cp=s.protection==='cathodic',ax=W*.27,cx=W*.73;let svg=rect(22,210,W-44,82,'surface',{stroke:'line'});
+ if(wet)svg+=path(`M22,200 Q${W/2},83 ${W-22},200 L${W-22},210 L22,210 Z`,'accent',1,{fill:'accent',opacity:.13});
+ for(let row=0;row<3;row++)for(let col=0;col<Math.floor((W-60)/23);col++){const x=32+23*col,y=225+row*24;if(wet&&!cp&&row===0&&Math.abs(x-ax)<18)continue;svg+=circle(x,y,5,'ink',{opacity:.55});}
+ if(wet){svg+=arrow(ax+8,252,cx-9,252,'tertiary',2)+text(W/2,277,'e⁻ through steel','middle');svg+=arrow(cx-17,177,ax+16,177,'accent',1.5,{dash:'4 4'});svg+=text(W/2,148,'Ions through water','middle');
+ if(!cp){svg+=circle(ax,184,9,'secondary')+text(ax,188,'Fe²⁺','middle',{size:12})+arrow(ax,219,ax,198,'secondary');}
+ svg+=circle(cx,181,8,'tertiary',{opacity:.6})+circle(cx+16,188,4,'accent')+text(cx,123,'O₂ reduction','middle');}
+ if(cp){svg+=arrow(26,309,ax,309,'tertiary',2)+arrow(ax,309,ax,287,'tertiary',2)+text(26,327,'External electron supply','start');}
+ svg+=text(22,33,'Atoms leave the anode; electrons stay in the metal','start',{maxWidth:W-44,size:14})+text(ax,87,'Anodic site','middle')+text(cx,87,'Cathodic site','middle');
+ return {svg,readout:!wet?'No aqueous electrolyte closes this corrosion circuit':cp?'Added electrons suppress iron oxidation':'Anode: Fe → Fe²⁺ + 2e⁻',summary:'Illustrative oxygenated-water corrosion cell. Electrons travel in metal; ionic current travels in the electrolyte. Cathodic protection shifts potential to suppress anodic dissolution; performance depends on coverage, potential and environment. Dry steel can still oxidize by other mechanisms.'};}
+};
+
+M[37]={title:'A constriction trades pressure for speed',
+ controls:[range('flow','Volume flow',2,12,.5,7,'L/s'),range('diameter','Throat diameter',50,90,1,65,'mm')],
+ sources:[source('DOE: continuity, Bernoulli and fluid head loss',DOE)],
+ draw(c,s){const {W,path,line,text,arrow,rect}=c;const L=25,R=W-25,cy=164,h=52,th=h*s.diameter/100,a=L+(R-L)*.34,b=L+(R-L)*.65;let svg='';
+ const d=`M${L},${cy-h} L${a-15},${cy-h} L${a+20},${cy-th} L${b-20},${cy-th} L${b+15},${cy-h} L${R},${cy-h} L${R},${cy+h} L${b+15},${cy+h} L${b-20},${cy+th} L${a+20},${cy+th} L${a-15},${cy+h} L${L},${cy+h} Z`;
+ svg+=path(d,'ink',2,{fill:'surface'});for(let j=-2;j<=2;j++){svg+=path(`M${L+8},${cy+j*18} C${a},${cy+j*18} ${a},${cy+j*th/3} ${W/2},${cy+j*th/3} S${b},${cy+j*18} ${R-8},${cy+j*18}`,'accent',1.5);}
+ const Q=s.flow/1000,v1=Q/(Math.PI*.1*.1/4),v2=Q/(Math.PI*Math.pow(s.diameter/1000,2)/4),dp=1000*(v2*v2-v1*v1)/2;
+ svg+=arrow(L+12,cy,W*.30,cy,'accent',2)+arrow(W*.43,cy,W*.57,cy,'accent',3)+arrow(W*.70,cy,R-12,cy,'accent',2);
+ svg+=text(22,34,'Same volume per second, smaller area','start',{size:14,maxWidth:W-44})+text(L,76,`v₁ ${fixed(v1,2)} m/s`,'start')+text(W/2,98,`v₂ ${fixed(v2,2)} m/s`,'middle');
+ const gaugeY=267,scale=dp/20000;svg+=rect(L,gaugeY,70,7,'accent',{opacity:.5})+rect(W/2-35,gaugeY,70*Math.max(.15,1-scale),7,'tertiary',{opacity:.65})+text(L,gaugeY+28,'Higher pressure','start')+text(W/2,gaugeY+28,'Lower pressure','middle');
+ return {svg,readout:`Ideal pressure drop: ${fixed(dp/1000,2)} kPa`,summary:'Continuity: Q = Av. Bernoulli: Δp = ρ(v₂² − v₁²)/2. Horizontal, frictionless water at ρ = 1,000 kg/m³, upstream diameter 100 mm. Real pressure recovery is reduced by losses; sufficient inlet pressure is assumed.'};}
+};
+
+M[38]={title:'Pressure pulls the wall around its circumference',
+ controls:[range('pressure','Internal gauge pressure',10,100,5,50,'bar'),range('wall','Wall thickness',5,15,.5,8,'mm')],
+ sources:[source('MIT: thin-wall cylinder stresses','https://ocw.mit.edu/courses/22-312-engineering-of-nuclear-reactors-fall-2015/eb49bc4f3e701be60ca651c5a109312f_MIT22_312F15_note_L4.pdf')],
+ draw(c,s){const {W,circle,line,arrow,text,path}=c;const mid=W/2,cy=177,r=Math.min(78,(W-70)/2),t=s.wall/15*15;let svg=circle(mid,cy,r+t,'ink',{opacity:.65})+circle(mid,cy,r,'paper')+circle(mid,cy,r-3,'accent',{opacity:.12});
+ for(let i=0;i<12;i++){const a=i*Math.PI/6,cs=Math.cos(a),sn=Math.sin(a);svg+=arrow(mid+cs*r*.57,cy+sn*r*.57,mid+cs*(r-4),cy+sn*(r-4),'accent',1+s.pressure/80);}
+ for(const [a,dir]of [[-.7,1],[Math.PI-.7,1]]){const x=mid+Math.cos(a)*(r+t/2),y=cy+Math.sin(a)*(r+t/2);svg+=arrow(x,y,x-Math.sin(a)*26,y+Math.cos(a)*26,'tertiary',2);}
+ svg+=line(mid-r,cy,mid+r,cy,'line',1,{dash:'3 4'})+text(mid,cy+20,'D = 300 mm','middle');
+ svg+=text(22,34,'Hoop stress balances the outward pressure','start',{size:14,maxWidth:W-44})+text(mid,cy-r-t-13,'Circumferential tension','middle')+text(mid,cy+r+t+29,'Cross-section · thickness enlarged','middle',{maxWidth:W-36});
+ const hoop=s.pressure*.1*.15/(s.wall/1000);
+ return {svg,readout:`Hoop stress ${fixed(hoop)} MPa · axial stress ${fixed(hoop/2)} MPa`,summary:'Thin-wall, closed-end cylinder: σθ = pD/(2t), σz = pD/(4t). Internal diameter 300 mm, uniform wall, pressure only. Wall thickness is enlarged in the drawing. This omits corrosion allowance, weld factors, tolerance, external loads and code design rules.'};}
+};
+
+M[39]={title:'A closed valve launches a travelling pressure front',
+ controls:[range('speed','Initial water velocity',.2,3,.1,1.5,'m/s'),range('time','Time after sudden closure',0,2,.02,.45,'s')],
+ sources:[source('Datacor: Joukowsky assumptions and surge propagation','https://www.waterhammer.com/design/joukowsky-equation/')],
+ draw(c,s){const {W,rect,line,text,arrow,circle}=c;const L=33,R=W-37,w=R-L,t=s.time,front=t<=1?R-w*t:L+w*(t-1);let svg=rect(L,130,w,80,'surface',{stroke:'ink',strokeWidth:2});
+ const pressuredLeft=front,pressuredRight=R;svg+=rect(pressuredLeft,132,Math.max(0,pressuredRight-pressuredLeft),76,'secondary',{opacity:.18+s.speed/12});
+ if(t<=1)svg+=rect(L+2,132,Math.max(0,front-L-2),76,'accent',{opacity:.13});
+ svg+=line(front,126,front,214,'tertiary',3)+arrow(front+(t<=1?18:-18),112,front,112,'tertiary',2);
+ for(let i=0;i<18;i++){const x=L+7+w*i/18;svg+=circle(x,160+(i%3)*9,2,'accent',{opacity:.65});if(t<1&&x<front)svg+=arrow(x,194,Math.min(x+12,front-3),194,'accent',1);if(t>1&&x<front)svg+=arrow(x+10,194,x,194,'accent',1);}
+ svg+=rect(R-4,121,8,98,'ink')+rect(L-20,111,20,118,'surface',{stroke:'line'})+text(22,34,'The liquid stops locally, not everywhere at once','start',{size:14,maxWidth:W-44});
+ svg+=text(L,90,'Reservoir','start')+text(R,90,'Shut valve','end')+text(W/2,246,t<1?'Compression front moves upstream':'Reservoir reflects a pressure-release front','middle',{maxWidth:W-44});
+ svg+=text(W/2,282,'1 km pipe · wave speed 1 km/s','middle')+text(W/2,309,'Round trip: 2 seconds','middle');
+ return {svg,readout:`Initial valve surge: Δp = ${fixed(10*s.speed)} bar`,summary:'Ideal sudden closure: Δp = ρaΔv, with water ρ = 1,000 kg/m³, a = 1,000 m/s and L = 1,000 m. Shows the first compression wave and reservoir reflection only. Friction, cavitation, valve law and branching are omitted; this is not a maximum-surge assessment.'};}
+};
+
+M[41]={title:'Flow makes sound win one race and lose the other',
+ controls:[range('velocity','Liquid velocity',0,8,.1,3,'m/s')],
+ sources:[source('KROHNE: ultrasonic transit-time equations','https://cdn.krohne.com/dlc/BR_ULTRASONIC_en_72.pdf')],
+ draw(c,s){const {W,rect,line,path,circle,text,arrow}=c;const a={x:W*.23,y:106},b={x:W*.77,y:212};let svg=rect(22,103,W-44,113,'surface',{stroke:'ink',strokeWidth:2})+rect(a.x-8,a.y-8,16,16,'accent')+rect(b.x-8,b.y-8,16,16,'tertiary');
+ svg+=arrow(a.x+3,a.y+8,b.x-3,b.y-7,'accent',2)+arrow(b.x-7,b.y-2,a.x-9,a.y+13,'tertiary',2);
+ for(let i=0;i<5;i++)svg+=arrow(32+(W-64)*i/5,155,48+(W-64)*i/5,155,'line',1.5);
+ const L=.2/Math.sin(Math.PI/4),v=s.velocity,c0=1480,down=L/(c0+v*Math.SQRT1_2)*1e6,up=L/(c0-v*Math.SQRT1_2)*1e6,delta=up-down;
+ svg+=text(22,34,'Sound travels with and against the current','start',{size:14,maxWidth:W-44})+text(a.x,83,'A','middle')+text(b.x,242,'B','middle');
+ const x0=40,x1=W-40,width=x1-x0,gap=delta/1.5*width*.65;svg+=line(x0,282,x1,282,'line')+circle(W/2-gap/2,282,6,'accent')+circle(W/2+gap/2,282,6,'tertiary');
+ svg+=text(x0,270,'With flow','start')+text(x1,270,'Against','end')+text(W/2,313,'Arrival gap enlarged','middle');
+ return {svg,readout:`With ${fixed(down,2)} μs · against ${fixed(up,2)} μs · Δt ${fixed(delta,3)} μs`,summary:'t± = L/(c ± v cosθ). Water: c = 1,480 m/s, pipe diameter 0.20 m, θ = 45°, L = D/sinθ. The sound-path drawing is schematic and the arrival separation enlarged. Real meters account for velocity profiles and path calibration.'};}
+};
+
+M[43]={title:'A tank stores the difference between in and out',
+ controls:[range('inflow','Inflow',2,12,.5,10,'L/s'),range('time','Elapsed time',0,120,1,45,'s')],
+ sources:[source('MathWorks: first-principles water tank equation','https://uk.mathworks.com/help/slcontrol/ug/watertank-simulink-model.html')],
+ draw(c,s){const {W,rect,line,path,text,arrow}=c;let h=.5625;const dt=.025,steps=Math.round(s.time/dt),qin=s.inflow/1000;for(let i=0;i<steps;i++)h=Math.max(0,h+dt*(qin-.008*Math.sqrt(h)));
+ const x=W*.22,tw=W*.52,y0=78,bottom=285,height=207,surface=bottom-height*h/1.6;let svg=path(`M${x},${y0} L${x},${bottom} L${x+tw},${bottom} L${x+tw},${y0}`,'ink',3);
+ svg+=rect(x+2,surface,tw-4,bottom-surface,'accent',{opacity:.4})+line(x+3,surface,x+tw-3,surface,'accent',2);
+ svg+=path(`M24,63 L${x+tw*.3},63 L${x+tw*.3},${surface-8}`,'line',6)+arrow(x+tw*.3,94,x+tw*.3,Math.max(111,surface-8),'accent',2);
+ svg+=path(`M${x+tw},${bottom-17} L${W-25},${bottom-17} L${W-25},303`,'line',6)+arrow(W-25,281,W-25,310,'accent',2);
+ svg+=line(x+tw+14,bottom,x+tw+14,surface,'line')+text(x+tw+21,(surface+bottom)/2,`${fixed(h,2)} m`,'start',{maxWidth:W-x-tw-25});
+ const out=.008*Math.sqrt(h)*1000;svg+=text(22,33,'More level → more outlet pressure → more outflow','start',{size:14,maxWidth:W-44})+text(24,326,`In: ${fixed(s.inflow)} L/s`,'start')+text(W-24,326,`Out: ${fixed(out)} L/s`,'end');
+ return {svg,readout:`Storage rate: ${fixed(s.inflow-out,2)} L/s`,summary:'Mass balance: A dh/dt = qin − k√h. A = 1 m², k = 0.008 m³/(s√m), initial h = 0.5625 m. Constant density and free-draining outlet. The nonlinear outlet makes the tank self-regulating; it is approximately first order near an operating point.'};}
+};
+
+M[44]={title:'P reacts, I accumulates, D resists rapid change',
+ controls:[choice('mode','Controller','PI',[['P','P'],['PI','PI'],['PID','PID']]),range('gain','Proportional gain',.5,5,.1,2,'')],
+ sources:[source('MathWorks: parallel PID with derivative filtering','https://www.mathworks.com/help/control/ref/pid.html')],
+ draw(c,s){const {W,rect,line,path,circle,arrow,text,clamp}=c;const kp=s.gain,ki=s.mode==='P'?0:kp/6,kd=s.mode==='PID'?kp*.8:0,dt=.02;let y=.2,I=0,dy=0,filter=0,P=0,D=0,u=.2;const history=[];
+ for(let i=0;i<1000;i++){const e=.6-y;P=kp*e;filter+=dt*(dy-filter)/.3;D=-kd*filter;const raw=.2+P+I+D;u=clamp(raw,0,1);if((raw>=0&&raw<=1)||(raw>1&&e<0)||(raw<0&&e>0))I+=ki*e*dt;dy=(u-y)/5;y+=dt*dy;if(i%50===0)history.push(y);}
+ const tx=24,ty=92,tw=Math.min(100,W*.34),tb=279;let svg=path(`M${tx},${ty} L${tx},${tb} L${tx+tw},${tb} L${tx+tw},${ty}`,'ink',3)+rect(tx+2,tb-y*180,tw-4,y*180,'accent',{opacity:.4})+line(tx-3,tb-.6*180,tx+tw+5,tb-.6*180,'tertiary',2,{dash:'4 3'});
+ svg+=text(tx,ty-15,'Process','start')+text(tx+tw/2,308,`${fixed(y*100)}%`,'middle');
+ const bx=tx+tw+28,bw=Math.max(50,W-bx-23);const vals=[['P',P,'accent'],['I',I,'secondary'],['D',D,'tertiary']];for(let i=0;i<3;i++){const cy=105+i*62,[label,v,tone]=vals[i];svg+=text(bx,cy-13,label,'start')+rect(bx,cy,bw,12,'surface')+rect(bx+(v<0?bw/2-Math.min(bw/2,Math.abs(v)*bw/2):bw/2),cy,Math.min(bw/2,Math.abs(v)*bw/2),12,tone,{opacity:.7})+line(bx+bw/2,cy-3,bx+bw/2,cy+15,'line');}
+ svg+=text(bx,292,`Output ${fixed(u*100)}%`,'start',{maxWidth:bw})+text(22,34,'60% setpoint · 20-second response','start',{size:14,maxWidth:W-44});
+ return {svg,readout:`Remaining error: ${fixed((.6-y)*100)} percentage points`,summary:'Toy first-order process: dy/dt = (u − y)/5; u = 0.2 + Kp e + Ki∫e dt − Kd dy/dt. Ki = Kp/6, Kd = 0.8Kp; filtered derivative acts on measurement, output is limited to 0–1 with conditional integration. P alone retains offset.'};}
+};
+
+M[45]={title:'Choose the next move inside the constraint',
+ controls:[range('target','Quality target',20,90,1,75,'%'),range('limit','Actuator upper limit',30,100,1,65,'%')],
+ sources:[source('MathWorks: MPC cost, prediction and constraints','https://www.mathworks.com/help/mpc/ug/optimization-problem.html')],
+ draw(c,s){const {W,rect,line,path,circle,arrow,text,clamp}=c;const target=s.target/100,limit=s.limit/100,N=8;let num=.2*.25,den=.2;for(let i=1;i<=N;i++){const a=.25*Math.pow(.8,i),b=1-Math.pow(.8,i);num+=b*(target-a);den+=b*b;}const free=num/den,u=clamp(free,0,limit);const x0=35,x1=W-24,y0=88,y1=237,px=i=>x0+(x1-x0)*i/N,py=v=>y1-(y1-y0)*v;let svg='';
+ svg+=rect(x0,y0,x1-x0,y1-y0,'surface')+line(x0,py(target),x1,py(target),'secondary',2,{dash:'4 4'})+text(x1,py(target)-8,'Target','end');
+ for(const val of [.2,.4,.6,.8,1]){const pts=points(9,i=>[px(i),py(.25*Math.pow(.8,i)+(1-Math.pow(.8,i))*val)]);svg+=path(curve(pts),'line',1,{opacity:.5});}
+ const selected=points(9,i=>[px(i),py(.25*Math.pow(.8,i)+(1-Math.pow(.8,i))*u)]);svg+=path(curve(selected),'accent',3);for(const [x,y]of selected)svg+=circle(x,y,3,'accent');
+ svg+=text(22,34,'Predict candidate futures; apply the first move','start',{size:14,maxWidth:W-44})+text(x0,264,'Now','start')+text(x1,264,'8 steps ahead','end');
+ const by=291,bw=x1-x0;svg+=rect(x0,by,bw,13,'surface')+rect(x0,by,bw*u,13,'accent',{opacity:.7})+line(x0+bw*limit,by-5,x0+bw*limit,by+19,'danger',2)+text(x0,329,`Chosen input ${fixed(u*100)}%`,'start')+text(x1,329,'Hard limit','end');
+ return {svg,readout:free>limit?'The actuator limit prevents reaching this target':'The optimizer balances target error and move size',summary:'Scalar MPC illustration: xnext = 0.8x + 0.2u, x₀ = 0.25. Minimize Σ₁⁸(xi − r)² + 0.2(u − 0.25)², with one constant move across the horizon and 0 ≤ u ≤ limit. Real distillation MPC coordinates multiple interacting variables and repeatedly re-solves.'};}
+};
+
+M[46]={title:'Fouling inserts another thermal resistance',
+ controls:[range('fouling','Deposit thickness',0,1,.05,.25,'mm'),choice('arrangement','Flow arrangement','counter',[['counter','Counterflow'],['parallel','Parallel flow']])],
+ sources:[source('DOE: heat transfer and exchanger fundamentals','https://www.energy.gov/ehss/articles/doe-hdbk-10122-92'),source('DOE: exchanger flow arrangements','https://archives.standards.doxcelerate.com/documents/doe-hdbk-1018-1-93-doe-fundamentals-handbook-mechanical-science-volume-1-of-2')],
+ draw(c,s){const {W,rect,line,circle,arrow,text}=c;const Rf=s.fouling/1000/.3,U=1/(.001+.001/15+Rf+.001),NTU=U*10/10000,eps=s.arrangement==='counter'?NTU/(1+NTU):(1-Math.exp(-2*NTU))/2,Q=eps*10000*80,hotout=100-Q/10000,coldout=20+Q/10000,left=25,right=W-25,wide=right-left,foul=4+s.fouling*20;let svg='';
+ svg+=rect(left,88,wide,63,'secondary',{opacity:.16})+rect(left,151,wide,foul,'tertiary',{opacity:.6})+rect(left,151+foul,wide,14,'ink',{opacity:.65})+rect(left,165+foul,wide,69,'accent',{opacity:.16});
+ for(let i=0;i<8;i++){const x=left+wide*(i+.5)/8;svg+=circle(x,117,4,'secondary',{opacity:.8})+circle(x,204+foul,4,'accent',{opacity:.8});svg+=arrow(x,137,x,183+foul,'secondary',Math.max(.6,2.5*Q/270000));}
+ svg+=arrow(left+12,99,right-12,99,'secondary',2);svg+=s.arrangement==='counter'?arrow(right-12,220+foul,left+12,220+foul,'accent',2):arrow(left+12,220+foul,right-12,220+foul,'accent',2);
+ svg+=text(22,34,'Heat crosses fluid films, deposit and metal','start',{size:14,maxWidth:W-44})+text(left,71,'100°C in','start')+text(right,71,`${fixed(hotout)}°C out`,'end');
+ const cy=278;svg+=text(left,cy,s.arrangement==='counter'?`${fixed(coldout)}°C out`:'20°C in','start')+text(right,cy,s.arrangement==='counter'?'20°C in':`${fixed(coldout)}°C out`,'end');
+ svg+=text(W/2,312,'Both fluids keep separate paths','middle');
+ return {svg,readout:`U = ${fixed(U,0)} W/(m²·K) · duty = ${fixed(Q/1000)} kW`,summary:'Equal-capacity ε–NTU model: A = 10 m², Ch = Cc = 10 kW/K, inlet temperatures 100/20°C, fluid film coefficients 1,000 W/(m²·K), 1 mm steel at k = 15 W/(m·K), deposit k = 0.3 W/(m·K). 1/U = 1/hh + t/k + Rf + 1/hc. Layers are enlarged.'};}
+};
+})();

@@ -1,0 +1,49 @@
+<div id="temperature-micro-view">
+  <h3>RTD &amp; thermocouple: what changes inside?</h3>
+  <div class="viz-controls"><button type="button" class="btn" data-sensor="rtd" aria-pressed="true">RTD · electron scattering</button><button type="button" class="btn" data-sensor="tc" aria-pressed="false">Thermocouple · Seebeck effect</button></div>
+  <div class="sensor-inputs">
+    <label class="form-label">Sensor temperature <output class="tabular-nums" data-hot-value>100 °C</output><input class="form-range" data-hot type="range" min="0" max="200" step="1" value="100" aria-label="Sensor temperature in degrees Celsius"></label>
+    <label class="form-label" data-cold-label hidden>Terminal temperature <output class="tabular-nums" data-cold-value>25 °C</output><input class="form-range" data-cold type="range" min="0" max="80" step="1" value="25" aria-label="Terminal temperature in degrees Celsius"></label>
+  </div>
+  <svg class="sensor-scene" role="img" aria-label="Platinum lattice vibrations and resistance measurement"></svg>
+  <div data-detail class="text-small" aria-live="polite"></div>
+  <div class="text-small text-muted sensor-note">Microscopic marks are schematic; thermocouple numbers use an illustrative constant 40 µV/K thermopower difference.</div>
+</div>
+<style>
+#temperature-micro-view{width:100%}#temperature-micro-view h3{margin:0 0 12px}#temperature-micro-view .sensor-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:16px}#temperature-micro-view .sensor-inputs label{display:grid;gap:8px}#temperature-micro-view output{margin-left:8px}#temperature-micro-view .sensor-scene{display:block;width:100%;height:365px;margin:8px 0}#temperature-micro-view svg text{fill:var(--foreground);font-family:inherit;font-size:12px;font-weight:400}#temperature-micro-view .sensor-note{margin-top:10px}#temperature-micro-view [hidden]{display:none!important}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('temperature-micro-view'),svg=root.querySelector('svg'),hot=root.querySelector('[data-hot]'),cold=root.querySelector('[data-cold]'),buttons=[...root.querySelectorAll('[data-sensor]')];let mode='rtd';
+const line=(d,c='var(--border)',w=1,extra='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+const text=(x,y,s,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${s}</text>`;
+const dot=(x,y,r,c,more='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${more}/>`;
+const arrow=(x1,y,x2,c)=>line(`M${x1} ${y}H${x2}`,c,2)+line(`M${x2+(x2>x1?-7:7)} ${y-5}L${x2} ${y}l${x2>x1?-7:7} 5`,c,2);
+function draw(){const W=Math.max(280,root.clientWidth),T=+hot.value,C=+cold.value;let s='';root.querySelector('[data-hot-value]').value=T+' °C';root.querySelector('[data-cold-value]').value=C+' °C';root.querySelector('[data-cold-label]').hidden=mode!=='tc';svg.setAttribute('viewBox',`0 0 ${W} 365`);
+if(mode==='rtd'){
+const R=100*(1+.0039083*T-.0000005775*T*T),v=R;root.dataset.resistance=R.toFixed(4);
+s+=text(W/2,23,'Platinum lattice · stronger thermal vibration','middle');
+const cols=Math.max(5,Math.floor((W-70)/55)),dx=(W-80)/(cols-1),amp=3+T/32;
+for(let row=0;row<3;row++)for(let col=0;col<cols;col++){const x=40+col*dx,y=66+row*53,a=(col*1.9+row*2.3),vx=Math.sin(a)*amp,vy=Math.cos(a)*amp;s+=dot(x,y,12+amp,'var(--viz-series-3)','opacity=".08"')+line(`M${x-amp} ${y}H${x+amp}`)+line(`M${x} ${y-amp}V${y+amp}`)+dot(x+vx,y+vy,8,'var(--muted)', 'stroke="var(--foreground)" stroke-width="1"');}
+let d=`M16 113`,points=[];for(let i=0;i<cols*2;i++){let x=25+i*(W-50)/(cols*2-1),y=113+Math.sin(i*2.3)*(13+T/10);d+=`L${x} ${y}`;if(i%3===1)points.push([x,y]);}s+=line(d,'var(--viz-series-1)',2);points.forEach(([x,y])=>{s+=dot(x,y,6,'var(--viz-series-1)')+text(x,y+4,'−','middle');});s+=text(W/2,219,'Electron paths scatter off lattice vibrations','middle');
+const cx=W/2,coilw=Math.min(136,W*.35),left=cx-coilw/2,right=cx+coilw/2;let coil=`M${left} 276`;for(let i=0;i<8;i++){let x=left+i*coilw/8;coil+=`L${x+coilw/32} 263L${x+coilw*3/32} 289L${x+coilw/8} 276`;}
+s+=line(coil,'var(--foreground)',2)+line(`M22 250H${left}V276M${right} 276V250H${W-22}`,'var(--viz-series-1)',1.5)+line(`M22 310H${left}V276M${right} 276V310H${W-22}`,'var(--border)',1.5)+dot(left,276,3,'var(--foreground)')+dot(right,276,3,'var(--foreground)')+text(22,242,'1 mA in')+text(W-22,242,'1 mA out', 'end')+text(cx,307,'Pt100 · '+R.toFixed(2)+' Ω', 'middle')+text(cx,344,'Voltage sensed: '+v.toFixed(2)+' mV','middle');
+root.querySelector('[data-detail]').textContent='Heat increases electron–phonon scattering. With a known current, the measured voltage reveals resistance and temperature.';
+svg.setAttribute('aria-label',`Pt100 at ${T} degrees Celsius: resistance ${R.toFixed(2)} ohms, voltage ${v.toFixed(2)} millivolts with 1 milliampere excitation. Four-wire sensing separates drive and voltage leads.`);
+}else{
+const V=.04*(T-C),x0=42,x1=W-39,ym=173;root.dataset.voltage=V.toFixed(4);
+s+=text(18,25,'Terminals: '+C+' °C')+text(W-18,25,'Junction: '+T+' °C','end');
+s+=line(`M${x0} 136H${x1}V210H${x0}`,'var(--border)',22)+line(`M${x0} 136H${x1}`,'var(--viz-series-1)',9)+line(`M${x0} 210H${x1}`,'var(--viz-series-2)',9)+dot(x1,ym,11,'var(--muted)','stroke="var(--foreground)" stroke-width="1.5"')+text(W/2,104,'Alloy A','middle')+text(W/2,246,'Alloy B','middle');
+for(let i=0;i<7;i++){let x=x0+15+i*(x1-x0-30)/6,heat=C+(T-C)*(x-x0)/(x1-x0),r=3.5+Math.max(0,heat)/80;s+=dot(x,136,r,'var(--card)','opacity=".9"')+dot(x,210,r*.8,'var(--card)','opacity=".9"');}
+s+=text(W/2,60,'Different alloys → different thermopowers','middle');
+if(T!==C){const dir=T>C?-1:1,len=Math.min(62,(W-125)/3);s+=arrow(W*.5-dir*len/2,163,W*.5+dir*len/2,'var(--viz-series-1)')+arrow(W*.5-dir*len/3,183,W*.5+dir*len/3,'var(--viz-series-2)');}else s+=text(W/2,180,'No temperature gradient','middle');
+s+=line(`M${x0} 136H18V${ym-16}M${x0} 210H18V${ym+16}`,'var(--foreground)',1.5)+dot(18,ym,16,'var(--card)','stroke="var(--foreground)" stroke-width="1.2"')+text(18,ym+4,'V','middle');
+s+=text(W/2,281,'Open-circuit voltage: '+V.toFixed(2)+' mV','middle')+text(W/2,308,'Reference temperature → hot-end reading','middle')+text(W/2,341,'Thermal drive balanced by an electric field','middle');
+root.querySelector('[data-detail]').textContent='A temperature gradient creates different thermoelectric voltages along the two alloys. Their difference is measured without an excitation current.';
+svg.setAttribute('aria-label',`Illustrative thermocouple: junction ${T} degrees Celsius, terminals ${C} degrees Celsius, open-circuit voltage ${V.toFixed(2)} millivolts. Carriers respond differently in the two alloys; arrow lengths are conceptual, not currents.`);
+}
+svg.innerHTML=s;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sensor===mode)));root.querySelector('.sensor-note').textContent=mode==='tc'?'Carrier marks and arrows are schematic; numbers use an illustrative constant thermopower difference of 40 µV/K.':'Lattice and electron paths are schematic. Readout: nominal Pt100 curve with 1 mA excitation and four-wire sensing.';root.dataset.sensor=mode;
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.sensor;draw();}));hot.addEventListener('input',draw);cold.addEventListener('input',draw);new ResizeObserver(draw).observe(root);draw();
+})();
+</script>

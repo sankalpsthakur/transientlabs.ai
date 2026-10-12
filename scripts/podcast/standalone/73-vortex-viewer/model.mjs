@@ -1,0 +1,6 @@
+export const INITIAL_Q=64,CIRCULATION=1000,WINDOW=24;
+export const DEFAULT=Object.freeze({strain:1,viscosity:2,time:0,probe:4});
+export const PRESETS=Object.freeze([{key:'balance',label:'Balanced',strain:.5,viscosity:8},{key:'stretch',label:'Stretch',strain:2,viscosity:2},{key:'spread',label:'Spread',strain:0,viscosity:8},{key:'thin',label:'Thin core',strain:2,viscosity:.5}]);
+export function widthSquared(a,nu,t){return INITIAL_Q*Math.exp(-a*t)+4*nu*(a===0?t:-Math.expm1(-a*t)/a);}
+export function vorticity(r,q){return CIRCULATION/(Math.PI*q)*Math.exp(-r*r/q);}
+export function sample(input={}){const s={...DEFAULT,...input};for(const[k,lo,hi]of[['strain',0,2],['viscosity',.5,8],['time',0,10],['probe',0,24]])if(!Number.isFinite(s[k])||s[k]<lo||s[k]>hi)throw new RangeError(k+' outside model limits');const q=widthSquared(s.strain,s.viscosity,s.time),radius=Math.sqrt(q),peak=vorticity(0,q),selected=vorticity(s.probe,q),qdot=4*s.viscosity-s.strain*q,steady=s.strain>0?Math.sqrt(4*s.viscosity/s.strain):null;return{...s,q,radius,peak,selected,qdot,steady,windowFraction:-Math.expm1(-WINDOW*WINDOW/q),radiusFraction:radius/20,peakFraction:peak/350,strainFraction:s.strain/2,viscosityFraction:(s.viscosity-.5)/7.5,balance:Math.abs(qdot)<1e-8?'BALANCED':qdot<0?'CORE NARROWING':'CORE SPREADING'};}
