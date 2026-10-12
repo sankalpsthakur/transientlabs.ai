@@ -59,5 +59,14 @@
     "source_model_sha256": "77899ecff4ab95ba4cdc8eafae3b826a560890c9339f25abbbaf057b4d0f5479",
     "source_scene_sha256": "bbcbe591daf3a0331a0da769ebb5f8c13dc3fe1c31c02f4f69e7db63743836fa",
     "source_runtime_sha256": "a24157c90b2891d91ec8b9467a68293e4d7d7eb99b5261368ca20a0d64672f2f"
+  },
+  {
+    "episode": 76,
+    "source": "outputs/next-companions/76-taylor-comparator",
+    "source_script_sha256": "08be0d816bf0a169fc5170023dd2b83f8b65989562daf4d08b14f4ba3d3cf170",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "fb1a49ad2b8c319fb2499dd04cb4c1a56175b1d30ea1d370be15668a3608b0f9",
+    "source_scene_sha256": "2db5e65536115b992d88353e0c1a088624b9d2a7724206058c9fe593655a2b24",
+    "source_runtime_sha256": "5b2c88cdbeee43053895108fdbf5ec545453cf82506b8dd61c4f27b540502278"
   }
 ]

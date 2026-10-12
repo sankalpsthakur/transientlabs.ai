@@ -4580,7 +4580,7 @@ export const episodes = [
         "title": "Why it matters, and the ledger"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 77,
