@@ -77,5 +77,14 @@
     "source_model_sha256": "927ab52d3fbf8901e7911ad7267db9a9ec1fc07d761affc978214235af073a43",
     "source_scene_sha256": "84f20bfcb41100d4fc901ae8f5599e7b5f5f93c8cc36748681a2eec94e406828",
     "source_runtime_sha256": "67b742584f7078cde37aa86dca250fcf206b0fdc857cae2da58490d9b3ebc96b"
+  },
+  {
+    "episode": 78,
+    "source": "outputs/next-companions/78-prime-power-plotter",
+    "source_script_sha256": "06f0101a77fb15a78b420da14372ad6184a700749ff9db68a0d0d7bf80fb11c1",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "4a7ec57efe2832ce252be704413786a8ecf6107fc25b94608029adf9b496047a",
+    "source_scene_sha256": "52c91257f01db64f6b7b5898af327d76a300cc5f534ec2a4868cf2c9d459a933",
+    "source_runtime_sha256": "c120f7a670cc71dbf0e432bc45b0c1420a13ed89c1b82592bded7d1b952febdb"
   }
 ]

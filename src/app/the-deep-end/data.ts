@@ -4712,7 +4712,7 @@ export const episodes = [
         "title": "What it would mean, what is still open, and the ledger"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 79,
