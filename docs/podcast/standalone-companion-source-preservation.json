@@ -14,5 +14,14 @@
     "source_scene_sha256": "c524de547785a19379239f95f369cb835e862c7eab0f237ffc8e2d1b3e80192a",
     "source_runtime_sha256": "6c05d05eeb2409ae6923e805967fa309956dc4bd6287c49f73a78cc04ed5323e",
     "copied_source_files_exact": true
+  },
+  {
+    "episode": 71,
+    "source": "outputs/next-companions/71-scaling-comparator",
+    "source_script_sha256": "711b3fc87098592f16ae1c234c9d410b6b59d4cb0c7aae953b917a770738f346",
+    "source_model_sha256": "70cf388f1851a2dbb80956b43e20a0f97547b7411d7152b8f39bdc515df11e7e",
+    "source_scene_sha256": "a69ffb8f401a5261900cb30e44db7842af258a0f2b9dcd3afa568f3dd0703f5b",
+    "source_runtime_sha256": "307ea21c7ba09f7e91d15b686ae85889a08e1fb146c22eca2a8f71e635de0f9a",
+    "copied_source_files_exact": true
   }
 ]

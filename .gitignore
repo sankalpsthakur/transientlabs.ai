@@ -30,3 +30,4 @@ docs/decks/
 # Standalone companion builders generate these intermediate templates.
 scripts/podcast/standalone/*/index.html
 scripts/podcast/standalone/*/qa.html
+scripts/podcast/standalone/*/evidence/

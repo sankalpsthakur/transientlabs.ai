@@ -4238,7 +4238,7 @@ export const episodes = [
         "title": "Closing: one power of lambda"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 72,
