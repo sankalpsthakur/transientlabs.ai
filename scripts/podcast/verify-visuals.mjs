@@ -14,7 +14,9 @@ for(const file of ['visual-helpers.js','computing-models.js','engineering-models
 vm.runInContext(fs.readFileSync(path.join(dir,'facility-models.js'),'utf8'),ctx);
 export const models=ctx.window.DeepEndModels;
 export const helpers=ctx.window.DeepEndHelpers;
-export const episodes=JSON.parse(fs.readFileSync(path.join(dir,'episodes.json'),'utf8'));
+// This verifier owns the recovered46 and original22 apparatus models.
+// Standalone69+ companions have their own preserved model and browser evidence.
+export const episodes=JSON.parse(fs.readFileSync(path.join(dir,'episodes.json'),'utf8')).filter(e=>e.episode_number<=68);
 const defaults=m=>Object.fromEntries(m.controls.map(c=>[c.key,c.value]));
 const combinations=m=>m.controls.reduce((states,c)=>states.flatMap(s=>(c.type==='select'?c.options.map(o=>o.value):[...new Set([c.min,c.value,c.max])]).map(v=>({...s,[c.key]:v}))),[{}]);
 let renders=0;

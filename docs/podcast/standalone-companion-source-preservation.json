@@ -1,0 +1,18 @@
+[
+  {
+    "episode": 69,
+    "source": "outputs/next-companions/69-pde",
+    "source_model_sha256": "9ddc961504682f8e8956d546b61c49d49083259447b9b136b5492c227237067f",
+    "source_scene_sha256": "7d7e33b25ec1b4fc9e2007eb96b2730780de743b470196375a104982a62119ea",
+    "source_runtime_sha256": "864fd03c1b5b1e872ec6a51c5b7dc56741bc77db382692b1f0e39cad94f5637b",
+    "copied_source_files_exact": true
+  },
+  {
+    "episode": 70,
+    "source": "outputs/next-companions/70-norm-bench",
+    "source_model_sha256": "7615241673e9ce1ff664af6306d2675d01acb5118ebe2220ce740c6a750225eb",
+    "source_scene_sha256": "c524de547785a19379239f95f369cb835e862c7eab0f237ffc8e2d1b3e80192a",
+    "source_runtime_sha256": "6c05d05eeb2409ae6923e805967fa309956dc4bd6287c49f73a78cc04ed5323e",
+    "copied_source_files_exact": true
+  }
+]

@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildStandalone } from './build-standalone.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const out=path.join(root,'public/episode-visuals');
 const source=path.join(root,'scripts/podcast/fragments');
-const episodes=JSON.parse(fs.readFileSync(path.join(out,'episodes.json'),'utf8'));
+const episodes=JSON.parse(fs.readFileSync(path.join(out,'episodes.json'),'utf8')).filter(e=>e.has_visual!==false);
 const css=fs.readFileSync(path.join(out,'anatomy/iso.css'),'utf8')+'\n'+fs.readFileSync(path.join(out,'visual.css'),'utf8');
 const helpers=fs.readFileSync(path.join(out,'visual-helpers.js'),'utf8');
 const runtime=fs.readFileSync(path.join(out,'visual-runtime.js'),'utf8');
@@ -25,6 +26,12 @@ const document=(episode,body)=>`<!doctype html><html lang="en"><head><meta chars
 const heightScript=episode=>`<script>(()=>{const notify=()=>parent.postMessage({type:'deep-end-visual-height',episode:${episode},height:Math.ceil(document.body.getBoundingClientRect().height)},'*');new ResizeObserver(notify).observe(document.body);notify();})();</script>`;
 for(const episode of episodes){
   const id=episode.episode_number;let body;
+  if(id<=68 && process.argv.includes('--only-new')) continue;
+  if(id>=69){
+    const filename=String(id).padStart(2,'0')+'-'+episode.slug+'.html';
+    fs.writeFileSync(path.join(out,filename),await buildStandalone(episode));
+    continue;
+  }
   if(reused[id]){
     body=fs.readFileSync(path.join(source,reused[id]+'.html'),'utf8');
     body+=`<div class="sources">${sourceLinks[id].map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`).join('')}</div>`+heightScript(id);

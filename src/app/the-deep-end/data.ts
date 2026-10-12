@@ -3993,6 +3993,2374 @@ export const episodes = [
         "title": "Closing: what the cold box teaches"
       }
     ]
+  },
+  {
+    "episode_number": 69,
+    "title": "What a PDE Is: Equations That Remember Their Neighbours",
+    "series": "The Machine's Theorems, part 1 of 20 (Arc 1: Prerequisites)",
+    "slug": "what-a-pde-is",
+    "synopsis_draft": "A flow-assurance engineer's CFD solver blows up at two in the morning, and she asks a retired applied mathematician whether that is numerics or physics. Through their weekly calls, the episode builds the basics needed for the Navier-Stokes arc. ODEs remember their own past, while PDEs remember their neighbours. Transport moves shapes along, and its nonlinear form (Burgers) forms shocks in finite time. Heat smooths, and gives the square-root-of-time diffusion law. Waves echo, and Laplace's equation describes equilibrium. The episode covers Hadamard's three conditions (existence, uniqueness, continuous dependence) and why inverse problems are ill-posed. Dimensional analysis leads to the Navier-Stokes scaling symmetry, u of x and t going to lambda u of lambda x, lambda squared t. The heat equation's maximum principle has no analogue for 3D fluid speed. The energy identity shows that bounded energy does not mean bounded speed. The toy ODE y-dot equals y-squared blows up at time one over y-nought. The episode also shows how to tell numerical blowup (CFL violations, checkerboarding, energy creation) from genuine mathematical singularities. Farah Al-Mansoori and Augustin Lévêque are fictional characters. All quotations from real people come from the sources listed in the verification ledger.",
+    "duration_seconds": 3524.0,
+    "guid": "2a7da9bc-56c8-4c99-843f-0877e87ef8f5",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/What-a-PDE-Is-Equations-That-Remember-Their-Neighbours-e3qc0ho",
+    "cover": "/images/the-deep-end/episodes/69-what-a-pde-is.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the solver that blew up at two in the morning"
+      },
+      {
+        "time": "00:05:25",
+        "title": "Ordinary versus partial: one clock or a whole field"
+      },
+      {
+        "time": "00:09:18",
+        "title": "The transport equation: a shape riding a conveyor belt"
+      },
+      {
+        "time": "00:13:10",
+        "title": "The heat equation: the great smoother"
+      },
+      {
+        "time": "00:17:03",
+        "title": "The wave equation and Laplace's equation: echoes and equilibrium"
+      },
+      {
+        "time": "00:20:08",
+        "title": "Linear and nonlinear: why superposition is a superpower"
+      },
+      {
+        "time": "00:24:45",
+        "title": "Hadamard's three questions: what it means to have a good model"
+      },
+      {
+        "time": "00:29:53",
+        "title": "Dimensional analysis: the engineer's secret weapon is the mathematician's too"
+      },
+      {
+        "time": "00:34:39",
+        "title": "Maximum principles: why heat cannot create a new hot spot"
+      },
+      {
+        "time": "00:37:50",
+        "title": "Energy methods: the accountant's approach"
+      },
+      {
+        "time": "00:41:27",
+        "title": "The toy blowup: y-dot equals y-squared"
+      },
+      {
+        "time": "00:45:34",
+        "title": "Numerics or physics: how to tell the two kinds of blowup apart"
+      },
+      {
+        "time": "00:49:57",
+        "title": "A second engineer's example: when the model really should blow up"
+      },
+      {
+        "time": "00:52:52",
+        "title": "Why it matters for an engineer who runs CFD"
+      },
+      {
+        "time": "00:55:37",
+        "title": "Closing: what an estimate is for"
+      }
+    ],
+    "has_visual": true
+  },
+  {
+    "episode_number": 70,
+    "title": "Infinite-Dimensional Spaces: Functional Analysis for Engineers",
+    "series": "The Machine's Theorems, part 2 of 20 (Arc 1: Prerequisites)",
+    "slug": "functional-analysis",
+    "synopsis_draft": "Farah's eleven-year-old asks what \"infinite-dimensional\" means, and Augustin answers over three calls. A tall thin spike shows how speed can blow up while energy stays bounded. Completeness explains why approximation schemes converge. Hilbert spaces bring angles and projections, and pressure turns out to be a projection. In infinite dimensions energy can leak away through oscillation, concentration or escape, and weak convergence (wiggles averaging out) does not respect products, which is the mathematical twin of the Reynolds stress. The Fourier transform turns derivatives into multiplication and makes heat a low-pass filter. Then come bounded versus unbounded operators and spectra as right-half-plane poles. The spectral theorem appears as vibration modes, transient growth as the non-self-adjoint catch, Banach's fixed point behind every converging recycle loop and Navier-Stokes short-time existence, Lax-Milgram (and coercivity as missing supports) behind finite elements, and Hahn-Banach duality as enough sensors. The episode closes with previews of Sobolev and Rellich and three unrefereed, Lean-checked results from OpenAI's October release: Tingley's problem, Markov type and superreflexivity, and the complete Crouzeix conjecture. Farah Al-Mansoori and Augustin Lévêque are fictional characters. All quotations from real people come from the sources listed in the verification ledger.",
+    "duration_seconds": 3435.0,
+    "guid": "3a73b680-a56d-4c68-90b1-a572b4977b5b",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Infinite-Dimensional-Spaces-Functional-Analysis-for-Engineers-e3qc18p",
+    "cover": "/images/the-deep-end/episodes/70-functional-analysis.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: a function is a point"
+      },
+      {
+        "time": "00:02:35",
+        "title": "Functions as vectors: an infinitely long list of numbers"
+      },
+      {
+        "time": "00:05:12",
+        "title": "Norms: many rulers for measuring a function"
+      },
+      {
+        "time": "00:10:41",
+        "title": "Completeness: spaces with no missing points"
+      },
+      {
+        "time": "00:15:16",
+        "title": "Hilbert spaces: geometry with angles"
+      },
+      {
+        "time": "00:18:53",
+        "title": "Compactness: why infinite dimensions leak"
+      },
+      {
+        "time": "00:22:45",
+        "title": "Weak convergence: when the wiggles average out"
+      },
+      {
+        "time": "00:26:54",
+        "title": "The Fourier transform: a change of basis that turns a fluid into a symphony"
+      },
+      {
+        "time": "00:32:39",
+        "title": "Operators: machines that turn functions into functions"
+      },
+      {
+        "time": "00:36:12",
+        "title": "The spectral theorem: diagonalising the infinite"
+      },
+      {
+        "time": "00:39:31",
+        "title": "Banach's fixed point: why iterations converge"
+      },
+      {
+        "time": "00:42:12",
+        "title": "Lax-Milgram: the engine under finite elements"
+      },
+      {
+        "time": "00:44:43",
+        "title": "Hahn-Banach and duality: measuring a function with probes"
+      },
+      {
+        "time": "00:46:56",
+        "title": "Two previews: Sobolev and Rellich"
+      },
+      {
+        "time": "00:48:25",
+        "title": "From the October release: three results in this territory"
+      },
+      {
+        "time": "00:53:08",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:55:14",
+        "title": "Closing: rulers, leaks and averages"
+      }
+    ],
+    "has_visual": true
+  },
+  {
+    "episode_number": 71,
+    "title": "Sobolev Spaces, Weak Solutions and the Scaling Game",
+    "series": "The Machine's Theorems, part 3 of 20 (Arc 1: Prerequisites)",
+    "slug": "sobolev-weak-solutions-scaling",
+    "synopsis_draft": "A kink in a pig-launch pressure trace raises the question: what does an equation with two derivatives mean where nature supplies none? Augustin's answer is integration by parts, handing the derivative to a smooth test function. The episode builds weak derivatives (corners are fine, jumps make delta spikes), Sobolev spaces as a derivative budget read off the energy spectrum, Sobolev embedding (H-one gives L-six but not boundedness in 3D), and Rellich compactness. Two worked examples follow: Burgers shocks with the entropy condition, and Kolmogorov's minus-five-thirds spectrum, which means about one third of a derivative. Then come Leray's global weak solutions, Hopf's extension and the energy inequality (\"walls, no roof\"). The scaling game: energy and dissipation scale like one over lambda in 3D (supercritical), but energy is critical in 2D. The episode covers critical spaces (L-three, H-one-half), small-data theory, Escauriaza-Seregin-Šverák, Leray's self-similar guess and its exclusion, and Tao's averaged equation as a warning. It ends with a teaser on Kakeya and restriction (families 074 and 077, unrefereed). Farah Al-Mansoori and Augustin Lévêque are fictional characters. All quotations from real people come from the sources listed in the verification ledger.",
+    "duration_seconds": 3181.0,
+    "guid": "74ddf0c4-8018-4f58-8ceb-f11b6f54b712",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Sobolev-Spaces--Weak-Solutions-and-the-Scaling-Game-e3qc1h2",
+    "cover": "/images/the-deep-end/episodes/71-sobolev-weak-solutions-scaling.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the derivative that does not exist"
+      },
+      {
+        "time": "00:02:49",
+        "title": "Integration by parts: passing the derivative across the table"
+      },
+      {
+        "time": "00:04:40",
+        "title": "Weak derivatives: defining a slope by what it does"
+      },
+      {
+        "time": "00:08:44",
+        "title": "Sobolev spaces: functions with a derivative budget"
+      },
+      {
+        "time": "00:11:48",
+        "title": "The dissipation budget, as an engineer reads it"
+      },
+      {
+        "time": "00:13:36",
+        "title": "Sobolev embedding: trading derivatives for bounds"
+      },
+      {
+        "time": "00:17:57",
+        "title": "Rellich: why a derivative bound stops energy from leaking"
+      },
+      {
+        "time": "00:20:11",
+        "title": "Weak solutions: an equation that holds on average against every probe"
+      },
+      {
+        "time": "00:22:56",
+        "title": "Leray's solutions and the energy inequality"
+      },
+      {
+        "time": "00:26:35",
+        "title": "What Leray could not do"
+      },
+      {
+        "time": "00:28:28",
+        "title": "Two worked examples: a shock and a turbulence spectrum"
+      },
+      {
+        "time": "00:32:52",
+        "title": "The scaling game: zoom in on a would-be singularity"
+      },
+      {
+        "time": "00:37:16",
+        "title": "Two dimensions: why the flat world was settled long ago"
+      },
+      {
+        "time": "00:38:43",
+        "title": "The critical spaces: where the fair fights happen"
+      },
+      {
+        "time": "00:42:28",
+        "title": "Leray's own guess: the self-similar singularity"
+      },
+      {
+        "time": "00:44:55",
+        "title": "A warning about scaling arguments"
+      },
+      {
+        "time": "00:46:26",
+        "title": "A teaser: when harmonic analysis meets geometry"
+      },
+      {
+        "time": "00:49:25",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:51:03",
+        "title": "Closing: one power of lambda"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 72,
+    "title": "From Euler to Clay: Two and a Half Centuries of Moving Fluids",
+    "series": "The Machine's Theorems, part 4 of 20 (Arc 2: Navier–Stokes)",
+    "slug": "euler-to-clay",
+    "synopsis_draft": "Augustin digs his 1970s thesis out of a cellar in Lyon while Farah's colleagues forward headlines saying a computer solved Navier-Stokes. Before judging the claim, they trace where the problem came from. The story runs through Torricelli, Bernoulli and d'Alembert's paradox; Euler's material acceleration and the nonlinear u dot grad u; Navier's molecular friction and Stokes's continuum derivation of nu times the Laplacian; Hagen-Poiseuille and Stokes drag; and Helmholtz and Kelvin on frozen vortex lines and vortex stretching. Then come Reynolds's dye streak and Reynolds stress, Prandtl's boundary layer, Richardson's cascade, Kolmogorov 1941 and Onsager's one-third conjecture. Leray's 1934 weak solutions are followed by his wartime turn to topology, then Hopf, Ladyzhenskaya, and the French school of Lions and Temam. The 2000 Millennium Problems follow, with Fefferman's conditions and alternatives read in words. The asymmetry is that the force is zero in A and B but allowed in C and D. Finally, OpenAI's 8 September claim and Clay's 11 September response, each labelled by tier. Farah Al-Mansoori and Augustin Lévêque are fictional characters. All quotations from real people come from the sources listed in the verification ledger.",
+    "duration_seconds": 2999.0,
+    "guid": "1c7a9703-f208-4d8f-8e4c-70406639bd3b",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/From-Euler-to-Clay-Two-and-a-Half-Centuries-of-Moving-Fluids-e3qc3tp",
+    "cover": "/images/the-deep-end/episodes/72-euler-to-clay.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: a thesis in a cardboard box"
+      },
+      {
+        "time": "00:02:30",
+        "title": "Before Euler: Bernoulli and the hydraulic engineers"
+      },
+      {
+        "time": "00:04:12",
+        "title": "Euler, seventeen fifty seven: Newton's law for a parcel of fluid"
+      },
+      {
+        "time": "00:07:40",
+        "title": "Navier, eighteen twenty two: adding friction from molecules"
+      },
+      {
+        "time": "00:09:23",
+        "title": "Stokes, eighteen forty five: the continuum derivation"
+      },
+      {
+        "time": "00:12:26",
+        "title": "Helmholtz and Kelvin: the life of a vortex"
+      },
+      {
+        "time": "00:16:15",
+        "title": "Reynolds, eighteen eighty three: the dye streak breaks up"
+      },
+      {
+        "time": "00:19:22",
+        "title": "Prandtl, nineteen oh four: the boundary layer"
+      },
+      {
+        "time": "00:21:05",
+        "title": "Richardson and Kolmogorov: the cascade"
+      },
+      {
+        "time": "00:25:49",
+        "title": "Leray, nineteen thirty four: the house without a roof"
+      },
+      {
+        "time": "00:29:22",
+        "title": "Augustin's thesis: the French school and the weak formulation"
+      },
+      {
+        "time": "00:32:06",
+        "title": "The year two thousand: seven problems in Paris"
+      },
+      {
+        "time": "00:34:03",
+        "title": "Reading Fefferman's statement, line by line"
+      },
+      {
+        "time": "00:36:53",
+        "title": "The four alternatives"
+      },
+      {
+        "time": "00:41:52",
+        "title": "A note on bounded energy"
+      },
+      {
+        "time": "00:43:28",
+        "title": "September two thousand twenty six, in tier language"
+      },
+      {
+        "time": "00:45:45",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:47:31",
+        "title": "Closing: what the pencil note said"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 73,
+    "title": "The Million-Dollar Question: A Primer on Regularity",
+    "series": "The Machine's Theorems, part 5 of 20 (Arc 2: Navier–Stokes)",
+    "slug": "million-dollar-question",
+    "synopsis_draft": "Farah watches her daughter spin on the ice and asks what stops a fluid's vortex tubes from spinning up forever. The episode covers the vorticity equation (stretching, carrying, diffusing) and why stretching vanishes in 2D; axisymmetric flows with and without swirl; the cascade as vortex stretching; the Burgers vortex balance; and Leray's lower bound on blowup speed. Beale-Kato-Majda turns blowup into one quantity to watch. Caffarelli-Kohn-Nirenberg partial regularity, which Fefferman calls the best known, allows isolated points but no moving singularities. ESS closes the L-three endpoint using backward uniqueness. Convex integration runs from Nash-Kuiper through De Lellis-Székelyhidi and Isett to Buckmaster-Vicol. Albritton-Brué-Colombo show two distinct suitable Leray-Hopf solutions from rest under the same (rough) force. Tao's averaged equation sets the supercriticality barrier and inspired the fluid-computer dream. The episode also covers hyper- and hypo-dissipation and Lions's five-quarters threshold, the forcing trick (\"the hard part is making the leftover smooth\"), and a seven-question checklist for any blowup claim. Family 376 is mentioned as an unrefereed claim. Farah Al-Mansoori and Augustin Lévêque are fictional characters. All quotations from real people come from the sources listed in the verification ledger.",
+    "duration_seconds": 3025.0,
+    "guid": "e1cd995a-6086-4e16-9877-27aa5e25ceb9",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Million-Dollar-Question-A-Primer-on-Regularity-e3qc424",
+    "cover": "/images/the-deep-end/episodes/73-million-dollar-question.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the skater on the ice"
+      },
+      {
+        "time": "00:02:26",
+        "title": "Vorticity's equation: stretch, carry, diffuse"
+      },
+      {
+        "time": "00:06:51",
+        "title": "The energy cascade in this language"
+      },
+      {
+        "time": "00:09:00",
+        "title": "The Burgers vortex: when the coach keeps up"
+      },
+      {
+        "time": "00:11:29",
+        "title": "Leray's speed limit on a singularity"
+      },
+      {
+        "time": "00:12:40",
+        "title": "Beale, Kato and Majda: what must blow up"
+      },
+      {
+        "time": "00:15:52",
+        "title": "Caffarelli, Kohn and Nirenberg: singularities must be rare"
+      },
+      {
+        "time": "00:20:10",
+        "title": "Escauriaza, Seregin and Šverák: the L-three door closes"
+      },
+      {
+        "time": "00:23:06",
+        "title": "Leray-Hopf uniqueness: the question beneath the question"
+      },
+      {
+        "time": "00:25:18",
+        "title": "Convex integration: from Nash's crumpled paper to wild fluids"
+      },
+      {
+        "time": "00:29:24",
+        "title": "Albritton, Brué and Colombo: two good solutions, one start, with a force"
+      },
+      {
+        "time": "00:33:01",
+        "title": "Tao's averaged equation: the toolkit is not enough"
+      },
+      {
+        "time": "00:37:33",
+        "title": "Dialling the friction: hyper- and hypo-dissipation"
+      },
+      {
+        "time": "00:40:05",
+        "title": "Why the force changes everything"
+      },
+      {
+        "time": "00:43:20",
+        "title": "A checklist for reading a blowup claim"
+      },
+      {
+        "time": "00:45:26",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:47:18",
+        "title": "Closing: the coach and the skater"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 74,
+    "title": "Chasing the Singularity: Computers, Swirls and Forcing",
+    "series": "The Machine's Theorems",
+    "slug": "chasing-the-singularity",
+    "synopsis_draft": "Farah and Augustin follow the race to a singularity: Luo–Hou's boundary blowup and Chen–Hou's computer-assisted proof, the 2025 'Discovery of Unstable Singularities', Ganeshram–Duruisseaux–Anandkumar, then amplification across scales and the Alpöge–Buckmaster forced blowups for IPM, Boussinesq and Euler (Lean-formalised, not peer-reviewed). Euler is not a Clay problem. Keywords: Navier-Stokes, Euler, blowup, singularity, Luo-Hou, Chen-Hou, PINNs, computer-assisted proof, Córdoba, Martínez-Zoroa, Alpöge, Buckmaster, Beale-Kato-Majda, Lean",
+    "duration_seconds": 3885.0,
+    "guid": "3b23e314-5d5d-4083-b1ec-e7cabc37aa2d",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Chasing-the-Singularity-Computers--Swirls-and-Forcing-e3qc45f",
+    "cover": "/images/the-deep-end/episodes/74-chasing-the-singularity.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: two papers in one weekend"
+      },
+      {
+        "time": "00:05:09",
+        "title": "What a singularity would look like"
+      },
+      {
+        "time": "00:11:52",
+        "title": "Road one: the shape that repeats as it shrinks"
+      },
+      {
+        "time": "00:17:18",
+        "title": "Turning a photograph into a proof"
+      },
+      {
+        "time": "00:22:17",
+        "title": "Neural networks go hunting"
+      },
+      {
+        "time": "00:28:34",
+        "title": "The seventh of September: a candidate in open space"
+      },
+      {
+        "time": "00:33:41",
+        "title": "Road two: the builders and the smooth push"
+      },
+      {
+        "time": "00:39:52",
+        "title": "Alpöge and Buckmaster: Euler with a perfectly smooth push"
+      },
+      {
+        "time": "00:47:10",
+        "title": "How it was made, and what Buckmaster said"
+      },
+      {
+        "time": "00:52:26",
+        "title": "Tao's reading: remarkable, and not the point"
+      },
+      {
+        "time": "00:58:09",
+        "title": "Why it matters, and the ledger"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 75,
+    "title": "The Proposed Solution: OpenAI's Forced Blowup",
+    "series": "The Machine's Theorems",
+    "slug": "the-proposed-solution-openais-forced-blowup",
+    "synopsis_draft": "Theorem 1.1 and Corollary 10.6 in words; the self-similar vortex, the momentum residual, oscillatory pulses and the residual-force trick; the unforced Euler companion; OpenAI's account of the agent run; the Lean repo, Comparator and independent rebuilds; family 376 on universal computation. Unrefereed paper, Lean-checked statement; OpenAI does not intend to claim the prize. Keywords: Navier-Stokes, Millennium Prize, forced blowup, Fefferman alternatives C and D, self-similar vortex, Euler, Lean, Comparator, OpenAI",
+    "duration_seconds": 3402.0,
+    "guid": "acb3d547-a390-4a8c-a2ab-cd9253767029",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Proposed-Solution-OpenAIs-Forced-Blowup-e3qc494",
+    "cover": "/images/the-deep-end/episodes/75-the-proposed-solution-openais-forced-blowup.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: Tuesday the eighth"
+      },
+      {
+        "time": "00:04:43",
+        "title": "The theorem, read slowly"
+      },
+      {
+        "time": "00:10:07",
+        "title": "The trick: the force is whatever is left over"
+      },
+      {
+        "time": "00:13:59",
+        "title": "The physical picture: a column that gets thinner faster than it gets shorter"
+      },
+      {
+        "time": "00:20:16",
+        "title": "The annulus, the pulses, and the missing push"
+      },
+      {
+        "time": "00:26:54",
+        "title": "Making the story honest: one hundred and sixty pages of leftovers"
+      },
+      {
+        "time": "00:30:37",
+        "title": "The other paper: Euler, with no force at all"
+      },
+      {
+        "time": "00:35:18",
+        "title": "How it was found, in OpenAI's own words"
+      },
+      {
+        "time": "00:40:43",
+        "title": "Lean, Comparator, and the people who rebuilt it"
+      },
+      {
+        "time": "00:46:15",
+        "title": "A strange cousin: programming a fluid to compute"
+      },
+      {
+        "time": "00:50:14",
+        "title": "Why it matters, and the ledger"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 76,
+    "title": "The Critique: Right Answer, Wrong Question?",
+    "series": "The Machine's Theorems",
+    "slug": "the-critique-right-answer-wrong-question",
+    "synopsis_draft": "Silvestre, Córdoba, Martínez-Zoroa and Cao-Labora on forcing; the Constantin–Ignatova–Vicol conditional obstruction and how it is proved; Bastounis–Circelli–Hansen on what the Lean did and did not check; Buckmaster's and OpenAI's accounts of credit, unresolved; Tao on opportunity cost; Clay's rules; open questions and a field guide to outcomes. Keywords: Navier-Stokes, forcing, Constantin Ignatova Vicol, real-analytic, Lean, autoformalization, Hansen, Buckmaster, Tao, Clay Mathematics Institute",
+    "duration_seconds": 3320.0,
+    "guid": "d91daf64-02af-430f-a471-c28f4d05deea",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Critique-Right-Answer--Wrong-Question-e3qc4dp",
+    "cover": "/images/the-deep-end/episodes/76-the-critique-right-answer-wrong-question.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the word in front"
+      },
+      {
+        "time": "00:03:47",
+        "title": "The forcing loophole"
+      },
+      {
+        "time": "00:08:41",
+        "title": "Constantin, Ignatova and Vicol: what the obstruction actually says"
+      },
+      {
+        "time": "00:16:09",
+        "title": "How the obstruction is proved: zooming in on a ghost"
+      },
+      {
+        "time": "00:21:02",
+        "title": "Lost in translation: what the Lean proof did and did not check"
+      },
+      {
+        "time": "00:29:14",
+        "title": "Credit: two accounts of one weekend"
+      },
+      {
+        "time": "00:36:03",
+        "title": "Tao: the opportunity cost"
+      },
+      {
+        "time": "00:39:19",
+        "title": "What Clay will do, and how slowly"
+      },
+      {
+        "time": "00:42:03",
+        "title": "The open questions"
+      },
+      {
+        "time": "00:45:18",
+        "title": "A field guide to the possible outcomes"
+      },
+      {
+        "time": "00:48:54",
+        "title": "Why it matters, and the ledger"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 77,
+    "title": "Seven Hundred and Twenty-Two Papers in a Day",
+    "series": "The Machine's Theorems",
+    "slug": "seven-hundred-and-twenty-two-papers-in-a-day",
+    "synopsis_draft": "The release in OpenAI's own words; attempted vs released numbers and the missing denominators; a guided tour of the repository; how Lean and Comparator checking works, with the actual challenge files for the plane-colouring, Thompson's group F and Unique Games families; the π Lean scope; the sign error (−2m ≠ 0) and the 7 October history entry; withdrawn is not false; the Advisory Group dispute; reactions from Tao, Scholze, Green, Agol, Wilton, Lozano-Robledo and Hales. Keywords: OpenAI math release, GitHub, Lean, Comparator, Mathlib, formalization, withdrawal, sign error, Hodge, Advisory Group, AHM, Tao, Math 2.0",
+    "duration_seconds": 3426.0,
+    "guid": "38f3e2c2-2656-49fa-986a-95049cf01b75",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Seven-Hundred-and-Twenty-Two-Papers-in-a-Day-e3qc4fj",
+    "cover": "/images/the-deep-end/episodes/77-seven-hundred-and-twenty-two-papers-in-a-day.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the parody and the repository"
+      },
+      {
+        "time": "00:04:14",
+        "title": "What was released, in OpenAI's own words"
+      },
+      {
+        "time": "00:07:59",
+        "title": "Attempted versus released: what the numbers do and do not say"
+      },
+      {
+        "time": "00:11:27",
+        "title": "A guided tour of the repository"
+      },
+      {
+        "time": "00:16:49",
+        "title": "Forty-two percent: what a formalization buys you"
+      },
+      {
+        "time": "00:20:52",
+        "title": "How to read one entry: a worked example"
+      },
+      {
+        "time": "00:24:46",
+        "title": "How Lean checking actually works"
+      },
+      {
+        "time": "00:30:12",
+        "title": "Three Lean pages, up close"
+      },
+      {
+        "time": "00:37:35",
+        "title": "The sign error, step by step"
+      },
+      {
+        "time": "00:44:46",
+        "title": "Publish first, check later: is this new?"
+      },
+      {
+        "time": "00:47:44",
+        "title": "Who was consulted: the Advisory Group dispute"
+      },
+      {
+        "time": "00:49:58",
+        "title": "The community reacts, in their own words"
+      },
+      {
+        "time": "00:53:54",
+        "title": "Why it matters, and the verification ledger"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 78,
+    "title": "Primes and Zeros: The Quasi-Riemann Hypothesis",
+    "series": "The Machine's Theorems",
+    "slug": "primes-and-zeros-the-quasi-riemann-hypothesis",
+    "synopsis_draft": "Zeta and Dirichlet L-functions built from scratch; why zeros control prime counts; the classical sliver and Siegel zeros; Theorem 1.1 of the 199-page manuscript and its Lean scope; the proof architecture over the Eisenstein integers; how referees will check it; the human-assisted 11/12 companion and the 9-page Siegel-zero paper; least nonresidues, deterministic square roots and Scholze's crypto worry; Artin, Catalan, prime gaps and Chowla. Keywords: Riemann zeta, quasi-Riemann hypothesis, zero-free region, Dirichlet L-functions, Siegel zeros, Hecke L-functions, cubic theta, large sieve, Vinogradov, Artin primitive root, Catalan's constant, Chowla, Lean",
+    "duration_seconds": 3364.0,
+    "guid": "98362f88-0b91-48d7-a436-7a027bff0005",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Primes-and-Zeros-The-Quasi-Riemann-Hypothesis-e3qc4il",
+    "cover": "/images/the-deep-end/episodes/78-primes-and-zeros-the-quasi-riemann-hypothesis.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the grant and the half-plane"
+      },
+      {
+        "time": "00:03:21",
+        "title": "A sum, a product, and the primes"
+      },
+      {
+        "time": "00:07:13",
+        "title": "Riemann's eight pages"
+      },
+      {
+        "time": "00:10:15",
+        "title": "Why zeros count primes"
+      },
+      {
+        "time": "00:13:34",
+        "title": "A tiny example: primes ending in one, three, seven and nine"
+      },
+      {
+        "time": "00:17:01",
+        "title": "A sliver near the line: what was known before"
+      },
+      {
+        "time": "00:21:05",
+        "title": "The claim, exactly"
+      },
+      {
+        "time": "00:25:11",
+        "title": "Inside the hundred and ninety-nine pages"
+      },
+      {
+        "time": "00:30:50",
+        "title": "How a proof like this gets checked"
+      },
+      {
+        "time": "00:35:29",
+        "title": "The companions: eleven-twelfths, and nine pages on Siegel zeros"
+      },
+      {
+        "time": "00:40:44",
+        "title": "Square roots, nonresidues, and Scholze's worry"
+      },
+      {
+        "time": "00:45:12",
+        "title": "The neighbours: Artin, Catalan, prime gaps and Chowla"
+      },
+      {
+        "time": "00:50:27",
+        "title": "What it would mean, what is still open, and the ledger"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 79,
+    "title": "Elliptic Curves and Hodge Classes: Near the Millennium Line",
+    "series": "The Machine's Theorems",
+    "slug": "elliptic-curves-hodge",
+    "synopsis_draft": "Part 11 of \"The Machine's Theorems\". Farah and Augustin take on elliptic curves, \"doughnuts with an addition law\", and the Birch and Swinnerton-Dyer formula, then the Hodge conjecture, \"shadows that should be cast by real objects\". We read OpenAI's manuscripts for the full BSD formula in Selmer corank zero and one (family 002), Goldfeld's conjecture (006), Hilbert's tenth problem over the rationals (004), the rational Hodge conjecture for CM abelian varieties (032) and Milne's rationality conjecture (001), plus the withdrawn K3 chain and the Kuznetsov counterexamples (054). Every claim is labelled: verified, Lean-checked, contested, unrefereed or withdrawn. Expert voices come from MathOverflow: Will Sawin, Olivier and Timothy Chow.",
+    "duration_seconds": 3371.0,
+    "guid": "82da7822-c31d-45cd-8725-439b7600d0b5",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Elliptic-Curves-and-Hodge-Classes-Near-the-Millennium-Line-e3qc4oo",
+    "cover": "/images/the-deep-end/episodes/79-elliptic-curves-hodge.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: a long-distance call about doughnuts"
+      },
+      {
+        "time": "00:02:42",
+        "title": "Doughnuts with an addition law"
+      },
+      {
+        "time": "00:06:49",
+        "title": "Counting points modulo primes: the L-function"
+      },
+      {
+        "time": "00:09:11",
+        "title": "The conjecture, said in words"
+      },
+      {
+        "time": "00:11:25",
+        "title": "Sha and Selmer: the ghost and the net"
+      },
+      {
+        "time": "00:13:17",
+        "title": "Selmer's cubic: a ghost you can write down"
+      },
+      {
+        "time": "00:15:05",
+        "title": "A balance you can check by hand"
+      },
+      {
+        "time": "00:17:23",
+        "title": "What was known before"
+      },
+      {
+        "time": "00:19:28",
+        "title": "What family two claims"
+      },
+      {
+        "time": "00:22:09",
+        "title": "How a referee would read it"
+      },
+      {
+        "time": "00:24:28",
+        "title": "The experts react: Sawin, Olivier and the house of cards"
+      },
+      {
+        "time": "00:26:33",
+        "title": "Why no machine has checked this"
+      },
+      {
+        "time": "00:28:53",
+        "title": "Goldfeld's conjecture: half and half"
+      },
+      {
+        "time": "00:31:20",
+        "title": "Hilbert's tenth problem over the rationals"
+      },
+      {
+        "time": "00:34:40",
+        "title": "Halfway: what we know so far"
+      },
+      {
+        "time": "00:35:50",
+        "title": "The Hodge conjecture: shadows that should be cast by real objects"
+      },
+      {
+        "time": "00:39:27",
+        "title": "Abelian varieties and complex multiplication"
+      },
+      {
+        "time": "00:41:58",
+        "title": "What family thirty-two claims"
+      },
+      {
+        "time": "00:45:06",
+        "title": "Milne's rationality conjecture"
+      },
+      {
+        "time": "00:46:46",
+        "title": "The withdrawn chain: a sign error in the eightfolds"
+      },
+      {
+        "time": "00:49:32",
+        "title": "Cutting the other way: Kuznetsov's conjecture"
+      },
+      {
+        "time": "00:52:20",
+        "title": "Why it matters to an engineer"
+      },
+      {
+        "time": "00:54:29",
+        "title": "Closing: Augustin's fences"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 80,
+    "title": "The Classification Machines: Birational Geometry's Big Programme",
+    "series": "The Machine's Theorems",
+    "slug": "birational-geometry",
+    "synopsis_draft": "Part 12 of \"The Machine's Theorems\", a lighter episode. Farah and Augustin use a refinery's pig-cleaning campaign and a sculptor's chisel to explain birational geometry: canonical divisors, contractions, flips, termination and abundance. We then read OpenAI's manuscripts on termination for fourfolds (family 056, including six Kähler manuscripts revised on 7 October), log abundance in every dimension (034) and in positive characteristic (035), Fujita's freeness conjecture (038), Nagata's conjecture (039, Lean-listed), P = W for fixed determinant (043) and a counterexample to Griffiths' positivity conjecture (050, Lean-listed). Every claim is labelled by tier.",
+    "duration_seconds": 2784.0,
+    "guid": "08805782-4a7f-46f0-ada0-56ff4421c576",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Classification-Machines-Birational-Geometrys-Big-Programme-e3qc4qo",
+    "cover": "/images/the-deep-end/episodes/80-birational-geometry.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the sculptor and the pig"
+      },
+      {
+        "time": "00:01:38",
+        "title": "Same shape, different clothes"
+      },
+      {
+        "time": "00:03:33",
+        "title": "A worked example: the plane with a point blown up"
+      },
+      {
+        "time": "00:06:01",
+        "title": "Kodaira dimension: the three-way split"
+      },
+      {
+        "time": "00:08:19",
+        "title": "The canonical divisor: a curvature compass"
+      },
+      {
+        "time": "00:10:12",
+        "title": "Flips: cutting and re-gluing"
+      },
+      {
+        "time": "00:11:50",
+        "title": "What a flip looks like"
+      },
+      {
+        "time": "00:13:30",
+        "title": "The road to termination"
+      },
+      {
+        "time": "00:15:03",
+        "title": "What family fifty-six claims"
+      },
+      {
+        "time": "00:17:52",
+        "title": "Abundance: does the clean shape fibre nicely?"
+      },
+      {
+        "time": "00:19:50",
+        "title": "What families thirty-four and thirty-five claim"
+      },
+      {
+        "time": "00:22:06",
+        "title": "Why positive characteristic is harder"
+      },
+      {
+        "time": "00:24:53",
+        "title": "Halfway: the tour so far"
+      },
+      {
+        "time": "00:26:03",
+        "title": "Fujita: how many twists until the bundle is free?"
+      },
+      {
+        "time": "00:28:36",
+        "title": "How you would check a short proof of a famous conjecture"
+      },
+      {
+        "time": "00:30:27",
+        "title": "Nagata: how special can a curve be?"
+      },
+      {
+        "time": "00:32:13",
+        "title": "Seshadri constants: positivity measured at a point"
+      },
+      {
+        "time": "00:35:41",
+        "title": "P equals W: two filtrations, one truth"
+      },
+      {
+        "time": "00:38:01",
+        "title": "Griffiths: a counterexample with an explicit bundle"
+      },
+      {
+        "time": "00:40:46",
+        "title": "The machine in the cathedral"
+      },
+      {
+        "time": "00:42:41",
+        "title": "Why it matters to an engineer"
+      },
+      {
+        "time": "00:44:46",
+        "title": "Closing: the pig comes out"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 81,
+    "title": "Speed Limits I: Multiplying, Transforming, Factoring",
+    "series": "The Machine's Theorems",
+    "slug": "speed-limits-multiplying",
+    "synopsis_draft": "Part 13 of \"The Machine's Theorems\". Farah and Augustin walk from long multiplication through Karatsuba, Toom-Cook, Schönhage–Strassen, Fürer and Harvey–van der Hoeven's n log n, then the fast Fourier transform's \"n work per level times log n levels\", and the matrix multiplication exponent omega. We read OpenAI's manuscripts on integer multiplication below n log n (family 109, not Lean-listed), an explicit power saving for the exact DFT (130, Lean-listed), omega at most nine fourths (107, Lean-listed), Subset Sum in two to the 0.49 n (138) and deterministic polynomial factorization over prime fields (142). We weigh the computational-model concern raised on MathOverflow, Timothy Chow's Alman–Rao precedent, Emil Jeřábek's reaction, and Scott Aaronson's remark about all those nines.",
+    "duration_seconds": 3130.0,
+    "guid": "7e8f2575-49c1-4bb5-aa78-7d0f387fbfb8",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Speed-Limits-I-Multiplying--Transforming--Factoring-e3qc4u2",
+    "cover": "/images/the-deep-end/episodes/81-speed-limits-multiplying.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the pocket calculator and the barrier"
+      },
+      {
+        "time": "00:02:07",
+        "title": "Schoolbook multiplication, counted"
+      },
+      {
+        "time": "00:03:33",
+        "title": "Karatsuba's trick: three instead of four"
+      },
+      {
+        "time": "00:05:35",
+        "title": "Splitting into more pieces: Toom-Cook"
+      },
+      {
+        "time": "00:06:56",
+        "title": "The fast Fourier transform: n work per level, log n levels"
+      },
+      {
+        "time": "00:09:21",
+        "title": "From Schönhage–Strassen to n log n"
+      },
+      {
+        "time": "00:11:21",
+        "title": "Why n log n felt like a law of nature"
+      },
+      {
+        "time": "00:13:18",
+        "title": "What family 109 claims"
+      },
+      {
+        "time": "00:15:56",
+        "title": "Inside the multiplication manuscript: the cost of moving data"
+      },
+      {
+        "time": "00:18:59",
+        "title": "Jeřábek: shocking, and unverified"
+      },
+      {
+        "time": "00:20:33",
+        "title": "The DFT below n log n: family 130"
+      },
+      {
+        "time": "00:22:29",
+        "title": "Did they change the model?"
+      },
+      {
+        "time": "00:25:51",
+        "title": "Chow: the n log n intuition was already cracked"
+      },
+      {
+        "time": "00:27:44",
+        "title": "Halfway: the speed limits so far"
+      },
+      {
+        "time": "00:29:06",
+        "title": "Matrix multiplication and the exponent omega"
+      },
+      {
+        "time": "00:31:48",
+        "title": "Tensors and the laser method, in words"
+      },
+      {
+        "time": "00:34:53",
+        "title": "What family 107 claims: nine fourths"
+      },
+      {
+        "time": "00:38:23",
+        "title": "Checking the Lean statement for omega"
+      },
+      {
+        "time": "00:40:22",
+        "title": "Subset Sum: breaking the half"
+      },
+      {
+        "time": "00:44:10",
+        "title": "How a referee would test Subset Sum"
+      },
+      {
+        "time": "00:45:54",
+        "title": "Deterministic factoring over prime fields"
+      },
+      {
+        "time": "00:48:30",
+        "title": "Why it matters to an engineer"
+      },
+      {
+        "time": "00:50:45",
+        "title": "Closing: fifty-four zeros"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 82,
+    "title": "Speed Limits II: Hardness, Randomness and Quantum Oracles",
+    "series": "The Machine's Theorems",
+    "slug": "speed-limits-hardness",
+    "synopsis_draft": "Part 14 of \"The Machine's Theorems\". Farah and Augustin take on approximation hardness and semidefinite programming, Khot's Unique Games Conjecture (\"a constraint puzzle where each clue fixes the neighbour exactly\"), randomized logarithmic space, sensitivity versus block sensitivity after Hao Huang's 2019 breakthrough, parity and constant-depth quantum circuits, and the Aaronson–Kuperberg unitary synthesis problem. We read OpenAI's manuscripts in families 102 (Lean-listed, with a published reasoning summary), 103 (Lean-listed), 132 (Lean-listed), 274 (Lean-listed) and 283 (not Lean-listed), and Aaronson's reactions, including the story from his own household.",
+    "duration_seconds": 3246.0,
+    "guid": "99616733-193e-4f3c-9191-06f6644b71b9",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Speed-Limits-II-Hardness--Randomness-and-Quantum-Oracles-e3qc558",
+    "cover": "/images/the-deep-end/episodes/82-speed-limits-hardness.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: \"mommy, you got cooked\""
+      },
+      {
+        "time": "00:02:05",
+        "title": "Hard to solve, hard to approximate"
+      },
+      {
+        "time": "00:04:32",
+        "title": "The PCP theorem: proofs you can spot-check"
+      },
+      {
+        "time": "00:06:56",
+        "title": "Unique Games: each clue fixes the neighbour exactly"
+      },
+      {
+        "time": "00:09:35",
+        "title": "What a reduction actually is"
+      },
+      {
+        "time": "00:12:01",
+        "title": "Testing a proof versus testing a theorem"
+      },
+      {
+        "time": "00:13:36",
+        "title": "Why the conjecture mattered so much"
+      },
+      {
+        "time": "00:15:36",
+        "title": "What family 102 claims"
+      },
+      {
+        "time": "00:18:58",
+        "title": "Inside the proof: the completeness obstacle"
+      },
+      {
+        "time": "00:22:08",
+        "title": "What the experts noticed"
+      },
+      {
+        "time": "00:24:02",
+        "title": "Randomness and small memory: L equals RL equals BPL"
+      },
+      {
+        "time": "00:26:43",
+        "title": "What family 103 claims"
+      },
+      {
+        "time": "00:29:48",
+        "title": "Halfway: what we have so far"
+      },
+      {
+        "time": "00:30:59",
+        "title": "Sensitivity and block sensitivity"
+      },
+      {
+        "time": "00:33:23",
+        "title": "What family 132 claims"
+      },
+      {
+        "time": "00:35:36",
+        "title": "A block sensitivity example you can say out loud"
+      },
+      {
+        "time": "00:37:33",
+        "title": "How Huang's two-page proof worked"
+      },
+      {
+        "time": "00:39:13",
+        "title": "Parity and shallow quantum circuits"
+      },
+      {
+        "time": "00:40:47",
+        "title": "What family 274 claims"
+      },
+      {
+        "time": "00:42:29",
+        "title": "Unitary synthesis: the opposite of what most expected"
+      },
+      {
+        "time": "00:44:14",
+        "title": "What family 283 claims"
+      },
+      {
+        "time": "00:47:08",
+        "title": "Oracles as lookup tables, and why constant error matters"
+      },
+      {
+        "time": "00:50:16",
+        "title": "Why it matters to an engineer"
+      },
+      {
+        "time": "00:52:28",
+        "title": "Closing: the brat and the theorem"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 83,
+    "title": "Needles, Waves and Dust: Harmonic Analysis Falls",
+    "series": "The Machine's Theorems",
+    "slug": "harmonic-analysis",
+    "synopsis_draft": "Part 15 of \"The Machine's Theorems\". Farah and Augustin start with Kakeya's needle, turning a unit segment in every direction using as little room as possible, then climb to Fourier restriction, Bochner–Riesz summability, Sogge's local smoothing conjecture for the wave equation, Falconer's distance sets and Carleson's pointwise convergence problem. We read OpenAI's manuscripts in families 074 (the Kakeya maximal conjecture in 3D, building on Wang and Zahl's 2025 set theorem, and Kakeya sets in 4D), 077 (restriction), 078 (Bochner–Riesz in 3D), 079 (local smoothing in 3D), 073 (Falconer in all dimensions, which is Lean-listed) and 080 (the Carleson Sobolev endpoint). Why the field matters to an engineer who runs FFTs, seismic migration and wave simulations daily.",
+    "duration_seconds": 3230.0,
+    "guid": "802363d2-9b5d-4779-880c-ffb6f09b6a96",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Needles--Waves-and-Dust-Harmonic-Analysis-Falls-e3qc56d",
+    "cover": "/images/the-deep-end/episodes/83-harmonic-analysis.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: a needle in a parking lot"
+      },
+      {
+        "time": "00:02:21",
+        "title": "Kakeya's needle"
+      },
+      {
+        "time": "00:04:21",
+        "title": "Dimension: a finer ruler"
+      },
+      {
+        "time": "00:06:54",
+        "title": "Sticky, plany, grainy: how the set problem fell"
+      },
+      {
+        "time": "00:09:39",
+        "title": "How the maximal proof is organised"
+      },
+      {
+        "time": "00:11:35",
+        "title": "From sets to functions: the maximal conjecture"
+      },
+      {
+        "time": "00:14:06",
+        "title": "What family 074 claims"
+      },
+      {
+        "time": "00:16:30",
+        "title": "Why needles matter: the Fourier connection"
+      },
+      {
+        "time": "00:18:38",
+        "title": "Wave packets with numbers"
+      },
+      {
+        "time": "00:20:17",
+        "title": "The ladder of conjectures"
+      },
+      {
+        "time": "00:21:30",
+        "title": "Restriction: can a sphere's worth of frequencies spike?"
+      },
+      {
+        "time": "00:24:45",
+        "title": "Bochner-Riesz: how much smoothing does Fourier inversion need?"
+      },
+      {
+        "time": "00:27:42",
+        "title": "Halfway: the ladder so far"
+      },
+      {
+        "time": "00:28:48",
+        "title": "Decoupling: listening to the orchestra one section at a time"
+      },
+      {
+        "time": "00:30:55",
+        "title": "Local smoothing: waves are smoother on average"
+      },
+      {
+        "time": "00:33:43",
+        "title": "Falconer: how much dust makes all the distances?"
+      },
+      {
+        "time": "00:36:41",
+        "title": "Why exactly half the dimension?"
+      },
+      {
+        "time": "00:38:16",
+        "title": "A correction to our own brief"
+      },
+      {
+        "time": "00:39:51",
+        "title": "Carleson's problem: when does the wave start where it should?"
+      },
+      {
+        "time": "00:43:10",
+        "title": "L-p norms, said slowly"
+      },
+      {
+        "time": "00:45:26",
+        "title": "What a referee would check first"
+      },
+      {
+        "time": "00:47:39",
+        "title": "What the ladder looks like now"
+      },
+      {
+        "time": "00:50:18",
+        "title": "Why it matters to an engineer"
+      },
+      {
+        "time": "00:52:19",
+        "title": "Closing: the beam turns around"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 84,
+    "title": "Shapes, Colours and Patterns: Convex Geometry and Combinatorics",
+    "series": "The Machine's Theorems (Deep End, Ep 69–88), part 16 of 20",
+    "slug": "shapes-colours-patterns",
+    "synopsis_draft": "Combinatorics is the part of mathematics where a twelve-year-old can understand the question and a professional can spend forty years on it. That makes it the perfect place to test what a machine-written proof is worth. Farah and Augustin colour the plane, squeeze convex bodies, hunt arithmetic progressions and tile space with a single strange block. Along the way we separate what OpenAI's manuscripts claim, what a Lean kernel has checked, and what the human community has actually said, including Joshua Swanson's verdict on the Shareshian–Wachs proof.",
+    "duration_seconds": 3112.0,
+    "guid": "a27e9ac4-9eed-4c9a-9a58-9d08646c5d33",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Shapes--Colours-and-Patterns-Convex-Geometry-and-Combinatorics-e3qc57j",
+    "cover": "/images/the-deep-end/episodes/84-shapes-colours-patterns.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the coloured tiles on the floor"
+      },
+      {
+        "time": "00:02:15",
+        "title": "Where we are, and the rules of the road"
+      },
+      {
+        "time": "00:04:47",
+        "title": "Convex bodies: what a mathematician means by a nice shape"
+      },
+      {
+        "time": "00:06:44",
+        "title": "Mahler's volume product: a shape and its shadow-twin"
+      },
+      {
+        "time": "00:10:32",
+        "title": "What family eighty-seven claims, and what Lean checked"
+      },
+      {
+        "time": "00:13:30",
+        "title": "Brunn–Minkowski, and its logarithmic cousin"
+      },
+      {
+        "time": "00:17:21",
+        "title": "Borsuk in dimension nine: when cutting a shape into smaller pieces fails"
+      },
+      {
+        "time": "00:21:07",
+        "title": "Colouring the plane: the five-colour wall"
+      },
+      {
+        "time": "00:24:39",
+        "title": "Arithmetic progressions: Erdosh's dream and Szemerédi's ladder"
+      },
+      {
+        "time": "00:28:51",
+        "title": "Sidorenko, van der Waerden, and other counterexamples"
+      },
+      {
+        "time": "00:32:25",
+        "title": "Tiling space with one strange block"
+      },
+      {
+        "time": "00:35:35",
+        "title": "Kazhdan–Lusztig and Shareshian–Wachs: algebraic combinatorics"
+      },
+      {
+        "time": "00:39:10",
+        "title": "Inside a Lean check, said in words"
+      },
+      {
+        "time": "00:42:14",
+        "title": "Why so many, and why combinatorics?"
+      },
+      {
+        "time": "00:44:15",
+        "title": "The human cost, in Tao's words and Swanson's"
+      },
+      {
+        "time": "00:46:41",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:49:00",
+        "title": "Ledger and closing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 85,
+    "title": "Curvature and Spacetime: Geometry's Rigidity Theorems",
+    "series": "The Machine's Theorems (Deep End, Ep 69–88), part 17 of 20",
+    "slug": "curvature-and-spacetime",
+    "synopsis_draft": "Curvature is how triangles fail to add up to a hundred and eighty degrees. Rigidity is what happens when a little information about curvature pins down a whole shape. Farah and Augustin walk from the surveyor's triangle to black holes, through a run of famous geometry conjectures that OpenAI's manuscripts claim to settle. We explain each one in words, say exactly what tier each claim is in, and ask why geometry, unlike combinatorics, is mostly beyond today's formal verification.",
+    "duration_seconds": 3459.0,
+    "guid": "28cdc802-a7b4-4565-b5f2-7b24cb3a9b3f",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Curvature-and-Spacetime-Geometrys-Rigidity-Theorems-e3qc5kf",
+    "cover": "/images/the-deep-end/episodes/85-curvature-and-spacetime.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the triangle on the pipeline survey"
+      },
+      {
+        "time": "00:01:37",
+        "title": "The ground rules, briefly"
+      },
+      {
+        "time": "00:03:03",
+        "title": "What curvature is: the triangle test"
+      },
+      {
+        "time": "00:05:07",
+        "title": "From surfaces to manifolds, and the idea of rigidity"
+      },
+      {
+        "time": "00:06:51",
+        "title": "Three model worlds, and the original uniformization theorem"
+      },
+      {
+        "time": "00:09:52",
+        "title": "Yau's uniformization conjecture: when curvature forces flat complex space"
+      },
+      {
+        "time": "00:13:21",
+        "title": "Katok's entropy rigidity: chaos that measures symmetry"
+      },
+      {
+        "time": "00:16:33",
+        "title": "The metric Blaschke conjecture: when every geodesic comes home at once"
+      },
+      {
+        "time": "00:19:12",
+        "title": "Closed geodesics: the loops that never end"
+      },
+      {
+        "time": "00:21:38",
+        "title": "Bending surfaces into space: Nash, and the four-dimensional immersion"
+      },
+      {
+        "time": "00:24:45",
+        "title": "Scalar curvature: the weakest curvature, and Gromov's inequality"
+      },
+      {
+        "time": "00:28:25",
+        "title": "A symplectic side-trip, and a revision"
+      },
+      {
+        "time": "00:30:54",
+        "title": "Soap films and minimal surfaces: the varifold claim"
+      },
+      {
+        "time": "00:34:30",
+        "title": "Squeezing balls in phase space: symplectic packing"
+      },
+      {
+        "time": "00:37:28",
+        "title": "Interlude: why geometry is hard to put into Lean"
+      },
+      {
+        "time": "00:39:41",
+        "title": "Spacetime: from surfaces to Einstein"
+      },
+      {
+        "time": "00:41:55",
+        "title": "Penrose inequalities: mass at least the size of the black hole"
+      },
+      {
+        "time": "00:45:58",
+        "title": "Strong cosmic censorship near Kerr"
+      },
+      {
+        "time": "00:50:23",
+        "title": "What the community has said, and hasn't"
+      },
+      {
+        "time": "00:52:22",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:54:31",
+        "title": "Ledger and closing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 86,
+    "title": "Operators, Groups and Knots: The Algebra of the Infinite",
+    "series": "The Machine's Theorems (Deep End, Ep 69–88), part 18 of 20",
+    "slug": "operators-groups-knots",
+    "synopsis_draft": "This is the most abstract episode of the series, and also the one where some of the most surprised experts have spoken on the record. Farah and Augustin start from symmetry and infinite-dimensional matrices and work up to problems that a generation of specialists expected to outlive them. We take each claim in its tier, follow the set-theory argument about Naimark's problem, and ask what it means when a field's grand open questions all appear answered in a single afternoon.",
+    "duration_seconds": 3389.0,
+    "guid": "9c144503-3728-461b-9e7b-99352738670c",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Operators--Groups-and-Knots-The-Algebra-of-the-Infinite-e3qc5mo",
+    "cover": "/images/the-deep-end/episodes/86-operators-groups-knots.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: Augustin's old colleague"
+      },
+      {
+        "time": "00:01:27",
+        "title": "Ground rules, and a promise about abstraction"
+      },
+      {
+        "time": "00:03:01",
+        "title": "Symmetry as algebra: what a group is"
+      },
+      {
+        "time": "00:04:55",
+        "title": "From groups to operators: von Neumann algebras"
+      },
+      {
+        "time": "00:06:54",
+        "title": "The free group factor problem"
+      },
+      {
+        "time": "00:10:25",
+        "title": "Amenability, and Thompson's group F"
+      },
+      {
+        "time": "00:14:34",
+        "title": "Cannon's conjecture and Agol's reaction"
+      },
+      {
+        "time": "00:17:02",
+        "title": "Burnside, Boone–Higman and the limits of computation"
+      },
+      {
+        "time": "00:21:09",
+        "title": "Wilton's warning"
+      },
+      {
+        "time": "00:22:43",
+        "title": "Kadison's similarity problem and the invariant subspace problem"
+      },
+      {
+        "time": "00:26:04",
+        "title": "Naimark's problem, set theory and the large-cardinal question"
+      },
+      {
+        "time": "00:29:38",
+        "title": "Baum–Connes and Kadison–Kaplansky: two pillars claimed to fall"
+      },
+      {
+        "time": "00:33:26",
+        "title": "A neighbour in logic: the oldest open problem in set theory"
+      },
+      {
+        "time": "00:36:56",
+        "title": "Hilbert–Smith: when can symmetries be smooth?"
+      },
+      {
+        "time": "00:38:48",
+        "title": "Rigidity in the infinite: Popa, property T and closeness"
+      },
+      {
+        "time": "00:42:42",
+        "title": "How a referee would read one of these papers"
+      },
+      {
+        "time": "00:46:02",
+        "title": "Knots, surgery and four dimensions"
+      },
+      {
+        "time": "00:49:33",
+        "title": "Algebraic topology: Kervaire at three, and Grothendieck's dream"
+      },
+      {
+        "time": "00:51:42",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:53:21",
+        "title": "Ledger and closing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 87,
+    "title": "Physics Meets Proof: Plasmas, Spin Glasses and Other PDEs",
+    "series": "The Machine's Theorems (Deep End, Ep 69–88), part 19 of 20",
+    "slug": "physics-meets-proof",
+    "synopsis_draft": "Engineers live inside partial differential equations: heat, flow, elasticity, electromagnetism. This episode takes the release's physics families one equation at a time and asks the question the whole series has circled: when does a physical equation stay smooth forever, and when does it break? Farah connects plasma physics, fracture mechanics and seismic inversion to her daily work; Augustin connects them back to Leray. Every claim carries its tier.",
+    "duration_seconds": 3302.0,
+    "guid": "bd4ae24e-b378-48f8-95e2-e438db0666f3",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Physics-Meets-Proof-Plasmas--Spin-Glasses-and-Other-PDEs-e3qc5oc",
+    "cover": "/images/the-deep-end/episodes/87-physics-meets-proof.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the solver that wouldn't diverge"
+      },
+      {
+        "time": "00:01:39",
+        "title": "Where we are"
+      },
+      {
+        "time": "00:02:44",
+        "title": "The scorecard idea: smooth forever, or blowup?"
+      },
+      {
+        "time": "00:04:24",
+        "title": "A two-minute refresher: three families of equations"
+      },
+      {
+        "time": "00:07:08",
+        "title": "Vlasov–Maxwell: a plasma that stays smooth"
+      },
+      {
+        "time": "00:11:31",
+        "title": "Why a Lean check for a PDE result is unusual"
+      },
+      {
+        "time": "00:14:30",
+        "title": "Boltzmann: two different futures from one past"
+      },
+      {
+        "time": "00:17:16",
+        "title": "Schrödinger: when blowup is stable"
+      },
+      {
+        "time": "00:19:45",
+        "title": "Hot spots: where's the hottest point on a metal plate?"
+      },
+      {
+        "time": "00:21:50",
+        "title": "Interlude: Farah runs the plate"
+      },
+      {
+        "time": "00:24:58",
+        "title": "De Giorgi and Mumford–Shah: phase boundaries and cracks"
+      },
+      {
+        "time": "00:27:46",
+        "title": "Inverse problems: can you see inside an elastic body?"
+      },
+      {
+        "time": "00:30:35",
+        "title": "Spin glasses and the Mézard–Parisi formula"
+      },
+      {
+        "time": "00:33:25",
+        "title": "Magnets and quantum chains: Bloch, Haldane, Laughlin"
+      },
+      {
+        "time": "00:37:09",
+        "title": "Optimal transport: moving sand, and a Lean-listed geometry claim"
+      },
+      {
+        "time": "00:40:38",
+        "title": "Cold atoms and quantum depletion"
+      },
+      {
+        "time": "00:43:08",
+        "title": "Entanglement and the area law"
+      },
+      {
+        "time": "00:45:39",
+        "title": "The fluid that computes"
+      },
+      {
+        "time": "00:48:01",
+        "title": "Which equations break, and why: the scorecard"
+      },
+      {
+        "time": "00:50:44",
+        "title": "Why it matters for an engineer"
+      },
+      {
+        "time": "00:52:30",
+        "title": "Ledger and closing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 88,
+    "title": "Math 1.0, Math 2.0: Who Is Mathematics For?",
+    "series": "The Machine's Theorems (Deep End, Ep 69–88), part 20 of 20 (finale)",
+    "slug": "math-1-math-2",
+    "synopsis_draft": "Twenty episodes ago, Farah Al-Mansoori's CFD solver diverged at two in the morning. Since then we've followed a forced blowup for Navier–Stokes, seven hundred and twenty-two machine-written manuscripts, a sign error, a Lean mismatch, and a community trying to decide what it values. This finale steps back. What did Math 1.0 reward, and why does Tao think that model is now unsustainable? What do the angriest and the most hopeful voices actually say, in their own words? And how should an engineer, who uses mathematics every day without proving any of it, decide what to trust? We close with a ledger of every arc, and with Augustin's last word.",
+    "duration_seconds": 3085.0,
+    "guid": "a6d9d176-37db-4580-9fe0-4c7169fac768",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Math-1-0--Math-2-0-Who-Is-Mathematics-For-e3qc5rb",
+    "cover": "/images/the-deep-end/episodes/88-math-1-math-2.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the question at the dinner table"
+      },
+      {
+        "time": "00:01:40",
+        "title": "Where the story stands, in tiers"
+      },
+      {
+        "time": "00:04:59",
+        "title": "What the Navier–Stokes saga taught us"
+      },
+      {
+        "time": "00:08:44",
+        "title": "Machines in mathematics: a fifty-year rehearsal"
+      },
+      {
+        "time": "00:11:43",
+        "title": "The credit question"
+      },
+      {
+        "time": "00:14:35",
+        "title": "Opportunity cost: the September warning"
+      },
+      {
+        "time": "00:15:53",
+        "title": "Math 1.0: what the old system rewarded"
+      },
+      {
+        "time": "00:18:45",
+        "title": "Math 2.0: Tao's proposal"
+      },
+      {
+        "time": "00:22:02",
+        "title": "The angriest voice: the AHM statement"
+      },
+      {
+        "time": "00:24:07",
+        "title": "The most hopeful voices"
+      },
+      {
+        "time": "00:26:23",
+        "title": "Scholze and the marathon"
+      },
+      {
+        "time": "00:28:16",
+        "title": "The students: Lozano-Robledo's letter"
+      },
+      {
+        "time": "00:29:44",
+        "title": "Reliability: Hales and Hansen"
+      },
+      {
+        "time": "00:31:37",
+        "title": "The Fields Medalists' declaration"
+      },
+      {
+        "time": "00:32:26",
+        "title": "What Math 2.0 might look like, in practice"
+      },
+      {
+        "time": "00:35:26",
+        "title": "What it means for an engineer: trust in layers"
+      },
+      {
+        "time": "00:38:14",
+        "title": "The quiet middle: the technical voices"
+      },
+      {
+        "time": "00:41:03",
+        "title": "What would settle it"
+      },
+      {
+        "time": "00:43:49",
+        "title": "Back to Farah's solver"
+      },
+      {
+        "time": "00:45:30",
+        "title": "The series ledger, by tier"
+      },
+      {
+        "time": "00:48:41",
+        "title": "Augustin's last word"
+      },
+      {
+        "time": "00:50:24",
+        "title": "Closing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 89,
+    "title": "Light in the Powerhouse? The Quantum Mitochondria Preprint",
+    "series": "Engineering Deep Dives",
+    "slug": "quantum-mitochondria",
+    "synopsis_draft": "Reliability engineer Theo Marchetti gets a screenshot from his sister Ines, a mitochondria biologist in Lisbon: \"scientists proved every mitochondrion is a tiny quantum device running at 71 THz.\" Over a week they take the paper apart together. We build the background from first principles: mitochondria and the electron transport chain, Peter Mitchell's chemiosmosis and the ATP synthase turbine, and whether life's energy efficiency really needs quantum physics. Then we look at the history of quantum biology: the 2007 photosynthesis coherence result and its 2020 reassessment, the robin's radical-pair compass, enzyme tunnelling, Fisher's Posner molecules, Penrose–Hameroff and the \"warm, wet and noisy\" decoherence objection. Next comes a pendulum-and-tuned-mass-damper primer on polaritons, followed by the paper itself: its FTIR spectra, its cavity model and its laser–ATP experiment. Last, a reliability engineer's stress test, an account of how the paper was received (careful news coverage, wild hype on X, no expert review or replication yet), every claim sorted into one of three tiers, and the specific experiments that would confirm or refute it, including a carbon-13 isotope test.",
+    "duration_seconds": 3756.0,
+    "guid": "ce614912-c48b-4139-8a93-3cd1d7167303",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Light-in-the-Powerhouse--The-Quantum-Mitochondria-Preprint-e3qc5rp",
+    "cover": "/images/the-deep-end/episodes/89-quantum-mitochondria.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the screenshot at the turnaround"
+      },
+      {
+        "time": "00:03:14",
+        "title": "The powerhouse: what a mitochondrion actually is"
+      },
+      {
+        "time": "00:05:54",
+        "title": "Chemiosmosis: the hydro dam inside the cell"
+      },
+      {
+        "time": "00:09:45",
+        "title": "The efficiency puzzle, or is it?"
+      },
+      {
+        "time": "00:13:56",
+        "title": "Quantum biology: big claims and their afterlife"
+      },
+      {
+        "time": "00:22:03",
+        "title": "Polaritons: when light and matter hold hands"
+      },
+      {
+        "time": "00:26:29",
+        "title": "The anomalous peak"
+      },
+      {
+        "time": "00:30:41",
+        "title": "The model: a mitochondrion as a resonant cavity"
+      },
+      {
+        "time": "00:36:02",
+        "title": "The light experiment: ten percent more ATP"
+      },
+      {
+        "time": "00:38:18",
+        "title": "Stress test one: is the ghost peak carbon dioxide?"
+      },
+      {
+        "time": "00:41:26",
+        "title": "Stress test two: what changed between living and dead?"
+      },
+      {
+        "time": "00:44:09",
+        "title": "Stress test three: does the cavity hold water?"
+      },
+      {
+        "time": "00:49:14",
+        "title": "Stress test four: the ATP experiment"
+      },
+      {
+        "time": "00:53:08",
+        "title": "How the paper was received"
+      },
+      {
+        "time": "00:56:32",
+        "title": "The ledger: three bins"
+      },
+      {
+        "time": "00:58:39",
+        "title": "What would settle it"
+      },
+      {
+        "time": "01:00:43",
+        "title": "Closing: the peak that wasn't a bearing"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 90,
+    "title": "Light and Coherence: What Photosynthesis and Vision Really Tell Us About Quantum Biology",
+    "series": "Quantum Biology, part 1 of 3 (follows episode 89)",
+    "slug": "light-and-coherence",
+    "synopsis_draft": "A sceptical retired NMR physicist and a young ultrafast spectroscopist start a graded \"ledger\" on a houseboat lab, sorting every quantum-biology claim into established, strong evidence, contested, speculative or fringe. Day one covers light: how antennas funnel excitons, the Engel et al. 2007 Nature beats at 77 K, environment-assisted quantum transport, Duan et al. 2017 (electronic coherence gone in ~60 fs), the 18-author 2020 Science Advances reassessment, Brumer's sunlight objection, the 2023 single-photon LH2 experiment, the 2026 reviews, spectral densities and decoherence estimates, Marcus electron tunnelling, and the vibrationally coherent isomerisation of retinal (Schoenlein 1991, Wang 1994, Johnson 2015, Gruhl 2023), plus single-photon vision and a checklist for reading quantum-biology headlines. Wren Halloran and Augustin \"Gus\" Ferreira are fictional. Cross-references episode 89 (the Fudan mitochondria preprint).",
+    "duration_seconds": 3121.0,
+    "guid": "708c92d8-b1fd-4f1e-b3de-cf7f52f67995",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Light-and-Coherence-What-Photosynthesis-and-Vision-Really-Tell-Us-About-Quantum-Biology-e3qc5ve",
+    "cover": "/images/the-deep-end/episodes/90-light-and-coherence.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the houseboat and the ledger"
+      },
+      {
+        "time": "00:03:09",
+        "title": "What it would even mean for biology to be quantum"
+      },
+      {
+        "time": "00:07:32",
+        "title": "Catching sunlight: antennas, excitons and the FMO complex"
+      },
+      {
+        "time": "00:11:33",
+        "title": "Rings of light: delocalisation you can see"
+      },
+      {
+        "time": "00:14:49",
+        "title": "Two thousand and seven: the beats that launched a field"
+      },
+      {
+        "time": "00:17:50",
+        "title": "Noise as a helper: environment-assisted transport"
+      },
+      {
+        "time": "00:20:54",
+        "title": "The reassessment: vibrations, sixty femtoseconds, and eighteen authors"
+      },
+      {
+        "time": "00:26:18",
+        "title": "What survives: vibronic mixing, single photons and the twenty twenty-six view"
+      },
+      {
+        "time": "00:30:43",
+        "title": "Decoherence by the numbers: the spectral density"
+      },
+      {
+        "time": "00:33:46",
+        "title": "Electron tunnelling: the quiet quantum effect everyone accepts"
+      },
+      {
+        "time": "00:36:49",
+        "title": "Vision: the fastest twist in biology"
+      },
+      {
+        "time": "00:42:45",
+        "title": "Can you see a single photon?"
+      },
+      {
+        "time": "00:45:39",
+        "title": "Lessons for engineers: what the reassessment teaches"
+      },
+      {
+        "time": "00:48:10",
+        "title": "How to read a quantum biology headline"
+      },
+      {
+        "time": "00:50:09",
+        "title": "The ledger after day one"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 91,
+    "title": "Spins and Tunnelling: The Robin's Compass, Cheating Enzymes and the Protons in Your DNA",
+    "series": "Quantum Biology, part 2 of 3",
+    "slug": "spins-and-tunnelling",
+    "synopsis_draft": "Day two on the houseboat. Wren and Gus build the radical-pair mechanism from first principles, put a quantum compass through an engineering design review, and follow robin Cry4 from candidate (Günther 2018) to magnetically sensitive protein (Xu et al., Nature 2021), plus the 2023 to 2025 follow-ups (tryptophan-chain timing, Cry4b ruled out, membrane ordering, superoxide and quantum Zeno models). They weigh the radiofrequency disruption results (Ritz 2004, Engels 2014, Goforth et al. 2025 sea turtles), the magnetite beak story's collapse, the 100,000-fly null result (Bassetto 2023), monarch cryptochrome knockouts and the neural recordings due after December 2026. The second half covers tunnelling from first principles, soybean lipoxygenase's kinetic isotope effect of about 80, the Klinman versus Warshel dynamics debate, Turin's vibration theory of smell, and Löwdin's DNA tautomers, from Slocombe, Sacchi and Al-Khalili (2022) to the 2025 counter-analysis. Wren Halloran and Augustin \"Gus\" Ferreira are fictional.",
+    "duration_seconds": 2987.0,
+    "guid": "a262813f-ce3d-48c1-879a-eb1d2490dbc2",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Spins-and-Tunnelling-The-Robins-Compass--Cheating-Enzymes-and-the-Protons-in-Your-DNA-e3qc5vo",
+    "cover": "/images/the-deep-end/episodes/91-spins-and-tunnelling.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: a robin in a funnel"
+      },
+      {
+        "time": "00:02:26",
+        "title": "The weakness of the Earth's field"
+      },
+      {
+        "time": "00:04:06",
+        "title": "Radical pairs from first principles"
+      },
+      {
+        "time": "00:08:36",
+        "title": "A design review for a quantum compass"
+      },
+      {
+        "time": "00:12:44",
+        "title": "Cryptochrome: from candidate to cryptochrome four"
+      },
+      {
+        "time": "00:18:04",
+        "title": "The radiofrequency fingerprint"
+      },
+      {
+        "time": "00:23:01",
+        "title": "Fights, failures and a fruit fly"
+      },
+      {
+        "time": "00:26:43",
+        "title": "Magnetic field effects beyond the compass"
+      },
+      {
+        "time": "00:29:36",
+        "title": "Tunnelling from first principles"
+      },
+      {
+        "time": "00:33:42",
+        "title": "Enzymes that cheat at chemistry"
+      },
+      {
+        "time": "00:39:03",
+        "title": "A cautionary tale: the quantum nose"
+      },
+      {
+        "time": "00:42:57",
+        "title": "The protons in your DNA"
+      },
+      {
+        "time": "00:47:23",
+        "title": "The ledger after day two"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 92,
+    "title": "The Brain and the Frontier: Posner Molecules, Microtubules, Diamond Thermometers and What Would Settle It",
+    "series": "Quantum Biology, part 3 of 3 (finale)",
+    "slug": "brain-and-frontier",
+    "synopsis_draft": "Day three, in a storm, with a bottle of whisky riding on the outcome. Gus teaches the three ways to estimate decoherence times (scattering, spectral density, spin relaxation) and a fourth way: test the consequence, not the coherence. Wren presents Fisher's 2015 nuclear-spin proposal, the 2018 Player and Hore critique, the 2025 PNAS lithium-isotope calcium phosphate result and a 2025 negative model. They weigh Orch-OR against Tegmark (2000), the Gran Sasso exclusion of parameter-free Diósi-Penrose collapse (Donadi et al. 2020; Derakhshani et al. 2022), Franks and Lieb on anaesthetic targets, Kerskens and López Pérez (2022) and its 2023 rebuttal, Babcock et al. (2024) superradiance, Wiest et al. (2024) epothilone B, the 2018 xenon isotope study, and Zadeh-Haghighi, Craddock, Simon and colleagues' magnesium-25 tubulin result (Science Advances 2026). Then NV-diamond thermometry (Kucsko 2013), Chrétien's 50 °C mitochondria and Baffou's heat-conduction objection, the episode 89 preprint graded, a funding list of decisive experiments, and the final ledger. Wren Halloran and Augustin \"Gus\" Ferreira are fictional.",
+    "duration_seconds": 3107.0,
+    "guid": "e87a9430-914b-448b-a411-c11a772a090d",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Brain-and-the-Frontier-Posner-Molecules--Microtubules--Diamond-Thermometers-and-What-Would-Settle-It-e3qc66f",
+    "cover": "/images/the-deep-end/episodes/92-brain-and-frontier.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the storm and the wager"
+      },
+      {
+        "time": "00:01:51",
+        "title": "How decoherence times are estimated"
+      },
+      {
+        "time": "00:06:58",
+        "title": "Why the brain is the hardest place to look"
+      },
+      {
+        "time": "00:10:23",
+        "title": "Fisher's Posner molecules: a quantum brain built from nuclear spins"
+      },
+      {
+        "time": "00:14:38",
+        "title": "Testing the Posner idea"
+      },
+      {
+        "time": "00:18:33",
+        "title": "Orch-OR: consciousness, collapse and microtubules"
+      },
+      {
+        "time": "00:21:39",
+        "title": "The critics: Tegmark, Gran Sasso and the anaesthesia question"
+      },
+      {
+        "time": "00:25:57",
+        "title": "An isotope puzzle in anaesthesia"
+      },
+      {
+        "time": "00:28:17",
+        "title": "New evidence, twenty twenty-two to twenty twenty-six"
+      },
+      {
+        "time": "00:35:58",
+        "title": "Quantum sensing inside cells: diamonds as thermometers"
+      },
+      {
+        "time": "00:41:19",
+        "title": "The mitochondria claim, placed on the ledger"
+      },
+      {
+        "time": "00:44:25",
+        "title": "What experiments would settle things"
+      },
+      {
+        "time": "00:47:25",
+        "title": "The final ledger and the wager"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 93,
+    "title": "The Loop and the Hands: What a Coding Harness Is (Harness Design, Part 1)",
+    "series": "Harness Design series",
+    "slug": "harness-loop-and-hands",
+    "synopsis_draft": "Platform engineer Ines Varga doubles her coding agent's success rate without changing the model, and her mentor Gideon Achterberg uses it to explain the harness: the loop, the tools and the guard rails around a model with no memory. We trace the history from ReAct to SWE-agent's agent-computer interface, tour OpenHands, Aider, mini-swe-agent and the commercial agents, then go inside the harness from 'An Empirical Study of Harness Design for Coding Agents' (arXiv:2609.20804). In that study, predefined tools scaffold weaker models (worth 15 points on SWE-Bench Verified for Nemotron-3 30B), while a bash-only interface made Nemotron-3 550B slightly more accurate at half the cost, and Mistral Medium 3.5 needed tools for repo editing but preferred the shell on Terminal-Bench. The episode also covers granularity, tool design, how to read the statistics, safety gates, stuck detection and sandboxes.",
+    "duration_seconds": 3319.0,
+    "guid": "360091a5-3d25-4590-8493-18cfe88814b8",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/The-Loop-and-the-Hands-What-a-Coding-Harness-Is-Harness-Design--Part-1-e3qc67f",
+    "cover": "/images/the-deep-end/episodes/93-harness-loop-and-hands.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: same brain, different hands"
+      },
+      {
+        "time": "00:03:57",
+        "title": "First principles: a model is a function, a harness makes it an agent"
+      },
+      {
+        "time": "00:08:04",
+        "title": "A short history: from reasoning traces to agent-computer interfaces"
+      },
+      {
+        "time": "00:12:12",
+        "title": "The agent-computer interface, and why models need their own"
+      },
+      {
+        "time": "00:15:40",
+        "title": "The harness family tree, in twenty twenty-six"
+      },
+      {
+        "time": "00:19:50",
+        "title": "Inside the paper's harness, piece by piece"
+      },
+      {
+        "time": "00:23:24",
+        "title": "The tools on the bench"
+      },
+      {
+        "time": "00:26:25",
+        "title": "The action-space result: scaffolding for some, overhead for others"
+      },
+      {
+        "time": "00:32:44",
+        "title": "Granularity: how the hands shape the code"
+      },
+      {
+        "time": "00:36:06",
+        "title": "One ticket, two pairs of hands"
+      },
+      {
+        "time": "00:39:47",
+        "title": "Designing a tool a model can actually use"
+      },
+      {
+        "time": "00:43:06",
+        "title": "Reading the action-space numbers with care"
+      },
+      {
+        "time": "00:47:03",
+        "title": "Gates and guardrails: what the paper held still"
+      },
+      {
+        "time": "00:50:17",
+        "title": "Sandboxes: where the hands are allowed to reach"
+      },
+      {
+        "time": "00:52:22",
+        "title": "What this means, and where we go next"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 94,
+    "title": "Context Is the Bottleneck (Harness Design, Part 2)",
+    "series": "Harness Design series",
+    "slug": "harness-context-bottleneck",
+    "synopsis_draft": "Ines finds that more than half her agent's failed runs never wrote a line: they overflowed the context window. With Gideon she works through why the history fills up, context rot, lossy versus lossless compaction, and the five tiers in Fan, Zhang et al. (arXiv:2609.20804). On SWE-Bench Verified, managing context was worth 35.7 points at a 32k window but only 2.7 at 128k, and almost all of that came from stopping overflow (78.7% of unmanaged runs overflowed at 32k, versus zero for managed runs). Eliding first and summarising later was the cheapest policy. Recoverable recall was rarely called and added no accuracy. The episode also covers window arithmetic, surprises in the tables, how compaction fails, keeping the plan outside the history, learned versus static policies, vendor features, sub-agents and the limits of the evidence.",
+    "duration_seconds": 3242.0,
+    "guid": "a41885ce-b099-42a8-b346-40db016ca5d5",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Context-Is-the-Bottleneck-Harness-Design--Part-2-e3qc680",
+    "cover": "/images/the-deep-end/episodes/94-harness-context-bottleneck.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the runs that never wrote a line"
+      },
+      {
+        "time": "00:02:28",
+        "title": "Why the bucket fills"
+      },
+      {
+        "time": "00:04:54",
+        "title": "A bigger window is not a free fix"
+      },
+      {
+        "time": "00:07:23",
+        "title": "Lossy and lossless: two families of fix"
+      },
+      {
+        "time": "00:09:30",
+        "title": "The five tiers"
+      },
+      {
+        "time": "00:10:55",
+        "title": "How the staged policy works"
+      },
+      {
+        "time": "00:13:17",
+        "title": "The arithmetic of a window"
+      },
+      {
+        "time": "00:16:44",
+        "title": "Finding one: management matters most when the window binds"
+      },
+      {
+        "time": "00:19:08",
+        "title": "The overflow story"
+      },
+      {
+        "time": "00:22:18",
+        "title": "Reading the tables: the surprises"
+      },
+      {
+        "time": "00:25:56",
+        "title": "Finding two: cheap first, expensive later"
+      },
+      {
+        "time": "00:29:01",
+        "title": "Finding three: the photos in the drawer"
+      },
+      {
+        "time": "00:33:24",
+        "title": "What the summary says"
+      },
+      {
+        "time": "00:35:07",
+        "title": "How compaction goes wrong"
+      },
+      {
+        "time": "00:38:11",
+        "title": "Why the plan lives outside the history"
+      },
+      {
+        "time": "00:39:24",
+        "title": "The wider toolkit: maps, memory and sub-agents"
+      },
+      {
+        "time": "00:42:53",
+        "title": "Static rules and learned habits"
+      },
+      {
+        "time": "00:45:17",
+        "title": "The vendors' versions"
+      },
+      {
+        "time": "00:47:32",
+        "title": "What the paper does not tell you about context"
+      },
+      {
+        "time": "00:49:48",
+        "title": "What Ines changed"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 95,
+    "title": "Planning, Verification and Building Your Own (Harness Design, Part 3)",
+    "series": "Harness Design series",
+    "slug": "harness-planning-verification",
+    "synopsis_draft": "Ines's agent now either gives up too early or keeps going after it's done. Fan, Zhang et al.'s planning ablation explains both. A persistent to-do list added 11.6 points for Nemotron-3 30B (median run 5 turns without it, 40 with it). It cut SWE-Bench cost by about 30% for Nemotron-3 550B and 32% for Mistral Medium 3.5 by trimming redundant verification, with a small, non-significant drop in accuracy. The episode covers verification and tests that give wrong answers, SWE-Bench Verified contamination and the SWE-Bench Pro retraction, the harness as a hidden variable in leaderboards, latency and cost, critiques of the paper, how to run your own ablation, a 13-point design checklist, and how it all maps onto multi-agent setups.",
+    "duration_seconds": 3036.0,
+    "guid": "1e6d7372-30d4-4677-a5fd-96c38bada190",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Planning--Verification-and-Building-Your-Own-Harness-Design--Part-3-e3qc6j1",
+    "cover": "/images/the-deep-end/episodes/95-harness-planning-verification.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: what the agent does with more time"
+      },
+      {
+        "time": "00:02:03",
+        "title": "What planning means in this paper"
+      },
+      {
+        "time": "00:04:23",
+        "title": "The weak model: a list that keeps it alive"
+      },
+      {
+        "time": "00:06:58",
+        "title": "The strong models: a list that tells them when to stop"
+      },
+      {
+        "time": "00:09:52",
+        "title": "What a plan looks like in practice"
+      },
+      {
+        "time": "00:12:40",
+        "title": "The middle model and the shape of a distribution"
+      },
+      {
+        "time": "00:14:45",
+        "title": "Verification: the oracle and the over-checker"
+      },
+      {
+        "time": "00:17:50",
+        "title": "When the oracle lies"
+      },
+      {
+        "time": "00:21:54",
+        "title": "Evaluation pitfalls: the benchmark under the microscope"
+      },
+      {
+        "time": "00:27:06",
+        "title": "The harness is a confound in every leaderboard"
+      },
+      {
+        "time": "00:29:52",
+        "title": "Latency, turns and the shape of the bill"
+      },
+      {
+        "time": "00:32:40",
+        "title": "What the critics say"
+      },
+      {
+        "time": "00:36:27",
+        "title": "The big idea: harness components age"
+      },
+      {
+        "time": "00:38:42",
+        "title": "Running your own ablation"
+      },
+      {
+        "time": "00:41:24",
+        "title": "A checklist for building your own"
+      },
+      {
+        "time": "00:45:22",
+        "title": "From one agent to many"
+      },
+      {
+        "time": "00:48:10",
+        "title": "Closing: back at the whiteboard"
+      }
+    ],
+    "has_visual": false
+  },
+  {
+    "episode_number": 96,
+    "title": "Running the Heat Equation Backwards: Diffusion Models and Flow Matching",
+    "series": "Engineering Deep Dives",
+    "slug": "diffusion-flow-matching",
+    "synopsis_draft": "Pipeline integrity engineer Wren Okafor watches a dye pulse smear out in a water line, and her friend Teodor Lindqvist, a machine learning engineer, claims his whole field runs that smearing backwards. Starting from the score (the gradient of log density, which makes the normalising constant vanish), the episode builds Langevin dynamics, Song and Ermon's annealed noise-conditional score networks, and Ho, Jain and Abbeel's DDPM (2020): the variance-preserving forward process, the noise-prediction loss, and its equivalence to denoising score matching. It then covers the score-SDE view (Song et al., ICLR 2021), Anderson's reverse-time SDE, the Fokker–Planck equation (advection plus diffusion, and literally the heat equation in the variance-exploding case), and the deterministic probability-flow ODE. Next come fast samplers (DDIM, DPM-Solver, Karras's EDM), classifier and classifier-free guidance, latent diffusion and Stable Diffusion, and diffusion transformers. The second half moves from noise to transport: continuous normalising flows and the continuity equation, flow matching (Lipman et al.), rectified flow and reflow (Liu et al.), stochastic interpolants (Albergo and Vanden-Eijnden), Monge, Kantorovich and Benamou–Brenier optimal transport and minibatch OT, then consistency models and distillation. It closes with the state of the art, each claim tiered: SD3's rectified-flow MM-DiT, FLUX.1, FLUX.2 and FLUX 3, video models, masked diffusion language models (LLaDA, Mercury, Gemini Diffusion), Diffusion Policy and pi-zero in robotics, RFdiffusion and AlphaFold 3 in protein science, and GenCast in weather. Builds on ep69 (PDEs), ep70 (functional analysis), ep15 (information theory), ep22 (probability) and ep34 (inference economics).",
+    "duration_seconds": 4031.0,
+    "guid": "52d9f599-cd5e-4afb-b6ae-e4d1d7a10f70",
+    "public_episode_url": "https://podcasters.spotify.com/pod/show/sankalp391/episodes/Running-the-Heat-Equation-Backwards-Diffusion-Models-and-Flow-Matching-e3qc6jo",
+    "cover": "/images/the-deep-end/episodes/96-diffusion-flow-matching.jpg",
+    "chapters": [
+      {
+        "time": "00:00:00",
+        "title": "Cold open: the ink drop in the pipe"
+      },
+      {
+        "time": "00:03:13",
+        "title": "The problem: drawing from a distribution you can't write down"
+      },
+      {
+        "time": "00:06:04",
+        "title": "The score and why the constant disappears"
+      },
+      {
+        "time": "00:09:18",
+        "title": "Langevin dynamics: rolling downhill with a shaker attached"
+      },
+      {
+        "time": "00:12:34",
+        "title": "DDPM: the forward process, a slow fade to static"
+      },
+      {
+        "time": "00:15:46",
+        "title": "DDPM: the reverse process and the beautifully simple loss"
+      },
+      {
+        "time": "00:19:04",
+        "title": "The score-SDE view: let the steps become infinitely small"
+      },
+      {
+        "time": "00:22:02",
+        "title": "Fokker–Planck: from particles to the density"
+      },
+      {
+        "time": "00:24:40",
+        "title": "The probability-flow ODE: removing the dice"
+      },
+      {
+        "time": "00:27:32",
+        "title": "DDIM and the race to fewer steps"
+      },
+      {
+        "time": "00:30:51",
+        "title": "Guidance: steering the sample toward a prompt"
+      },
+      {
+        "time": "00:34:06",
+        "title": "Latent diffusion and Stable Diffusion"
+      },
+      {
+        "time": "00:37:00",
+        "title": "Continuous normalising flows: transport without noise"
+      },
+      {
+        "time": "00:40:17",
+        "title": "Flow matching: regress the velocity"
+      },
+      {
+        "time": "00:43:16",
+        "title": "Rectified flow: make the paths straight"
+      },
+      {
+        "time": "00:45:27",
+        "title": "Stochastic interpolants: the unifying frame"
+      },
+      {
+        "time": "00:47:44",
+        "title": "Optimal transport: the shortest way to move the sand"
+      },
+      {
+        "time": "00:50:00",
+        "title": "Consistency models and distillation: from fifty steps to one"
+      },
+      {
+        "time": "00:53:20",
+        "title": "The state of the art, part one: images and video"
+      },
+      {
+        "time": "00:56:59",
+        "title": "The state of the art, part two: diffusion for language"
+      },
+      {
+        "time": "00:59:57",
+        "title": "The state of the art, part three: robots, proteins and weather"
+      },
+      {
+        "time": "01:03:38",
+        "title": "What it means, and what to watch"
+      }
+    ],
+    "has_visual": false
   }
 ];
-export function seriesColor(number: number) { return number >= 17 && number <= 26 ? "#a791eb" : number >= 27 && number <= 29 ? "#48d3bd" : "#e8ad54"; }
+export function seriesColor(number: number) { return (number >= 17 && number <= 26) || (number >= 69 && number <= 88) ? "#a791eb" : (number >= 27 && number <= 29) || (number >= 89 && number <= 92) ? "#48d3bd" : "#e8ad54"; }

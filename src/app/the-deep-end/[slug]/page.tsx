@@ -39,9 +39,9 @@ export default async function EpisodePage({ params }: { params: Promise<{ slug: 
       <p className={styles.lead}>{episode.synopsis_draft}</p>
       {audio ? <audio className={styles.audio} controls preload="none" src={audio} aria-label={`Listen to ${episode.title}`} /> : <p className={styles.status}>Listen to the show on your preferred podcast platform.</p>}
       <div className={styles.actions}>{platforms.map(p => <a className={styles.primary} key={p.label} href={p.url}>Listen on {p.label} ↗</a>)}</div>
-      <section className={styles.companion} aria-labelledby="visual-title"><p className={styles.eyebrow}>See it work</p><h2 id="visual-title">Explore the working principle</h2><EpisodeVisual episode={episode.episode_number} slug={episode.slug} title={episode.title} /></section>
+      {(!("has_visual" in episode) || episode.has_visual) && <section className={styles.companion} aria-labelledby="visual-title"><p className={styles.eyebrow}>See it work</p><h2 id="visual-title">Explore the working principle</h2><EpisodeVisual episode={episode.episode_number} slug={episode.slug} title={episode.title} /></section>}
       {episode.chapters.length > 0 && <section className={styles.chapters} aria-labelledby="chapters-title"><h2 id="chapters-title">Inside this episode</h2><ol>{episode.chapters.map(c => <li key={`${c.time}-${c.title}`}><time>{c.time}</time><span>{c.title}</span></li>)}</ol></section>}
-      <Link className={styles.back} href="/the-deep-end#episodes">← Explore all 68 episodes</Link>
+      <Link className={styles.back} href="/the-deep-end#episodes">← Explore all {episodes.length} episodes</Link>
       <div className={styles.detailCredits}><div className={styles.profileLinks}>{profiles.map(p => <a key={p.label} href={p.url}>{p.label} ↗</a>)}</div><h2>Production credits & AI disclosure</h2><p>{credits}</p></div>
     </article>
   </div></main>;
