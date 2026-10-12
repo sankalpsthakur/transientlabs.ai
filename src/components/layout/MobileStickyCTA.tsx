@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { useContactModal } from '@/lib/contact-modal-context';
+import { trackEvent } from '@/lib/analytics';
 
 export function MobileStickyCTA() {
     const [visible, setVisible] = useState(false);
@@ -34,8 +35,8 @@ export function MobileStickyCTA() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-paper/95 backdrop-blur-md border-t border-border px-4 py-3 flex items-center justify-between gap-3"
                 >
-                    <Button variant="primary" size="sm" className="flex-1" onClick={open}>
-                        Book a working session
+                    <Button variant="primary" size="md" className="flex-1" onClick={() => { trackEvent('cta_click', { cta_text: 'Scope my project', cta_location: 'mobile_sticky' }); open(); }}>
+                        Scope my project
                     </Button>
                     <button
                         type="button"

@@ -20,10 +20,9 @@ export function Header() {
 
     const navLinks = [
         { href: "#work", label: "Work" },
-        { href: "#industries", label: "Industries" },
         { href: "/industrial-energy-automation", label: "Industrial" },
         { href: "#services", label: "Sprints" },
-        { href: "#faq", label: "FAQ" },
+        { href: "/the-deep-end", label: "Podcast" },
         { href: "/stack", label: "Stack" },
     ];
 
@@ -32,7 +31,7 @@ export function Header() {
     };
 
     const handleCtaClick = () => {
-        trackEvent('cta_click', { cta_text: 'Book a working session', cta_location: 'nav' });
+        trackEvent('cta_click', { cta_text: 'Scope my project', cta_location: 'nav' });
     };
 
     useEffect(() => {
@@ -97,7 +96,7 @@ export function Header() {
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-8">
+                    <nav className="hidden xl:flex items-center gap-6" aria-label="Main navigation">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
@@ -114,13 +113,13 @@ export function Header() {
                             </Link>
                         ))}
                         <Button variant="primary" size="sm" onClick={() => { handleCtaClick(); open(); }}>
-                            Book a working session
+                            Scope my project
                         </Button>
                     </nav>
 
                     {/* Mobile Menu Button - min 44x44px touch target */}
                     <button
-                        className="md:hidden p-2.5 min-w-11 min-h-11 flex items-center justify-center text-ink"
+                        className="xl:hidden p-2.5 min-w-11 min-h-11 flex items-center justify-center text-ink"
                         onClick={() => setMobileMenuOpen((open) => !open)}
                         aria-label="Toggle menu"
                         aria-expanded={mobileMenuOpen}
@@ -146,7 +145,7 @@ export function Header() {
                 {mobileMenuOpen && (
                     <m.div
                         id="mobile-navigation"
-                        className="absolute inset-x-0 top-full z-10 h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-border bg-paper md:hidden"
+                        className="absolute inset-x-0 top-full z-10 h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-border bg-paper xl:hidden"
                         initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
@@ -182,7 +181,7 @@ export function Header() {
                                         open();
                                     }}
                                 >
-                                    Book a working session
+                                    Scope my project
                                 </Button>
                             </nav>
                         </Container>

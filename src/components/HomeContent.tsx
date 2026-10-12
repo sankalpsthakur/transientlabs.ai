@@ -17,13 +17,14 @@ import { MotionProvider } from "@/components/providers/MotionProvider";
 import { ScrollProgressBar, SectionIndicators } from "@/components/motion/ScrollProgress";
 
 import { MobileStickyCTA } from "@/components/layout/MobileStickyCTA";
+import { LatestWork, type PodcastSummary } from "@/components/sections/LatestWork";
 
 function ModalRenderer() {
     const { isOpen, close } = useContactModal();
     return <ContactModal isOpen={isOpen} onClose={close} />;
 }
 
-export function HomeContent() {
+export function HomeContent({ podcast }: { podcast: PodcastSummary }) {
     return (
         <MotionProvider>
             <ContactModalProvider>
@@ -34,9 +35,10 @@ export function HomeContent() {
                     <main className="flex-grow overflow-x-clip pb-[72px] md:pb-0">
                         <Hero />
                         <BuyerPaths />
-                        <Industries />
+                        <LatestWork podcast={podcast} />
                         <CaseStudies />
                         <Proof />
+                        <Industries />
                         <Advantage />
                         <Services />
                         <FAQ />

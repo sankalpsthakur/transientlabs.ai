@@ -13,6 +13,8 @@ on:
       - 'src/components/layout/Footer.tsx'
       - 'src/lib/site-brand.ts'
       - 'tests/brand-system.spec.ts'
+      - 'tests/podcast-release.spec.ts'
+      - 'src/components/sections/LatestWork.tsx'
       - '.github/workflows/brand-system.yml'
   pull_request:
     paths:
@@ -26,6 +28,8 @@ on:
       - 'src/components/layout/Footer.tsx'
       - 'src/lib/site-brand.ts'
       - 'tests/brand-system.spec.ts'
+      - 'tests/podcast-release.spec.ts'
+      - 'src/components/sections/LatestWork.tsx'
       - '.github/workflows/brand-system.yml'
   workflow_dispatch:
 
@@ -73,5 +77,5 @@ jobs:
           cat /tmp/transient-brand.log
           exit 1
 
-      - name: Run brand Playwright spec
-        run: npx playwright test tests/brand-system.spec.ts
+      - name: Check brand and podcast release journeys
+        run: npx playwright test tests/brand-system.spec.ts tests/podcast-release.spec.ts

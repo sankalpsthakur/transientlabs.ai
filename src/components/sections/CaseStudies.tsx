@@ -22,7 +22,7 @@ export function CaseStudies() {
                         </FadeIn>
                         <FadeIn delay={0.15}>
                             <p className="mt-4 text-ink-light leading-relaxed">
-                                Five recent production builds — real screens, not mockups.
+                                Explore five product interfaces and the workflows behind them.
                             </p>
                         </FadeIn>
                     </div>

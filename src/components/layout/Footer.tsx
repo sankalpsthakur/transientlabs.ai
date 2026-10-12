@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/Motion";
@@ -181,6 +182,7 @@ export function Footer() {
                 {/* Explore */}
                 <FadeIn delay={0.25}>
                     <div className="flex flex-wrap items-center gap-6 border-t border-border py-6 text-sm">
+                        <Link href="/the-deep-end" className="inline-flex min-h-11 items-center font-medium text-ink transition-opacity hover:opacity-70" onClick={() => trackEvent('nav_click', { destination: 'Podcast', href: '/the-deep-end', location: 'footer' })}>The Deep End Podcast</Link>
                         <a
                             href="/stack"
                             className="font-medium text-ink transition-opacity hover:opacity-70"
