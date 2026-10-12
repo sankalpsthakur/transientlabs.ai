@@ -4818,7 +4818,7 @@ export const episodes = [
         "title": "Closing: Augustin's fences"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 80,

@@ -86,5 +86,14 @@
     "source_model_sha256": "4a7ec57efe2832ce252be704413786a8ecf6107fc25b94608029adf9b496047a",
     "source_scene_sha256": "52c91257f01db64f6b7b5898af327d76a300cc5f534ec2a4868cf2c9d459a933",
     "source_runtime_sha256": "c120f7a670cc71dbf0e432bc45b0c1420a13ed89c1b82592bded7d1b952febdb"
+  },
+  {
+    "episode": 79,
+    "source": "outputs/next-companions/79-finite-field-counter",
+    "source_script_sha256": "332d99ebee8123386eac3b69734beee9ae2a9b83222ea59a0a4b1f39d4dc6c2d",
+    "source_model_sha256": "29a5a5211c0fa928cee6f8986c509302998b253d4f9a01a6c407feeaf3c9a768",
+    "source_scene_sha256": "0b79213dc375a56d0d148a4eb66968bf5ca962477ee34388422eedd7873e3d45",
+    "source_runtime_sha256": "781cfc4c097664e80cc9c5b3e7ed80ad678e4d953816802adfadd0dbb635c2bc",
+    "copied_source_files_exact": true
   }
 ]
