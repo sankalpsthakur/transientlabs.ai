@@ -23,5 +23,14 @@
     "source_scene_sha256": "a69ffb8f401a5261900cb30e44db7842af258a0f2b9dcd3afa568f3dd0703f5b",
     "source_runtime_sha256": "307ea21c7ba09f7e91d15b686ae85889a08e1fb146c22eca2a8f71e635de0f9a",
     "copied_source_files_exact": true
+  },
+  {
+    "episode": 72,
+    "source": "outputs/next-companions/72-pressure-flow-cell",
+    "source_script_sha256": "b3a7a2926c730b3f23d90ce4b93ae3431a7b7e676c653bbe03aa933eed37cc60",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "dd9505989c147f0eef54399ac7287a37dbf68f390fc1ee40cf7ebe2f022fdb68",
+    "source_scene_sha256": "a1a72758ffb542c7ac89b03ce0c9a6136fc5f0d173eeadf4791a36dca8299de4",
+    "source_runtime_sha256": "c475d9a6aca384fdec1237c2e4188313ae0ca892fa888c1a9361e82ef329d929"
   }
 ]

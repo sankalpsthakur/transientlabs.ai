@@ -4324,7 +4324,7 @@ export const episodes = [
         "title": "Closing: what the pencil note said"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 73,
