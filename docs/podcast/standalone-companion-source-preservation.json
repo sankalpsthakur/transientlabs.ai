@@ -50,5 +50,14 @@
     "source_model_sha256": "256dbe9ce48b3b57244f93393e270d6674c6c48eba9c5c18762be1f68f12edca",
     "source_scene_sha256": "f23767f111297fcc0539d31526ac93762a2c32b8bd38a169d9fdb33fa0f46b1b",
     "source_runtime_sha256": "82cbb66900efec68e079ff508dc7551ea2904282338b96755e605074a8afed73"
+  },
+  {
+    "episode": 75,
+    "source": "outputs/next-companions/75-residual-force-bench",
+    "source_script_sha256": "21fe618edb79845f4dd30c4d88585a69e374085ce76f6c1a68a6396d6aa7d405",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "77899ecff4ab95ba4cdc8eafae3b826a560890c9339f25abbbaf057b4d0f5479",
+    "source_scene_sha256": "bbcbe591daf3a0331a0da769ebb5f8c13dc3fe1c31c02f4f69e7db63743836fa",
+    "source_runtime_sha256": "a24157c90b2891d91ec8b9467a68293e4d7d7eb99b5261368ca20a0d64672f2f"
   }
 ]

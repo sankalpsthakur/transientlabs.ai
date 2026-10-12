@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 
 const folder = path.dirname(fileURLToPath(import.meta.url));
-const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope' };
+const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope', 75: '75-residual-force-bench' };
 
 export async function buildStandalone(episode) {
   const source = sources[episode.episode_number];
