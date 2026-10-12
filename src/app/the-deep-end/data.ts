@@ -4406,7 +4406,7 @@ export const episodes = [
         "title": "Closing: the coach and the skater"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 74,

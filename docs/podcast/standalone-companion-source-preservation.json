@@ -32,5 +32,14 @@
     "source_model_sha256": "dd9505989c147f0eef54399ac7287a37dbf68f390fc1ee40cf7ebe2f022fdb68",
     "source_scene_sha256": "a1a72758ffb542c7ac89b03ce0c9a6136fc5f0d173eeadf4791a36dca8299de4",
     "source_runtime_sha256": "c475d9a6aca384fdec1237c2e4188313ae0ca892fa888c1a9361e82ef329d929"
+  },
+  {
+    "episode": 73,
+    "source": "outputs/next-companions/73-vortex-viewer",
+    "source_script_sha256": "8eff9a3ff97603f5a1ba4b086e6989a7464525fc70062dd0c143fbb02c3eb3d1",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "923cd58ac391949ffb92713c74b01dd2edd02d9a28d7fbc3a959fc7d6e6e2753",
+    "source_scene_sha256": "dfb9aa12cf3bdd66040c15f45758390ea5170cc13da5894ea2b612706d53cd45",
+    "source_runtime_sha256": "1e35820911939577d550f7c052042160b68ccb34c1b1a8c8f78016e20b445c89"
   }
 ]
