@@ -24,7 +24,11 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const safeScript=s=>s.replace(/<\/script/gi,'<\\/script');
 const document=(episode,body)=>`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(episode.title)} · interactive working principle</title><style>${css}</style></head><body>${body}</body></html>`;
 const heightScript=episode=>`<script>(()=>{const notify=()=>parent.postMessage({type:'deep-end-visual-height',episode:${episode},height:Math.ceil(document.body.getBoundingClientRect().height)},'*');new ResizeObserver(notify).observe(document.body);notify();})();</script>`;
+const selectedArg=process.argv.find(arg=>arg.startsWith('--episode='));
+const selected=selectedArg?Number(selectedArg.split('=')[1]):null;
+if(selectedArg && !episodes.some(e=>e.episode_number===selected)) throw new Error('Selected episode must be prepared');
 for(const episode of episodes){
+  if(selected!==null && episode.episode_number!==selected) continue;
   const id=episode.episode_number;let body;
   if(id<=68 && process.argv.includes('--only-new')) continue;
   if(id>=69){

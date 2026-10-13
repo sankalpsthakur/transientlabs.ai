@@ -122,5 +122,14 @@
     "source_runtime_sha256": "4acf7e0ae60df29e0c1932319bc4b894f770488afc6d8688dfa7ce9f1f2a8fb5",
     "copied_source_files_exact": true,
     "approved_script_sha256": "51769784aa503111e6ffb2ad80860807fe973f6dcd68acd001730139d9959138"
+  },
+  {
+    "episode": 83,
+    "source": "outputs/next-companions/83-wave-packet-recorder",
+    "approved_script_sha256": "4bcbefcbd584bb5d1167566f2474cb707701b3ffabb6d9f936b6a421eab6f29a",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "24e5093aac5724c86a54a0a1bdc8b35dcbd8d898922f9b98f2d926431c6c14d6",
+    "source_scene_sha256": "ab4a0d318db312ed71e3dfefb1353d45b924e53b17a9782ccc6b2c8d70dd8626",
+    "source_runtime_sha256": "b2e50ab85a2493f631df82e7f46f76b71b61ffae52e6c59226e292fb58f0e0e0"
   }
 ]

@@ -1,0 +1,7 @@
+export const DEFAULT={sigma:.1,carrier:.5,phase:0,position:0,frequency:.5};
+export const PRESETS=[{key:'narrow',label:'Narrow band',...DEFAULT,sigma:.04},{key:'wide',label:'Wide band',...DEFAULT,sigma:.4},{key:'shifted',label:'Shift carrier',...DEFAULT,carrier:1,frequency:1},{key:'quarter',label:'Quarter turn',...DEFAULT,phase:.25}];
+export const LIMITS={sigma:[.04,.4,.01],carrier:[.1,1,.01],phase:[0,1,.001],position:[-8,8,.05],frequency:[-1,2,.01]};
+export const envelope=(x,sigma)=>Math.exp(-2*Math.PI**2*sigma**2*x**2);
+export const realPart=(x,sigma,carrier,phase)=>envelope(x,sigma)*Math.cos(2*Math.PI*(carrier*x+phase));
+export const spectral=(nu,sigma,carrier)=>Math.exp(-((nu-carrier)**2)/(2*sigma**2));
+export function sample(input={}){const s={...DEFAULT,...input};for(const[k,[lo,hi]]of Object.entries(LIMITS))if(!Number.isFinite(s[k])||s[k]<lo-1e-12||s[k]>hi+1e-12)throw new RangeError(k);const spatialRms=1/(2*Math.SQRT2*Math.PI*s.sigma),spectralRms=s.sigma/Math.SQRT2,peak=1/(Math.sqrt(2*Math.PI)*s.sigma);return{...s,spatialRms,spectralRms,widthProduct:spatialRms*spectralRms,energy:1/(2*Math.sqrt(Math.PI)*s.sigma),peak,envelope:envelope(s.position,s.sigma),real:realPart(s.position,s.sigma,s.carrier,s.phase),spectral:spectral(s.frequency,s.sigma,s.carrier),absoluteSpectrum:peak*spectral(s.frequency,s.sigma,s.carrier),spaceFraction:spatialRms/3,spectrumFraction:spectralRms/.3,sigmaFraction:(s.sigma-.04)/.36,phaseFraction:s.phase};}

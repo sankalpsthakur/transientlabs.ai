@@ -5246,7 +5246,7 @@ export const episodes = [
         "title": "Closing: the beam turns around"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 84,
