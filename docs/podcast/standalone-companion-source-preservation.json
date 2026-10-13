@@ -158,5 +158,14 @@
     "source_model_sha256": "ee8609c53adf5cf445f9fb02ddfb94401696252596c4ac0b15a8052852f52098",
     "source_scene_sha256": "7772a5734e3637fef7866d91e0f119f327674c7dc88622da8c7a2cb0a94c47f1",
     "source_runtime_sha256": "4bc97730aeed3092fad106997961eb6b19a66018f16758e2070bb582f3f7a968"
+  },
+  {
+    "episode": 87,
+    "source": "outputs/next-companions/87-phase-mixing-register",
+    "source_script_sha256": "42f9c869d867c25d0d5034b0514db7898e54558c66a8698bea683b132f7336c3",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "180ea78cfb1edf8a94b2902ac662e14f542a4a0bc6263dab43308db8cd45cbca",
+    "source_scene_sha256": "32a43023084d41aaf02e6721e190aba20b8df7ebbf6509269ddc4ec81157042f",
+    "source_runtime_sha256": "aa57cafb1e96be9608c80b45a9b61ee620c0160d1e0a9e2b21fa4bbccf76305a"
   }
 ]
