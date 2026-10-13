@@ -104,5 +104,14 @@
     "source_model_sha256": "64d2e1aed1be0bfe03f8ff0ed76695aafcc829703e773488577f6ae2b7a02693",
     "source_scene_sha256": "da05bfca3f8babdf1aae9cf26b2143a21dd94525da5409c377d45f388871ca95",
     "source_runtime_sha256": "17c9937a543aef3d72b7b7c3df3c8ded21c635779bbf5c64210794c0496a2542"
+  },
+  {
+    "episode": 81,
+    "source": "outputs/next-companions/81-karatsuba-recombiner",
+    "source_model_sha256": "d4734ff40e033834461b77cbbdc49f33d14a1146d1890f6b9a6829a6ceefbd93",
+    "source_scene_sha256": "4771c4d16eaa6866a06a01cb69b08da14b872c7282463b94e2a599022085f838",
+    "source_runtime_sha256": "7c4fec906caf6b23ed30b106faad0f88a8ffb56f54c0fc0edf28a5dd7365ed3d",
+    "copied_source_files_exact": true,
+    "approved_script_sha256": "0b4d0faa73ec2343289b893966b61a6d6c4023705e7f7740e66a81029b007f79"
   }
 ]

@@ -5026,7 +5026,7 @@ export const episodes = [
         "title": "Closing: fifty-four zeros"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 82,
