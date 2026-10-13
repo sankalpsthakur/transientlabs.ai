@@ -131,5 +131,14 @@
     "source_model_sha256": "24e5093aac5724c86a54a0a1bdc8b35dcbd8d898922f9b98f2d926431c6c14d6",
     "source_scene_sha256": "ab4a0d318db312ed71e3dfefb1353d45b924e53b17a9782ccc6b2c8d70dd8626",
     "source_runtime_sha256": "b2e50ab85a2493f631df82e7f46f76b71b61ffae52e6c59226e292fb58f0e0e0"
+  },
+  {
+    "episode": 84,
+    "source": "outputs/next-companions/84-polar-profile-comparator",
+    "source_model_sha256": "c10acee419cf228b4820731b3011058690f56145859f77b6afa8a261e0d44c23",
+    "source_scene_sha256": "fd9f2d25ddb20d225b798a28b3c785307690bc567fec51c6ee4706a6cd551853",
+    "source_runtime_sha256": "729b04a5c81b6f63cfe62d06c4b97c2d15c5b3a1048d6a9d2e58fd9e21df1e32",
+    "approved_source_script_sha256": "1840271d41fb574ab5c55838067a97d5afec1413567157b7f5c48df9b9f0a87b",
+    "copied_source_files_exact": true
   }
 ]

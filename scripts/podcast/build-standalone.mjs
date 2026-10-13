@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 
 const folder = path.dirname(fileURLToPath(import.meta.url));
-const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope', 75: '75-residual-force-bench', 76: '76-taylor-comparator', 77: '77-orientation-register', 78: '78-prime-power-plotter', 79: '79-finite-field-counter', 80: '80-direction-resolver', 81: '81-karatsuba-recombiner', 82: '82-sensitivity-bench', 83: '83-wave-packet-recorder' };
+const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope', 75: '75-residual-force-bench', 76: '76-taylor-comparator', 77: '77-orientation-register', 78: '78-prime-power-plotter', 79: '79-finite-field-counter', 80: '80-direction-resolver', 81: '81-karatsuba-recombiner', 82: '82-sensitivity-bench', 83: '83-wave-packet-recorder', 84: '84-polar-profile-comparator' };
 
 export async function buildStandalone(episode) {
   const source = sources[episode.episode_number];
