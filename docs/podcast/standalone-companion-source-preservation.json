@@ -149,5 +149,14 @@
     "source_runtime_sha256": "6af37939e2cc25190c0051db31e58477e1cc56adff1fbd760625eb5857ed9e7c",
     "approved_source_script_sha256": "7eb73aab0c1fab074586c8bdcf9a30852b8756862e72d541d3681c60ac06c03c",
     "copied_source_files_exact": true
+  },
+  {
+    "episode": 86,
+    "source": "outputs/next-companions/86-branching-path-counter",
+    "source_script_sha256": "f37465488797e5a286681af071809ece6ff6359557c165d4587d83dccfa95460",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "ee8609c53adf5cf445f9fb02ddfb94401696252596c4ac0b15a8052852f52098",
+    "source_scene_sha256": "7772a5734e3637fef7866d91e0f119f327674c7dc88622da8c7a2cb0a94c47f1",
+    "source_runtime_sha256": "4bc97730aeed3092fad106997961eb6b19a66018f16758e2070bb582f3f7a968"
   }
 ]
