@@ -5618,7 +5618,7 @@ export const episodes = [
         "title": "Ledger and closing"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 88,
