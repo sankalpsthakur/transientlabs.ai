@@ -4920,7 +4920,7 @@ export const episodes = [
         "title": "Closing: the pig comes out"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 81,

@@ -95,5 +95,14 @@
     "source_scene_sha256": "0b79213dc375a56d0d148a4eb66968bf5ca962477ee34388422eedd7873e3d45",
     "source_runtime_sha256": "781cfc4c097664e80cc9c5b3e7ed80ad678e4d953816802adfadd0dbb635c2bc",
     "copied_source_files_exact": true
+  },
+  {
+    "episode": 80,
+    "source": "outputs/next-companions/80-direction-resolver",
+    "source_script_sha256": "1daae46eb9197e0a94f69cf790ac57dfdff8893725645b3ad30827bf420ab581",
+    "copied_source_files_exact": true,
+    "source_model_sha256": "64d2e1aed1be0bfe03f8ff0ed76695aafcc829703e773488577f6ae2b7a02693",
+    "source_scene_sha256": "da05bfca3f8babdf1aae9cf26b2143a21dd94525da5409c377d45f388871ca95",
+    "source_runtime_sha256": "17c9937a543aef3d72b7b7c3df3c8ded21c635779bbf5c64210794c0496a2542"
   }
 ]
