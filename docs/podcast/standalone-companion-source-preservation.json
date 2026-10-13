@@ -140,5 +140,14 @@
     "source_runtime_sha256": "729b04a5c81b6f63cfe62d06c4b97c2d15c5b3a1048d6a9d2e58fd9e21df1e32",
     "approved_source_script_sha256": "1840271d41fb574ab5c55838067a97d5afec1413567157b7f5c48df9b9f0a87b",
     "copied_source_files_exact": true
+  },
+  {
+    "episode": 85,
+    "source": "outputs/next-companions/85-spherical-survey-comparator",
+    "source_model_sha256": "8799873102b59dae29a16e181ba4fc9df4ae945096a0f745a4ac62b33c50cfea",
+    "source_scene_sha256": "df3eef89f2e37ca54501a814015fb8cd655d87bc1aada0a75ad82107872b6a78",
+    "source_runtime_sha256": "6af37939e2cc25190c0051db31e58477e1cc56adff1fbd760625eb5857ed9e7c",
+    "approved_source_script_sha256": "7eb73aab0c1fab074586c8bdcf9a30852b8756862e72d541d3681c60ac06c03c",
+    "copied_source_files_exact": true
   }
 ]
