@@ -5136,7 +5136,7 @@ export const episodes = [
         "title": "Closing: the brat and the theorem"
       }
     ],
-    "has_visual": false
+    "has_visual": true
   },
   {
     "episode_number": 83,

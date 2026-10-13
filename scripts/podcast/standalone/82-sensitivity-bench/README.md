@@ -1,0 +1,7 @@
+# Episode82 · Sensitivity bench
+
+A finite Rubinstein Boolean example from the actual creator-approved/published episode. Read CONCEPT.md for the frozen script hash and the mechanism/parts plan. Row codes show four-place binary; twin contacts compare base and independently tested bits. Every tested block starts from the unchanged base. Counts are sensitivity/block sensitivity at this input, with fixed0–16 gauges. Manual scan stops at the last candidate without wrapping; reduced motion retains native still controls.
+
+`node verify.mjs` checks all65,536 inputs,1,048,576 individual flips,415,808 disjoint sensitive witness blocks and393,216 mode/probe endpoints.32 independent global all-mask/minimal-set exact packing instances establish a separate check of the row/OR factorization. The true75-solid drawing passes169 measured geometry/order rules. `node build.mjs --qa` builds prototype and structural-check/detail pages; `node check-browser.mjs` verifies saved native/phone evidence. Anatomy kit/license are unchanged MIT source.
+
+No functional-safety equipment, fault probability, Huang proof, new superquadratic research, quantum synthesis or manuscript/Lean fidelity claim. See evidence/qa-summary.json for final browser/integration/public scope. Hidden-page/exact parent-offscreen/isolated-child media scopes must not be extended without actual evidence. Node timings/gzip are diagnostics, not FPS/public performance.
