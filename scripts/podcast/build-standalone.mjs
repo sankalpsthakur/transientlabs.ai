@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 
 const folder = path.dirname(fileURLToPath(import.meta.url));
-const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope', 75: '75-residual-force-bench', 76: '76-taylor-comparator', 77: '77-orientation-register', 78: '78-prime-power-plotter', 79: '79-finite-field-counter', 80: '80-direction-resolver' };
+const sources = { 69: '69-pde', 70: '70-norm-bench', 71: '71-scaling-comparator', 72: '72-pressure-flow-cell', 73: '73-vortex-viewer', 74: '74-similarity-microscope', 75: '75-residual-force-bench', 76: '76-taylor-comparator', 77: '77-orientation-register', 78: '78-prime-power-plotter', 79: '79-finite-field-counter', 80: '80-direction-resolver', 81: '81-karatsuba-recombiner' };
 
 export async function buildStandalone(episode) {
   const source = sources[episode.episode_number];
@@ -23,7 +23,7 @@ export async function buildStandalone(episode) {
     .replace(/<a class="brand"[\s\S]*?<\/a>/, '')
     .replace(/<div class="kicker">.*?<\/div>/, `<div class="kicker">Fig ${episode.episode_number} · Working principle</div>`)
     .replace(/<footer>[\s\S]*?<\/footer>/, '<footer><p class="attribution">Apparatus drawing uses <a href="https://github.com/wheresryan22/anatomy" target="_blank" rel="noopener">Anatomy by Ryan</a>, MIT licence. <a href="/episode-visuals/anatomy/LICENSE" target="_blank" rel="noopener">Licence</a></p></footer>')
-    .replace('<script type="module" src="./runtime.mjs"></script>', `<script>${runtime}</script>`);
+    .replace('<script type="module" src="./runtime.mjs"></script>', () => `<script>${runtime}</script>`);
   const bridge = `<script>(()=>{const main=document.querySelector('main');const notify=()=>{const style=getComputedStyle(main);const height=main.getBoundingClientRect().height+parseFloat(style.marginTop)+parseFloat(style.marginBottom);parent.postMessage({type:'deep-end-visual-height',episode:${episode.episode_number},height:Math.ceil(height)},'*');};new ResizeObserver(notify).observe(main);notify();})();</script>`;
   if (html.includes('LOCAL COMPANION') || html.includes('website deployment waits') || html.includes('src="./runtime.mjs"')) throw new Error('Standalone template was not fully adapted');
   return html.replace('</body>', bridge + '</body>');

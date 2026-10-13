@@ -1,0 +1,6 @@
+export const DEFAULT={xh:1,xl:2,yh:3,yl:4,stage:0};
+export const PRESETS=[{key:'example',label:'12 × 34',...DEFAULT},{key:'carry',label:'99 × 99',xh:9,xl:9,yh:9,yl:9,stage:3},{key:'zero',label:'00 × 57',xh:0,xl:0,yh:5,yl:7,stage:3},{key:'cross',label:'09 × 90',xh:0,xl:9,yh:9,yl:0,stage:2}];
+export const STAGES=['High product','Low product','Sum product','Recombine'];
+export function sample(s={}){const v={...DEFAULT,...s};if(['xh','xl','yh','yl'].some(k=>!Number.isInteger(v[k])||v[k]<0||v[k]>9)||!Number.isInteger(v.stage)||v.stage<0||v.stage>3)throw new RangeError('Outside two-place decimal model');
+const x=10*v.xh+v.xl,y=10*v.yh+v.yl,high=v.xh*v.yh,low=v.xl*v.yl,sum=(v.xh+v.xl)*(v.yh+v.yl),middle=sum-high-low,units=low%10,carryUnits=Math.floor(low/10),middleWithCarry=middle+carryUnits,tens=middleWithCarry%10,carryTens=Math.floor(middleWithCarry/10),highWithCarry=high+carryTens,result=100*high+10*middle+low,digits=[Math.floor(highWithCarry/10),highWithCarry%10,tens,units];
+return{...v,x,y,high,low,sum,middle,units,carryUnits,middleWithCarry,tens,carryTens,highWithCarry,result,digits,digitString:digits.join(''),highFraction:high/324,lowFraction:low/324,sumFraction:sum/324,xhFraction:v.xh/9,xlFraction:v.xl/9,yhFraction:v.yh/9,ylFraction:v.yl/9};}
