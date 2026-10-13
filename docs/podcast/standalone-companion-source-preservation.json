@@ -113,5 +113,14 @@
     "source_runtime_sha256": "7c4fec906caf6b23ed30b106faad0f88a8ffb56f54c0fc0edf28a5dd7365ed3d",
     "copied_source_files_exact": true,
     "approved_script_sha256": "0b4d0faa73ec2343289b893966b61a6d6c4023705e7f7740e66a81029b007f79"
+  },
+  {
+    "episode": 82,
+    "source": "outputs/next-companions/82-sensitivity-bench",
+    "source_model_sha256": "4485538cf9f698285b2d9a43f0f012e5db9480095c1b93858cb48c7dcf1505fb",
+    "source_scene_sha256": "0ec7542d602b5dbc5e89d2ee2e12dcb861c262456a12d374a4043218a7f1b37d",
+    "source_runtime_sha256": "4acf7e0ae60df29e0c1932319bc4b894f770488afc6d8688dfa7ce9f1f2a8fb5",
+    "copied_source_files_exact": true,
+    "approved_script_sha256": "51769784aa503111e6ffb2ad80860807fe973f6dcd68acd001730139d9959138"
   }
 ]
