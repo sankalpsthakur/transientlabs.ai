@@ -9,6 +9,7 @@ import { Proof } from "@/components/sections/Proof";
 import { Industries } from "@/components/sections/Industries";
 
 import { Advantage } from "@/components/sections/Advantage";
+import { PlatformLayers } from "@/components/sections/PlatformLayers";
 import { Services } from "@/components/sections/Services";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactModal } from "@/components/sections/ContactModal";
@@ -29,7 +30,7 @@ export function HomeContent({ podcast }: { podcast: PodcastSummary }) {
         <MotionProvider>
             <ContactModalProvider>
                 <ScrollProgressBar className="z-[60]" />
-                <SectionIndicators sections={['work', 'industries', 'edge', 'services', 'faq']} />
+                <SectionIndicators sections={['work', 'industries', 'platform', 'edge', 'services', 'faq']} />
                 <div className="min-h-screen flex flex-col font-sans bg-paper text-ink selection:bg-accent selection:text-white">
                     <Header />
                     <main className="flex-grow overflow-x-clip pb-[72px] md:pb-0">
@@ -39,6 +40,7 @@ export function HomeContent({ podcast }: { podcast: PodcastSummary }) {
                         <CaseStudies />
                         <Proof />
                         <Industries />
+                        <PlatformLayers />
                         <Advantage />
                         <Services />
                         <FAQ />
